@@ -45,10 +45,14 @@ public class ClimbingManager : MonoBehaviour
         if (leftGripHeld){
             targetBodyPosition = leftGripAnchor - leftController.transform.position;
             this.transform.position = bodyAnchor + targetBodyPosition;
+
+            Gizmos.DrawSphere(leftGripAnchor, 0.5f);
         }
         else if (rightGripHeld){
             targetBodyPosition = rightGripAnchor - rightController.transform.position;
             this.transform.position = bodyAnchor + targetBodyPosition;
+
+            Gizmos.DrawSphere(leftGripAnchor, 0.5f);
         }
     }
 }
