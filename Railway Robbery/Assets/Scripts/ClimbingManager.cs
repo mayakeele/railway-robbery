@@ -10,12 +10,16 @@ public class ClimbingManager : MonoBehaviour
 
     [SerializeField] private float climbingGripThreshold = 0.5f;
 
+    [SerializeField] private int armForce = 900; // (in newtons)
+    [SerializeField] private int bodyWeight = 625; // (in newtons)
+
     private bool leftGripHeld = false;
     private bool rightGripHeld = false;
     private Vector3 leftGripAnchor;
     private Vector3 rightGripAnchor;
     private Vector3 bodyAnchor;
     private Vector3 targetBodyPosition;
+
 
     void Start()
     {
@@ -45,14 +49,10 @@ public class ClimbingManager : MonoBehaviour
         if (leftGripHeld){
             targetBodyPosition = leftGripAnchor - leftController.transform.position;
             this.transform.position = bodyAnchor + targetBodyPosition;
-
-            Gizmos.DrawSphere(leftGripAnchor, 0.5f);
         }
         else if (rightGripHeld){
             targetBodyPosition = rightGripAnchor - rightController.transform.position;
             this.transform.position = bodyAnchor + targetBodyPosition;
-
-            Gizmos.DrawSphere(leftGripAnchor, 0.5f);
         }
     }
 }
