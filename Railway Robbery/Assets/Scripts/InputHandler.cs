@@ -6,8 +6,11 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
     
+    public Transform cameraTransform;
     public Transform leftController;
+    public Transform leftControllerAnchor;
     public Transform rightController;
+    public Transform rightControllerAnchor;
 
     [SerializeField] private float gripThreshold = 0.5f;
     [SerializeField] private float triggerThreshold = 0.5f;

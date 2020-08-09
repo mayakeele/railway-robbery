@@ -6,16 +6,12 @@ public class ClimbingManager : MonoBehaviour
 {
     private InputHandler inputHandler;
 
-    //[SerializeField] private Transform leftController;
-    //[SerializeField] private Transform rightController;
-
     //[SerializeField] private float climbingGripThreshold = 0.5f;
 
     [SerializeField] private int armForce = 900; // (in newtons)
     [SerializeField] private int bodyWeight = 625; // (in newtons)
 
-    //private bool leftGripHeld = false;
-    //private bool rightGripHeld = false;
+
 
     private Vector3 leftGripAnchor;
     private Vector3 rightGripAnchor;
@@ -30,7 +26,6 @@ public class ClimbingManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        OVRInput.FixedUpdate();
 
         // Set anchor point on the first frame grip is held
         if (inputHandler.GetHeldState(InputHandler.InputButton.L_Grip) == false){

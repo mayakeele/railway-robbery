@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class LocomotionManager : MonoBehaviour
 {
-    [SerializeField] private Transform leftController;
-    [SerializeField] private Transform rightController;
+    private InputHandler inputHandler;
 
-    private bool leftGripHeld = false;
-    private bool rightGripHeld = false;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private float rotationSpeed;
 
     void Start()
     {
-        
+        inputHandler = GetComponent<InputHandler>();
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
-        
+        // Handle player movement with the left joystick
+        Vector2 movementInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick) * movementSpeed * Time.deltaTime;
+        Vector3 movementVector = inputHandler.leftController.rotation * new Vector3(movementInput.x, 0, movementInput.y);
+        this.transform.position += movementVector;
+
+        float rotationInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x * rotationSpeed * Time.deltaTime;
+        this.transform.RotateAround(inputHandler.cameraTransform.position, Vector3.up, rotationInput);
     }
 }
