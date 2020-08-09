@@ -2140,6 +2140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1594426092}
+  - component: {fileID: 1594426094}
   - component: {fileID: 1594426093}
   m_Layer: 0
   m_Name: Player Container
@@ -2175,11 +2176,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e463c0d2e1fa494a981cee2c4333196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftController: {fileID: 1052099961}
-  rightController: {fileID: 1683670225}
-  climbingGripThreshold: 0.5
   armForce: 900
   bodyWeight: 625
+--- !u!114 &1594426094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594426091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc28dd7cd053d045bdbe99125820128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftController: {fileID: 1052099961}
+  rightController: {fileID: 1683670225}
+  gripThreshold: 0.5
+  triggerThreshold: 0.5
 --- !u!1 &1652440619
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class ClimbingManager : MonoBehaviour
 {
+    private InputHandler inputHandler;
 
-    [SerializeField] private Transform leftController;
-    [SerializeField] private Transform rightController;
+    //[SerializeField] private Transform leftController;
+    //[SerializeField] private Transform rightController;
 
-    [SerializeField] private float climbingGripThreshold = 0.5f;
+    //[SerializeField] private float climbingGripThreshold = 0.5f;
 
     [SerializeField] private int armForce = 900; // (in newtons)
     [SerializeField] private int bodyWeight = 625; // (in newtons)
 
-    private bool leftGripHeld = false;
-    private bool rightGripHeld = false;
+    //private bool leftGripHeld = false;
+    //private bool rightGripHeld = false;
+
     private Vector3 leftGripAnchor;
     private Vector3 rightGripAnchor;
     private Vector3 bodyAnchor;
@@ -23,7 +25,7 @@ public class ClimbingManager : MonoBehaviour
 
     void Start()
     {
-        
+        inputHandler = GetComponent<InputHandler>();
     }
 
     void FixedUpdate()
@@ -31,27 +33,23 @@ public class ClimbingManager : MonoBehaviour
         OVRInput.FixedUpdate();
 
         // Set anchor point on the first frame grip is held
-        if (!leftGripHeld){ 
-            leftGripAnchor = leftController.transform.position;
+        if (inputHandler.GetHeldState(InputHandler.InputButton.L_Grip) == false){
+            leftGripAnchor = inputHandler.leftController.transform.position;
             bodyAnchor = this.transform.position;
         }
-        if (!rightGripHeld){ 
-            rightGripAnchor = rightController.transform.position;
+        if (inputHandler.GetHeldState(InputHandler.InputButton.R_Grip) == false){ 
+            rightGripAnchor = inputHandler.rightController.transform.position;
             bodyAnchor = this.transform.position;
         }
         
-        // Read grip input for each hand
-        leftGripHeld = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch) >= climbingGripThreshold ? true : false;
-        rightGripHeld = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch) >= climbingGripThreshold ? true : false;
-        //Debug.Log(leftGripHeld);
 
         // Calculate hand position relative to the anchor point and move the player body accordingly
-        if (leftGripHeld){
-            targetBodyPosition = leftGripAnchor - leftController.transform.position;
+        if (inputHandler.GetHeldState(InputHandler.InputButton.L_Grip) == true){
+            targetBodyPosition = leftGripAnchor - inputHandler.leftController.transform.position;
             this.transform.position = bodyAnchor + targetBodyPosition;
         }
-        else if (rightGripHeld){
-            targetBodyPosition = rightGripAnchor - rightController.transform.position;
+        else if (inputHandler.GetHeldState(InputHandler.InputButton.R_Grip) == true){
+            targetBodyPosition = rightGripAnchor - inputHandler.rightController.transform.position;
             this.transform.position = bodyAnchor + targetBodyPosition;
         }
     }
