@@ -1452,7 +1452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1469,6 +1469,10 @@ PrefabInstance:
     - target: {fileID: 11400000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: _trackingOriginType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      propertyPath: AllowRecenter
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: useFixedUpdateForTracking
@@ -2158,7 +2162,6 @@ GameObject:
   - component: {fileID: 1594426095}
   - component: {fileID: 1594426093}
   - component: {fileID: 1594426096}
-  - component: {fileID: 1594426097}
   m_Layer: 0
   m_Name: Player Container
   m_TagString: Player
@@ -2177,6 +2180,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1714418375}
   - {fileID: 1113068851}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -2207,6 +2211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc28dd7cd053d045bdbe99125820128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHeight: 2
+  currHeadsetHeight: 0
   cameraTransform: {fileID: 1600029030}
   leftController: {fileID: 1052099961}
   leftControllerAnchor: {fileID: 1661951129}
@@ -2215,6 +2221,8 @@ MonoBehaviour:
   gripThreshold: 0.5
   triggerThreshold: 0.5
   rb: {fileID: 0}
+  bodyGameobject: {fileID: 1714418375}
+  meshFilter: {fileID: 0}
 --- !u!114 &1594426095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2229,8 +2237,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useHeadAsForward: 1
   maxMovementSpeed: 4
-  linearAcceleration: 12
-  maxRotationSpeed: 70
+  linearAcceleration: 16
+  maxRotationSpeed: 120
   angularAcceleration: 35
   stickDeadzone: 0.2
 --- !u!54 &1594426096
@@ -2249,20 +2257,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!136 &1594426097
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1594426091}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!4 &1600029030 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: 126d619cf4daa52469682f85c1378b4a,
@@ -2338,6 +2332,51 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 624044128}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1714418374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1714418375}
+  - component: {fileID: 1714418376}
+  m_Layer: 0
+  m_Name: Player Body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1714418375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714418374}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1594426092}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1714418376
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714418374}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1818778182
 GameObject:
   m_ObjectHideFlags: 0

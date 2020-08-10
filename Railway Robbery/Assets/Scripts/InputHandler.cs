@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    
+    public float playerHeight;
+    [HideInInspector] public float currHeadsetHeight;
+
     public Transform cameraTransform;
     public Transform leftController;
     public Transform leftControllerAnchor;
@@ -16,6 +18,9 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private float triggerThreshold = 0.5f;
 
     [HideInInspector] public Rigidbody rb;
+    public Transform bodyGameobject;
+    private CapsuleCollider bodyCollider;
+    //[SerializeField] private MeshFilter meshFilter;
 
     // A flag enumeration storing booleans for the state of controller inputs (those that can be represented as a boolean, including triggers once a threshold is passed)
     [Flags]
@@ -39,6 +44,8 @@ public class InputHandler : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        bodyCollider = bodyGameobject.GetComponent<CapsuleCollider>();
+        //meshFilter = GetComponent<MeshFilter>();
     }
 
     void FixedUpdate()
@@ -46,7 +53,6 @@ public class InputHandler : MonoBehaviour
         OVRInput.FixedUpdate();
 
         // Update inputHeld flags with current input states
-
         inputHeld[(int)InputButton.L_ButtonOne] = OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.LTouch);
         inputHeld[(int)InputButton.R_ButtonOne] = OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.RTouch);
 
@@ -63,6 +69,13 @@ public class InputHandler : MonoBehaviour
         inputHeld[(int)InputButton.R_StickPress] = OVRInput.Get(OVRInput.Button.PrimaryThumbstick, OVRInput.Controller.RTouch);
 
         inputHeld[(int)InputButton.L_Start] = OVRInput.Get(OVRInput.Button.Start, OVRInput.Controller.LTouch);
+
+
+        // Body should follow the camera's position and height
+        currHeadsetHeight = cameraTransform.localPosition.y;
+
+        bodyGameobject.transform.position = new Vector3(cameraTransform.position.x, cameraTransform.position.y - (currHeadsetHeight / 2), cameraTransform.position.z);
+        bodyCollider.height = currHeadsetHeight;
     }
 
 
