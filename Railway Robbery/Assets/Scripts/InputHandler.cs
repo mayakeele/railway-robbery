@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    public float playerHeight;
-    [HideInInspector] public float currHeadsetHeight;
-
     public Transform cameraTransform;
     public Transform leftController;
     public Transform leftControllerAnchor;
@@ -18,8 +15,7 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private float triggerThreshold = 0.5f;
 
     [HideInInspector] public Rigidbody rb;
-    public Transform bodyGameobject;
-    private CapsuleCollider bodyCollider;
+    
     //[SerializeField] private MeshFilter meshFilter;
 
     // A flag enumeration storing booleans for the state of controller inputs (those that can be represented as a boolean, including triggers once a threshold is passed)
@@ -44,7 +40,6 @@ public class InputHandler : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        bodyCollider = bodyGameobject.GetComponent<CapsuleCollider>();
         //meshFilter = GetComponent<MeshFilter>();
     }
 
@@ -70,12 +65,6 @@ public class InputHandler : MonoBehaviour
 
         inputHeld[(int)InputButton.L_Start] = OVRInput.Get(OVRInput.Button.Start, OVRInput.Controller.LTouch);
 
-
-        // Body should follow the camera's position and height
-        currHeadsetHeight = cameraTransform.localPosition.y;
-
-        bodyGameobject.transform.position = new Vector3(cameraTransform.position.x, cameraTransform.position.y - (currHeadsetHeight / 2), cameraTransform.position.z);
-        bodyCollider.height = currHeadsetHeight;
     }
 
 
