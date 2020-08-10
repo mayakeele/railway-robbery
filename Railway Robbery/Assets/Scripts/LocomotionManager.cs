@@ -20,12 +20,10 @@ public class LocomotionManager : MonoBehaviour
     private float angularVelocity = 0;
 
     private InputHandler inputHandler;
-    private Rigidbody rigidbody;
     
     void Start()
     {
         inputHandler = GetComponent<InputHandler>();
-        rigidbody = GetComponent<Rigidbody>();
     }
 
 
@@ -58,7 +56,7 @@ public class LocomotionManager : MonoBehaviour
         linearVelocity = Vector3.ClampMagnitude(linearVelocity, maxMovementSpeed * movementInput.magnitude);
 
         // Set x and z components of movement while preserving y
-        this.rigidbody.velocity = new Vector3(linearVelocity.x, this.rigidbody.velocity.y, linearVelocity.z);
+        inputHandler.rb.velocity = new Vector3(linearVelocity.x, inputHandler.rb.velocity.y, linearVelocity.z);
 
 
         float rotationInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x * maxRotationSpeed * Time.deltaTime;

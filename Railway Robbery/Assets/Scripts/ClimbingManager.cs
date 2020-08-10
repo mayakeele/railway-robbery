@@ -40,10 +40,14 @@ public class ClimbingManager : MonoBehaviour
 
         // Calculate hand position relative to the anchor point and move the player body accordingly
         if (inputHandler.GetHeldState(InputHandler.InputButton.L_Grip) == true){
+            inputHandler.rb.velocity = Vector3.zero;
+
             targetBodyPosition = leftGripAnchor - inputHandler.leftController.transform.position;
             this.transform.position = bodyAnchor + targetBodyPosition;
         }
         else if (inputHandler.GetHeldState(InputHandler.InputButton.R_Grip) == true){
+            inputHandler.rb.velocity = Vector3.zero;
+            
             targetBodyPosition = rightGripAnchor - inputHandler.rightController.transform.position;
             this.transform.position = bodyAnchor + targetBodyPosition;
         }

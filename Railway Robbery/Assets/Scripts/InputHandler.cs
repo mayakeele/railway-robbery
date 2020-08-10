@@ -15,6 +15,8 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private float gripThreshold = 0.5f;
     [SerializeField] private float triggerThreshold = 0.5f;
 
+    [HideInInspector] public Rigidbody rb;
+
     // A flag enumeration storing booleans for the state of controller inputs (those that can be represented as a boolean, including triggers once a threshold is passed)
     [Flags]
     public enum InputButton {
@@ -33,9 +35,10 @@ public class InputHandler : MonoBehaviour
 
     private bool[] inputHeld = new bool[Enum.GetValues(typeof(InputButton)).Length];
 
+
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
