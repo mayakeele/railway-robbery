@@ -8,10 +8,13 @@ public class ClimbingManager : MonoBehaviour
 
     //[SerializeField] private float climbingGripThreshold = 0.5f;
 
+    [SerializeField] private float handRadius = 0.08f;
     [SerializeField] private int armForce = 900; // (in newtons)
     [SerializeField] private int bodyWeight = 625; // (in newtons)
 
 
+    [HideInInspector] public bool leftHandColliding;
+    [HideInInspector] public bool rightHandColliding;
 
     private Vector3 leftGripAnchor;
     private Vector3 rightGripAnchor;
@@ -26,30 +29,30 @@ public class ClimbingManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Move body only if grip is held and the hand is touching climbable geometry. Otherwise, update anchor positions
 
-        // Set anchor point on the first frame grip is held
-        if (inputHandler.GetHeldState(InputHandler.InputButton.L_Grip) == false){
-            leftGripAnchor = inputHandler.leftController.transform.position;
-            bodyAnchor = this.transform.position;
-        }
-        if (inputHandler.GetHeldState(InputHandler.InputButton.R_Grip) == false){ 
-            rightGripAnchor = inputHandler.rightController.transform.position;
-            bodyAnchor = this.transform.position;
-        }
-        
-
-        // Calculate hand position relative to the anchor point and move the player body accordingly
-        if (inputHandler.GetHeldState(InputHandler.InputButton.L_Grip) == true){
+        // Left hand
+        if (leftHandColliding == true && inputHandler.GetHeldState(InputHandler.InputButton.L_Grip) == true){
             inputHandler.rb.velocity = Vector3.zero;
 
             targetBodyPosition = leftGripAnchor - inputHandler.leftController.transform.position;
             this.transform.position = bodyAnchor + targetBodyPosition;
         }
-        else if (inputHandler.GetHeldState(InputHandler.InputButton.R_Grip) == true){
+        else{
+            leftGripAnchor = inputHandler.leftController.transform.position;
+            bodyAnchor = this.transform.position;
+        }
+
+        // Right hand
+        if (rightHandColliding == true && inputHandler.GetHeldState(InputHandler.InputButton.R_Grip) == true){
             inputHandler.rb.velocity = Vector3.zero;
-            
+
             targetBodyPosition = rightGripAnchor - inputHandler.rightController.transform.position;
             this.transform.position = bodyAnchor + targetBodyPosition;
+        }
+        else{
+            rightGripAnchor = inputHandler.rightController.transform.position;
+            bodyAnchor = this.transform.position;
         }
     }
 }

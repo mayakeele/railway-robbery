@@ -15,7 +15,7 @@ public class BodyManager : MonoBehaviour
     void Start()
     {
         inputHandler = GetComponent<InputHandler>();
-        bodyCollider = bodyGameobject.GetComponent<CapsuleCollider>();  
+        bodyCollider = bodyGameobject.GetComponent<CapsuleCollider>();
     }
 
 
