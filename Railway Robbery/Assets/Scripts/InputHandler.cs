@@ -11,8 +11,8 @@ public class InputHandler : MonoBehaviour
     public Transform rightController;
     public Transform rightControllerAnchor;
 
-    [SerializeField] private float gripThreshold = 0.5f;
-    [SerializeField] private float triggerThreshold = 0.5f;
+    [SerializeField] public float gripThreshold = 0.5f;
+    [SerializeField] public float triggerThreshold = 0.5f;
 
     [HideInInspector] public Rigidbody rb;
     
