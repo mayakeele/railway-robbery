@@ -6,15 +6,17 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
     public Transform cameraTransform;
-    public Transform leftController;
+
     public Transform leftControllerAnchor;
-    public Transform rightController;
     public Transform rightControllerAnchor;
+
+    public Transform leftPhysicsHand;
+    public Transform rightPhysicsHand;
 
     [SerializeField] public float gripThreshold = 0.5f;
     [SerializeField] public float triggerThreshold = 0.5f;
 
-    [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public Rigidbody playerRigidbody;
     
     //[SerializeField] private MeshFilter meshFilter;
 
@@ -39,8 +41,10 @@ public class InputHandler : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        //meshFilter = GetComponent<MeshFilter>();
+        playerRigidbody = GetComponent<Rigidbody>();
+
+        leftPhysicsHand.position = leftControllerAnchor.position;
+        rightPhysicsHand.position = rightControllerAnchor.position;
     }
 
     void FixedUpdate()

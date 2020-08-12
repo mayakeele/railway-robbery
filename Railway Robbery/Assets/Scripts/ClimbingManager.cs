@@ -22,8 +22,8 @@ public class ClimbingManager : MonoBehaviour
     private Vector3 leftGripAnchor;
     private Vector3 rightGripAnchor;
 
-    private Vector3 leftHandOffset;
-    private Vector3 rightHandOffset;
+    private Vector3 leftControllerOffset;
+    private Vector3 rightControllerOffset;
 
     private Vector3 leftBodyTarget;
     private Vector3 rightBodyTarget;
@@ -40,41 +40,49 @@ public class ClimbingManager : MonoBehaviour
         leftHandClimbing = false;
         rightHandClimbing = false;
 
-        leftHandOffset = this.transform.position - inputHandler.leftController.position; //inputHandler.cameraTransform.position - inputHandler.leftController.position;
-        rightHandOffset = this.transform.position - inputHandler.rightController.position; //inputHandler.cameraTransform.position - inputHandler.rightController.position;
+        leftControllerOffset = this.transform.position - inputHandler.leftControllerAnchor.position; //inputHandler.cameraTransform.position - inputHandler.leftController.position;
+        rightControllerOffset = this.transform.position - inputHandler.rightControllerAnchor.position; //inputHandler.cameraTransform.position - inputHandler.rightController.position;
 
 
-        // Set anchor point if grip is held on each hand
-        /*if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch)){
-            leftGripAnchor = inputHandler.leftController.transform.position;
+        // Attempt to match physics hand position with player's real life hands.
+        if (leftHandColliding == true){
+            Vector3 leftPhysicsHandOffset = inputHandler.leftControllerAnchor.position - inputHandler.leftPhysicsHand.position;
+            inputHandler.leftPhysicsHand.GetComponent<Rigidbody>().AddForce(leftPhysicsHandOffset * armForce, ForceMode.Force);
         }
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch)){
-            rightGripAnchor = inputHandler.rightController.transform.position;
-        }*/
+        else{
+            inputHandler.leftPhysicsHand.position = inputHandler.leftControllerAnchor.position;
+        }
+        inputHandler.leftPhysicsHand.rotation = inputHandler.leftControllerAnchor.rotation;
+
+        if (rightHandColliding == true){
+            Vector3 rightPhysicsHandOffset = inputHandler.rightControllerAnchor.position - inputHandler.rightPhysicsHand.position;
+            inputHandler.rightPhysicsHand.GetComponent<Rigidbody>().AddForce(rightPhysicsHandOffset * armForce, ForceMode.Force);
+        }
+        else{
+            inputHandler.rightPhysicsHand.position = inputHandler.rightControllerAnchor.position;
+        }
+        inputHandler.rightPhysicsHand.rotation = inputHandler.rightControllerAnchor.rotation;
 
 
-        // Move body only if grip is held and the hand is touching climbable geometry. Otherwise, update anchor positions
-
-        // Left hand
+        // Initiate climbing only if grip is held and the hand is touching climbable geometry. Otherwise, update anchor positions
         if (leftHandColliding == true && inputHandler.GetHeldState(InputHandler.InputButton.L_Grip)){
-            inputHandler.rb.velocity = Vector3.zero;
+            inputHandler.playerRigidbody.velocity = Vector3.zero;
 
-            leftBodyTarget = leftGripAnchor + leftHandOffset;
+            leftBodyTarget = leftGripAnchor + leftControllerOffset;
             leftHandClimbing = true;
         }
         else{
-            leftGripAnchor = inputHandler.leftController.transform.position;
+            leftGripAnchor = inputHandler.leftControllerAnchor.transform.position;
         }
 
-        // Right hand
         if (rightHandColliding == true && inputHandler.GetHeldState(InputHandler.InputButton.R_Grip)){
-            inputHandler.rb.velocity = Vector3.zero;
+            inputHandler.playerRigidbody.velocity = Vector3.zero;
 
-            rightBodyTarget = rightGripAnchor + rightHandOffset;
+            rightBodyTarget = rightGripAnchor + rightControllerOffset;
             rightHandClimbing = true;
         }
         else{
-            rightGripAnchor = inputHandler.rightController.transform.position;
+            rightGripAnchor = inputHandler.rightControllerAnchor.transform.position;
         }
 
 

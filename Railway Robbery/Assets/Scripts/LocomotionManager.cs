@@ -30,7 +30,7 @@ public class LocomotionManager : MonoBehaviour
     void FixedUpdate()
     {   
         // Get left stick input and determine whether 'forward' should be based on controller orientation or head orientation
-        targetOrientation = useHeadAsForward ? inputHandler.cameraTransform.rotation : inputHandler.leftController.rotation;
+        targetOrientation = useHeadAsForward ? inputHandler.cameraTransform.rotation : inputHandler.leftControllerAnchor.rotation;
         Vector2 movementInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch);
         
         // Combine joystick input and forward direction to determine the direction of acceleration
@@ -56,7 +56,7 @@ public class LocomotionManager : MonoBehaviour
         linearVelocity = Vector3.ClampMagnitude(linearVelocity, maxMovementSpeed * movementInput.magnitude);
 
         // Set x and z components of movement while preserving y
-        inputHandler.rb.velocity = new Vector3(linearVelocity.x, inputHandler.rb.velocity.y, linearVelocity.z);
+        inputHandler.playerRigidbody.velocity = new Vector3(linearVelocity.x, inputHandler.playerRigidbody.velocity.y, linearVelocity.z);
 
 
         float rotationInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x * maxRotationSpeed * Time.deltaTime;
