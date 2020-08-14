@@ -47,9 +47,9 @@ public class InputHandler : MonoBehaviour
         rightPhysicsHand.position = rightControllerAnchor.position;
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        OVRInput.FixedUpdate();
+        OVRInput.Update();
 
         // Update inputHeld flags with current input states
         inputHeld[(int)InputButton.L_ButtonOne] = OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.LTouch);

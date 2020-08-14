@@ -972,21 +972,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &600439937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1054113627074204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8fe8e73a97034e4cb083d565af81940, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputHandler: {fileID: 1594426094}
-  climbingManager: {fileID: 1594426093}
-  leftController: 0
 --- !u!1001 &624044128
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2352,7 +2337,7 @@ MonoBehaviour:
   useIPDInPositionTracking: 1
   resetTrackerOnLoad: 0
   AllowRecenter: 0
-  LateControllerUpdate: 1
+  LateControllerUpdate: 0
 --- !u!114 &1123411576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2470,6 +2455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1142726778}
+  - component: {fileID: 1142726783}
   - component: {fileID: 1142726781}
   - component: {fileID: 1142726780}
   - component: {fileID: 1142726782}
@@ -2571,6 +2557,26 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &1142726783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142726777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f1047379d7b45b45837d2c2ecc1a774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputHandler: {fileID: 1594426094}
+  climbingManager: {fileID: 1594426093}
+  isLeftController: 1
+  isColliding: 0
+  isClimbing: 0
+  controllerToBodyOffset: {x: 0, y: 0, z: 0}
+  handToControllerOffset: {x: 0, y: 0, z: 0}
+  gripAnchor: {x: 0, y: 0, z: 0}
 --- !u!1 &1156442134
 GameObject:
   m_ObjectHideFlags: 0
@@ -2677,21 +2683,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1257822837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1983323015359050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8fe8e73a97034e4cb083d565af81940, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputHandler: {fileID: 1594426094}
-  climbingManager: {fileID: 1594426093}
-  leftController: 1
 --- !u!1 &1321445983
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,8 +3108,6 @@ MonoBehaviour:
   armForce: 900
   handForce: 100
   bodyWeight: 625
-  leftHandColliding: 0
-  rightHandColliding: 0
 --- !u!114 &1594426094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3154,9 +3143,9 @@ MonoBehaviour:
   useHeadAsForward: 1
   maxMovementSpeed: 4
   linearAcceleration: 16
-  maxRotationSpeed: 120
+  maxRotationSpeed: 100
   angularAcceleration: 35
-  stickDeadzone: 0.2
+  stickDeadzone: 0.05
 --- !u!54 &1594426096
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3306,6 +3295,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1816176999}
+  - component: {fileID: 1816177004}
   - component: {fileID: 1816177003}
   - component: {fileID: 1816177002}
   - component: {fileID: 1816177001}
@@ -3407,6 +3397,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1816176998}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1816177004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816176998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f1047379d7b45b45837d2c2ecc1a774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputHandler: {fileID: 1594426094}
+  climbingManager: {fileID: 1594426093}
+  isLeftController: 0
+  isColliding: 0
+  isClimbing: 0
+  controllerToBodyOffset: {x: 0, y: 0, z: 0}
+  handToControllerOffset: {x: 0, y: 0, z: 0}
+  gripAnchor: {x: 0, y: 0, z: 0}
 --- !u!1 &1818778182
 GameObject:
   m_ObjectHideFlags: 0
@@ -4603,7 +4613,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4484590274547570}
-  - component: {fileID: 600439937}
   - component: {fileID: 600439936}
   - component: {fileID: 1054113627074205}
   m_Layer: 0
@@ -4623,7 +4632,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 1
@@ -4638,7 +4647,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4593681750993098}
-  - component: {fileID: 1257822837}
   - component: {fileID: 1257822836}
   - component: {fileID: 1983323015359051}
   m_Layer: 0

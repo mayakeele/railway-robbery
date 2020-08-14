@@ -27,8 +27,7 @@ public class LocomotionManager : MonoBehaviour
     }
 
 
-    void FixedUpdate()
-    {   
+    private void Update() {
         // Get left stick input and determine whether 'forward' should be based on controller orientation or head orientation
         targetOrientation = useHeadAsForward ? inputHandler.cameraTransform.rotation : inputHandler.leftControllerAnchor.rotation;
         Vector2 movementInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch);
@@ -59,7 +58,9 @@ public class LocomotionManager : MonoBehaviour
         inputHandler.playerRigidbody.velocity = new Vector3(linearVelocity.x, inputHandler.playerRigidbody.velocity.y, linearVelocity.z);
 
 
-        float rotationInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x * maxRotationSpeed * Time.deltaTime;
-        this.transform.RotateAround(inputHandler.cameraTransform.position, Vector3.up, rotationInput);
+        float rotationInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x;
+        if(Mathf.Abs(rotationInput) > stickDeadzone){
+            this.transform.RotateAround(inputHandler.cameraTransform.position, Vector3.up, rotationInput * maxRotationSpeed * Time.deltaTime);
+        }
     }
 }
