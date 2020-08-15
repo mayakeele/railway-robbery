@@ -27,7 +27,14 @@ public class LocomotionManager : MonoBehaviour
     }
 
 
-    private void Update() {
+    private void LateUpdate() {
+
+        float rotationInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x;
+        if(Mathf.Abs(rotationInput) > stickDeadzone){
+            this.transform.RotateAround(inputHandler.cameraTransform.position, Vector3.up, rotationInput * maxRotationSpeed * Time.deltaTime);
+        }
+
+
         // Get left stick input and determine whether 'forward' should be based on controller orientation or head orientation
         targetOrientation = useHeadAsForward ? inputHandler.cameraTransform.rotation : inputHandler.leftControllerAnchor.rotation;
         Vector2 movementInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch);
@@ -35,32 +42,10 @@ public class LocomotionManager : MonoBehaviour
         // Combine joystick input and forward direction to determine the direction of acceleration
         Vector3 movementDirection = targetOrientation * new Vector3(movementInput.x, 0, movementInput.y).normalized;
 
-        // Apply acceleration if the stick is pushed outside the deadzone, clamping velocity with regard to max speed AND the magnitude of the input
-        /*if (movementInput.magnitude >= stickDeadzone) {    
-            linearVelocity += movementDirection * linearAcceleration * Time.deltaTime;
-            linearVelocity = Vector3.ClampMagnitude(linearVelocity, maxMovementSpeed * movementInput.magnitude);
-        }
-        // If stick is not pushed past deadzone, decelerate the player to zero
-        else{
-            movementInput = Vector2.zero;
-            if (linearVelocity.magnitude > 0){
-                linearVelocity -= linearVelocity.normalized * linearAcceleration * Time.deltaTime;
-            }
-            else{
-                linearVelocity = Vector2.zero;
-            }
-        }*/
-
         linearVelocity += movementDirection * linearAcceleration * Time.deltaTime;
         linearVelocity = Vector3.ClampMagnitude(linearVelocity, maxMovementSpeed * movementInput.magnitude);
 
         // Set x and z components of movement while preserving y
         inputHandler.playerRigidbody.velocity = new Vector3(linearVelocity.x, inputHandler.playerRigidbody.velocity.y, linearVelocity.z);
-
-
-        float rotationInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x;
-        if(Mathf.Abs(rotationInput) > stickDeadzone){
-            this.transform.RotateAround(inputHandler.cameraTransform.position, Vector3.up, rotationInput * maxRotationSpeed * Time.deltaTime);
-        }
     }
 }

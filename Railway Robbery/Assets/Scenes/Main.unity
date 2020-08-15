@@ -2337,7 +2337,7 @@ MonoBehaviour:
   useIPDInPositionTracking: 1
   resetTrackerOnLoad: 0
   AllowRecenter: 0
-  LateControllerUpdate: 0
+  LateControllerUpdate: 1
 --- !u!114 &1123411576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2458,8 +2458,8 @@ GameObject:
   - component: {fileID: 1142726783}
   - component: {fileID: 1142726781}
   - component: {fileID: 1142726780}
-  - component: {fileID: 1142726782}
   - component: {fileID: 1142726779}
+  - component: {fileID: 1142726782}
   m_Layer: 11
   m_Name: Left Physics Hand
   m_TagString: Untagged
@@ -2474,15 +2474,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142726777}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -0.04}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1113542240}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1142726779
-SphereCollider:
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!64 &1142726779
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2491,9 +2491,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: -1
+  m_Mesh: {fileID: 4300000, guid: ca20b3907ff1c794cb89c1ad2cce8282, type: 3}
 --- !u!23 &1142726780
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2540,7 +2541,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142726777}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: ca20b3907ff1c794cb89c1ad2cce8282, type: 3}
 --- !u!54 &1142726782
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2555,7 +2556,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!114 &1142726783
 MonoBehaviour:
@@ -2571,12 +2572,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 1594426094}
   climbingManager: {fileID: 1594426093}
+  rb: {fileID: 0}
   isLeftController: 1
+  rotationOffsetEuler: {x: 0, y: 0, z: 90}
+  rotationOffset: {x: 0, y: 0, z: 0, w: 0}
+  positionOffset: {x: 0, y: 0, z: -0.04}
   isColliding: 0
   isClimbing: 0
   controllerToBodyOffset: {x: 0, y: 0, z: 0}
   handToControllerOffset: {x: 0, y: 0, z: 0}
-  gripAnchor: {x: 0, y: 0, z: 0}
+  controllerAnchor: {x: 0, y: 0, z: 0}
+  physicsHandPositionAnchor: {x: 0, y: 0, z: 0}
+  physicsHandRotationAnchor: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1156442134
 GameObject:
   m_ObjectHideFlags: 0
@@ -3106,7 +3113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handRadius: 0.05
   armForce: 900
-  handForce: 100
+  handForce: 1
   bodyWeight: 625
 --- !u!114 &1594426094
 MonoBehaviour:
@@ -3298,8 +3305,8 @@ GameObject:
   - component: {fileID: 1816177004}
   - component: {fileID: 1816177003}
   - component: {fileID: 1816177002}
-  - component: {fileID: 1816177001}
   - component: {fileID: 1816177000}
+  - component: {fileID: 1816177001}
   m_Layer: 11
   m_Name: Right Physics Hand
   m_TagString: Untagged
@@ -3314,15 +3321,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1816176998}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -0.04}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1113553508}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1816177000
-SphereCollider:
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!64 &1816177000
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3331,9 +3338,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: -1
+  m_Mesh: {fileID: 4300000, guid: d0c255d07fd68f14b94e55d388e7e6bb, type: 3}
 --- !u!54 &1816177001
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3348,7 +3356,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!23 &1816177002
 MeshRenderer:
@@ -3396,7 +3404,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1816176998}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: d0c255d07fd68f14b94e55d388e7e6bb, type: 3}
 --- !u!114 &1816177004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3411,12 +3419,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 1594426094}
   climbingManager: {fileID: 1594426093}
+  rb: {fileID: 0}
   isLeftController: 0
+  rotationOffsetEuler: {x: 0, y: 0, z: -90}
+  rotationOffset: {x: 0, y: 0, z: 0, w: 0}
+  positionOffset: {x: 0, y: 0, z: -0.04}
   isColliding: 0
   isClimbing: 0
   controllerToBodyOffset: {x: 0, y: 0, z: 0}
   handToControllerOffset: {x: 0, y: 0, z: 0}
-  gripAnchor: {x: 0, y: 0, z: 0}
+  controllerAnchor: {x: 0, y: 0, z: 0}
+  physicsHandPositionAnchor: {x: 0, y: 0, z: 0}
+  physicsHandRotationAnchor: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1818778182
 GameObject:
   m_ObjectHideFlags: 0

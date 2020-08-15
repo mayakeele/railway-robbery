@@ -6,21 +6,34 @@ public class PhysicsHand : MonoBehaviour
 {
     [SerializeField] private InputHandler inputHandler;
     [SerializeField] private ClimbingManager climbingManager;
+    [HideInInspector] public Rigidbody rb;
     public bool isLeftController;
+
+    [SerializeField] private Vector3 rotationOffsetEuler;
+    [HideInInspector] public Quaternion rotationOffset;
+
+    [SerializeField] private Vector3 positionOffset;
 
     [HideInInspector] public bool isColliding;
     [HideInInspector] public bool isClimbing;
 
     [HideInInspector] public Vector3 controllerToBodyOffset;
     [HideInInspector] public Vector3 handToControllerOffset;
-    [HideInInspector] public Vector3 gripAnchor;
+
+    [HideInInspector] public Vector3 controllerAnchor;
+    [HideInInspector] public Vector3 physicsHandPositionAnchor;
+    [HideInInspector] public Quaternion physicsHandRotationAnchor;
+
 
     void Start()
     {
-        //inputHandler = GetComponent<InputHandler>();
+        rb = GetComponent<Rigidbody>();
+
+        rotationOffset = Quaternion.Euler(rotationOffsetEuler);
     }
 
-    void Update()
+
+    void LateUpdate()
     {
         if (isLeftController){
             handToControllerOffset = inputHandler.leftControllerAnchor.position - transform.position;
@@ -31,6 +44,16 @@ public class PhysicsHand : MonoBehaviour
             controllerToBodyOffset = climbingManager.transform.position - inputHandler.rightControllerAnchor.position;
         }
  
+    }
+
+    public void SetPositionOffset(Vector3 newPos){
+        // Sets the position of this hand to position, with respect to hand offset
+        transform.position = newPos + positionOffset;
+    }
+
+    public void SetRotationOffset(Quaternion newRot){
+        // Sets the position of this hand to position, with respect to hand offset
+        transform.rotation = newRot * rotationOffset;
     }
 
 
