@@ -7,7 +7,11 @@ public class PhysicsHand : MonoBehaviour
     [SerializeField] private InputHandler inputHandler;
     [SerializeField] private ClimbingManager climbingManager;
     [HideInInspector] public Rigidbody rb;
+
     public bool isLeftController;
+
+    [SerializeField] private float springConstant;
+    [SerializeField] private float springDampingRatio;
 
     [SerializeField] private Vector3 rotationOffsetEuler;
     [HideInInspector] public Quaternion rotationOffset;
@@ -43,7 +47,18 @@ public class PhysicsHand : MonoBehaviour
             handToControllerOffset = inputHandler.rightControllerAnchor.position - transform.position;
             controllerToBodyOffset = climbingManager.transform.position - inputHandler.rightControllerAnchor.position;
         }
- 
+    }
+
+    private void FixedUpdate() {
+        if (isLeftController){
+            Vector3 springForce = DampedOscillation.GetDampedSpringForce(this.transform, inputHandler.leftControllerAnchor.transform, inputHandler.playerRigidbody.velocity, rb.mass, springConstant, springDampingRatio);
+            rb.AddForce(springForce);
+        }
+        else{
+            Vector3 springForce = DampedOscillation.GetDampedSpringForce(this.transform, inputHandler.rightControllerAnchor.transform, inputHandler.playerRigidbody.velocity, rb.mass, springConstant, springDampingRatio);
+            rb.AddForce(springForce);
+        }
+        
     }
 
     public void SetPositionOffset(Vector3 newPos){

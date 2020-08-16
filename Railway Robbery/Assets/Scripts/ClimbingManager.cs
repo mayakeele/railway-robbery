@@ -17,12 +17,6 @@ public class ClimbingManager : MonoBehaviour
     private ControllerCollisionTrigger leftControllerCollider;
     private ControllerCollisionTrigger rightControllerCollider;
 
-    private Vector3 leftGripAnchor; //
-    private Vector3 rightGripAnchor; //
-
-    private Vector3 leftControllerOffset; //
-    private Vector3 rightControllerOffset; //
-
     private Vector3 leftBodyTarget;
     private Vector3 rightBodyTarget;
     private Vector3 mainBodyTarget;
@@ -39,29 +33,6 @@ public class ClimbingManager : MonoBehaviour
 
     void LateUpdate()
     {
-
-        // Attempt to match physics hand position with player's real life hands.
-
-        if (leftPhysicsHand.isColliding){
-            leftPhysicsHand.rb.AddForce(leftPhysicsHand.handToControllerOffset.normalized * handForce, ForceMode.Force);
-        }
-        else{
-            leftPhysicsHand.rb.velocity = Vector3.zero;
-            
-            leftPhysicsHand.SetPositionOffset(inputHandler.leftControllerAnchor.position);
-        }
-
-        if (rightPhysicsHand.isColliding){
-            rightPhysicsHand.rb.AddForce(rightPhysicsHand.handToControllerOffset.normalized * handForce, ForceMode.Force);
-        }
-        else{
-            rightPhysicsHand.rb.velocity = Vector3.zero;
-
-            rightPhysicsHand.SetPositionOffset(inputHandler.rightControllerAnchor.position);
-        }
-
-
-
         // Continue climbing if grip is held and the hand is touching climbable geometry / was previously climbing. Otherwise, update anchor positions and unfreeze the physics hand
 
         if ((leftPhysicsHand.isColliding || leftPhysicsHand.isClimbing) && inputHandler.GetHeldState(InputHandler.InputButton.L_Grip)){
@@ -75,7 +46,6 @@ public class ClimbingManager : MonoBehaviour
             inputHandler.playerRigidbody.velocity = Vector3.zero;
 
             leftBodyTarget = leftPhysicsHand.controllerAnchor + leftPhysicsHand.controllerToBodyOffset;
-
         }
         else{
             
@@ -86,8 +56,9 @@ public class ClimbingManager : MonoBehaviour
             leftPhysicsHand.physicsHandPositionAnchor = leftPhysicsHand.transform.position;
             leftPhysicsHand.physicsHandRotationAnchor = leftPhysicsHand.transform.rotation;
 
-            leftPhysicsHand.SetRotationOffset(inputHandler.leftControllerAnchor.rotation);
-
+            if (!leftPhysicsHand.isColliding){
+                leftPhysicsHand.SetRotationOffset(inputHandler.leftControllerAnchor.rotation);
+            }       
         }
 
 
@@ -101,8 +72,7 @@ public class ClimbingManager : MonoBehaviour
 
             inputHandler.playerRigidbody.velocity = Vector3.zero;
 
-            rightBodyTarget = rightPhysicsHand.controllerAnchor + rightPhysicsHand.controllerToBodyOffset;
-            
+            rightBodyTarget = rightPhysicsHand.controllerAnchor + rightPhysicsHand.controllerToBodyOffset;      
         }
         else{
 
@@ -113,8 +83,9 @@ public class ClimbingManager : MonoBehaviour
             rightPhysicsHand.physicsHandPositionAnchor = rightPhysicsHand.transform.position;
             rightPhysicsHand.physicsHandRotationAnchor = rightPhysicsHand.transform.rotation;
 
-            rightPhysicsHand.SetRotationOffset(inputHandler.rightControllerAnchor.rotation);    
-            
+            if (!rightPhysicsHand.isColliding){
+                rightPhysicsHand.SetRotationOffset(inputHandler.rightControllerAnchor.rotation);
+            }    
         }
 
 

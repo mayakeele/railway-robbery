@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class LocomotionManager : MonoBehaviour
 {
-    
+    private InputHandler inputHandler;
+
     [SerializeField] private bool useHeadAsForward;
     private Quaternion targetOrientation;
 
@@ -19,7 +20,6 @@ public class LocomotionManager : MonoBehaviour
     private Vector3 linearVelocity = Vector3.zero;
     private float angularVelocity = 0;
 
-    private InputHandler inputHandler;
     
     void Start()
     {

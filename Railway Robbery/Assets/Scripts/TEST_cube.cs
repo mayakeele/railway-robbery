@@ -6,6 +6,9 @@ public class TEST_cube : MonoBehaviour
 {   
     public float springConstant;
     public float dampingRatio;
+
+    public float angularSpringConstant;
+    public float angularDampingRatio;
     public Transform target;
 
     private Rigidbody rb;
@@ -17,9 +20,12 @@ public class TEST_cube : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Vector3 force = DampedOscillation.GetDampedSpringForce(this.transform, target.transform, rb.mass, springConstant, dampingRatio);
-        rb.AddForce(force);
+        Vector3 force = DampedOscillation.GetDampedSpringForce(this.transform, target.transform, Vector3.zero, rb.mass, springConstant, dampingRatio);
+        //rb.AddForce(force);
+
+        Vector3 torque = DampedOscillation.GetUndampedSpringTorque(this.transform, target.transform, angularSpringConstant);
+        rb.AddTorque(torque);
     }
 }

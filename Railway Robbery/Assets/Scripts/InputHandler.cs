@@ -43,8 +43,8 @@ public class InputHandler : MonoBehaviour
     {
         playerRigidbody = GetComponent<Rigidbody>();
 
-        leftPhysicsHand.position = leftControllerAnchor.position;
-        rightPhysicsHand.position = rightControllerAnchor.position;
+        //leftPhysicsHand.position = leftControllerAnchor.position;
+        //rightPhysicsHand.position = rightControllerAnchor.position;
     }
 
     void Update()
