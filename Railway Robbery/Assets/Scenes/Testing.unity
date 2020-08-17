@@ -312,8 +312,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   springConstant: 250
   dampingRatio: 0.8
-  angularSpringConstant: 10
-  angularDampingRatio: 0
+  angularSpringConstant: 20
+  angularDampingRatio: 0.15
   target: {fileID: 612353373}
 --- !u!65 &994122528
 BoxCollider:
@@ -450,8 +450,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.96836174, b: 0.8820755, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 0.9610063, b: 0.8537736, a: 1}
+  m_Intensity: 1.15
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

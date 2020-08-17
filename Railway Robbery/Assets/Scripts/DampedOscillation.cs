@@ -19,15 +19,18 @@ public static class DampedOscillation
 
     public static Vector3 GetDampedSpringTorque(Transform objectTransform, Transform targetTransform, float momentOfInertia, float springConstant, float dampingRatio){
         // Calculates the combined torque of an angular spring and damping force on an object, with regards to the object's moment of inertia
-        // All rotational vectors are in degrees
+        // All rotational vectors are in radians
         
         Rigidbody rb = objectTransform.GetComponent<Rigidbody>();
 
-        Vector3 angularVelocity = Mathf.Rad2Deg * rb.angularVelocity;
-        Vector3 angularDisplacement = Mathf.Rad2Deg * Quaternion.ToEulerAngles(targetTransform.rotation * objectTransform.rotation);
+        Quaternion rotation = targetTransform.rotation * Quaternion.Inverse(objectTransform.rotation);
+        Vector3 torqueAxis = new Vector3(rotation.x, rotation.y, rotation.z) * rotation.w * -1;
 
-        Vector3 dampingTorque = -2 * dampingRatio * angularVelocity * Mathf.Sqrt(momentOfInertia);
-        Vector3 springTorque = angularDisplacement * (-springConstant);
+        Vector3 angularVelocity = rb.angularVelocity;
+        float angularDistance = Mathf.Deg2Rad * Quaternion.Angle(targetTransform.rotation, objectTransform.rotation);
+
+        Vector3 dampingTorque = -2 * dampingRatio * angularVelocity * Mathf.Sqrt(momentOfInertia * springConstant);
+        Vector3 springTorque = -springConstant * angularDistance * torqueAxis;
 
         return dampingTorque + springTorque;
     }
@@ -38,9 +41,10 @@ public static class DampedOscillation
         
         Rigidbody rb = objectTransform.GetComponent<Rigidbody>();
 
-        Vector3 torqueAxis = Vector3.Cross(objectTransform.eulerAngles, targetTransform.eulerAngles);
+        Quaternion rotation = targetTransform.rotation * Quaternion.Inverse(objectTransform.rotation);
+        Vector3 torqueAxis = new Vector3(rotation.x, rotation.y, rotation.z) * rotation.w * -1;
 
-        //Vector3 angularVelocity = rb.angularVelocity;
+        Vector3 angularVelocity = rb.angularVelocity;
         float angularDistance = Mathf.Deg2Rad * Quaternion.Angle(targetTransform.rotation, objectTransform.rotation);
 
         Vector3 springTorque = -springConstant * angularDistance * torqueAxis;
