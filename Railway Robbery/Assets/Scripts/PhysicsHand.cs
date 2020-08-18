@@ -12,10 +12,13 @@ public class PhysicsHand : MonoBehaviour
 
     [SerializeField] private float springConstant;
     [SerializeField] private float springDampingRatio;
+    [SerializeField] private float angularSpringConstant;
+    [SerializeField] private float angularSpringDampingRatio;
+
+    [HideInInspector] public float angleToController;
 
     [SerializeField] private Vector3 rotationOffsetEuler;
     [HideInInspector] public Quaternion rotationOffset;
-
     [SerializeField] private Vector3 positionOffset;
 
     [HideInInspector] public bool isColliding;
@@ -37,26 +40,66 @@ public class PhysicsHand : MonoBehaviour
     }
 
 
-    void LateUpdate()
+    void Update()
     {
         if (isLeftController){
             handToControllerOffset = inputHandler.leftControllerAnchor.position - transform.position;
             controllerToBodyOffset = climbingManager.transform.position - inputHandler.leftControllerAnchor.position;
+            angleToController = Quaternion.Angle(inputHandler.leftControllerAnchor.rotation, transform.rotation);
         }
         else{
             handToControllerOffset = inputHandler.rightControllerAnchor.position - transform.position;
             controllerToBodyOffset = climbingManager.transform.position - inputHandler.rightControllerAnchor.position;
+            angleToController = Quaternion.Angle(inputHandler.rightControllerAnchor.rotation, transform.rotation);
         }
     }
 
     private void FixedUpdate() {
         if (isLeftController){
-            Vector3 springForce = DampedOscillation.GetDampedSpringForce(this.transform, inputHandler.leftControllerAnchor.transform, inputHandler.playerRigidbody.velocity, rb.mass, springConstant, springDampingRatio);
+            Vector3 springForce = DampedOscillation.GetDampedSpringForce(
+                this.transform.position, 
+                inputHandler.leftControllerAnchor.transform.position + (transform.rotation * positionOffset), 
+                rb.velocity, 
+                inputHandler.playerRigidbody.velocity, 
+                rb.mass, 
+                springConstant, 
+                springDampingRatio);
+
             rb.AddForce(springForce);
+
+            Vector3 springTorque = DampedOscillation.GetDampedSpringTorque(
+                this.transform.rotation, 
+                inputHandler.leftControllerAnchor.transform.rotation * rotationOffset, 
+                rb.angularVelocity, 
+                rb.inertiaTensor.magnitude, 
+                angularSpringConstant,
+                angularSpringDampingRatio);
+
+            rb.AddTorque(springTorque);
+    
         }
         else{
-            Vector3 springForce = DampedOscillation.GetDampedSpringForce(this.transform, inputHandler.rightControllerAnchor.transform, inputHandler.playerRigidbody.velocity, rb.mass, springConstant, springDampingRatio);
+            Vector3 springForce = DampedOscillation.GetDampedSpringForce(
+                this.transform.position, 
+                inputHandler.rightControllerAnchor.transform.position + (transform.rotation * positionOffset), 
+                rb.velocity, 
+                inputHandler.playerRigidbody.velocity, 
+                rb.mass, 
+                springConstant, 
+                springDampingRatio);
+
             rb.AddForce(springForce);
+
+            Vector3 springTorque = DampedOscillation.GetDampedSpringTorque(
+                this.transform.rotation, 
+                inputHandler.rightControllerAnchor.transform.rotation * rotationOffset, 
+                rb.angularVelocity,
+                rb.inertiaTensor.magnitude, 
+                angularSpringConstant,
+                angularSpringDampingRatio);
+
+            rb.AddTorque(springTorque);
+
         }
         
     }

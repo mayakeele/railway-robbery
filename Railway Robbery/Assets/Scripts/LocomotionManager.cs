@@ -27,7 +27,7 @@ public class LocomotionManager : MonoBehaviour
     }
 
 
-    private void LateUpdate() {
+    private void FixedUpdate() {
 
         float rotationInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x;
         if(Mathf.Abs(rotationInput) > stickDeadzone){
@@ -47,5 +47,11 @@ public class LocomotionManager : MonoBehaviour
 
         // Set x and z components of movement while preserving y
         inputHandler.playerRigidbody.velocity = new Vector3(linearVelocity.x, inputHandler.playerRigidbody.velocity.y, linearVelocity.z);
+
+
+        if (transform.position.y < -20){
+            transform.position.Set(transform.position.x, 5, transform.position.z);
+            inputHandler.playerRigidbody.velocity = Vector3.zero;
+        }
     }
 }

@@ -6,11 +6,12 @@ public class ClimbingManager : MonoBehaviour
 {
     private InputHandler inputHandler;
 
-    [SerializeField] private float handRadius = 0.08f;
+    [SerializeField] private float handRadius;
     [SerializeField] private int armForce = 900; // (in newtons)
     [SerializeField] private int handForce; // (in newtons)
     [SerializeField] private int bodyWeight = 625; // (in newtons)
 
+    public float rotationSleepAngle;
 
     private PhysicsHand leftPhysicsHand;
     private PhysicsHand rightPhysicsHand;
@@ -31,7 +32,7 @@ public class ClimbingManager : MonoBehaviour
     }
 
 
-    void LateUpdate()
+    void Update()
     {
         // Continue climbing if grip is held and the hand is touching climbable geometry / was previously climbing. Otherwise, update anchor positions and unfreeze the physics hand
 
@@ -56,8 +57,9 @@ public class ClimbingManager : MonoBehaviour
             leftPhysicsHand.physicsHandPositionAnchor = leftPhysicsHand.transform.position;
             leftPhysicsHand.physicsHandRotationAnchor = leftPhysicsHand.transform.rotation;
 
-            if (!leftPhysicsHand.isColliding){
-                leftPhysicsHand.SetRotationOffset(inputHandler.leftControllerAnchor.rotation);
+            if (!leftPhysicsHand.isColliding && leftPhysicsHand.angleToController <= rotationSleepAngle){
+                //leftPhysicsHand.rb.isKinematic = true;
+                //leftPhysicsHand.SetRotationOffset(inputHandler.leftControllerAnchor.rotation);
             }       
         }
 
@@ -83,9 +85,10 @@ public class ClimbingManager : MonoBehaviour
             rightPhysicsHand.physicsHandPositionAnchor = rightPhysicsHand.transform.position;
             rightPhysicsHand.physicsHandRotationAnchor = rightPhysicsHand.transform.rotation;
 
-            if (!rightPhysicsHand.isColliding){
-                rightPhysicsHand.SetRotationOffset(inputHandler.rightControllerAnchor.rotation);
-            }    
+            if (!rightPhysicsHand.isColliding && rightPhysicsHand.angleToController <= rotationSleepAngle){
+                //rightPhysicsHand.rb.isKinematic = true;
+                //rightPhysicsHand.SetRotationOffset(inputHandler.rightControllerAnchor.rotation);
+            }
         }
 
 
