@@ -43,14 +43,14 @@ public class PhysicsHand : MonoBehaviour
     void Update()
     {
         if (isLeftController){
-            handToControllerOffset = inputHandler.leftControllerAnchor.position - transform.position;
-            controllerToBodyOffset = climbingManager.transform.position - inputHandler.leftControllerAnchor.position;
-            angleToController = Quaternion.Angle(inputHandler.leftControllerAnchor.rotation, transform.rotation);
+            handToControllerOffset = inputHandler.leftController.position - transform.position;
+            controllerToBodyOffset = climbingManager.transform.position - inputHandler.leftController.position;
+            angleToController = Quaternion.Angle(inputHandler.leftController.rotation, transform.rotation);
         }
         else{
-            handToControllerOffset = inputHandler.rightControllerAnchor.position - transform.position;
-            controllerToBodyOffset = climbingManager.transform.position - inputHandler.rightControllerAnchor.position;
-            angleToController = Quaternion.Angle(inputHandler.rightControllerAnchor.rotation, transform.rotation);
+            handToControllerOffset = inputHandler.rightController.position - transform.position;
+            controllerToBodyOffset = climbingManager.transform.position - inputHandler.rightController.position;
+            angleToController = Quaternion.Angle(inputHandler.rightController.rotation, transform.rotation);
         }
     }
 
@@ -58,7 +58,7 @@ public class PhysicsHand : MonoBehaviour
         if (isLeftController){
             Vector3 springForce = DampedOscillation.GetDampedSpringForce(
                 this.transform.position, 
-                inputHandler.leftControllerAnchor.transform.position + (transform.rotation * positionOffset), 
+                inputHandler.leftController.transform.position + (transform.rotation * positionOffset), 
                 rb.velocity, 
                 inputHandler.playerRigidbody.velocity, 
                 rb.mass, 
@@ -69,7 +69,7 @@ public class PhysicsHand : MonoBehaviour
 
             Vector3 springTorque = DampedOscillation.GetDampedSpringTorque(
                 this.transform.rotation, 
-                inputHandler.leftControllerAnchor.transform.rotation * rotationOffset, 
+                inputHandler.leftController.transform.rotation * rotationOffset, 
                 rb.angularVelocity, 
                 rb.inertiaTensor.magnitude, 
                 angularSpringConstant,
@@ -81,7 +81,7 @@ public class PhysicsHand : MonoBehaviour
         else{
             Vector3 springForce = DampedOscillation.GetDampedSpringForce(
                 this.transform.position, 
-                inputHandler.rightControllerAnchor.transform.position + (transform.rotation * positionOffset), 
+                inputHandler.rightController.transform.position + (transform.rotation * positionOffset), 
                 rb.velocity, 
                 inputHandler.playerRigidbody.velocity, 
                 rb.mass, 
@@ -92,7 +92,7 @@ public class PhysicsHand : MonoBehaviour
 
             Vector3 springTorque = DampedOscillation.GetDampedSpringTorque(
                 this.transform.rotation, 
-                inputHandler.rightControllerAnchor.transform.rotation * rotationOffset, 
+                inputHandler.rightController.transform.rotation * rotationOffset, 
                 rb.angularVelocity,
                 rb.inertiaTensor.magnitude, 
                 angularSpringConstant,

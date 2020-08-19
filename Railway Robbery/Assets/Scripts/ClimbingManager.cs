@@ -6,12 +6,9 @@ public class ClimbingManager : MonoBehaviour
 {
     private InputHandler inputHandler;
 
+    [SerializeField] private float bodySpringConstant;
+    [SerializeField] private float bodySpringDamping;
     [SerializeField] private float handRadius;
-    [SerializeField] private int armForce = 900; // (in newtons)
-    [SerializeField] private int handForce; // (in newtons)
-    [SerializeField] private int bodyWeight = 625; // (in newtons)
-
-    public float rotationSleepAngle;
 
     private PhysicsHand leftPhysicsHand;
     private PhysicsHand rightPhysicsHand;
@@ -41,26 +38,21 @@ public class ClimbingManager : MonoBehaviour
             leftPhysicsHand.isClimbing = true;
             leftPhysicsHand.rb.isKinematic = true;
 
-            leftPhysicsHand.transform.position = leftPhysicsHand.physicsHandPositionAnchor;
-            leftPhysicsHand.transform.rotation = leftPhysicsHand.physicsHandRotationAnchor;
-            
             inputHandler.playerRigidbody.velocity = Vector3.zero;
 
-            leftBodyTarget = leftPhysicsHand.controllerAnchor + leftPhysicsHand.controllerToBodyOffset;
+            leftPhysicsHand.transform.position = leftPhysicsHand.physicsHandPositionAnchor;
+            leftPhysicsHand.transform.rotation = leftPhysicsHand.physicsHandRotationAnchor;
+
+            leftBodyTarget = transform.position - (inputHandler.leftController.position - leftPhysicsHand.controllerAnchor); //leftPhysicsHand.controllerAnchor + leftPhysicsHand.controllerToBodyOffset;
         }
         else{
             
             leftPhysicsHand.isClimbing = false;
             leftPhysicsHand.rb.isKinematic = false;
 
-            leftPhysicsHand.controllerAnchor = inputHandler.leftControllerAnchor.transform.position;
+            leftPhysicsHand.controllerAnchor = inputHandler.leftController.transform.position;
             leftPhysicsHand.physicsHandPositionAnchor = leftPhysicsHand.transform.position;
-            leftPhysicsHand.physicsHandRotationAnchor = leftPhysicsHand.transform.rotation;
-
-            if (!leftPhysicsHand.isColliding && leftPhysicsHand.angleToController <= rotationSleepAngle){
-                //leftPhysicsHand.rb.isKinematic = true;
-                //leftPhysicsHand.SetRotationOffset(inputHandler.leftControllerAnchor.rotation);
-            }       
+            leftPhysicsHand.physicsHandRotationAnchor = leftPhysicsHand.transform.rotation;      
         }
 
 
@@ -69,26 +61,21 @@ public class ClimbingManager : MonoBehaviour
             rightPhysicsHand.isClimbing = true;
             rightPhysicsHand.rb.isKinematic = true;
 
+            inputHandler.playerRigidbody.velocity = Vector3.zero;
+
             rightPhysicsHand.transform.position = rightPhysicsHand.physicsHandPositionAnchor;
             rightPhysicsHand.transform.rotation = rightPhysicsHand.physicsHandRotationAnchor;
 
-            inputHandler.playerRigidbody.velocity = Vector3.zero;
-
-            rightBodyTarget = rightPhysicsHand.controllerAnchor + rightPhysicsHand.controllerToBodyOffset;      
+            rightBodyTarget = transform.position - (inputHandler.rightController.position - rightPhysicsHand.controllerAnchor); //rightPhysicsHand.controllerAnchor + rightPhysicsHand.controllerToBodyOffset;      
         }
         else{
 
             rightPhysicsHand.isClimbing = false;
             rightPhysicsHand.rb.isKinematic = false;
 
-            rightPhysicsHand.controllerAnchor = inputHandler.rightControllerAnchor.transform.position;
+            rightPhysicsHand.controllerAnchor = inputHandler.rightController.transform.position;
             rightPhysicsHand.physicsHandPositionAnchor = rightPhysicsHand.transform.position;
             rightPhysicsHand.physicsHandRotationAnchor = rightPhysicsHand.transform.rotation;
-
-            if (!rightPhysicsHand.isColliding && rightPhysicsHand.angleToController <= rotationSleepAngle){
-                //rightPhysicsHand.rb.isKinematic = true;
-                //rightPhysicsHand.SetRotationOffset(inputHandler.rightControllerAnchor.rotation);
-            }
         }
 
 
@@ -107,7 +94,9 @@ public class ClimbingManager : MonoBehaviour
             mainBodyTarget = this.transform.position;
         }
 
-        this.transform.position = mainBodyTarget;
-
+        //this.transform.position = mainBodyTarget;
+        Vector3 bodySpringForce = DampedOscillation.GetDampedSpringForce(
+            transform.position, mainBodyTarget, Vector3.zero, Vector3.zero, inputHandler.playerRigidbody.mass, bodySpringConstant, bodySpringDamping);
+        inputHandler.playerRigidbody.AddForce(bodySpringForce);
     }
 }

@@ -7,8 +7,8 @@ public class InputHandler : MonoBehaviour
 {
     public Transform cameraTransform;
 
-    public Transform leftControllerAnchor;
-    public Transform rightControllerAnchor;
+    public Transform leftController;
+    public Transform rightController;
 
     public Transform leftPhysicsHand;
     public Transform rightPhysicsHand;

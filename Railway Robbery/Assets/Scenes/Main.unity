@@ -3146,11 +3146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e463c0d2e1fa494a981cee2c4333196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bodySpringConstant: 140
+  bodySpringDamping: 0.5
   handRadius: 0.05
-  armForce: 900
-  handForce: 1
-  bodyWeight: 625
-  rotationSleepAngle: 20
 --- !u!114 &1594426094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3164,8 +3162,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 1113460656}
-  leftControllerAnchor: {fileID: 4593681750993098}
-  rightControllerAnchor: {fileID: 4484590274547570}
+  leftController: {fileID: 4593681750993098}
+  rightController: {fileID: 4484590274547570}
   leftPhysicsHand: {fileID: 1142726778}
   rightPhysicsHand: {fileID: 1816176999}
   gripThreshold: 0.5

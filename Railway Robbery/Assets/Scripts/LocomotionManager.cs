@@ -36,7 +36,7 @@ public class LocomotionManager : MonoBehaviour
 
 
         // Get left stick input and determine whether 'forward' should be based on controller orientation or head orientation
-        targetOrientation = useHeadAsForward ? inputHandler.cameraTransform.rotation : inputHandler.leftControllerAnchor.rotation;
+        targetOrientation = useHeadAsForward ? inputHandler.cameraTransform.rotation : inputHandler.leftController.rotation;
         Vector2 movementInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch);
         
         // Combine joystick input and forward direction to determine the direction of acceleration
