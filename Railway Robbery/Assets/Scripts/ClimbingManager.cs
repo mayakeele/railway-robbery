@@ -6,24 +6,17 @@ public class ClimbingManager : MonoBehaviour
 {
     private InputHandler inputHandler;
 
-    //[SerializeField] private float climbingGripThreshold = 0.5f;
+    [SerializeField] private float oneHandedSpringConstant;
+    [SerializeField] private float twoHandedSpringConstant;
+    private float currentSpringConstant;
+    [SerializeField] private float springDamping;
 
-    [SerializeField] private float handRadius = 0.08f;
-    [SerializeField] private int armForce = 900; // (in newtons)
-    [SerializeField] private int bodyWeight = 625; // (in newtons)
+    [SerializeField] private float handRadius;
 
-
-    [HideInInspector] public bool leftHandColliding;
-    [HideInInspector] public bool rightHandColliding;
-
-    private bool leftHandClimbing;
-    private bool rightHandClimbing;
-
-    private Vector3 leftGripAnchor;
-    private Vector3 rightGripAnchor;
-
-    private Vector3 leftHandOffset;
-    private Vector3 rightHandOffset;
+    [HideInInspector] public PhysicsHand leftPhysicsHand;
+    [HideInInspector] public PhysicsHand rightPhysicsHand;
+    private ControllerCollisionTrigger leftControllerCollider;
+    private ControllerCollisionTrigger rightControllerCollider;
 
     private Vector3 leftBodyTarget;
     private Vector3 rightBodyTarget;
@@ -33,65 +26,101 @@ public class ClimbingManager : MonoBehaviour
     void Start()
     {
         inputHandler = GetComponent<InputHandler>();
+
+        leftPhysicsHand = inputHandler.leftPhysicsHand.GetComponent<PhysicsHand>();
+        rightPhysicsHand = inputHandler.rightPhysicsHand.GetComponent<PhysicsHand>();
     }
 
-    void FixedUpdate()
+
+    void Update()
     {
-        leftHandClimbing = false;
-        rightHandClimbing = false;
+        // Continue climbing if grip is held and the hand is touching climbable geometry / was previously climbing. Otherwise, update anchor positions and unfreeze the physics hand
 
-        leftHandOffset = this.transform.position - inputHandler.leftController.position; //inputHandler.cameraTransform.position - inputHandler.leftController.position;
-        rightHandOffset = this.transform.position - inputHandler.rightController.position; //inputHandler.cameraTransform.position - inputHandler.rightController.position;
+        if ((leftPhysicsHand.isColliding || leftPhysicsHand.isClimbing) && inputHandler.GetHeldState(InputHandler.InputButton.L_Grip)){
 
+            leftPhysicsHand.isClimbing = true;
+            leftPhysicsHand.rb.isKinematic = true;
+            leftPhysicsHand.rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
-        // Set anchor point if grip is held on each hand
-        /*if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch)){
-            leftGripAnchor = inputHandler.leftController.transform.position;
-        }
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch)){
-            rightGripAnchor = inputHandler.rightController.transform.position;
-        }*/
+            leftPhysicsHand.transform.position = leftPhysicsHand.physicsHandPositionAnchor;
+            leftPhysicsHand.transform.rotation = leftPhysicsHand.physicsHandRotationAnchor;
 
-
-        // Move body only if grip is held and the hand is touching climbable geometry. Otherwise, update anchor positions
-
-        // Left hand
-        if (leftHandColliding == true && inputHandler.GetHeldState(InputHandler.InputButton.L_Grip)){
-            inputHandler.rb.velocity = Vector3.zero;
-
-            leftBodyTarget = leftGripAnchor + leftHandOffset;
-            leftHandClimbing = true;
+            leftBodyTarget = transform.position - (inputHandler.leftController.position - leftPhysicsHand.controllerAnchor); //leftPhysicsHand.controllerAnchor + leftPhysicsHand.controllerToBodyOffset;
         }
         else{
-            leftGripAnchor = inputHandler.leftController.transform.position;
+            
+            leftPhysicsHand.isClimbing = false;
+            leftPhysicsHand.rb.isKinematic = false;
+            leftPhysicsHand.rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
+
+            leftPhysicsHand.controllerAnchor = inputHandler.leftController.transform.position;
+            leftPhysicsHand.physicsHandPositionAnchor = leftPhysicsHand.transform.position;
+            leftPhysicsHand.physicsHandRotationAnchor = leftPhysicsHand.transform.rotation;      
         }
 
-        // Right hand
-        if (rightHandColliding == true && inputHandler.GetHeldState(InputHandler.InputButton.R_Grip)){
-            inputHandler.rb.velocity = Vector3.zero;
 
-            rightBodyTarget = rightGripAnchor + rightHandOffset;
-            rightHandClimbing = true;
+        if ((rightPhysicsHand.isColliding || rightPhysicsHand.isClimbing) && inputHandler.GetHeldState(InputHandler.InputButton.R_Grip)){
+            
+            rightPhysicsHand.isClimbing = true;
+            rightPhysicsHand.rb.isKinematic = true;
+            rightPhysicsHand.rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+
+            rightPhysicsHand.transform.position = rightPhysicsHand.physicsHandPositionAnchor;
+            rightPhysicsHand.transform.rotation = rightPhysicsHand.physicsHandRotationAnchor;
+
+            rightBodyTarget = transform.position - (inputHandler.rightController.position - rightPhysicsHand.controllerAnchor); //rightPhysicsHand.controllerAnchor + rightPhysicsHand.controllerToBodyOffset;      
         }
         else{
-            rightGripAnchor = inputHandler.rightController.transform.position;
+
+            rightPhysicsHand.isClimbing = false;
+            rightPhysicsHand.rb.isKinematic = false;
+            rightPhysicsHand.rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
+
+            rightPhysicsHand.controllerAnchor = inputHandler.rightController.transform.position;
+            rightPhysicsHand.physicsHandPositionAnchor = rightPhysicsHand.transform.position;
+            rightPhysicsHand.physicsHandRotationAnchor = rightPhysicsHand.transform.rotation;
         }
+
 
 
         // If both hands are holding climbable geometry, calculate the average displacement of each one to determine target body position
-        if (leftHandClimbing && rightHandClimbing){
+        if (leftPhysicsHand.isClimbing && rightPhysicsHand.isClimbing){
             mainBodyTarget = (leftBodyTarget + rightBodyTarget) / 2;
+
+            currentSpringConstant = twoHandedSpringConstant;
+            inputHandler.playerRigidbody.useGravity = false;
         }
-        else if(leftHandClimbing){
+        else if(leftPhysicsHand.isClimbing){
             mainBodyTarget = leftBodyTarget;
+
+            currentSpringConstant = oneHandedSpringConstant;
+            inputHandler.playerRigidbody.useGravity = false;
         }
-        else if (rightHandClimbing){
-            mainBodyTarget = rightBodyTarget;   
+        else if (rightPhysicsHand.isClimbing){
+            mainBodyTarget = rightBodyTarget;
+
+            currentSpringConstant = oneHandedSpringConstant;
+            inputHandler.playerRigidbody.useGravity = false;
         }
         else{
-            mainBodyTarget = this.transform.position;
+            mainBodyTarget = transform.position;
+
+            inputHandler.playerRigidbody.useGravity = true;
         }
 
-        this.transform.position = mainBodyTarget;
+
+        Vector3 bodySpringForce = DampedOscillation.GetDampedSpringForce(
+            transform.position, 
+            mainBodyTarget, 
+            inputHandler.playerRigidbody.velocity, 
+            Vector3.zero, 
+            inputHandler.playerRigidbody.mass, 
+            currentSpringConstant, 
+            springDamping
+        );
+
+        if (leftPhysicsHand.isClimbing || rightPhysicsHand.isClimbing){
+            inputHandler.playerRigidbody.AddForce(bodySpringForce);
+        }    
     }
 }

@@ -17,7 +17,7 @@ public class ClimbableGeometry : MonoBehaviour
         coll.tag = "Climbable";
     }
 
-    void FixedUpdate()
+    void Update()
     {
         
     }
