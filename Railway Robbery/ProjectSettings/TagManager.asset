@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Climbable
+  - PlayerBody
+  - PhysicsHand
+  - Non-Climbable Static Geometry
   layers:
   - Default
   - TransparentFX
@@ -13,10 +17,10 @@ TagManager:
   - UI
   - 
   - 
-  - Climbable
-  - 
-  - 
-  - 
+  - Climbable Static Geometry
+  - Non-Climbable Static Geometry
+  - Player Body
+  - Physics Hand
   - 
   - 
   - 
