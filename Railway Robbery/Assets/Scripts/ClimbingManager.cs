@@ -6,12 +6,15 @@ public class ClimbingManager : MonoBehaviour
 {
     private InputHandler inputHandler;
 
-    [SerializeField] private float bodySpringConstant;
-    [SerializeField] private float bodySpringDamping;
+    [SerializeField] private float oneHandedSpringConstant;
+    [SerializeField] private float twoHandedSpringConstant;
+    private float currentSpringConstant;
+    [SerializeField] private float springDamping;
+
     [SerializeField] private float handRadius;
 
-    private PhysicsHand leftPhysicsHand;
-    private PhysicsHand rightPhysicsHand;
+    [HideInInspector] public PhysicsHand leftPhysicsHand;
+    [HideInInspector] public PhysicsHand rightPhysicsHand;
     private ControllerCollisionTrigger leftControllerCollider;
     private ControllerCollisionTrigger rightControllerCollider;
 
@@ -37,8 +40,7 @@ public class ClimbingManager : MonoBehaviour
 
             leftPhysicsHand.isClimbing = true;
             leftPhysicsHand.rb.isKinematic = true;
-
-            inputHandler.playerRigidbody.velocity = Vector3.zero;
+            leftPhysicsHand.rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
             leftPhysicsHand.transform.position = leftPhysicsHand.physicsHandPositionAnchor;
             leftPhysicsHand.transform.rotation = leftPhysicsHand.physicsHandRotationAnchor;
@@ -49,6 +51,7 @@ public class ClimbingManager : MonoBehaviour
             
             leftPhysicsHand.isClimbing = false;
             leftPhysicsHand.rb.isKinematic = false;
+            leftPhysicsHand.rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
             leftPhysicsHand.controllerAnchor = inputHandler.leftController.transform.position;
             leftPhysicsHand.physicsHandPositionAnchor = leftPhysicsHand.transform.position;
@@ -60,8 +63,7 @@ public class ClimbingManager : MonoBehaviour
             
             rightPhysicsHand.isClimbing = true;
             rightPhysicsHand.rb.isKinematic = true;
-
-            inputHandler.playerRigidbody.velocity = Vector3.zero;
+            rightPhysicsHand.rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
             rightPhysicsHand.transform.position = rightPhysicsHand.physicsHandPositionAnchor;
             rightPhysicsHand.transform.rotation = rightPhysicsHand.physicsHandRotationAnchor;
@@ -72,6 +74,7 @@ public class ClimbingManager : MonoBehaviour
 
             rightPhysicsHand.isClimbing = false;
             rightPhysicsHand.rb.isKinematic = false;
+            rightPhysicsHand.rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
             rightPhysicsHand.controllerAnchor = inputHandler.rightController.transform.position;
             rightPhysicsHand.physicsHandPositionAnchor = rightPhysicsHand.transform.position;
@@ -83,20 +86,41 @@ public class ClimbingManager : MonoBehaviour
         // If both hands are holding climbable geometry, calculate the average displacement of each one to determine target body position
         if (leftPhysicsHand.isClimbing && rightPhysicsHand.isClimbing){
             mainBodyTarget = (leftBodyTarget + rightBodyTarget) / 2;
+
+            currentSpringConstant = twoHandedSpringConstant;
+            inputHandler.playerRigidbody.useGravity = false;
         }
         else if(leftPhysicsHand.isClimbing){
             mainBodyTarget = leftBodyTarget;
+
+            currentSpringConstant = oneHandedSpringConstant;
+            inputHandler.playerRigidbody.useGravity = false;
         }
         else if (rightPhysicsHand.isClimbing){
             mainBodyTarget = rightBodyTarget;
+
+            currentSpringConstant = oneHandedSpringConstant;
+            inputHandler.playerRigidbody.useGravity = false;
         }
         else{
-            mainBodyTarget = this.transform.position;
+            mainBodyTarget = transform.position;
+
+            inputHandler.playerRigidbody.useGravity = true;
         }
 
-        //this.transform.position = mainBodyTarget;
+
         Vector3 bodySpringForce = DampedOscillation.GetDampedSpringForce(
-            transform.position, mainBodyTarget, Vector3.zero, Vector3.zero, inputHandler.playerRigidbody.mass, bodySpringConstant, bodySpringDamping);
-        inputHandler.playerRigidbody.AddForce(bodySpringForce);
+            transform.position, 
+            mainBodyTarget, 
+            inputHandler.playerRigidbody.velocity, 
+            Vector3.zero, 
+            inputHandler.playerRigidbody.mass, 
+            currentSpringConstant, 
+            springDamping
+        );
+
+        if (leftPhysicsHand.isClimbing || rightPhysicsHand.isClimbing){
+            inputHandler.playerRigidbody.AddForce(bodySpringForce);
+        }    
     }
 }

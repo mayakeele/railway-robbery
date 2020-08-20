@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 07dd756953a635147ac61766cdf04876,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -492,7 +493,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &229023917
 GameObject:
@@ -2587,7 +2588,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!114 &1142726783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3146,9 +3147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e463c0d2e1fa494a981cee2c4333196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodySpringConstant: 140
+  bodySpringConstant: 2000
   bodySpringDamping: 0.5
   handRadius: 0.05
+  leftPhysicsHand: {fileID: 0}
+  rightPhysicsHand: {fileID: 0}
 --- !u!114 &1594426094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3216,6 +3219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHeight: 2
+  legLiftPercentage: 0.5
   bodyGameobject: {fileID: 1714418375}
 --- !u!1 &1652440619
 GameObject:
@@ -3280,7 +3284,7 @@ Transform:
   - {fileID: 2122525777}
   - {fileID: 765471414}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1714418374
 GameObject:
@@ -3391,7 +3395,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!23 &1816177002
 MeshRenderer:
   m_ObjectHideFlags: 0
