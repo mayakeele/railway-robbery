@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class TrainCar : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+
+    public GameObject trainCarGameobject;
+
+
+    public TrainManager.CarType carType;
+    public int seed;
+    public float length;
+    public float width;
+    public float height;
+    public float groundOffset;
+
+    public Vector3 velocity;
+
+    
+    void Start() {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         
+    }
+
+
+    public void SetCarParameters(TrainManager.CarType inputCarType, int inputSeed, int inputLength, int inputWidth, int inputHeight, float inputGroundOffset){
+        carType = inputCarType;
+        seed = inputSeed;
+        length = inputLength;
+        width = inputWidth;
+        height = inputHeight;
+        groundOffset = inputGroundOffset;
     }
 }

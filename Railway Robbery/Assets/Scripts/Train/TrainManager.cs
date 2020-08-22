@@ -4,15 +4,72 @@ using UnityEngine;
 
 public class TrainManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+
+    public enum CarType {
+        Default,
+        Locomotive,
+        Caboose,
+        FlatCar,
+        BoxCar,
+        OreCar,
+        PassengerCar,
+        TankCar,
+        StockCar,
+        SpecialCar
+    }
+
+
+    public GameObject trainCarTypeContainer;
+
+    public int numTrainCars = 1;
+    public GameObject[] trainCars;
+
+    public Transform trainPosition;
+    public Vector3 trainVelocity;
+
+
+    private void Awake() {
+        trainCarTypeContainer = GameObject.FindGameObjectWithTag("TrainCarTypeContainer");
+    }
+
+    void Start() {
+        CreateNewTrain(numTrainCars);
+    }
+
+    void Update() {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+
+    public GameObject GenerateCarOfType(CarType carType, int seed, int length, int width, int height, float groundOffset){
+        GameObject carObject;
+
+        switch(carType){
+            case CarType.FlatCar:
+                carObject = trainCarTypeContainer.GetComponent<FlatCar>().GenerateCar(seed, length, width, height, groundOffset);
+                break;
+            default:
+                carObject = new GameObject();
+                break;
+        }
+
+        TrainCar carScript = carObject.AddComponent<TrainCar>();
+        carScript.SetCarParameters(carType, seed, length, width, height, groundOffset);
         
+        return carObject;
     }
+
+
+    public void CreateNewTrain(int numCars){
+        int trainSeed = Random.Range(1, 65535);
+
+        for (int i = 0; i < numCars; i++){
+            GameObject car = GenerateCarOfType(CarType.FlatCar, trainSeed, 6, 3, 2, 1);
+
+            car.name = "Train Car " + (int) i;
+            car.transform.parent = this.transform;
+            car.transform.position = new Vector3(0, 0, -10 * i);
+        }
+    }
+
 }

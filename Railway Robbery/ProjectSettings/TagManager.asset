@@ -8,6 +8,8 @@ TagManager:
   - PlayerBody
   - PhysicsHand
   - Non-Climbable Static Geometry
+  - TrainPartPrefabsContainer
+  - TrainCarTypeContainer
   layers:
   - Default
   - TransparentFX
