@@ -33,6 +33,9 @@ public class TrainPartPrefabs : MonoBehaviour
             newFloorVertices[i] = vertex;
         }
         floorMesh.vertices = newFloorVertices;
+        floorMesh.RecalculateBounds();
+
+        floorObject.GetComponent<BoxCollider>().size = new Vector3(width, height, length);
 
         floorObject.transform.localPosition = new Vector3(0, groundOffset, 0);
 
