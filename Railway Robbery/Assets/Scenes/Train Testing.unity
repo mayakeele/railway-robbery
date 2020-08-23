@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 154612606}
   - component: {fileID: 154612607}
+  - component: {fileID: 154612608}
   m_Layer: 0
   m_Name: Train Car Type Container
   m_TagString: TrainCarTypeContainer
@@ -162,6 +163,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60c7a0d97a8f3054288d3947b23a4c14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trainPartPrefabs: {fileID: 0}
+--- !u!114 &154612608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154612605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31aac5a8f5f5d0443825637e8feee6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   trainPartPrefabs: {fileID: 0}
@@ -278,7 +292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainCarTypeContainer: {fileID: 154612605}
-  numTrainCars: 3
+  numTrainCars: 1
   trainCars: []
   trainPosition: {fileID: 0}
   trainVelocity: {x: 0, y: 0, z: 0}
@@ -347,7 +361,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a54b7ad866d3a9b47bbf3b53baa0acc4, type: 2}
+  - {fileID: 2100000, guid: aeee7071bea0a4c478b4fea5933c5f79, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -436,7 +450,8 @@ MonoBehaviour:
   basePlatform: {fileID: 7041894798678912165, guid: 4cfe9c4c351a7c84b86b30cb39a89eb3,
     type: 3}
   wheels: {fileID: 0}
-  verticalWall: {fileID: 0}
+  straightWall: {fileID: 3869157576894058095, guid: 0130756ba897d0643ba919c3d6cc9098,
+    type: 3}
 --- !u!1 &2017826960
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +490,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.6
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2

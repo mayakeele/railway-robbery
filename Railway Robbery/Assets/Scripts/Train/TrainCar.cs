@@ -27,7 +27,7 @@ public class TrainCar : MonoBehaviour
     }
 
 
-    public void SetCarParameters(TrainManager.CarType inputCarType, int inputSeed, int inputLength, int inputWidth, int inputHeight, float inputGroundOffset){
+    public void SetCarParameters(TrainManager.CarType inputCarType, int inputSeed, float inputLength, float inputWidth, float inputHeight, float inputGroundOffset){
         carType = inputCarType;
         seed = inputSeed;
         length = inputLength;

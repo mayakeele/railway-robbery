@@ -41,12 +41,15 @@ public class TrainManager : MonoBehaviour
     }
 
 
-    public GameObject GenerateCarOfType(CarType carType, int seed, int length, int width, int height, float groundOffset){
+    public GameObject GenerateCarOfType(CarType carType, int seed, float length, float width, float height, float groundOffset){
         GameObject carObject;
 
         switch(carType){
             case CarType.FlatCar:
                 carObject = trainCarTypeContainer.GetComponent<FlatCar>().GenerateCar(seed, length, width, height, groundOffset);
+                break;
+            case CarType.BoxCar:
+                carObject = trainCarTypeContainer.GetComponent<BoxCar>().GenerateCar(seed, length, width, height, groundOffset);
                 break;
             default:
                 carObject = new GameObject();
@@ -64,7 +67,7 @@ public class TrainManager : MonoBehaviour
         int trainSeed = Random.Range(1, 65535);
 
         for (int i = 0; i < numCars; i++){
-            GameObject car = GenerateCarOfType(CarType.FlatCar, trainSeed, 6, 3, 2, 1);
+            GameObject car = GenerateCarOfType(CarType.BoxCar, trainSeed, 15, 3.5f, 4, 1);
 
             car.name = "Train Car " + (int) i;
             car.transform.parent = this.transform;
