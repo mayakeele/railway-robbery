@@ -20,9 +20,18 @@ public class TrainManager : MonoBehaviour
 
 
     public GameObject trainCarTypeContainer;
-
-    public int numTrainCars = 1;
     public GameObject[] trainCars;
+
+
+    public int numTrainCars;
+
+    public float standardCarLength;
+    public float standardCarWidth;
+    public float standardCarHeight;
+
+    public float connectorLength;
+    private float totalCarLength;
+
 
     public Transform trainPosition;
     public Vector3 trainVelocity;
@@ -30,6 +39,8 @@ public class TrainManager : MonoBehaviour
 
     private void Awake() {
         trainCarTypeContainer = GameObject.FindGameObjectWithTag("TrainCarTypeContainer");
+
+        totalCarLength = standardCarLength + (connectorLength * 2);
     }
 
     void Start() {
@@ -67,11 +78,11 @@ public class TrainManager : MonoBehaviour
         int trainSeed = Random.Range(1, 65535);
 
         for (int i = 0; i < numCars; i++){
-            GameObject car = GenerateCarOfType(CarType.BoxCar, trainSeed, 15, 3.5f, 4, 1);
+            GameObject car = GenerateCarOfType(CarType.BoxCar, trainSeed, standardCarLength, standardCarWidth, standardCarHeight, 1);
 
             car.name = "Train Car " + (int) i;
             car.transform.parent = this.transform;
-            car.transform.position = new Vector3(0, 0, -10 * i);
+            car.transform.position = new Vector3(0, 0, -(totalCarLength) * i);
         }
     }
 

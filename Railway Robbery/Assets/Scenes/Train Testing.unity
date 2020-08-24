@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 1.55
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 2017826961}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -179,6 +179,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainPartPrefabs: {fileID: 0}
+--- !u!1 &525919096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 525919097}
+  m_Layer: 0
+  m_Name: Lights
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &525919097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525919096}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2017826962}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &612159233
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +291,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &727005479
 GameObject:
@@ -292,8 +323,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainCarTypeContainer: {fileID: 154612605}
-  numTrainCars: 1
   trainCars: []
+  numTrainCars: 3
+  standardCarLength: 12
+  standardCarWidth: 4
+  standardCarHeight: 4
+  connectorLength: 1
   trainPosition: {fileID: 0}
   trainVelocity: {x: 0, y: 0, z: 0}
 --- !u!4 &727005481
@@ -399,7 +434,7 @@ Transform:
   m_GameObject: {fileID: 1634010304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -20}
-  m_LocalScale: {x: 1, y: 1, z: 6}
+  m_LocalScale: {x: 1.5, y: 1, z: 8}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -449,7 +484,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePlatform: {fileID: 7041894798678912165, guid: 4cfe9c4c351a7c84b86b30cb39a89eb3,
     type: 3}
-  wheels: {fileID: 0}
+  wheelSet: {fileID: 4308917305342417205, guid: 61be4e00ec49818459d3f6153b45b4c3,
+    type: 3}
+  trainConnector: {fileID: 3394625785967455748, guid: a77747eeefef46643a2cda1e68ba084f,
+    type: 3}
   straightWall: {fileID: 3869157576894058095, guid: 0130756ba897d0643ba919c3d6cc9098,
     type: 3}
 --- !u!1 &2017826960
@@ -480,8 +518,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.97342384, b: 0.9009434, a: 1}
-  m_Intensity: 1.09
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1.1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -541,6 +579,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 525919097}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}

@@ -5,7 +5,8 @@ using UnityEngine;
 public class TrainPartPrefabs : MonoBehaviour
 {
     public GameObject basePlatform;
-    public GameObject wheels;
+    public GameObject wheelSet;
+    public GameObject trainConnector;
 
     public GameObject straightWall;
 
@@ -15,19 +16,51 @@ public class TrainPartPrefabs : MonoBehaviour
         GameObject parentObject = new GameObject("Universal Base");
         Transform parentTransform = parentObject.transform;
 
+        // Base platform
         GameObject floorObject = Instantiate(basePlatform);
         floorObject.transform.parent = parentTransform;
-        //GameObject wheelsObject = Instantiate(wheels);
 
         Mesh floorMesh = floorObject.GetComponent<MeshFilter>().mesh;
-        //Mesh wheelsMesh = wheelsObject.GetComponent<Mesh>();
-
         Vector3 floorDimensions = new Vector3(width, thickness, length);
-
-        floorMesh = ScaleMesh(floorMesh, floorDimensions);
+        floorMesh.ScaleVerticesNonUniform(floorDimensions);
         floorObject.GetComponent<BoxCollider>().size = floorDimensions;
 
         floorObject.transform.localPosition = new Vector3(0, groundOffset, 0);
+
+        // Back train connector
+        GameObject connectorObject = Instantiate(trainConnector);
+        connectorObject.transform.parent = parentTransform;
+
+        Mesh connectorMesh = connectorObject.GetComponent<MeshFilter>().mesh;
+        connectorMesh.ScaleVerticesNonUniform(width, thickness, 1);
+        connectorObject.GetComponent<MeshCollider>().sharedMesh = connectorMesh;
+
+        connectorObject.transform.position = new Vector3(0, groundOffset, -length / 2);
+
+        // Front train connector
+        connectorObject = Instantiate(connectorObject);
+        connectorObject.transform.SetParent(parentTransform);
+        connectorObject.transform.position = new Vector3(0, groundOffset, length / 2);
+        connectorObject.transform.eulerAngles = new Vector3(0, 180, 0);
+
+        // Front wheel truck
+        GameObject wheelsObject = Instantiate(wheelSet);
+        wheelsObject.transform.SetParent(parentTransform);
+
+        MeshFilter[] wheelsMeshes = wheelsObject.GetComponentsInChildren<MeshFilter>();
+        foreach (MeshFilter meshFilter in wheelsMeshes){
+            meshFilter.mesh.ScaleVerticesNonUniform(width * 0.8f, groundOffset, groundOffset);
+        }
+        
+        float truckLength = 2 * groundOffset;
+        wheelsObject.transform.position = new Vector3(0, groundOffset, (length / 2) - truckLength);
+
+        // Back wheel truck
+        wheelsObject = Instantiate(wheelsObject);
+        wheelsObject.transform.SetParent(parentTransform);
+
+        wheelsObject.transform.position = new Vector3(0, groundOffset, -((length / 2) - truckLength));
+
 
         return parentObject;
     }
