@@ -490,6 +490,8 @@ MonoBehaviour:
     type: 3}
   straightWall: {fileID: 3869157576894058095, guid: 0130756ba897d0643ba919c3d6cc9098,
     type: 3}
+  slantedBoxcarRoof: {fileID: 7774375952394682706, guid: b24b677e9741200499508828e68e0ad6,
+    type: 3}
 --- !u!1 &2017826960
 GameObject:
   m_ObjectHideFlags: 0

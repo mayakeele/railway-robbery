@@ -13,6 +13,10 @@ public class BoxCar : MonoBehaviour
 
 
     public GameObject GenerateCar(int seed, float length, float width, float height, float groundOffset){
+        float halfLength = length / 2;
+        float halfWidth = width / 2;
+        float halfHeight = height / 2;
+
         GameObject parentObject = new GameObject("Boxcar");
         Transform parentTransform = parentObject.transform;
 
@@ -21,7 +25,7 @@ public class BoxCar : MonoBehaviour
         platform.transform.SetParent(parentObject.transform);
 
 
-        // Specialist car generation code goes here
+        // Walls
         GameObject leftWall = trainPartPrefabs.CreateStraightWall(length, height, 0.1f, true);
         leftWall.transform.SetParent(parentObject.transform);
         leftWall.transform.position = new Vector3(-(width/2), (height/2) + groundOffset, 0);
@@ -37,6 +41,17 @@ public class BoxCar : MonoBehaviour
         GameObject backWall = trainPartPrefabs.CreateStraightWall(width, height, 0.1f, false);
         backWall.transform.SetParent(parentObject.transform);
         backWall.transform.position = new Vector3(0, (height/2) + groundOffset, -(length/2));
+
+
+        // Roof
+        GameObject roof = Instantiate(trainPartPrefabs.slantedBoxcarRoof);
+        roof.transform.SetParent(parentTransform);
+        roof.transform.position = new Vector3(0, groundOffset + height, 0);
+        
+        Mesh roofMesh = roof.GetComponent<MeshFilter>().mesh;
+        roofMesh.ScaleVerticesNonUniform(width, 0.75f, length);
+        roof.GetComponent<MeshCollider>().sharedMesh = roofMesh;
+
 
         return parentObject;
     }

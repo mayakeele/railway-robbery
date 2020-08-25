@@ -9,6 +9,7 @@ public class TrainPartPrefabs : MonoBehaviour
     public GameObject trainConnector;
 
     public GameObject straightWall;
+    public GameObject slantedBoxcarRoof;
 
 
     public GameObject CreateBasePlatform(float length, float width, float thickness, float groundOffset){
