@@ -325,6 +325,7 @@ MonoBehaviour:
   trainCarTypeContainer: {fileID: 154612605}
   trainCars: []
   numTrainCars: 3
+  test_cartype: 3
   standardCarLength: 12
   standardCarWidth: 4
   standardCarHeight: 4
@@ -487,6 +488,12 @@ MonoBehaviour:
   wheelSet: {fileID: 4308917305342417205, guid: 61be4e00ec49818459d3f6153b45b4c3,
     type: 3}
   trainConnector: {fileID: 3394625785967455748, guid: a77747eeefef46643a2cda1e68ba084f,
+    type: 3}
+  ladderRung: {fileID: 2729115401334126531, guid: 3a4f852ab26b8aa41aae29b7eefbfa61,
+    type: 3}
+  ladderBars: {fileID: 5655530456963165027, guid: cf3d85f005b986642a779439c7aa00b1,
+    type: 3}
+  ladderConnector: {fileID: 6646699311518178110, guid: 16ba3af93e0dc674cbdff6a12e8c4a16,
     type: 3}
   straightWall: {fileID: 3869157576894058095, guid: 0130756ba897d0643ba919c3d6cc9098,
     type: 3}

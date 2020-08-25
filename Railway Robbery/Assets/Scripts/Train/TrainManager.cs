@@ -24,6 +24,7 @@ public class TrainManager : MonoBehaviour
 
 
     public int numTrainCars;
+    public CarType test_cartype;
 
     public float standardCarLength;
     public float standardCarWidth;
@@ -78,7 +79,7 @@ public class TrainManager : MonoBehaviour
         int trainSeed = Random.Range(1, 65535);
 
         for (int i = 0; i < numCars; i++){
-            GameObject car = GenerateCarOfType(CarType.BoxCar, trainSeed, standardCarLength, standardCarWidth, standardCarHeight, 1);
+            GameObject car = GenerateCarOfType(test_cartype, trainSeed, standardCarLength, standardCarWidth, standardCarHeight, 1);
 
             car.name = "Train Car " + (int) i;
             car.transform.parent = this.transform;

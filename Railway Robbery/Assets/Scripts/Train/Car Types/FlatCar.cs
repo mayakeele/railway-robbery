@@ -22,8 +22,10 @@ public class FlatCar : MonoBehaviour
         platform.transform.SetParent(parentTransform);
 
 
-        // Specialist car generation code goes here
-        
+        // Create a ladder that floats in the air (spoooookyyyy)
+        GameObject ladder = trainPartPrefabs.CreateLadder(Random.Range(1f, 5f));
+        ladder.transform.parent = parentTransform;
+        ladder.transform.position = new Vector3(0, groundOffset + 1, 0);
 
         return parentObject;
     }

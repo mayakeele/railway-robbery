@@ -8,6 +8,10 @@ public class TrainPartPrefabs : MonoBehaviour
     public GameObject wheelSet;
     public GameObject trainConnector;
 
+    public GameObject ladderRung;
+    public GameObject ladderBars;
+    public GameObject ladderConnector;
+
     public GameObject straightWall;
     public GameObject slantedBoxcarRoof;
 
@@ -49,8 +53,8 @@ public class TrainPartPrefabs : MonoBehaviour
         wheelsObject.transform.SetParent(parentTransform);
 
         MeshFilter[] wheelsMeshes = wheelsObject.GetComponentsInChildren<MeshFilter>();
-        foreach (MeshFilter meshFilter in wheelsMeshes){
-            meshFilter.mesh.ScaleVerticesNonUniform(width * 0.8f, groundOffset, groundOffset);
+        foreach (MeshFilter mf in wheelsMeshes){
+            mf.mesh.ScaleVerticesNonUniform(width * 0.8f, groundOffset, groundOffset);
         }
         
         float truckLength = 2 * groundOffset;
@@ -78,43 +82,29 @@ public class TrainPartPrefabs : MonoBehaviour
 
         Mesh wallMesh = wallObject.GetComponent<MeshFilter>().mesh;
 
-        wallMesh = ScaleMesh(wallMesh, wallDimensions);
+        wallMesh.ScaleVerticesNonUniform(wallDimensions);
         wallObject.GetComponent<BoxCollider>().size = wallDimensions;
 
         return parentObject;
     }
 
+    public GameObject CreateLadder(float height, float rungDistance = 0.4f){
+        // Instantiates ladder prefabs, scales them to required size and number of rungs
+        GameObject parentObject = new GameObject("Ladder");
+        Transform parentTransform = parentObject.transform;
 
-    public Mesh ScaleMesh(Mesh inputMesh, float x, float y, float z){
-        Vector3[] newVertices = inputMesh.vertices;
+        GameObject bars = Instantiate(ladderBars);
+        bars.transform.SetParent(parentTransform);
 
-        for (int i = 0; i < newVertices.Length; i++){
-            Vector3 vertex = newVertices[i];
-
-            vertex.x *= x;
-            vertex.y *= y;
-            vertex.z *= z;
-
-            newVertices[i] = vertex;
+        MeshFilter[] barMeshes = bars.GetComponentsInChildren<MeshFilter>();
+        foreach (MeshFilter mf in barMeshes){
+            Mesh m = mf.mesh;
+            m.ScaleVerticesNonUniform(1, height, 1);
+            mf.gameObject.GetComponent<CapsuleCollider>().height = height;
         }
-        inputMesh.vertices = newVertices;
-        inputMesh.RecalculateBounds();
 
-        return inputMesh;
-    }
-    public Mesh ScaleMesh(Mesh inputMesh, Vector3 dimensions){
-        Vector3[] newVertices = inputMesh.vertices;
+        // add connectors and rungs
 
-        for (int i = 0; i < newVertices.Length; i++){
-            Vector3 vertex = newVertices[i];
-
-            vertex.Scale(dimensions);
-
-            newVertices[i] = vertex;
-        }
-        inputMesh.vertices = newVertices;
-        inputMesh.RecalculateBounds();
-
-        return inputMesh;
+        return parentObject;
     }
 }
