@@ -88,22 +88,44 @@ public class TrainPartPrefabs : MonoBehaviour
         return parentObject;
     }
 
-    public GameObject CreateLadder(float height, float rungDistance = 0.4f){
+    public GameObject CreateLadder(float ladderHeight, float rungDistance = 0.4f){
         // Instantiates ladder prefabs, scales them to required size and number of rungs
         GameObject parentObject = new GameObject("Ladder");
         Transform parentTransform = parentObject.transform;
 
+        // Side bars
         GameObject bars = Instantiate(ladderBars);
-        bars.transform.SetParent(parentTransform);
+        bars.transform.parent = parentTransform;
 
         MeshFilter[] barMeshes = bars.GetComponentsInChildren<MeshFilter>();
         foreach (MeshFilter mf in barMeshes){
             Mesh m = mf.mesh;
-            m.ScaleVerticesNonUniform(1, height, 1);
-            mf.gameObject.GetComponent<CapsuleCollider>().height = height;
+            m.ScaleVerticesNonUniform(1, ladderHeight, 1);
+
+            CapsuleCollider coll = mf.gameObject.GetComponent<CapsuleCollider>();
+            coll.height = ladderHeight;
+            coll.center = new Vector3(coll.center.x, ladderHeight / 2, coll.center.z);
         }
 
-        // add connectors and rungs
+        // Connectors
+        GameObject connectors = Instantiate(ladderConnector);
+        connectors.transform.parent = parentTransform;
+        connectors.transform.position = new Vector3(0, ladderHeight, 0);
+
+        // Rungs
+        GameObject rungs = new GameObject("Ladder Rungs");
+        rungs.transform.parent = parentTransform;
+
+        float currRungHeight = ladderHeight;
+        while (currRungHeight > 0){
+            GameObject thisRung = Instantiate(ladderRung);
+            thisRung.transform.parent = rungs.transform;
+
+            thisRung.transform.position = new Vector3(0, currRungHeight, 0);
+
+            currRungHeight -= rungDistance;
+        }
+
 
         return parentObject;
     }
