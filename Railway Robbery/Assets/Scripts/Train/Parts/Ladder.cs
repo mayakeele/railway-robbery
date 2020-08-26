@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class Ladder : MonoBehaviour
 {
-    public Transform parentCar;
+    
+    //public Transform carTransform;
 
     public float height;
     public float rungDistance;
 
     public bool isMoveable = false;
 
+
+    private TrainPartFactory trainPartFactory;
+    private void Awake() {
+        trainPartFactory = GameObject.FindObjectOfType<TrainPartFactory>();
+    }
 
     void Start()
     {
@@ -22,6 +28,6 @@ public class Ladder : MonoBehaviour
         
     }
 
-
     
+
 }

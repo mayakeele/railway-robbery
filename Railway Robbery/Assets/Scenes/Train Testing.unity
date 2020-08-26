@@ -165,7 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60c7a0d97a8f3054288d3947b23a4c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainPartPrefabs: {fileID: 0}
 --- !u!114 &154612608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aac5a8f5f5d0443825637e8feee6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainPartPrefabs: {fileID: 0}
 --- !u!1 &525919096
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,7 +478,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1843595396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33fb89f97d34bb04eb01d8cff0b97e93, type: 3}
+  m_Script: {fileID: 11500000, guid: d49a06f4932fb8841b3c7d906240938e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   basePlatform: {fileID: 7041894798678912165, guid: 4cfe9c4c351a7c84b86b30cb39a89eb3,

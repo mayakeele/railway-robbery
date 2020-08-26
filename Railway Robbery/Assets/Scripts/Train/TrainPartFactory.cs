@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrainPartPrefabs : MonoBehaviour
+public class TrainPartFactory : MonoBehaviour
 {
     public GameObject basePlatform;
     public GameObject wheelSet;
@@ -88,14 +88,15 @@ public class TrainPartPrefabs : MonoBehaviour
         return parentObject;
     }
 
-    public GameObject CreateLadder(float ladderHeight, float rungDistance = 0.5f){
+
+    public GameObject CreateLadder(float inputHeight, float inputRungDistance = 0.5f){
         // Instantiates ladder prefabs, scales them to required size and number of rungs
         GameObject parentObject = new GameObject("Ladder");
         Transform parentTransform = parentObject.transform;
 
-        Ladder ladder = parentObject.AddComponent<Ladder>();
-        ladder.height = ladderHeight;
-        ladder.rungDistance = rungDistance;
+        Ladder ladderScript = parentObject.AddComponent<Ladder>();
+        ladderScript.height = inputHeight;
+        ladderScript.rungDistance = inputRungDistance;
 
         // Side bars
         GameObject bars = Instantiate(ladderBars);
@@ -104,30 +105,30 @@ public class TrainPartPrefabs : MonoBehaviour
         MeshFilter[] barMeshes = bars.GetComponentsInChildren<MeshFilter>();
         foreach (MeshFilter mf in barMeshes){
             Mesh m = mf.mesh;
-            m.ScaleVerticesNonUniform(1, ladderHeight, 1);
+            m.ScaleVerticesNonUniform(1, inputHeight, 1);
 
             CapsuleCollider coll = mf.gameObject.GetComponent<CapsuleCollider>();
-            coll.height = ladderHeight;
-            coll.center = new Vector3(coll.center.x, ladderHeight / 2, coll.center.z);
+            coll.height = inputHeight;
+            coll.center = new Vector3(coll.center.x, inputHeight / 2, coll.center.z);
         }
 
         // Connectors
         GameObject connectors = Instantiate(ladderConnector);
         connectors.transform.parent = parentTransform;
-        connectors.transform.position = new Vector3(0, ladderHeight, 0);
+        connectors.transform.position = new Vector3(0, inputHeight, 0);
 
         // Rungs
         GameObject rungs = new GameObject("Ladder Rungs");
         rungs.transform.parent = parentTransform;
 
-        float currRungHeight = ladderHeight;
+        float currRungHeight = inputHeight;
         while (currRungHeight > 0){
             GameObject thisRung = Instantiate(ladderRung);
             thisRung.transform.parent = rungs.transform;
 
             thisRung.transform.position = new Vector3(0, currRungHeight, 0);
 
-            currRungHeight -= rungDistance;
+            currRungHeight -= inputRungDistance;
         }
 
 

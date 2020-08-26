@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class BoxCar : MonoBehaviour
 {
-    [HideInInspector] public TrainPartPrefabs trainPartPrefabs;
-
-
+    private TrainPartFactory trainPartFactory;
     private void Awake() {
-        trainPartPrefabs = GameObject.FindGameObjectWithTag("TrainPartPrefabsContainer").GetComponent<TrainPartPrefabs>();
+        trainPartFactory = GameObject.FindObjectOfType<TrainPartFactory>();
     }
 
 
@@ -21,30 +19,30 @@ public class BoxCar : MonoBehaviour
         Transform parentTransform = parentObject.transform;
 
         // Create a base platform to build upon
-        GameObject platform = trainPartPrefabs.CreateBasePlatform(carLength, carWidth, 0.15f, groundOffset);
+        GameObject platform = trainPartFactory.CreateBasePlatform(carLength, carWidth, 0.15f, groundOffset);
         platform.transform.SetParent(parentObject.transform);
 
 
         // Walls
-        GameObject leftWall = trainPartPrefabs.CreateStraightWall(carLength, carHeight, 0.1f, true);
+        GameObject leftWall = trainPartFactory.CreateStraightWall(carLength, carHeight, 0.1f, true);
         leftWall.transform.SetParent(parentObject.transform);
         leftWall.transform.position = new Vector3(-halfWidth, halfHeight + groundOffset, 0);
 
-        GameObject rightWall = trainPartPrefabs.CreateStraightWall(carLength, carHeight, 0.1f, true);
+        GameObject rightWall = trainPartFactory.CreateStraightWall(carLength, carHeight, 0.1f, true);
         rightWall.transform.SetParent(parentObject.transform);
         rightWall.transform.position = new Vector3(halfWidth, halfHeight + groundOffset, 0);
 
-        GameObject frontWall = trainPartPrefabs.CreateStraightWall(carWidth, carHeight, 0.1f, false);
+        GameObject frontWall = trainPartFactory.CreateStraightWall(carWidth, carHeight, 0.1f, false);
         frontWall.transform.SetParent(parentObject.transform);
         frontWall.transform.position = new Vector3(0, halfHeight + groundOffset, halfLength);
 
-        GameObject backWall = trainPartPrefabs.CreateStraightWall(carWidth, carHeight, 0.1f, false);
+        GameObject backWall = trainPartFactory.CreateStraightWall(carWidth, carHeight, 0.1f, false);
         backWall.transform.SetParent(parentObject.transform);
         backWall.transform.position = new Vector3(0, halfHeight + groundOffset, -halfLength);
 
 
         // Roof
-        GameObject roof = Instantiate(trainPartPrefabs.slantedBoxcarRoof);
+        GameObject roof = Instantiate(trainPartFactory.slantedBoxcarRoof);
         roof.transform.SetParent(parentTransform);
         roof.transform.position = new Vector3(0, groundOffset + carHeight, 0);
         
@@ -98,11 +96,11 @@ public class BoxCar : MonoBehaviour
 
             float ladderHeight = Random.Range(1.5f, carHeight);
 
-            GameObject ladder = trainPartPrefabs.CreateLadder(ladderHeight);
-            ladder.transform.parent = parentTransform;
+            GameObject ladderObject = trainPartFactory.CreateLadder(ladderHeight);
+            ladderObject.transform.parent = parentTransform;
 
-            ladder.transform.position = ladderPos;
-            ladder.transform.eulerAngles = new Vector3(0, ladderYRot, 0);
+            ladderObject.transform.position = ladderPos;
+            ladderObject.transform.eulerAngles = new Vector3(0, ladderYRot, 0);
         }
 
 
