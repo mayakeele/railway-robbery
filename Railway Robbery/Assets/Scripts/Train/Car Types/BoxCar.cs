@@ -12,47 +12,101 @@ public class BoxCar : MonoBehaviour
     }
 
 
-    public GameObject GenerateCar(int seed, float length, float width, float height, float groundOffset){
-        float halfLength = length / 2;
-        float halfWidth = width / 2;
-        float halfHeight = height / 2;
+    public GameObject GenerateCar(int seed, float carLength, float carWidth, float carHeight, float groundOffset){
+        float halfLength = carLength / 2;
+        float halfWidth = carWidth / 2;
+        float halfHeight = carHeight / 2;
 
         GameObject parentObject = new GameObject("Boxcar");
         Transform parentTransform = parentObject.transform;
 
         // Create a base platform to build upon
-        GameObject platform = trainPartPrefabs.CreateBasePlatform(length, width, 0.15f, groundOffset);
+        GameObject platform = trainPartPrefabs.CreateBasePlatform(carLength, carWidth, 0.15f, groundOffset);
         platform.transform.SetParent(parentObject.transform);
 
 
         // Walls
-        GameObject leftWall = trainPartPrefabs.CreateStraightWall(length, height, 0.1f, true);
+        GameObject leftWall = trainPartPrefabs.CreateStraightWall(carLength, carHeight, 0.1f, true);
         leftWall.transform.SetParent(parentObject.transform);
-        leftWall.transform.position = new Vector3(-(width/2), (height/2) + groundOffset, 0);
+        leftWall.transform.position = new Vector3(-halfWidth, halfHeight + groundOffset, 0);
 
-        GameObject rightWall = trainPartPrefabs.CreateStraightWall(length, height, 0.1f, true);
+        GameObject rightWall = trainPartPrefabs.CreateStraightWall(carLength, carHeight, 0.1f, true);
         rightWall.transform.SetParent(parentObject.transform);
-        rightWall.transform.position = new Vector3((width/2), (height/2) + groundOffset, 0);
+        rightWall.transform.position = new Vector3(halfWidth, halfHeight + groundOffset, 0);
 
-        GameObject frontWall = trainPartPrefabs.CreateStraightWall(width, height, 0.1f, false);
+        GameObject frontWall = trainPartPrefabs.CreateStraightWall(carWidth, carHeight, 0.1f, false);
         frontWall.transform.SetParent(parentObject.transform);
-        frontWall.transform.position = new Vector3(0, (height/2) + groundOffset, (length/2));
+        frontWall.transform.position = new Vector3(0, halfHeight + groundOffset, halfLength);
 
-        GameObject backWall = trainPartPrefabs.CreateStraightWall(width, height, 0.1f, false);
+        GameObject backWall = trainPartPrefabs.CreateStraightWall(carWidth, carHeight, 0.1f, false);
         backWall.transform.SetParent(parentObject.transform);
-        backWall.transform.position = new Vector3(0, (height/2) + groundOffset, -(length/2));
+        backWall.transform.position = new Vector3(0, halfHeight + groundOffset, -halfLength);
 
 
         // Roof
         GameObject roof = Instantiate(trainPartPrefabs.slantedBoxcarRoof);
         roof.transform.SetParent(parentTransform);
-        roof.transform.position = new Vector3(0, groundOffset + height, 0);
+        roof.transform.position = new Vector3(0, groundOffset + carHeight, 0);
         
         Mesh roofMesh = roof.GetComponent<MeshFilter>().mesh;
-        roofMesh.ScaleVerticesNonUniform(width, 0.75f, length);
+        roofMesh.ScaleVerticesNonUniform(carWidth, 0.75f, carLength);
         roof.GetComponent<MeshCollider>().sharedMesh = roofMesh;
+
+
+        // Place ladder(s) in random precalculated spots
+        float sideInset = 0.6f;
+        float distanceOut = 0.1f + 0.05f;
+
+        Vector3[] possibleLadderPositions = new Vector3[] {
+            // Back
+            new Vector3(halfWidth - sideInset, groundOffset, -halfLength - distanceOut),
+            new Vector3(-halfWidth + sideInset, groundOffset, -halfLength - distanceOut),
+
+            // Left
+            new Vector3(-halfWidth - distanceOut, groundOffset, -halfLength + sideInset),
+            new Vector3(-halfWidth - distanceOut, groundOffset, halfLength - sideInset),
+
+            // Front
+            new Vector3(-halfWidth + sideInset, groundOffset, halfLength + distanceOut),
+            new Vector3(halfWidth - sideInset, groundOffset, halfLength + distanceOut),
+
+            // Right
+            new Vector3(halfWidth + distanceOut, groundOffset, halfLength - sideInset),
+            new Vector3(halfWidth + distanceOut, groundOffset, -halfLength + sideInset)
+            
+        };
+        int[] possibleLadderYRotations = new int[] {
+            0,
+            0,
+
+            90,
+            90,
+
+            180,
+            180,
+            
+            270,
+            270
+        };
+
+        int[] ladderPosIndices = ArrayUtils.ChooseRandomIndices(4, possibleLadderPositions.Length, false);
+        for (int i = 0; i < ladderPosIndices.Length; i++){
+            int index = ladderPosIndices[i];
+
+            Vector3 ladderPos = possibleLadderPositions[index];
+            float ladderYRot = possibleLadderYRotations[index];
+
+            float ladderHeight = Random.Range(1.5f, carHeight);
+
+            GameObject ladder = trainPartPrefabs.CreateLadder(ladderHeight);
+            ladder.transform.parent = parentTransform;
+
+            ladder.transform.position = ladderPos;
+            ladder.transform.eulerAngles = new Vector3(0, ladderYRot, 0);
+        }
 
 
         return parentObject;
     }
+
 }

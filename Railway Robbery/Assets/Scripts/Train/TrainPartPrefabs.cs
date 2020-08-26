@@ -88,7 +88,7 @@ public class TrainPartPrefabs : MonoBehaviour
         return parentObject;
     }
 
-    public GameObject CreateLadder(float ladderHeight, float rungDistance = 0.4f){
+    public GameObject CreateLadder(float ladderHeight, float rungDistance = 0.5f){
         // Instantiates ladder prefabs, scales them to required size and number of rungs
         GameObject parentObject = new GameObject("Ladder");
         Transform parentTransform = parentObject.transform;
