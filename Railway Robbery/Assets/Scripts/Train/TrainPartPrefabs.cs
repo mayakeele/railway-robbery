@@ -93,6 +93,10 @@ public class TrainPartPrefabs : MonoBehaviour
         GameObject parentObject = new GameObject("Ladder");
         Transform parentTransform = parentObject.transform;
 
+        Ladder ladder = parentObject.AddComponent<Ladder>();
+        ladder.height = ladderHeight;
+        ladder.rungDistance = rungDistance;
+
         // Side bars
         GameObject bars = Instantiate(ladderBars);
         bars.transform.parent = parentTransform;
