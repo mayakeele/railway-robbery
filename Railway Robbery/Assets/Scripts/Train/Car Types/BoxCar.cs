@@ -11,6 +11,7 @@ public class BoxCar : MonoBehaviour
 
 
     public GameObject GenerateCar(int seed, float carLength, float carWidth, float carHeight, float groundOffset){
+
         float halfLength = carLength / 2;
         float halfWidth = carWidth / 2;
         float halfHeight = carHeight / 2;
@@ -106,5 +107,4 @@ public class BoxCar : MonoBehaviour
 
         return parentObject;
     }
-
 }

@@ -40,11 +40,14 @@ public class TrainManager : MonoBehaviour
 
     private void Awake() {
         trainCarTypeContainer = GameObject.FindGameObjectWithTag("TrainCarTypeContainer");
-
-        totalCarLength = standardCarLength + (connectorLength * 2);
+        trainCars = new GameObject[numTrainCars];
     }
 
     void Start() {
+        standardCarLength = Random.Range(5f, 20f);
+        standardCarWidth = Random.Range(2f, 4f);
+        standardCarHeight = Random.Range(2f, 4.3f);
+
         CreateNewTrain(numTrainCars);
     }
 
@@ -58,13 +61,24 @@ public class TrainManager : MonoBehaviour
 
         switch(carType){
             case CarType.FlatCar:
+                length = length.RoundToMultiple(1f, false);
+                width = width.RoundToMultiple(0.5f, false);
+                height = height.RoundToMultiple(1f, false);
+
                 carObject = trainCarTypeContainer.GetComponent<FlatCar>().GenerateCar(seed, length, width, height, groundOffset);
+                
                 break;
             case CarType.BoxCar:
+                length = length.RoundToMultiple(1.5f, false);
+                width = width.RoundToMultiple(1f, false);
+                height = height.RoundToMultiple(0.5f, false);
+
                 carObject = trainCarTypeContainer.GetComponent<BoxCar>().GenerateCar(seed, length, width, height, groundOffset);
                 break;
             default:
+                Debug.LogError("Undefined train car type!");
                 carObject = new GameObject();
+                
                 break;
         }
 
@@ -83,7 +97,11 @@ public class TrainManager : MonoBehaviour
 
             car.name = "Train Car " + (int) i;
             car.transform.parent = this.transform;
-            car.transform.position = new Vector3(0, 0, -(totalCarLength) * i);
+
+            totalCarLength += car.GetComponentInChildren<TrainCar>().length + (connectorLength * 2);
+            car.transform.position = new Vector3(0, 0, -totalCarLength);
+
+            trainCars[i] = car;
         }
     }
 
