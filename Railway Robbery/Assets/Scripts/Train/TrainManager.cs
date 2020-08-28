@@ -31,7 +31,7 @@ public class TrainManager : MonoBehaviour
     public float standardCarHeight;
 
     public float connectorLength;
-    private float totalCarLength;
+    private float totalCarLength = 0;
 
 
     public Transform trainPosition;
@@ -44,8 +44,8 @@ public class TrainManager : MonoBehaviour
     }
 
     void Start() {
-        standardCarLength = Random.Range(5f, 20f);
-        standardCarWidth = Random.Range(2f, 4f);
+        standardCarLength = Random.Range(8f, 20f);
+        standardCarWidth = Random.Range(2.5f, 5f);
         standardCarHeight = Random.Range(2f, 4.3f);
 
         CreateNewTrain(numTrainCars);
@@ -63,15 +63,15 @@ public class TrainManager : MonoBehaviour
             case CarType.FlatCar:
                 length = length.RoundToMultiple(1f, false);
                 width = width.RoundToMultiple(0.5f, false);
-                height = height.RoundToMultiple(1f, false);
+                height = height.RoundToMultiple(1.5f, false);
 
                 carObject = trainCarTypeContainer.GetComponent<FlatCar>().GenerateCar(seed, length, width, height, groundOffset);
                 
                 break;
             case CarType.BoxCar:
                 length = length.RoundToMultiple(1.5f, false);
-                width = width.RoundToMultiple(1f, false);
-                height = height.RoundToMultiple(0.5f, false);
+                width = 3;//width.RoundToMultiple(1f, false);
+                height = 3;//height.RoundToMultiple(3f, false);
 
                 carObject = trainCarTypeContainer.GetComponent<BoxCar>().GenerateCar(seed, length, width, height, groundOffset);
                 break;
@@ -98,8 +98,9 @@ public class TrainManager : MonoBehaviour
             car.name = "Train Car " + (int) i;
             car.transform.parent = this.transform;
 
-            totalCarLength += car.GetComponentInChildren<TrainCar>().length + (connectorLength * 2);
             car.transform.position = new Vector3(0, 0, -totalCarLength);
+
+            totalCarLength += car.GetComponentInChildren<TrainCar>().length + (connectorLength * 2);
 
             trainCars[i] = car;
         }

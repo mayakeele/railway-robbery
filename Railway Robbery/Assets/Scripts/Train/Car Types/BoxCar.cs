@@ -23,23 +23,27 @@ public class BoxCar : MonoBehaviour
         GameObject platform = trainPartFactory.CreateBasePlatform(carLength, carWidth, 0.15f, groundOffset);
         platform.transform.SetParent(parentObject.transform);
 
-
+        
         // Walls
-        GameObject leftWall = trainPartFactory.CreateStraightWall(carLength, carHeight, 0.1f, true);
-        leftWall.transform.SetParent(parentObject.transform);
-        leftWall.transform.position = new Vector3(-halfWidth, halfHeight + groundOffset, 0);
+        float sidePanelLength = 1.5f;
+        int numPanelsLong = Mathf.RoundToInt(carLength / sidePanelLength);
+        for (int i = 0; i < numPanelsLong; i++) {
+            GameObject leftWall = Instantiate(trainPartFactory.boxcarSidePanelStandard);
+            leftWall.transform.SetParent(parentObject.transform);
+            leftWall.transform.position = new Vector3(-halfWidth, groundOffset, (i * sidePanelLength) - halfLength + (sidePanelLength/2));
 
-        GameObject rightWall = trainPartFactory.CreateStraightWall(carLength, carHeight, 0.1f, true);
-        rightWall.transform.SetParent(parentObject.transform);
-        rightWall.transform.position = new Vector3(halfWidth, halfHeight + groundOffset, 0);
+            GameObject rightWall = Instantiate(trainPartFactory.boxcarSidePanelStandard);
+            rightWall.transform.SetParent(parentObject.transform);
+            rightWall.transform.position = new Vector3(halfWidth, groundOffset, (i * sidePanelLength) - halfLength + (sidePanelLength/2));
+        }
 
-        GameObject frontWall = trainPartFactory.CreateStraightWall(carWidth, carHeight, 0.1f, false);
+        GameObject frontWall = Instantiate(trainPartFactory.boxcarBackPanelStandard);
         frontWall.transform.SetParent(parentObject.transform);
-        frontWall.transform.position = new Vector3(0, halfHeight + groundOffset, halfLength);
+        frontWall.transform.position = new Vector3(0, groundOffset, halfLength);
 
-        GameObject backWall = trainPartFactory.CreateStraightWall(carWidth, carHeight, 0.1f, false);
+        GameObject backWall = Instantiate(trainPartFactory.boxcarBackPanelStandard);
         backWall.transform.SetParent(parentObject.transform);
-        backWall.transform.position = new Vector3(0, halfHeight + groundOffset, -halfLength);
+        backWall.transform.position = new Vector3(0, groundOffset, -halfLength);
 
 
         // Roof
@@ -48,7 +52,7 @@ public class BoxCar : MonoBehaviour
         roof.transform.position = new Vector3(0, groundOffset + carHeight, 0);
         
         Mesh roofMesh = roof.GetComponent<MeshFilter>().mesh;
-        roofMesh.ScaleVerticesNonUniform(carWidth, 0.75f, carLength);
+        roofMesh.ScaleVerticesNonUniform(carWidth + 0.1f + 0.1f, 0.6f, carLength + 0.1f + 0.05f);
         roof.GetComponent<MeshCollider>().sharedMesh = roofMesh;
 
 
