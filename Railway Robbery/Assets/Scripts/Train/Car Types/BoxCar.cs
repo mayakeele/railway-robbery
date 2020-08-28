@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoxCar : MonoBehaviour
 {
     private TrainPartFactory trainPartFactory;
-    private void Awake() {
+    void Awake() {
         trainPartFactory = GameObject.FindObjectOfType<TrainPartFactory>();
     }
 
@@ -37,14 +37,17 @@ public class BoxCar : MonoBehaviour
             rightWall.transform.position = new Vector3(halfWidth, groundOffset, (i * sidePanelLength) - halfLength + (sidePanelLength/2));
         }
 
-        GameObject frontWall = Instantiate(trainPartFactory.boxcarBackPanelStandard);
-        frontWall.transform.SetParent(parentObject.transform);
-        frontWall.transform.position = new Vector3(0, groundOffset, halfLength);
-
         GameObject backWall = Instantiate(trainPartFactory.boxcarBackPanelStandard);
         backWall.transform.SetParent(parentObject.transform);
+        backWall.GetComponent<BoxcarBackPanel>().Initialize();
         backWall.transform.position = new Vector3(0, groundOffset, -halfLength);
 
+        GameObject frontWall = Instantiate(trainPartFactory.boxcarBackPanelStandard);
+        frontWall.transform.SetParent(parentObject.transform);
+        frontWall.GetComponent<BoxcarBackPanel>().Initialize();
+        frontWall.transform.position = new Vector3(0, groundOffset, halfLength);
+        frontWall.transform.eulerAngles = new Vector3(0, 180, 0);
+        
 
         // Roof
         GameObject roof = Instantiate(trainPartFactory.slantedBoxcarRoof);
@@ -62,16 +65,16 @@ public class BoxCar : MonoBehaviour
 
         Vector3[] possibleLadderPositions = new Vector3[] {
             // Back
-            new Vector3(halfWidth - sideInset, groundOffset, -halfLength - distanceOut),
-            new Vector3(-halfWidth + sideInset, groundOffset, -halfLength - distanceOut),
+            //new Vector3(halfWidth - sideInset, groundOffset, -halfLength - distanceOut),
+            //new Vector3(-halfWidth + sideInset, groundOffset, -halfLength - distanceOut),
 
             // Left
             new Vector3(-halfWidth - distanceOut, groundOffset, -halfLength + sideInset),
             new Vector3(-halfWidth - distanceOut, groundOffset, halfLength - sideInset),
 
             // Front
-            new Vector3(-halfWidth + sideInset, groundOffset, halfLength + distanceOut),
-            new Vector3(halfWidth - sideInset, groundOffset, halfLength + distanceOut),
+            //new Vector3(-halfWidth + sideInset, groundOffset, halfLength + distanceOut),
+            //new Vector3(halfWidth - sideInset, groundOffset, halfLength + distanceOut),
 
             // Right
             new Vector3(halfWidth + distanceOut, groundOffset, halfLength - sideInset),
@@ -79,20 +82,20 @@ public class BoxCar : MonoBehaviour
             
         };
         int[] possibleLadderYRotations = new int[] {
-            0,
-            0,
+            //0,
+            //0,
 
             90,
             90,
 
-            180,
-            180,
+            //180,
+            //180,
             
             270,
             270
         };
 
-        int[] ladderPosIndices = ArrayUtils.ChooseRandomIndices(4, possibleLadderPositions.Length, false);
+        int[] ladderPosIndices = RandomExtensions.ChooseRandomIndices(4, possibleLadderPositions.Length, false);
         for (int i = 0; i < ladderPosIndices.Length; i++){
             int index = ladderPosIndices[i];
 

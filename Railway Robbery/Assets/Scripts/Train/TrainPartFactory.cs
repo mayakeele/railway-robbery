@@ -98,8 +98,7 @@ public class TrainPartFactory : MonoBehaviour
         Transform parentTransform = parentObject.transform;
 
         Ladder ladderScript = parentObject.AddComponent<Ladder>();
-        ladderScript.height = inputHeight;
-        ladderScript.rungDistance = inputRungDistance;
+        ladderScript.Initialize(inputHeight, inputRungDistance);
 
         // Side bars
         GameObject bars = Instantiate(ladderBars);

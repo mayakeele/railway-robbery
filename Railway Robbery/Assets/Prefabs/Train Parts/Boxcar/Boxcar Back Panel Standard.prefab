@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4337488926409942295}
+  - component: {fileID: 6800052842381392208}
   - component: {fileID: 837107301584595634}
   - component: {fileID: 3205146687471689336}
   - component: {fileID: 4304141964307563262}
   m_Layer: 0
-  m_Name: Boxcar Standard Back Panel
+  m_Name: Boxcar Back Panel Standard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,6 +34,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6800052842381392208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3997520392635465645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 736bb21701efe19458a53c3b480444f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &837107301584595634
 MeshFilter:
   m_ObjectHideFlags: 0

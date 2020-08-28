@@ -14,19 +14,23 @@ public class Ladder : MonoBehaviour
 
 
     private TrainPartFactory trainPartFactory;
-    private void Awake() {
+    void Start() {
         trainPartFactory = GameObject.FindObjectOfType<TrainPartFactory>();
     }
 
-    void Start()
+     void Update()
     {
         
     }
 
-    void Update()
-    {
-        
+
+    public void Initialize(float height, float rungDistance){
+        this.height = height;
+        this.rungDistance = rungDistance;
     }
+
+
+   
 
     
 
