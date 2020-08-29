@@ -2605,10 +2605,10 @@ MonoBehaviour:
   climbingManager: {fileID: 1594426093}
   rb: {fileID: 0}
   isLeftController: 1
-  springConstant: 6000
-  springDampingRatio: 0.5
-  angularSpringConstant: 250
-  angularSpringDampingRatio: 0
+  springFrequency: 10
+  springDampingRatio: 1
+  angularSpringFrequency: 15
+  angularSpringDampingRatio: 0.35
   angleToController: 0
   rotationOffsetEuler: {x: 0, y: 0, z: 90}
   rotationOffset: {x: 0, y: 0, z: 0, w: 0}
@@ -3147,8 +3147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e463c0d2e1fa494a981cee2c4333196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodySpringConstant: 2000
-  bodySpringDamping: 0.5
+  oneHandedSpringFrequency: 4
+  twoHandedSpringFrequency: 12
+  springDamping: 0.5
   handRadius: 0.05
   leftPhysicsHand: {fileID: 0}
   rightPhysicsHand: {fileID: 0}
@@ -3459,10 +3460,10 @@ MonoBehaviour:
   climbingManager: {fileID: 1594426093}
   rb: {fileID: 0}
   isLeftController: 0
-  springConstant: 6000
-  springDampingRatio: 0.5
-  angularSpringConstant: 250
-  angularSpringDampingRatio: 0
+  springFrequency: 10
+  springDampingRatio: 1
+  angularSpringFrequency: 15
+  angularSpringDampingRatio: 0.35
   angleToController: 0
   rotationOffsetEuler: {x: 0, y: 0, z: -90}
   rotationOffset: {x: 0, y: 0, z: 0, w: 0}
