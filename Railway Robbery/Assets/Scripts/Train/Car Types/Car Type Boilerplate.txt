@@ -1,0 +1,26 @@
+[HideInInspector] public TrainPartPrefabs trainPartPrefabs;
+
+
+    private void Awake() {
+        trainPartPrefabs = GameObject.FindGameObjectWithTag("TrainPartPrefabsContainer").GetComponent<TrainPartPrefabs>();
+    }
+
+
+    public GameObject GenerateCar(int seed, float length, float width, float height, float groundOffset){
+        float halfLength = length / 2;
+        float halfWidth = width / 2;
+        float halfHeight = height / 2;
+
+        GameObject parentObject = new GameObject("CARNAMEGOHERE");
+        Transform parentTransform = parentObject.transform;
+
+        // Create a base platform to build upon
+        GameObject platform = trainPartPrefabs.CreateBasePlatform(length, width, 0.15f, groundOffset);
+        platform.transform.SetParent(parentObject.transform);
+
+
+        // Specialist car generation code goes here
+        
+
+        return thisCar;
+    }
