@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TEST_cube : MonoBehaviour
 {   
-    public float springConstant;
+    public float springFrequency;
     public float dampingRatio;
 
-    public float angularSpringConstant;
+    public float angularSpringFrequency;
     public float angularDampingRatio;
     public Transform target;
 
@@ -17,15 +17,27 @@ public class TEST_cube : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        rb.maxAngularVelocity = 30;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Vector3 force = DampedOscillation.GetDampedSpringForce(this.transform, target.transform, Vector3.zero, rb.mass, springConstant, dampingRatio);
-        //rb.AddForce(force);
+        Vector3 accel = DampedSpring.GetDampedSpringAcceleration(
+            this.transform.position, 
+            target.transform.position,
+            rb.velocity, 
+            springFrequency,
+            dampingRatio);
+        rb.AddForce(accel, ForceMode.Acceleration);
 
-        //Vector3 torque = DampedOscillation.GetDampedSpringTorque(this.transform, target.transform, rb.mass * rb.inertiaTensor.magnitude, angularSpringConstant, angularDampingRatio);
-        //rb.AddTorque(torque);
+        Vector3 angularAccel = DampedSpring.GetDampedSpringAngularAcceleration(
+            this.transform.rotation, 
+            target.transform.rotation,
+            rb.angularVelocity, 
+            angularSpringFrequency, 
+            angularDampingRatio);
+        rb.AddTorque(angularAccel, ForceMode.Acceleration);
     }
 }
