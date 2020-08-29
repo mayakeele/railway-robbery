@@ -310,10 +310,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ab5ec08d744854995020e4d9e7ad09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springFrequency: 10
-  dampingRatio: 1
-  angularSpringFrequency: 15
-  angularDampingRatio: 0.35
+  springConstant: 250
+  dampingRatio: 0.8
+  angularSpringConstant: 20
+  angularDampingRatio: 0.15
   target: {fileID: 612353373}
 --- !u!65 &994122528
 BoxCollider:
