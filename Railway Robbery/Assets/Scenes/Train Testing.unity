@@ -504,6 +504,10 @@ MonoBehaviour:
     type: 3}
   boxcarBackPanelStandard: {fileID: 3997520392635465645, guid: 3e9b99808a55f0849b95a6581ae111ab,
     type: 3}
+  boxcarSlidingDoorLeft: {fileID: 3732039211488340563, guid: 2b996503bf2aa3943b9e33c74ee6ba2d,
+    type: 3}
+  boxcarSlidingDoorRight: {fileID: 5854983022625984561, guid: 18044994824742847886e4c24c223a68,
+    type: 3}
 --- !u!1 &1997478376
 GameObject:
   m_ObjectHideFlags: 0

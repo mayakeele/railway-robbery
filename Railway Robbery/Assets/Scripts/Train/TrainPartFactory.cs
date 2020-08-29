@@ -17,6 +17,8 @@ public class TrainPartFactory : MonoBehaviour
     public GameObject boxcarDoorHandle;
     public GameObject boxcarSidePanelStandard;
     public GameObject boxcarBackPanelStandard;
+    public GameObject boxcarSlidingDoorLeft;
+    public GameObject boxcarSlidingDoorRight;
 
 
     public GameObject CreateBasePlatform(float length, float width, float thickness, float groundOffset){
