@@ -37,6 +37,7 @@ public class PhysicsHand : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         rotationOffset = Quaternion.Euler(rotationOffsetEuler);
+        rb.maxAngularVelocity = 21f;
     }
 
 
