@@ -6,9 +6,9 @@ public class ClimbingManager : MonoBehaviour
 {
     private InputHandler inputHandler;
 
-    [SerializeField] private float oneHandedSpringConstant;
-    [SerializeField] private float twoHandedSpringConstant;
-    private float currentSpringConstant;
+    [SerializeField] private float oneHandedSpringFrequency;
+    [SerializeField] private float twoHandedSpringFrequency;
+    private float currentSpringFrequency;
     [SerializeField] private float springDamping;
 
     [SerializeField] private float handRadius;
@@ -87,40 +87,39 @@ public class ClimbingManager : MonoBehaviour
         if (leftPhysicsHand.isClimbing && rightPhysicsHand.isClimbing){
             mainBodyTarget = (leftBodyTarget + rightBodyTarget) / 2;
 
-            currentSpringConstant = twoHandedSpringConstant;
+            currentSpringFrequency = twoHandedSpringFrequency;
             inputHandler.playerRigidbody.useGravity = false;
         }
         else if(leftPhysicsHand.isClimbing){
             mainBodyTarget = leftBodyTarget;
 
-            currentSpringConstant = oneHandedSpringConstant;
+            currentSpringFrequency = oneHandedSpringFrequency;
             inputHandler.playerRigidbody.useGravity = false;
         }
         else if (rightPhysicsHand.isClimbing){
             mainBodyTarget = rightBodyTarget;
 
-            currentSpringConstant = oneHandedSpringConstant;
+            currentSpringFrequency = oneHandedSpringFrequency;
             inputHandler.playerRigidbody.useGravity = false;
         }
         else{
             mainBodyTarget = transform.position;
 
+            currentSpringFrequency = 0;
             inputHandler.playerRigidbody.useGravity = true;
         }
 
 
-        Vector3 bodySpringForce = DampedSpring.GetDampedSpringForce(
+        Vector3 bodySpringForce = DampedSpring.GetDampedSpringAcceleration(
             transform.position, 
             mainBodyTarget, 
-            inputHandler.playerRigidbody.velocity, 
-            Vector3.zero, 
-            inputHandler.playerRigidbody.mass, 
-            currentSpringConstant, 
+            inputHandler.playerRigidbody.velocity - Vector3.zero,
+            currentSpringFrequency, 
             springDamping
         );
 
         if (leftPhysicsHand.isClimbing || rightPhysicsHand.isClimbing){
-            inputHandler.playerRigidbody.AddForce(bodySpringForce);
+            inputHandler.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
         }    
     }
 }
