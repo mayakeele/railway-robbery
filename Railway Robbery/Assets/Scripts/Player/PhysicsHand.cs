@@ -10,9 +10,9 @@ public class PhysicsHand : MonoBehaviour
 
     public bool isLeftController;
 
-    [SerializeField] private float springConstant;
+    [SerializeField] private float springFrequency;
     [SerializeField] private float springDampingRatio;
-    [SerializeField] private float angularSpringConstant;
+    [SerializeField] private float angularSpringFrequency;
     [SerializeField] private float angularSpringDampingRatio;
 
     [HideInInspector] public float angleToController;
@@ -56,49 +56,43 @@ public class PhysicsHand : MonoBehaviour
 
     private void FixedUpdate() {
         if (isLeftController){
-            Vector3 springForce = DampedOscillation.GetDampedSpringForce(
+            Vector3 springAcceleration = DampedSpring.GetDampedSpringAcceleration(
                 this.transform.position, 
                 inputHandler.leftController.transform.position + (transform.rotation * positionOffset), 
-                rb.velocity, 
-                inputHandler.playerRigidbody.velocity, 
-                rb.mass, 
-                springConstant, 
+                rb.velocity - inputHandler.playerRigidbody.velocity, 
+                springFrequency, 
                 springDampingRatio);
 
-            rb.AddForce(springForce);
+            rb.AddForce(springAcceleration, ForceMode.Acceleration);
 
-            Vector3 springTorque = DampedOscillation.GetDampedSpringTorque(
+            Vector3 springAngularAcceleration = DampedSpring.GetDampedSpringAngularAcceleration(
                 this.transform.rotation, 
                 inputHandler.leftController.transform.rotation * rotationOffset, 
                 rb.angularVelocity, 
-                rb.inertiaTensor.magnitude, 
-                angularSpringConstant,
+                angularSpringFrequency,
                 angularSpringDampingRatio);
 
-            rb.AddTorque(springTorque);
+            rb.AddTorque(springAngularAcceleration, ForceMode.Acceleration);
     
         }
         else{
-            Vector3 springForce = DampedOscillation.GetDampedSpringForce(
+            Vector3 springAcceleration = DampedSpring.GetDampedSpringAcceleration(
                 this.transform.position, 
                 inputHandler.rightController.transform.position + (transform.rotation * positionOffset), 
-                rb.velocity, 
-                inputHandler.playerRigidbody.velocity, 
-                rb.mass, 
-                springConstant, 
+                rb.velocity - inputHandler.playerRigidbody.velocity, 
+                springFrequency, 
                 springDampingRatio);
 
-            rb.AddForce(springForce);
+            rb.AddForce(springAcceleration, ForceMode.Acceleration);
 
-            Vector3 springTorque = DampedOscillation.GetDampedSpringTorque(
+            Vector3 springAngularAcceleration = DampedSpring.GetDampedSpringAngularAcceleration(
                 this.transform.rotation, 
                 inputHandler.rightController.transform.rotation * rotationOffset, 
-                rb.angularVelocity,
-                rb.inertiaTensor.magnitude, 
-                angularSpringConstant,
+                rb.angularVelocity, 
+                angularSpringFrequency,
                 angularSpringDampingRatio);
 
-            rb.AddTorque(springTorque);
+            rb.AddTorque(springAngularAcceleration, ForceMode.Acceleration);
 
         }
         
