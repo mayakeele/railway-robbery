@@ -15,7 +15,10 @@ public class TrainPartFactory : MonoBehaviour
     public GameObject straightWall;
     public GameObject slantedBoxcarRoof;
     public GameObject boxcarDoorHandle;
-    public GameObject boxcarSidePanelStandard;
+    public GameObject boxcarSidePanelLB;
+    public GameObject boxcarSidePanelLF;
+    public GameObject boxcarSidePanelRB;
+    public GameObject boxcarSidePanelRF;
     public GameObject boxcarBackPanelStandard;
     public GameObject boxcarSlidingDoorLeft;
     public GameObject boxcarSlidingDoorRight;

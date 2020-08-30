@@ -40,13 +40,26 @@ public class BoxCar : MonoBehaviour
                 rightDoor.transform.position = new Vector3(halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
             }
             else{
-                GameObject leftWall = Instantiate(trainPartFactory.boxcarSidePanelStandard);
-                leftWall.transform.SetParent(parentObject.transform);
-                leftWall.transform.position = new Vector3(-halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+                if (i < doorSlot){
+                    // Front end of car
+                    GameObject leftWall = Instantiate(trainPartFactory.boxcarSidePanelLF);
+                    leftWall.transform.SetParent(parentObject.transform);
+                    leftWall.transform.position = new Vector3(-halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
 
-                GameObject rightWall = Instantiate(trainPartFactory.boxcarSidePanelStandard);
-                rightWall.transform.SetParent(parentObject.transform);
-                rightWall.transform.position = new Vector3(halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+                    GameObject rightWall = Instantiate(trainPartFactory.boxcarSidePanelRF);
+                    rightWall.transform.SetParent(parentObject.transform);
+                    rightWall.transform.position = new Vector3(halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+                }
+                else {
+                    // Back end of car
+                    GameObject leftWall = Instantiate(trainPartFactory.boxcarSidePanelLB);
+                    leftWall.transform.SetParent(parentObject.transform);
+                    leftWall.transform.position = new Vector3(-halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+
+                    GameObject rightWall = Instantiate(trainPartFactory.boxcarSidePanelRB);
+                    rightWall.transform.SetParent(parentObject.transform);
+                    rightWall.transform.position = new Vector3(halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+                }
             }          
         }
 
