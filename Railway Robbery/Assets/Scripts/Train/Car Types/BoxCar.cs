@@ -28,7 +28,7 @@ public class BoxCar : MonoBehaviour
         float sidePanelLength = 1.5f;
         int numPanelsLong = Mathf.RoundToInt(carLength / sidePanelLength);
         int doorSlot = numPanelsLong % 2 == 0 ? (numPanelsLong / 2) - 1 : (numPanelsLong / 2);
-        Debug.Log(doorSlot);
+
         for (int i = 0; i < numPanelsLong; i++) {
             if (i == doorSlot){
                 GameObject leftDoor = Instantiate(trainPartFactory.boxcarSlidingDoorLeft);
@@ -47,11 +47,7 @@ public class BoxCar : MonoBehaviour
                 GameObject rightWall = Instantiate(trainPartFactory.boxcarSidePanelStandard);
                 rightWall.transform.SetParent(parentObject.transform);
                 rightWall.transform.position = new Vector3(halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
-            }
-            
-                
-
-            
+            }          
         }
 
         GameObject backWall = Instantiate(trainPartFactory.boxcarBackPanelStandard);
