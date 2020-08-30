@@ -109,7 +109,7 @@ public class ClimbingManager : MonoBehaviour
         }
 
 
-        Vector3 bodySpringForce = DampedOscillation.GetDampedSpringForce(
+        Vector3 bodySpringForce = DampedSpring.GetDampedSpringForce(
             transform.position, 
             mainBodyTarget, 
             inputHandler.playerRigidbody.velocity, 

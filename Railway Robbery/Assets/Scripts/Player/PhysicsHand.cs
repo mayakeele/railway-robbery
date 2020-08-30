@@ -56,7 +56,7 @@ public class PhysicsHand : MonoBehaviour
 
     private void FixedUpdate() {
         if (isLeftController){
-            Vector3 springForce = DampedOscillation.GetDampedSpringForce(
+            Vector3 springForce = DampedSpring.GetDampedSpringForce(
                 this.transform.position, 
                 inputHandler.leftController.transform.position + (transform.rotation * positionOffset), 
                 rb.velocity, 
@@ -67,7 +67,7 @@ public class PhysicsHand : MonoBehaviour
 
             rb.AddForce(springForce);
 
-            Vector3 springTorque = DampedOscillation.GetDampedSpringTorque(
+            Vector3 springTorque = DampedSpring.GetDampedSpringTorque(
                 this.transform.rotation, 
                 inputHandler.leftController.transform.rotation * rotationOffset, 
                 rb.angularVelocity, 
@@ -79,7 +79,7 @@ public class PhysicsHand : MonoBehaviour
     
         }
         else{
-            Vector3 springForce = DampedOscillation.GetDampedSpringForce(
+            Vector3 springForce = DampedSpring.GetDampedSpringForce(
                 this.transform.position, 
                 inputHandler.rightController.transform.position + (transform.rotation * positionOffset), 
                 rb.velocity, 
@@ -90,7 +90,7 @@ public class PhysicsHand : MonoBehaviour
 
             rb.AddForce(springForce);
 
-            Vector3 springTorque = DampedOscillation.GetDampedSpringTorque(
+            Vector3 springTorque = DampedSpring.GetDampedSpringTorque(
                 this.transform.rotation, 
                 inputHandler.rightController.transform.rotation * rotationOffset, 
                 rb.angularVelocity,
