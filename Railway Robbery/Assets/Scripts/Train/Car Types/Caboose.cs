@@ -1,4 +1,10 @@
-private TrainPartFactory trainPartFactory;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Caboose : MonoBehaviour
+{
+    private TrainPartFactory trainPartFactory;
     void Awake() {
         trainPartFactory = GameObject.FindGameObjectWithTag("TrainPartPrefabsContainer").GetComponent<TrainPartFactory>();
     }
@@ -23,3 +29,4 @@ private TrainPartFactory trainPartFactory;
 
         return parentObject;
     }
+}
