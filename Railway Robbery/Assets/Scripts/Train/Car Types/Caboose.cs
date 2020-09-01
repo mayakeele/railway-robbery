@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Caboose : MonoBehaviour
 {
@@ -45,6 +46,18 @@ public class Caboose : MonoBehaviour
         // Cupola and roof segments
         GameObject cupola = Instantiate(trainPartFactory.cabooseCupola, parentTransform);
         cupola.transform.position = new Vector3(0, groundOffset + sidePanelHeight, 0);
+
+        int middleIndex = (numPanelsLong-1) / 2;
+        int[] cupolaRoofIndicesOccupied = { middleIndex - 1, middleIndex, middleIndex + 1 };
+
+        for (int i = 0; i < numPanelsLong; i++){
+            // Only place a roof if the cupola does not occupy this space
+            if (System.Array.IndexOf(cupolaRoofIndicesOccupied, i) == -1){
+                GameObject roofPanel = Instantiate(trainPartFactory.cabooseRoof, parentTransform);
+
+                roofPanel.transform.position = new Vector3(0, groundOffset + sidePanelHeight, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+            }
+        }
 
 
         return parentObject;

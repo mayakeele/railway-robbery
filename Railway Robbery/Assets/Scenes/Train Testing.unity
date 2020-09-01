@@ -523,6 +523,8 @@ MonoBehaviour:
     type: 3}
   cabooseWallRight: {fileID: 1219910812991413985, guid: 34399356abb2cec49937808a97fc77a4,
     type: 3}
+  cabooseRoof: {fileID: 1494590107994192790, guid: 4b4770b132599cc4dbe3c0a3a44fa2e1,
+    type: 3}
   cabooseCupola: {fileID: 3889392895203346471, guid: 14e4f1dc6180b894cbb670fad3abfb58,
     type: 3}
 --- !u!1 &1997478376

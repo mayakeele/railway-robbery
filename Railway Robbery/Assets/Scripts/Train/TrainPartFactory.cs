@@ -25,6 +25,7 @@ public class TrainPartFactory : MonoBehaviour
 
     public GameObject cabooseWallLeft;
     public GameObject cabooseWallRight;
+    public GameObject cabooseRoof;
     public GameObject cabooseCupola;
 
 
