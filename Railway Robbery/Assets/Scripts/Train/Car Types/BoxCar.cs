@@ -26,6 +26,8 @@ public class BoxCar : MonoBehaviour
         
         // Walls
         float sidePanelLength = 1.5f;
+        float sidePanelThickness = 0.1f;
+
         int numPanelsLong = Mathf.RoundToInt(carLength / sidePanelLength);
         int doorSlot = numPanelsLong % 2 == 0 ? (numPanelsLong / 2) - 1 : (numPanelsLong / 2);
 
@@ -33,45 +35,47 @@ public class BoxCar : MonoBehaviour
             if (i == doorSlot){
                 GameObject leftDoor = Instantiate(trainPartFactory.boxcarSlidingDoorLeft);
                 leftDoor.transform.SetParent(parentObject.transform);
-                leftDoor.transform.position = new Vector3(-halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+                leftDoor.transform.position = new Vector3(-(halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
 
                 GameObject rightDoor = Instantiate(trainPartFactory.boxcarSlidingDoorRight);
                 rightDoor.transform.SetParent(parentObject.transform);
-                rightDoor.transform.position = new Vector3(halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+                rightDoor.transform.position = new Vector3((halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
             }
             else{
                 if (i < doorSlot){
                     // Front end of car
                     GameObject leftWall = Instantiate(trainPartFactory.boxcarSidePanelLF);
                     leftWall.transform.SetParent(parentObject.transform);
-                    leftWall.transform.position = new Vector3(-halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+                    leftWall.transform.position = new Vector3(-(halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
 
                     GameObject rightWall = Instantiate(trainPartFactory.boxcarSidePanelRF);
                     rightWall.transform.SetParent(parentObject.transform);
-                    rightWall.transform.position = new Vector3(halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+                    rightWall.transform.position = new Vector3((halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
                 }
                 else {
                     // Back end of car
                     GameObject leftWall = Instantiate(trainPartFactory.boxcarSidePanelLB);
                     leftWall.transform.SetParent(parentObject.transform);
-                    leftWall.transform.position = new Vector3(-halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+                    leftWall.transform.position = new Vector3(-(halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
 
                     GameObject rightWall = Instantiate(trainPartFactory.boxcarSidePanelRB);
                     rightWall.transform.SetParent(parentObject.transform);
-                    rightWall.transform.position = new Vector3(halfWidth, groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+                    rightWall.transform.position = new Vector3((halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
                 }
             }          
         }
 
+        float backPanelThickness = 0.1f;
+
         GameObject backWall = Instantiate(trainPartFactory.boxcarBackPanelStandard);
         backWall.transform.SetParent(parentObject.transform);
         backWall.GetComponent<BoxcarBackPanel>().Initialize();
-        backWall.transform.position = new Vector3(0, groundOffset, -halfLength);
+        backWall.transform.position = new Vector3(0, groundOffset, -(halfLength - (backPanelThickness/2)));
 
         GameObject frontWall = Instantiate(trainPartFactory.boxcarBackPanelStandard);
         frontWall.transform.SetParent(parentObject.transform);
         frontWall.GetComponent<BoxcarBackPanel>().Initialize();
-        frontWall.transform.position = new Vector3(0, groundOffset, halfLength);
+        frontWall.transform.position = new Vector3(0, groundOffset, (halfLength - (backPanelThickness/2)));
         frontWall.transform.eulerAngles = new Vector3(0, 180, 0);
         
 

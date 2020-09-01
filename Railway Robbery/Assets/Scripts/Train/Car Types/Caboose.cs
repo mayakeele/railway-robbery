@@ -16,16 +16,31 @@ public class Caboose : MonoBehaviour
         float halfWidth = carWidth / 2;
         float halfHeight = carHeight / 2;
 
-        GameObject parentObject = new GameObject("Boxcar");
+        GameObject parentObject = new GameObject("Caboose");
         Transform parentTransform = parentObject.transform;
+
 
         // Create a base platform to build upon
         GameObject platform = trainPartFactory.CreateBasePlatform(carLength, carWidth, 0.15f, groundOffset);
         platform.transform.SetParent(parentObject.transform);
 
 
-        // Specialist car generation code goes here
-        
+        // Walls
+        float sidePanelLength = 1f;
+        float sidePanelThickness = 0.1f;
+
+        int numPanelsLong = Mathf.RoundToInt(carLength / sidePanelLength);
+
+        for (int i = 0; i < numPanelsLong; i++) {
+            // Front end of car
+            GameObject leftWall = Instantiate(trainPartFactory.cabooseWallLeft);
+            leftWall.transform.SetParent(parentObject.transform);
+            leftWall.transform.position = new Vector3(-(halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+
+            GameObject rightWall = Instantiate(trainPartFactory.cabooseWallRight);
+            rightWall.transform.SetParent(parentObject.transform);
+            rightWall.transform.position = new Vector3((halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));    
+        }
 
         return parentObject;
     }

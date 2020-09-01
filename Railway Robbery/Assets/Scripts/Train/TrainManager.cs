@@ -78,9 +78,9 @@ public class TrainManager : MonoBehaviour
                 break;
 
             case CarType.Caboose:
-                length = length.RoundToMultiple(1f, false);
-                width = 3;//width.RoundToMultiple(1f, false);
-                height = 3;//height.RoundToMultiple(3f, false);
+                length = length.RoundToMultiple(2f, false);
+                width = 3f;//width.RoundToMultiple(1f, false);
+                height = 4.5f;//height.RoundToMultiple(3f, false);
 
                 carObject = trainCarTypeContainer.GetComponent<Caboose>().GenerateCar(seed, length, width, height, groundOffset);
                 break;
