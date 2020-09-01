@@ -68,6 +68,7 @@ public class TrainManager : MonoBehaviour
                 carObject = trainCarTypeContainer.GetComponent<FlatCar>().GenerateCar(seed, length, width, height, groundOffset);
                 
                 break;
+
             case CarType.BoxCar:
                 length = length.RoundToMultiple(1.5f, false);
                 width = 3;//width.RoundToMultiple(1f, false);
@@ -75,10 +76,18 @@ public class TrainManager : MonoBehaviour
 
                 carObject = trainCarTypeContainer.GetComponent<BoxCar>().GenerateCar(seed, length, width, height, groundOffset);
                 break;
+
+            case CarType.Caboose:
+                length = length.RoundToMultiple(1f, false);
+                width = 3;//width.RoundToMultiple(1f, false);
+                height = 3;//height.RoundToMultiple(3f, false);
+
+                carObject = trainCarTypeContainer.GetComponent<Caboose>().GenerateCar(seed, length, width, height, groundOffset);
+                break;
+
             default:
                 Debug.LogError("Undefined train car type!");
                 carObject = new GameObject();
-                
                 break;
         }
 
