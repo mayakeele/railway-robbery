@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 80661360697849831}
   - component: {fileID: 8596291817085908554}
   - component: {fileID: 1965145324590430217}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Doorway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 4369010421447170212}
   - component: {fileID: 796587660764878593}
   - component: {fileID: 3236675294572667851}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4263623146516211127}
   - component: {fileID: 4263623146516211128}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: V Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4263623147913525264}
   - component: {fileID: 4263623147913525265}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Lower H Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4263623148318163804}
   - component: {fileID: 4263623148318163805}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Upper H Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5506247485354771595}
   - component: {fileID: 5506247485354771594}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Left Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5506247486154745993}
   - component: {fileID: 5506247486154745992}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Right Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429,7 +429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5506247486661019046}
   - component: {fileID: 5506247486661019041}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Upper Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 4331339888491931646}
   - component: {fileID: 4012151333946627395}
   - component: {fileID: 5506247486483601305}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

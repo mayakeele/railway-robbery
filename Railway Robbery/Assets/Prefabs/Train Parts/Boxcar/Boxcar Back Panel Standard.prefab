@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 837107301584595634}
   - component: {fileID: 3205146687471689336}
   - component: {fileID: 4304141964307563262}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boxcar Back Panel Standard
   m_TagString: Untagged
   m_Icon: {fileID: 0}

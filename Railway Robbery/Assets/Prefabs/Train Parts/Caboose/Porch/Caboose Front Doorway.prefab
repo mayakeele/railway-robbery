@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 687763766908367639}
   - component: {fileID: 4477904134078086322}
   - component: {fileID: 1855554910606248056}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009321976908008964}
   - component: {fileID: 1009321976908008971}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: V Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009321978259510179}
   - component: {fileID: 1009321978259510178}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Lower H Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009321978391210223}
   - component: {fileID: 1009321978391210222}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Upper H Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 3761679145035963476}
   - component: {fileID: 4784673869785144825}
   - component: {fileID: 3345931628870947770}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Doorway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 663921379345239117}
   - component: {fileID: 181476823192583920}
   - component: {fileID: 8737164414871780394}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,7 +435,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8737164413726240568}
   - component: {fileID: 8737164413726240569}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Left Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +479,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8737164414526391098}
   - component: {fileID: 8737164414526391099}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Right Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +523,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8737164414768311829}
   - component: {fileID: 8737164414768311826}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Upper Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
