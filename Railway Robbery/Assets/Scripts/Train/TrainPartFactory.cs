@@ -15,10 +15,22 @@ public class TrainPartFactory : MonoBehaviour
     public GameObject straightWall;
     public GameObject slantedBoxcarRoof;
     public GameObject boxcarDoorHandle;
-    public GameObject boxcarSidePanelStandard;
+    public GameObject boxcarSidePanelLB;
+    public GameObject boxcarSidePanelLF;
+    public GameObject boxcarSidePanelRB;
+    public GameObject boxcarSidePanelRF;
     public GameObject boxcarBackPanelStandard;
     public GameObject boxcarSlidingDoorLeft;
     public GameObject boxcarSlidingDoorRight;
+
+    public GameObject cabooseWallLeft;
+    public GameObject cabooseWallRight;
+    public GameObject cabooseRoof;
+    public GameObject cabooseCupola;
+    public GameObject caboosePorchFront;
+    public GameObject cabooseDoorwayFront;
+    public GameObject caboosePorchBack;
+    public GameObject cabooseDoorwayBack;
 
 
     public GameObject CreateBasePlatform(float length, float width, float thickness, float groundOffset){
@@ -35,7 +47,7 @@ public class TrainPartFactory : MonoBehaviour
         floorMesh.ScaleVerticesNonUniform(floorDimensions);
         floorObject.GetComponent<BoxCollider>().size = floorDimensions;
 
-        floorObject.transform.localPosition = new Vector3(0, groundOffset, 0);
+        floorObject.transform.localPosition = new Vector3(0, groundOffset - (floorDimensions.y/2), 0);
 
         // Back train connector
         GameObject connectorObject = Instantiate(trainConnector);
@@ -45,12 +57,12 @@ public class TrainPartFactory : MonoBehaviour
         connectorMesh.ScaleVerticesNonUniform(width, thickness, 1);
         connectorObject.GetComponent<MeshCollider>().sharedMesh = connectorMesh;
 
-        connectorObject.transform.position = new Vector3(0, groundOffset, -length / 2);
+        connectorObject.transform.position = new Vector3(0, groundOffset - (floorDimensions.y/2), -length / 2);
 
         // Front train connector
         connectorObject = Instantiate(connectorObject);
         connectorObject.transform.SetParent(parentTransform);
-        connectorObject.transform.position = new Vector3(0, groundOffset, length / 2);
+        connectorObject.transform.position = new Vector3(0, groundOffset - (floorDimensions.y/2), length / 2);
         connectorObject.transform.eulerAngles = new Vector3(0, 180, 0);
 
         // Front wheel truck
@@ -58,18 +70,19 @@ public class TrainPartFactory : MonoBehaviour
         wheelsObject.transform.SetParent(parentTransform);
 
         MeshFilter[] wheelsMeshes = wheelsObject.GetComponentsInChildren<MeshFilter>();
+        float wheelsHeight = groundOffset - floorDimensions.y;
         foreach (MeshFilter mf in wheelsMeshes){
-            mf.mesh.ScaleVerticesNonUniform(width * 0.8f, groundOffset, groundOffset);
+            mf.mesh.ScaleVerticesNonUniform(width * 0.8f, wheelsHeight, wheelsHeight);
         }
         
-        float truckLength = 2 * groundOffset;
-        wheelsObject.transform.position = new Vector3(0, groundOffset, (length / 2) - truckLength);
+        float truckLength = 2 * wheelsHeight;
+        wheelsObject.transform.position = new Vector3(0, wheelsHeight, (length / 2) - truckLength);
 
         // Back wheel truck
         wheelsObject = Instantiate(wheelsObject);
         wheelsObject.transform.SetParent(parentTransform);
 
-        wheelsObject.transform.position = new Vector3(0, groundOffset, -((length / 2) - truckLength));
+        wheelsObject.transform.position = new Vector3(0, wheelsHeight, -((length / 2) - truckLength));
 
 
         return parentObject;

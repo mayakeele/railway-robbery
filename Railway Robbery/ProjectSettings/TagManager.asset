@@ -19,8 +19,8 @@ TagManager:
   - UI
   - 
   - 
-  - Climbable Static Geometry
-  - Non-Climbable Static Geometry
+  - Static Structure
+  - Moveable Structure
   - Player Body
   - Physics Hand
   - 

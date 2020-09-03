@@ -68,6 +68,7 @@ public class TrainManager : MonoBehaviour
                 carObject = trainCarTypeContainer.GetComponent<FlatCar>().GenerateCar(seed, length, width, height, groundOffset);
                 
                 break;
+
             case CarType.BoxCar:
                 length = length.RoundToMultiple(1.5f, false);
                 width = 3;//width.RoundToMultiple(1f, false);
@@ -75,10 +76,18 @@ public class TrainManager : MonoBehaviour
 
                 carObject = trainCarTypeContainer.GetComponent<BoxCar>().GenerateCar(seed, length, width, height, groundOffset);
                 break;
+
+            case CarType.Caboose:
+                length = Random.Range(6f, 12f).RoundToMultiple(2f, false) + 1;
+                width = 3f;
+                height = 4.5f;
+
+                carObject = trainCarTypeContainer.GetComponent<Caboose>().GenerateCar(seed, length, width, height, groundOffset);
+                break;
+
             default:
                 Debug.LogError("Undefined train car type!");
                 carObject = new GameObject();
-                
                 break;
         }
 
@@ -98,10 +107,13 @@ public class TrainManager : MonoBehaviour
             car.name = "Train Car " + (int) i;
             car.transform.parent = this.transform;
 
+            // If there is a car in front of this one, add half its length to the total length
+            totalCarLength += i > 0 ? (trainCars[i-1].GetComponentInChildren<TrainCar>().length / 2) + connectorLength : 0;
+            // Add half of the current car's length to the total length
+            totalCarLength += (car.GetComponentInChildren<TrainCar>().length / 2) + connectorLength;
+
             car.transform.position = new Vector3(0, 0, -totalCarLength);
-
-            totalCarLength += car.GetComponentInChildren<TrainCar>().length + (connectorLength * 2);
-
+            
             trainCars[i] = car;
         }
     }

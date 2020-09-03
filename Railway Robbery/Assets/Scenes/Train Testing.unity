@@ -23,10 +23,10 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1.55
+  m_AmbientIntensity: 0.2
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e11f5b66aad75483b8cd16ee18a0c917, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -35,10 +35,10 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 1
+  m_ReflectionIntensity: 0.516
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2017826961}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.4415945, g: 0.6097529, b: 0.70151716, a: 0.516}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -52,7 +52,7 @@ LightmapSettings:
     m_AlbedoBoost: 1
     m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 0
+    m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 12
     m_Resolution: 2
@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 5394c16080de2324e8950016f762d098,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -132,6 +133,7 @@ GameObject:
   - component: {fileID: 154612606}
   - component: {fileID: 154612607}
   - component: {fileID: 154612608}
+  - component: {fileID: 154612609}
   m_Layer: 0
   m_Name: Train Car Type Container
   m_TagString: TrainCarTypeContainer
@@ -177,6 +179,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aac5a8f5f5d0443825637e8feee6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &154612609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154612605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b9f25c9c8a7d7f46acbbd5259bf01d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &514120188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -192,7 +206,7 @@ PrefabInstance:
     - target: {fileID: 2446742348053114770, guid: ee8531f9164db1b43a20e7c7ea918df6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2446742348053114773, guid: ee8531f9164db1b43a20e7c7ea918df6,
         type: 3}
@@ -202,7 +216,7 @@ PrefabInstance:
     - target: {fileID: 2446742348053114773, guid: ee8531f9164db1b43a20e7c7ea918df6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2446742348053114773, guid: ee8531f9164db1b43a20e7c7ea918df6,
         type: 3}
@@ -217,7 +231,7 @@ PrefabInstance:
     - target: {fileID: 2446742348053114773, guid: ee8531f9164db1b43a20e7c7ea918df6,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2446742348053114773, guid: ee8531f9164db1b43a20e7c7ea918df6,
         type: 3}
@@ -227,7 +241,7 @@ PrefabInstance:
     - target: {fileID: 2446742348053114773, guid: ee8531f9164db1b43a20e7c7ea918df6,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2446742348053114773, guid: ee8531f9164db1b43a20e7c7ea918df6,
         type: 3}
@@ -242,7 +256,7 @@ PrefabInstance:
     - target: {fileID: 2446742348053114773, guid: ee8531f9164db1b43a20e7c7ea918df6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 2446742348053114773, guid: ee8531f9164db1b43a20e7c7ea918df6,
         type: 3}
@@ -315,7 +329,7 @@ MonoBehaviour:
   trainCarTypeContainer: {fileID: 154612605}
   trainCars: []
   numTrainCars: 3
-  test_cartype: 4
+  test_cartype: 2
   standardCarLength: 0
   standardCarWidth: 0
   standardCarHeight: 0
@@ -387,7 +401,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aeee7071bea0a4c478b4fea5933c5f79, type: 2}
+  - {fileID: 2100000, guid: cffadc98a0ba3314a839d0b1e175552a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -425,7 +439,7 @@ Transform:
   m_GameObject: {fileID: 1634010304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -20}
-  m_LocalScale: {x: 1.5, y: 1, z: 8}
+  m_LocalScale: {x: 100, y: 1, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -491,13 +505,35 @@ MonoBehaviour:
     type: 3}
   boxcarDoorHandle: {fileID: 8899140980472398410, guid: a3956bba01e6f7547ac07a27ce6bb59a,
     type: 3}
-  boxcarSidePanelStandard: {fileID: 1980681916462808663, guid: 6a097a27eec2ccc41bf8e16a21284f35,
+  boxcarSidePanelLB: {fileID: 184435884555586003, guid: b568043b160e0f2499fac3db65fe4534,
+    type: 3}
+  boxcarSidePanelLF: {fileID: 8380056570345366999, guid: a642e8878bafe89479a28edd03c78c55,
+    type: 3}
+  boxcarSidePanelRB: {fileID: 2048319559582984151, guid: bb064edf1dafd7d439ffbc8acb11f11f,
+    type: 3}
+  boxcarSidePanelRF: {fileID: 6706309289403065876, guid: 27c4694c37f75f842b0dd9ff616b060b,
     type: 3}
   boxcarBackPanelStandard: {fileID: 3997520392635465645, guid: 3e9b99808a55f0849b95a6581ae111ab,
     type: 3}
   boxcarSlidingDoorLeft: {fileID: 3732039211488340563, guid: 2b996503bf2aa3943b9e33c74ee6ba2d,
     type: 3}
   boxcarSlidingDoorRight: {fileID: 5854983022625984561, guid: 18044994824742847886e4c24c223a68,
+    type: 3}
+  cabooseWallLeft: {fileID: 8384085684363830508, guid: e20ba61fd03fbc84faf241dc25f4930f,
+    type: 3}
+  cabooseWallRight: {fileID: 1219910812991413985, guid: 34399356abb2cec49937808a97fc77a4,
+    type: 3}
+  cabooseRoof: {fileID: 1494590107994192790, guid: 4b4770b132599cc4dbe3c0a3a44fa2e1,
+    type: 3}
+  cabooseCupola: {fileID: 3889392895203346471, guid: 14e4f1dc6180b894cbb670fad3abfb58,
+    type: 3}
+  caboosePorchFront: {fileID: 6288742847227396221, guid: fff2e8cdb5d384d4091576a1a2ebe14b,
+    type: 3}
+  cabooseDoorwayFront: {fileID: 8467274653349478781, guid: c1e170d67c26a524785e2f803912a1ed,
+    type: 3}
+  caboosePorchBack: {fileID: 2885325478396040661, guid: 3df52cda11925c84cad134f3a203399c,
+    type: 3}
+  cabooseDoorwayBack: {fileID: 4659949336899300046, guid: 748069079f9c7e64e87d3526b6e7c815,
     type: 3}
 --- !u!1 &1997478376
 GameObject:
@@ -515,7 +551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1997478377
 Transform:
   m_ObjectHideFlags: 0
@@ -523,13 +559,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1997478376}
-  m_LocalRotation: {x: 0.8754261, y: 0.10938163, z: 0.23456968, w: -0.40821788}
+  m_LocalRotation: {x: 0.7532934, y: 0.24575485, z: 0.4090048, w: -0.45262426}
   m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 525919097}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 242, y: -57, z: 0}
 --- !u!108 &1997478378
 Light:
   m_ObjectHideFlags: 0
@@ -542,7 +578,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.6
+  m_Intensity: 0.7
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -619,8 +655,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.15
+  m_Color: {r: 1, g: 0.96835566, b: 0.8980392, a: 1}
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -629,7 +665,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.6
+    m_Strength: 0.69
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -676,10 +712,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017826960}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.45262426, y: -0.4090048, z: 0.24575485, w: 0.7532934}
   m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 525919097}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 62, y: -57, z: 0}
