@@ -527,6 +527,14 @@ MonoBehaviour:
     type: 3}
   cabooseCupola: {fileID: 3889392895203346471, guid: 14e4f1dc6180b894cbb670fad3abfb58,
     type: 3}
+  caboosePorchFront: {fileID: 6288742847227396221, guid: fff2e8cdb5d384d4091576a1a2ebe14b,
+    type: 3}
+  cabooseDoorwayFront: {fileID: 8467274653349478781, guid: c1e170d67c26a524785e2f803912a1ed,
+    type: 3}
+  caboosePorchBack: {fileID: 2885325478396040661, guid: 3df52cda11925c84cad134f3a203399c,
+    type: 3}
+  cabooseDoorwayBack: {fileID: 4659949336899300046, guid: 748069079f9c7e64e87d3526b6e7c815,
+    type: 3}
 --- !u!1 &1997478376
 GameObject:
   m_ObjectHideFlags: 0

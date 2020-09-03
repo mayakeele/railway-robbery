@@ -26,15 +26,16 @@ public class Caboose : MonoBehaviour
         platform.transform.SetParent(parentObject.transform);
 
 
-        // Walls
+        // Side Walls
         float sidePanelLength = 1f;
         float sidePanelThickness = 0.1f;
         float sidePanelHeight = 3f;
 
         int numPanelsLong = Mathf.RoundToInt(carLength / sidePanelLength);
 
-        for (int i = 0; i < numPanelsLong; i++) {
-            // Front end of car
+        for (int i = 1; i < numPanelsLong - 1; i++) {
+
+            // Walls if anywhere else
             GameObject leftWall = Instantiate(trainPartFactory.cabooseWallLeft, parentTransform);
             leftWall.transform.position = new Vector3(-(halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
 
@@ -42,6 +43,23 @@ public class Caboose : MonoBehaviour
             rightWall.transform.position = new Vector3((halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));    
         }
         
+
+        // Front and back doorways and porches
+        float doorwayThickness = 0.1f;
+
+        GameObject frontDoorway = Instantiate(trainPartFactory.cabooseDoorwayFront, parentTransform);
+        frontDoorway.transform.position = new Vector3(0, groundOffset, halfLength - sidePanelLength - (doorwayThickness / 2));
+
+        GameObject backDoorway = Instantiate(trainPartFactory.cabooseDoorwayBack, parentTransform);
+        backDoorway.transform.position = new Vector3(0, groundOffset, -(halfLength - sidePanelLength - (doorwayThickness / 2)));
+
+
+        GameObject frontPorch = Instantiate(trainPartFactory.caboosePorchFront, parentTransform);
+        frontPorch.transform.position = new Vector3(0, groundOffset, halfLength - (sidePanelLength/2));
+
+        GameObject backPorch = Instantiate(trainPartFactory.caboosePorchBack, parentTransform);
+        backPorch.transform.position = new Vector3(0, groundOffset, -(halfLength - (sidePanelLength/2)));
+
 
         // Cupola and roof segments
         GameObject cupola = Instantiate(trainPartFactory.cabooseCupola, parentTransform);

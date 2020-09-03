@@ -27,6 +27,10 @@ public class TrainPartFactory : MonoBehaviour
     public GameObject cabooseWallRight;
     public GameObject cabooseRoof;
     public GameObject cabooseCupola;
+    public GameObject caboosePorchFront;
+    public GameObject cabooseDoorwayFront;
+    public GameObject caboosePorchBack;
+    public GameObject cabooseDoorwayBack;
 
 
     public GameObject CreateBasePlatform(float length, float width, float thickness, float groundOffset){
