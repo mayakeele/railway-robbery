@@ -50,14 +50,16 @@ public class Caboose : MonoBehaviour
         GameObject frontDoorway = Instantiate(trainPartFactory.cabooseDoorwayFront, parentTransform);
         frontDoorway.transform.position = new Vector3(0, groundOffset, halfLength - sidePanelLength - (doorwayThickness / 2));
 
-        GameObject backDoorway = Instantiate(trainPartFactory.cabooseDoorwayBack, parentTransform);
+        GameObject backDoorway = Instantiate(trainPartFactory.cabooseDoorwayFront, parentTransform);
+        backDoorway.transform.eulerAngles = new Vector3(0, 180, 0);
         backDoorway.transform.position = new Vector3(0, groundOffset, -(halfLength - sidePanelLength - (doorwayThickness / 2)));
 
 
         GameObject frontPorch = Instantiate(trainPartFactory.caboosePorchFront, parentTransform);
         frontPorch.transform.position = new Vector3(0, groundOffset, halfLength - (sidePanelLength/2));
 
-        GameObject backPorch = Instantiate(trainPartFactory.caboosePorchBack, parentTransform);
+        GameObject backPorch = Instantiate(trainPartFactory.caboosePorchFront, parentTransform);
+        backPorch.transform.eulerAngles = new Vector3(0, 180, 0);
         backPorch.transform.position = new Vector3(0, groundOffset, -(halfLength - (sidePanelLength/2)));
 
 

@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 7371271603485928957}
   - component: {fileID: 1479953194979679778}
   - component: {fileID: 400875829105498671}
+  - component: {fileID: 7916417883044396867}
   m_Layer: 8
   m_Name: Roof
   m_TagString: Climbable
@@ -209,6 +210,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &7916417883044396867
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6820737014559975721}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3562073674547505438, guid: e301d0e1c01dbf14cb9aace717407699, type: 3}
 --- !u!1 &7228874927402298821
 GameObject:
   m_ObjectHideFlags: 0

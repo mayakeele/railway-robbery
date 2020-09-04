@@ -263,6 +263,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2446742348504878342, guid: ee8531f9164db1b43a20e7c7ea918df6,
+        type: 3}
+      propertyPath: springFrequency
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446742348504878342, guid: ee8531f9164db1b43a20e7c7ea918df6,
+        type: 3}
+      propertyPath: springDampingRatio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446742348504878342, guid: ee8531f9164db1b43a20e7c7ea918df6,
+        type: 3}
+      propertyPath: angularSpringFrequency
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446742348504878343, guid: ee8531f9164db1b43a20e7c7ea918df6,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446742348912509968, guid: ee8531f9164db1b43a20e7c7ea918df6,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446742348912509973, guid: ee8531f9164db1b43a20e7c7ea918df6,
+        type: 3}
+      propertyPath: springFrequency
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446742348912509973, guid: ee8531f9164db1b43a20e7c7ea918df6,
+        type: 3}
+      propertyPath: springDampingRatio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446742348912509973, guid: ee8531f9164db1b43a20e7c7ea918df6,
+        type: 3}
+      propertyPath: angularSpringFrequency
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee8531f9164db1b43a20e7c7ea918df6, type: 3}
 --- !u!1 &525919096
@@ -531,10 +571,6 @@ MonoBehaviour:
     type: 3}
   cabooseDoorwayFront: {fileID: 8467274653349478781, guid: c1e170d67c26a524785e2f803912a1ed,
     type: 3}
-  caboosePorchBack: {fileID: 2885325478396040661, guid: 3df52cda11925c84cad134f3a203399c,
-    type: 3}
-  cabooseDoorwayBack: {fileID: 4659949336899300046, guid: 748069079f9c7e64e87d3526b6e7c815,
-    type: 3}
 --- !u!1 &1997478376
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,7 +682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &2013134701
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -8,7 +8,6 @@ public class LocomotionManager : MonoBehaviour
     private ClimbingManager climbingManager;
 
     [SerializeField] private bool useHeadAsForward;
-    private Quaternion targetOrientation;
 
     [SerializeField] private float maxMovementSpeed;
     [SerializeField] private float linearAcceleration;
@@ -29,17 +28,21 @@ public class LocomotionManager : MonoBehaviour
     }
 
 
-    private void FixedUpdate() { 
+    private void FixedUpdate() {
 
         // If the player is not climbing, receive left stick input and calculate resulting velocity
         if(climbingManager.leftPhysicsHand.isClimbing == false && climbingManager.rightPhysicsHand.isClimbing == false){
 
             // Get left stick input and determine whether 'forward' should be based on controller orientation or head orientation
-            targetOrientation = useHeadAsForward ? inputHandler.cameraTransform.rotation : inputHandler.leftController.rotation;
+            Vector3 inputForward = useHeadAsForward ? inputHandler.cameraTransform.forward : inputHandler.leftController.transform.forward;
+
+            Vector3 targetForward = new Vector3(inputForward.x, 0, inputForward.z).normalized;
+            Vector3 targetRight = Vector3.Cross(Vector3.up, targetForward);
+
             Vector2 movementInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch);
             
             // Combine joystick input and forward direction to determine the direction of acceleration
-            Vector3 movementDirection = targetOrientation * new Vector3(movementInput.x, 0, movementInput.y).normalized;
+            Vector3 movementDirection = (targetForward * movementInput.y) + (targetRight * movementInput.x);
 
             linearVelocity += movementDirection * linearAcceleration * Time.deltaTime;
             linearVelocity = Vector3.ClampMagnitude(linearVelocity, maxMovementSpeed * movementInput.magnitude);
