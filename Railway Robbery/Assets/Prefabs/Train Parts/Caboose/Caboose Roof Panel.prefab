@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2907586967165283977}
   - component: {fileID: 1134104157152729667}
   - component: {fileID: 50811971157132274}
+  - component: {fileID: -5837661890183706503}
   m_Layer: 8
   m_Name: Caboose Roof Panel
   m_TagString: Climbable
@@ -59,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8d530ffe6c4968843806085897955b9d, type: 2}
+  - {fileID: 2100000, guid: aeee7071bea0a4c478b4fea5933c5f79, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,3 +94,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 0.100000024, z: 1}
   m_Center: {x: 0, y: 0.049999997, z: 0}
+--- !u!114 &-5837661890183706503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494590107994192790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeLayer: 2

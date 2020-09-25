@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6410004928186355888}
   - component: {fileID: 3981705059642288260}
   - component: {fileID: 5835741661452494445}
+  - component: {fileID: 8529830176023054579}
   m_Layer: 8
   m_Name: Left Connector
   m_TagString: Climbable
@@ -59,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 663834164c6a04740aaa1b778249ce7e, type: 2}
+  - {fileID: 2100000, guid: aeee7071bea0a4c478b4fea5933c5f79, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,6 +94,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 0.049999997, z: 0.1}
   m_Center: {x: -0.25, y: 0, z: 0.049999997}
+--- !u!114 &8529830176023054579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2349212394325796606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeLayer: 6
 --- !u!1 &3318139397598300055
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +119,7 @@ GameObject:
   - component: {fileID: 479430254945888506}
   - component: {fileID: 7496837677422709479}
   - component: {fileID: 5835741661452494443}
+  - component: {fileID: 372823769761513198}
   m_Layer: 8
   m_Name: Right Connector
   m_TagString: Climbable
@@ -152,7 +167,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 663834164c6a04740aaa1b778249ce7e, type: 2}
+  - {fileID: 2100000, guid: aeee7071bea0a4c478b4fea5933c5f79, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -186,6 +201,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 0.049999997, z: 0.1}
   m_Center: {x: 0.25, y: 0, z: 0.049999997}
+--- !u!114 &372823769761513198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3318139397598300055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeLayer: 6
 --- !u!1 &6646699311518178110
 GameObject:
   m_ObjectHideFlags: 0

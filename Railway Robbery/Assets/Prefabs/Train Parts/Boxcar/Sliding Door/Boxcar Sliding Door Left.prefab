@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7338017616823676274}
   - component: {fileID: 4975847080380221803}
   - component: {fileID: 4542922776588736270}
+  - component: {fileID: 2275260844361938157}
   m_Layer: 8
   m_Name: Bottom Panel
   m_TagString: Untagged
@@ -59,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3901208d923d2e2489d6bf4199842498, type: 2}
+  - {fileID: 2100000, guid: aeee7071bea0a4c478b4fea5933c5f79, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,6 +94,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.25, z: 1.5}
   m_Center: {x: 0, y: 0.125, z: 0}
+--- !u!114 &2275260844361938157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705204630414883368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeLayer: 0
 --- !u!1 &2694813448830255467
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,6 +119,7 @@ GameObject:
   - component: {fileID: 4970473787112522193}
   - component: {fileID: 7506901625920950314}
   - component: {fileID: 4542922776588736266}
+  - component: {fileID: 35420123528233439}
   m_Layer: 8
   m_Name: Slide Bar
   m_TagString: Climbable
@@ -152,7 +167,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 07dc66ae04b7f6a43b9674bf0fefb33a, type: 2}
+  - {fileID: 2100000, guid: aeee7071bea0a4c478b4fea5933c5f79, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -187,6 +202,19 @@ CapsuleCollider:
   m_Height: 3
   m_Direction: 2
   m_Center: {x: -0.10000001, y: 2.8, z: -0.75}
+--- !u!114 &35420123528233439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2694813448830255467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeLayer: 6
 --- !u!1 &3732039211488340563
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,6 +261,7 @@ GameObject:
   - component: {fileID: 7304094527797039903}
   - component: {fileID: 1949037424781794103}
   - component: {fileID: 4542922776588736256}
+  - component: {fileID: 5949639884984967248}
   m_Layer: 8
   m_Name: Top Panel
   m_TagString: Untagged
@@ -280,7 +309,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3901208d923d2e2489d6bf4199842498, type: 2}
+  - {fileID: 2100000, guid: aeee7071bea0a4c478b4fea5933c5f79, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -314,6 +343,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.25, z: 1.5}
   m_Center: {x: 0, y: 2.875, z: 0}
+--- !u!114 &5949639884984967248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5118188238324922981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeLayer: 0
 --- !u!1 &9211256731911891887
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +368,7 @@ GameObject:
   - component: {fileID: 4521265862979571437}
   - component: {fileID: 6460164531033517483}
   - component: {fileID: 4542922776588736268}
+  - component: {fileID: 7302708714195787917}
   m_Layer: 9
   m_Name: Sliding Door
   m_TagString: Untagged
@@ -375,7 +418,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3901208d923d2e2489d6bf4199842498, type: 2}
+  - {fileID: 2100000, guid: aeee7071bea0a4c478b4fea5933c5f79, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -409,6 +452,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.10000001, y: 2.5, z: 1.5}
   m_Center: {x: -0.1, y: 1.5, z: 0}
+--- !u!114 &7302708714195787917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9211256731911891887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeLayer: 0
 --- !u!1001 &4542922776757953732
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ TagManager:
   - Non-Climbable Static Geometry
   - TrainPartPrefabsContainer
   - TrainCarTypeContainer
+  - ThemeLayerPaletteContainer
   layers:
   - Default
   - TransparentFX
