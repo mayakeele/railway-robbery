@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HingedDoor : MonoBehaviour
 {
-    Vector3 hingeAxis;
-    Vector3 hingeAnchor;
+    public Vector3 hingeAxis;
+    public Vector3 hingeAnchor;
 
     private Rigidbody frameRigidbody;
     private Rigidbody doorRigidbody;

@@ -22,7 +22,7 @@ public class PhysicsHand : MonoBehaviour
     [HideInInspector] public Quaternion rotationOffset;
     [SerializeField] private Vector3 positionOffset;
 
-    [HideInInspector] public bool isColliding;
+    [HideInInspector] public string collidingTag;
     [HideInInspector] public bool isClimbing;
 
     [HideInInspector] public float angleToController;
@@ -120,14 +120,10 @@ public class PhysicsHand : MonoBehaviour
 
 
     private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.tag == "Climbable"){
-            isColliding = true;
-        }
+        collidingTag = other.gameObject.tag;
     }
 
     private void OnCollisionExit(Collision other) {
-        if (other.gameObject.tag == "Climbable"){
-            isColliding = false;
-        }
+        collidingTag = null;
     }
 }
