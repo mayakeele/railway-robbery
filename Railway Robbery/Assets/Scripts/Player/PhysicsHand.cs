@@ -14,16 +14,18 @@ public class PhysicsHand : MonoBehaviour
     [SerializeField] private float springDampingRatio;
     [SerializeField] private float angularSpringFrequency;
     [SerializeField] private float angularSpringDampingRatio;
+    [SerializeField] private float maxAngularVelocity = 28f;
 
-    [HideInInspector] public float angleToController;
-
+    [SerializeField] private float maxHandDisplacement = 0.3f;
+    
     [SerializeField] private Vector3 rotationOffsetEuler;
     [HideInInspector] public Quaternion rotationOffset;
     [SerializeField] private Vector3 positionOffset;
 
-    [HideInInspector] public bool isColliding;
+    [HideInInspector] public string collidingTag;
     [HideInInspector] public bool isClimbing;
 
+    [HideInInspector] public float angleToController;
     [HideInInspector] public Vector3 controllerToBodyOffset;
     [HideInInspector] public Vector3 handToControllerOffset;
 
@@ -37,7 +39,7 @@ public class PhysicsHand : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         rotationOffset = Quaternion.Euler(rotationOffsetEuler);
-        rb.maxAngularVelocity = 21f;
+        rb.maxAngularVelocity = maxAngularVelocity;
     }
 
 
@@ -56,10 +58,14 @@ public class PhysicsHand : MonoBehaviour
     }
 
     private void FixedUpdate() {
+        
         if (isLeftController){
+            // Clamp hand distance at a threshold to avoid massive forces when virtual hands are obstructed
+            Vector3 handDisplacement = this.transform.position - (inputHandler.leftController.transform.position + (transform.rotation * positionOffset));
+            handDisplacement = Vector3.ClampMagnitude(handDisplacement, maxHandDisplacement);
+
             Vector3 springAcceleration = DampedSpring.GetDampedSpringAcceleration(
-                this.transform.position, 
-                inputHandler.leftController.transform.position + (transform.rotation * positionOffset), 
+                handDisplacement, 
                 rb.velocity - inputHandler.playerRigidbody.velocity, 
                 springFrequency, 
                 springDampingRatio);
@@ -77,9 +83,12 @@ public class PhysicsHand : MonoBehaviour
     
         }
         else{
+            // Clamp hand distance at a threshold to avoid massive forces when virtual hands are obstructed
+            Vector3 handDisplacement = this.transform.position - (inputHandler.rightController.transform.position + (transform.rotation * positionOffset));
+            handDisplacement = Vector3.ClampMagnitude(handDisplacement, maxHandDisplacement);
+
             Vector3 springAcceleration = DampedSpring.GetDampedSpringAcceleration(
-                this.transform.position, 
-                inputHandler.rightController.transform.position + (transform.rotation * positionOffset), 
+                handDisplacement, 
                 rb.velocity - inputHandler.playerRigidbody.velocity, 
                 springFrequency, 
                 springDampingRatio);
@@ -111,14 +120,10 @@ public class PhysicsHand : MonoBehaviour
 
 
     private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.tag == "Climbable"){
-            isColliding = true;
-        }
+        collidingTag = other.gameObject.tag;
     }
 
     private void OnCollisionExit(Collision other) {
-        if (other.gameObject.tag == "Climbable"){
-            isColliding = false;
-        }
+        collidingTag = null;
     }
 }

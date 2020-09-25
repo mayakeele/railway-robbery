@@ -13,6 +13,8 @@ public class ClimbingManager : MonoBehaviour
 
     [SerializeField] private float handRadius;
 
+    private string climbingTag = "Climbable";
+
     [HideInInspector] public PhysicsHand leftPhysicsHand;
     [HideInInspector] public PhysicsHand rightPhysicsHand;
     private ControllerCollisionTrigger leftControllerCollider;
@@ -36,7 +38,7 @@ public class ClimbingManager : MonoBehaviour
     {
         // Continue climbing if grip is held and the hand is touching climbable geometry / was previously climbing. Otherwise, update anchor positions and unfreeze the physics hand
 
-        if ((leftPhysicsHand.isColliding || leftPhysicsHand.isClimbing) && inputHandler.GetHeldState(InputHandler.InputButton.L_Grip)){
+        if ((leftPhysicsHand.collidingTag == climbingTag || leftPhysicsHand.isClimbing) && inputHandler.GetHeldState(InputHandler.InputButton.L_Grip)){
 
             leftPhysicsHand.isClimbing = true;
             leftPhysicsHand.rb.isKinematic = true;
@@ -59,7 +61,7 @@ public class ClimbingManager : MonoBehaviour
         }
 
 
-        if ((rightPhysicsHand.isColliding || rightPhysicsHand.isClimbing) && inputHandler.GetHeldState(InputHandler.InputButton.R_Grip)){
+        if ((rightPhysicsHand.collidingTag == climbingTag || rightPhysicsHand.isClimbing) && inputHandler.GetHeldState(InputHandler.InputButton.R_Grip)){
             
             rightPhysicsHand.isClimbing = true;
             rightPhysicsHand.rb.isKinematic = true;
