@@ -45,4 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   variants:
   - {fileID: 1219910812991413985, guid: 34399356abb2cec49937808a97fc77a4, type: 3}
-  weights: 01000000
+  - {fileID: 8114312038978839018, guid: bbf92e6b7ea79bb4b95067506e1e0910, type: 3}
+  weights:
+  - 12
+  - 4
