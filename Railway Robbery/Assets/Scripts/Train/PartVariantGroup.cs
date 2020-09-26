@@ -5,7 +5,7 @@ using UnityEngine;
 public class PartVariantGroup : MonoBehaviour
 {
     public GameObject[] variants;
-    public int[] weights;
+    public float[] weights;
 
     public GameObject ChooseVariant(){
         GameObject obj = variants.WeightedRandomChoice(weights);

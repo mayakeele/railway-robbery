@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3121152453958200455
+--- !u!1 &833482112440182249
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8367565098194062202}
-  - component: {fileID: 9093264280612910458}
+  - component: {fileID: 6115325420695421460}
+  - component: {fileID: 6841059785535257620}
   m_Layer: 0
-  m_Name: Caboose Cupola
+  m_Name: Boxcar Slanted Roof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8367565098194062202
+--- !u!4 &6115325420695421460
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121152453958200455}
+  m_GameObject: {fileID: 833482112440182249}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,18 +31,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9093264280612910458
+--- !u!114 &6841059785535257620
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121152453958200455}
+  m_GameObject: {fileID: 833482112440182249}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a37ac29820c181545a27b40f13edc8dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   variants:
-  - {fileID: 3889392895203346471, guid: 14e4f1dc6180b894cbb670fad3abfb58, type: 3}
+  - {fileID: 7774375952394682706, guid: b24b677e9741200499508828e68e0ad6, type: 3}
   weights: 01000000

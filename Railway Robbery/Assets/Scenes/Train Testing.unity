@@ -681,7 +681,7 @@ MonoBehaviour:
   trainCarTypeContainer: {fileID: 154612605}
   trainCars: []
   numTrainCars: 10
-  test_cartype: 2
+  test_cartype: 4
   standardCarLength: 0
   standardCarWidth: 0
   standardCarHeight: 0
@@ -941,28 +941,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d49a06f4932fb8841b3c7d906240938e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basePlatform: {fileID: 0}
-  wheelSet: {fileID: 0}
-  trainConnector: {fileID: 0}
-  ladderRung: {fileID: 0}
-  ladderBars: {fileID: 0}
-  ladderConnector: {fileID: 0}
+  basePlatform: {fileID: 1501565142851737792, guid: 506a5d94eb3adb84aa3cf21c8f18ce53,
+    type: 3}
+  wheelSet: {fileID: 427492575177891267, guid: b66f7bd8c1f9eb24ba178bd6e6b3a599, type: 3}
+  trainConnector: {fileID: 3131118681594330985, guid: 7588d924a43b83149b85c991cd34dbc4,
+    type: 3}
+  ladderRung: {fileID: 5186899013809132341, guid: a823cfaff031ef54395472c474f67463,
+    type: 3}
+  ladderBars: {fileID: 8868656512830498331, guid: 14263400a81fef346bd61063cb002b89,
+    type: 3}
+  ladderConnector: {fileID: 9059554655306836105, guid: 1b29e39bbc7c3f24b93bf293ffa6f43a,
+    type: 3}
   straightWall: {fileID: 0}
-  slantedBoxcarRoof: {fileID: 0}
-  boxcarDoorHandle: {fileID: 0}
-  boxcarSidePanelLB: {fileID: 0}
-  boxcarSidePanelLF: {fileID: 0}
-  boxcarSidePanelRB: {fileID: 0}
-  boxcarSidePanelRF: {fileID: 0}
-  boxcarBackPanelStandard: {fileID: 0}
-  boxcarSlidingDoorLeft: {fileID: 0}
-  boxcarSlidingDoorRight: {fileID: 0}
-  cabooseWallLeft: {fileID: 0}
-  cabooseWallRight: {fileID: 0}
-  cabooseRoof: {fileID: 0}
-  cabooseCupola: {fileID: 0}
-  caboosePorchFront: {fileID: 0}
-  cabooseDoorwayFront: {fileID: 0}
+  slantedBoxcarRoof: {fileID: 6841059785535257620, guid: ec8829e07344fc6489c84c157dcebf4d,
+    type: 3}
+  boxcarDoorHandle: {fileID: 2570595488526041516, guid: 08afcbf4ab121044bb4c71ff39588399,
+    type: 3}
+  boxcarSidePanelLB: {fileID: 7241163600077035127, guid: 75bf930d29bacfb4fbe95a40cdf91ef5,
+    type: 3}
+  boxcarSidePanelLF: {fileID: 1683385554504115971, guid: 904e83b65d873094596143df03f68645,
+    type: 3}
+  boxcarSidePanelRB: {fileID: 6315759549537347221, guid: 0b8d328715279354fb58ae1b5d3a522d,
+    type: 3}
+  boxcarSidePanelRF: {fileID: 4234301270604003979, guid: 3a66944a6a8cb2745a46bc3d63188a61,
+    type: 3}
+  boxcarBackPanelStandard: {fileID: 9124670230456597628, guid: f720db0179d4c7f448296676aba34155,
+    type: 3}
+  boxcarSlidingDoorLeft: {fileID: 1682528184908987283, guid: 0281df77183f5ea428eb50d1f7c7dc8b,
+    type: 3}
+  boxcarSlidingDoorRight: {fileID: 8418854736365012910, guid: 6089e88a86c882040bb27ef4d4d176d2,
+    type: 3}
+  cabooseWallLeft: {fileID: 5472845195641920109, guid: acbe7e3f617aa9e449e084bd3d4e9b32,
+    type: 3}
+  cabooseWallRight: {fileID: 1466998355941652485, guid: 41118d29c11abaa49bfcc0487ae3debf,
+    type: 3}
+  cabooseRoof: {fileID: 27324441013272472, guid: 8562ee232aaa8b54c8a52a483b09e15c,
+    type: 3}
+  cabooseCupola: {fileID: 9093264280612910458, guid: ebb2644ec6d740d478af317446c61d84,
+    type: 3}
+  caboosePorchFront: {fileID: 6935278098894629398, guid: 4824bc3d98a642e4b8fe64c9805f99c1,
+    type: 3}
+  cabooseDoorwayFront: {fileID: 5516336025241553621, guid: 256af9292048b434da564ccd759a3887,
+    type: 3}
 --- !u!1 &1997478376
 GameObject:
   m_ObjectHideFlags: 0
