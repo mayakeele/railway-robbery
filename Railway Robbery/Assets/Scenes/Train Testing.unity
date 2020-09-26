@@ -681,7 +681,7 @@ MonoBehaviour:
   trainCarTypeContainer: {fileID: 154612605}
   trainCars: []
   numTrainCars: 10
-  test_cartype: 4
+  test_cartype: 2
   standardCarLength: 0
   standardCarWidth: 0
   standardCarHeight: 0
