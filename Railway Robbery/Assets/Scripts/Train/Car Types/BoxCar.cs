@@ -79,10 +79,10 @@ public class BoxCar : MonoBehaviour
         roofMesh.ScaleVerticesNonUniform(carWidth + 0.1f + 0.1f, 0.6f, carLength + 0.1f + 0.05f);
         roof.GetComponent<MeshCollider>().sharedMesh = roofMesh;
 
-
+        /*
         // Place ladder(s) in random precalculated spots
         float sideInset = 0.6f;
-        float distanceOut = 0.1f + 0.05f;
+        float distanceOut = 0.1f;// + 0.05f;
 
         Vector3[] possibleLadderPositions = new Vector3[] {
             // Left
@@ -108,12 +108,12 @@ public class BoxCar : MonoBehaviour
 
             float ladderHeight = Random.Range(1.5f, carHeight);
 
-            GameObject ladderObject = trainPartFactory.CreateLadder(ladderHeight);
+            GameObject ladderObject = gameObject.AddComponent<Ladder>().GenerateLadder(ladderHeight, 0.5f);
             ladderObject.transform.parent = parentTransform;
 
             ladderObject.transform.position = ladderPos;
             ladderObject.transform.eulerAngles = new Vector3(0, ladderYRot, 0);
-        }
+        }*/
 
 
         return parentObject;
