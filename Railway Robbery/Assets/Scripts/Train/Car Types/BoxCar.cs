@@ -32,114 +32,59 @@ public class BoxCar : MonoBehaviour
         int doorSlot = numPanelsLong % 2 == 0 ? (numPanelsLong / 2) - 1 : (numPanelsLong / 2);
 
         for (int i = 0; i < numPanelsLong; i++) {
+
             if (i == doorSlot){
-                GameObject leftDoor = Instantiate(trainPartFactory.boxcarSlidingDoorLeft);
-                leftDoor.transform.SetParent(parentObject.transform);
+                GameObject leftDoor = Instantiate(trainPartFactory.boxcarSlidingDoorLeft.ChooseVariant(), parentTransform);
                 leftDoor.transform.position = new Vector3(-(halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
 
-                GameObject rightDoor = Instantiate(trainPartFactory.boxcarSlidingDoorRight);
-                rightDoor.transform.SetParent(parentObject.transform);
+                GameObject rightDoor = Instantiate(trainPartFactory.boxcarSlidingDoorRight.ChooseVariant(), parentTransform);
                 rightDoor.transform.position = new Vector3((halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
             }
-            else{
-                if (i < doorSlot){
-                    // Front end of car
-                    GameObject leftWall = Instantiate(trainPartFactory.boxcarSidePanelLF);
-                    leftWall.transform.SetParent(parentObject.transform);
-                    leftWall.transform.position = new Vector3(-(halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+            else if (i == doorSlot + 1){
+                GameObject leftWall = Instantiate(trainPartFactory.boxcarSidePanelLB.variants[0], parentTransform);
+                leftWall.transform.position = new Vector3(-(halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
 
-                    GameObject rightWall = Instantiate(trainPartFactory.boxcarSidePanelRF);
-                    rightWall.transform.SetParent(parentObject.transform);
-                    rightWall.transform.position = new Vector3((halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
-                }
-                else {
-                    // Back end of car
-                    GameObject leftWall = Instantiate(trainPartFactory.boxcarSidePanelLB);
-                    leftWall.transform.SetParent(parentObject.transform);
-                    leftWall.transform.position = new Vector3(-(halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+                GameObject rightWall = Instantiate(trainPartFactory.boxcarSidePanelRB.variants[0], parentTransform);
+                rightWall.transform.position = new Vector3((halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+            }
+            else if (i < doorSlot){
+                // Front end of car
+                GameObject leftWall = Instantiate(trainPartFactory.boxcarSidePanelLF.ChooseVariant(), parentTransform);
+                leftWall.transform.position = new Vector3(-(halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
 
-                    GameObject rightWall = Instantiate(trainPartFactory.boxcarSidePanelRB);
-                    rightWall.transform.SetParent(parentObject.transform);
-                    rightWall.transform.position = new Vector3((halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
-                }
-            }          
+                GameObject rightWall = Instantiate(trainPartFactory.boxcarSidePanelRF.ChooseVariant(), parentTransform);
+                rightWall.transform.position = new Vector3((halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+            }
+            else {
+                // Back end of car
+                GameObject leftWall = Instantiate(trainPartFactory.boxcarSidePanelLB.ChooseVariant(), parentTransform);
+                leftWall.transform.position = new Vector3(-(halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+
+                GameObject rightWall = Instantiate(trainPartFactory.boxcarSidePanelRB.ChooseVariant(), parentTransform);
+                rightWall.transform.position = new Vector3((halfWidth - (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
+            }
+
         }
 
         float backPanelThickness = 0.1f;
 
-        GameObject backWall = Instantiate(trainPartFactory.boxcarBackPanelStandard);
-        backWall.transform.SetParent(parentObject.transform);
+        GameObject backWall = Instantiate(trainPartFactory.boxcarBackPanelStandard.ChooseVariant(), parentTransform);
         backWall.GetComponent<BoxcarBackPanel>().Initialize();
         backWall.transform.position = new Vector3(0, groundOffset, -(halfLength - (backPanelThickness/2)));
 
-        GameObject frontWall = Instantiate(trainPartFactory.boxcarBackPanelStandard);
-        frontWall.transform.SetParent(parentObject.transform);
+        GameObject frontWall = Instantiate(trainPartFactory.boxcarBackPanelStandard.ChooseVariant(), parentTransform);
         frontWall.GetComponent<BoxcarBackPanel>().Initialize();
         frontWall.transform.position = new Vector3(0, groundOffset, (halfLength - (backPanelThickness/2)));
         frontWall.transform.eulerAngles = new Vector3(0, 180, 0);
         
 
         // Roof
-        GameObject roof = Instantiate(trainPartFactory.slantedBoxcarRoof);
-        roof.transform.SetParent(parentTransform);
+        GameObject roof = Instantiate(trainPartFactory.slantedBoxcarRoof.ChooseVariant(), parentTransform);
         roof.transform.position = new Vector3(0, groundOffset + carHeight, 0);
         
         Mesh roofMesh = roof.GetComponent<MeshFilter>().mesh;
         roofMesh.ScaleVerticesNonUniform(carWidth + 0.1f + 0.1f, 0.6f, carLength + 0.1f + 0.05f);
         roof.GetComponent<MeshCollider>().sharedMesh = roofMesh;
-
-
-        // Place ladder(s) in random precalculated spots
-        float sideInset = 0.6f;
-        float distanceOut = 0.1f + 0.05f;
-
-        Vector3[] possibleLadderPositions = new Vector3[] {
-            // Back
-            //new Vector3(halfWidth - sideInset, groundOffset, -halfLength - distanceOut),
-            //new Vector3(-halfWidth + sideInset, groundOffset, -halfLength - distanceOut),
-
-            // Left
-            new Vector3(-halfWidth - distanceOut, groundOffset, -halfLength + sideInset),
-            new Vector3(-halfWidth - distanceOut, groundOffset, halfLength - sideInset),
-
-            // Front
-            //new Vector3(-halfWidth + sideInset, groundOffset, halfLength + distanceOut),
-            //new Vector3(halfWidth - sideInset, groundOffset, halfLength + distanceOut),
-
-            // Right
-            new Vector3(halfWidth + distanceOut, groundOffset, halfLength - sideInset),
-            new Vector3(halfWidth + distanceOut, groundOffset, -halfLength + sideInset)
-            
-        };
-        int[] possibleLadderYRotations = new int[] {
-            //0,
-            //0,
-
-            90,
-            90,
-
-            //180,
-            //180,
-            
-            270,
-            270
-        };
-
-        int[] ladderPosIndices = RandomExtensions.ChooseRandomIndices(4, possibleLadderPositions.Length, false);
-        for (int i = 0; i < ladderPosIndices.Length; i++){
-            int index = ladderPosIndices[i];
-
-            Vector3 ladderPos = possibleLadderPositions[index];
-            float ladderYRot = possibleLadderYRotations[index];
-
-            float ladderHeight = Random.Range(1.5f, carHeight);
-
-            GameObject ladderObject = trainPartFactory.CreateLadder(ladderHeight);
-            ladderObject.transform.parent = parentTransform;
-
-            ladderObject.transform.position = ladderPos;
-            ladderObject.transform.eulerAngles = new Vector3(0, ladderYRot, 0);
-        }
 
 
         return parentObject;

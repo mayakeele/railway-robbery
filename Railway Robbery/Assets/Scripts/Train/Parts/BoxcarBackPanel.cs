@@ -26,12 +26,12 @@ public class BoxcarBackPanel : MonoBehaviour
 
         bool leftIsPrimary = RandomExtensions.RandomBool();
 
-        GameObject primaryLadder = trainPartFactory.CreateLadder(primaryLadderHeight);
+        GameObject primaryLadder = gameObject.AddComponent<Ladder>().GenerateLadder(primaryLadderHeight, 0.5f);
         primaryLadder.transform.parent = this.transform;
         primaryLadder.transform.localPosition = leftIsPrimary ? potentialLadderPositions[0] : potentialLadderPositions[1];
 
         if (RandomExtensions.RandomChance(secondaryLadderChance)){
-            GameObject secondaryLadder = trainPartFactory.CreateLadder(secondaryLadderHeight);
+            GameObject secondaryLadder = gameObject.AddComponent<Ladder>().GenerateLadder(secondaryLadderHeight, 0.5f);
             secondaryLadder.transform.parent = this.transform;
             secondaryLadder.transform.localPosition = leftIsPrimary ? potentialLadderPositions[1] : potentialLadderPositions[0];
         }

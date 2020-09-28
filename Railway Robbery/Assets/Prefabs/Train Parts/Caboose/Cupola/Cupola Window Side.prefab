@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8465085208744819772}
   - component: {fileID: 4815999128732103577}
   - component: {fileID: 7291656520905394003}
+  - component: {fileID: -7452792901441046252}
   m_Layer: 0
   m_Name: Cupola Window Side
   m_TagString: Untagged
@@ -79,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &-7452792901441046252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9093285007175558790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeLayer: 5

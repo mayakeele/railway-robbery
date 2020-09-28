@@ -55,4 +55,54 @@ public static class RandomExtensions
             return false;
         }   
     }
+
+    public static T WeightedRandomChoice<T>(this T[] inputArray, int[] weightArray){
+
+        int totalWeight = weightArray.Sum();
+        int rand = Random.Range(0, totalWeight);
+
+        int currentWeight = 0;
+        for (int i = 0; i < inputArray.Length; i++){
+
+            currentWeight += weightArray[i];      
+            if (rand < currentWeight){
+                return inputArray[i];
+            }
+            else{
+                continue;
+            }
+        }
+        return default(T);
+    }
+    public static T WeightedRandomChoice<T>(this T[] inputArray, float[] weightArray){
+
+        float totalWeight = weightArray.Sum();
+        float rand = Random.Range(0, totalWeight);
+
+        float currentWeight = 0;
+        for (int i = 0; i < inputArray.Length; i++){
+
+            currentWeight += weightArray[i];      
+            if (rand < currentWeight){
+                return inputArray[i];
+            }
+            else{
+                continue;
+            }
+        }
+        return default(T);
+    }
+
+    // Test code for Weighted Random, put in Start() to run
+        /*int[] testItems =   {0, 1, 2, 3, 4, 5};
+        int[] testWeights = {10, 5, 1, 1, 5, 10};
+        int[] count = new int[testItems.Length];
+
+        for (int i = 0; i < testWeights.Sum(); i++){
+            int num = testItems.WeightedRandomChoice(testWeights);
+            count[num] += 1;
+        }
+        foreach (int c in count){
+            Debug.Log(c);
+        }*/
 }

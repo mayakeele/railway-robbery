@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7406069841288925099}
   - component: {fileID: 5866078003675365390}
   - component: {fileID: 8542353865115006148}
+  - component: {fileID: 7643291146339273375}
   m_Layer: 0
   m_Name: Cupola Window Front
   m_TagString: Untagged
@@ -79,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &7643291146339273375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893813871359743249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeLayer: 5

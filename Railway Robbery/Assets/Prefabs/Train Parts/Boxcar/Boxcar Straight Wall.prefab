@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3869157576894058089}
   - component: {fileID: 3869157576894058094}
   m_Layer: 8
-  m_Name: Straight Wall
+  m_Name: Boxcar Straight Wall
   m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 79f64ed6f5d6d374d91c3a0af4070258, type: 2}
+  - {fileID: 2100000, guid: aeee7071bea0a4c478b4fea5933c5f79, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

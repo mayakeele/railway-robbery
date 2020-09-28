@@ -5,7 +5,7 @@ using UnityEngine;
 public class TrainCar : MonoBehaviour
 {
 
-    public GameObject trainCarGameobject;
+    //public GameObject trainCarGameobject;
 
 
     public TrainManager.CarType carType;
@@ -19,7 +19,8 @@ public class TrainCar : MonoBehaviour
 
     
     void Start() {
-        
+        CarTheme carTheme = gameObject.AddComponent<CarTheme>();
+        //carTheme.ApplyThemeToChildren();
     }
 
     void Update() {

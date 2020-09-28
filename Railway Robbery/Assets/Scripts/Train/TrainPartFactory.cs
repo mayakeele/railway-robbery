@@ -4,31 +4,33 @@ using UnityEngine;
 
 public class TrainPartFactory : MonoBehaviour
 {
-    public GameObject basePlatform;
-    public GameObject wheelSet;
-    public GameObject trainConnector;
 
-    public GameObject ladderRung;
-    public GameObject ladderBars;
-    public GameObject ladderConnector;
+    public PartVariantGroup basePlatform;
+    public PartVariantGroup wheelSet;
+    public PartVariantGroup trainConnector;
 
-    public GameObject straightWall;
-    public GameObject slantedBoxcarRoof;
-    public GameObject boxcarDoorHandle;
-    public GameObject boxcarSidePanelLB;
-    public GameObject boxcarSidePanelLF;
-    public GameObject boxcarSidePanelRB;
-    public GameObject boxcarSidePanelRF;
-    public GameObject boxcarBackPanelStandard;
-    public GameObject boxcarSlidingDoorLeft;
-    public GameObject boxcarSlidingDoorRight;
+    public PartVariantGroup ladderRung;
+    public PartVariantGroup ladderBars;
+    public PartVariantGroup ladderConnector;
 
-    public GameObject cabooseWallLeft;
-    public GameObject cabooseWallRight;
-    public GameObject cabooseRoof;
-    public GameObject cabooseCupola;
-    public GameObject caboosePorchFront;
-    public GameObject cabooseDoorwayFront;
+    public PartVariantGroup slantedBoxcarRoof;
+    public PartVariantGroup boxcarDoorHandle;
+    public PartVariantGroup boxcarSidePanelLB;
+    public PartVariantGroup boxcarSidePanelLF;
+    public PartVariantGroup boxcarSidePanelRB;
+    public PartVariantGroup boxcarSidePanelRF;
+    public PartVariantGroup boxcarBackPanelStandard;
+    public PartVariantGroup boxcarSlidingDoorLeft;
+    public PartVariantGroup boxcarSlidingDoorRight;
+
+    public PartVariantGroup cabooseWallLeft;
+    public PartVariantGroup cabooseWallRight;
+    public PartVariantGroup cabooseRoof;
+    public PartVariantGroup cabooseCupola;
+    public PartVariantGroup caboosePorchFront;
+    public PartVariantGroup cabooseDoorwayFront;
+
+
 
 
     public GameObject CreateBasePlatform(float length, float width, float thickness, float groundOffset){
@@ -37,8 +39,8 @@ public class TrainPartFactory : MonoBehaviour
         Transform parentTransform = parentObject.transform;
 
         // Base platform
-        GameObject floorObject = Instantiate(basePlatform);
-        floorObject.transform.parent = parentTransform;
+        GameObject floorObject = Instantiate(basePlatform.ChooseVariant(), parentTransform);
+        //floorObject.transform.parent = parentTransform;
 
         Mesh floorMesh = floorObject.GetComponent<MeshFilter>().mesh;
         Vector3 floorDimensions = new Vector3(width, thickness, length);
@@ -48,8 +50,7 @@ public class TrainPartFactory : MonoBehaviour
         floorObject.transform.localPosition = new Vector3(0, groundOffset - (floorDimensions.y/2), 0);
 
         // Back train connector
-        GameObject connectorObject = Instantiate(trainConnector);
-        connectorObject.transform.parent = parentTransform;
+        GameObject connectorObject = Instantiate(trainConnector.ChooseVariant(), parentTransform);
 
         Mesh connectorMesh = connectorObject.GetComponent<MeshFilter>().mesh;
         connectorMesh.ScaleVerticesNonUniform(width, thickness, 1);
@@ -64,8 +65,7 @@ public class TrainPartFactory : MonoBehaviour
         connectorObject.transform.eulerAngles = new Vector3(0, 180, 0);
 
         // Front wheel truck
-        GameObject wheelsObject = Instantiate(wheelSet);
-        wheelsObject.transform.SetParent(parentTransform);
+        GameObject wheelsObject = Instantiate(wheelSet.ChooseVariant(), parentTransform);
 
         MeshFilter[] wheelsMeshes = wheelsObject.GetComponentsInChildren<MeshFilter>();
         float wheelsHeight = groundOffset - floorDimensions.y;
@@ -86,13 +86,12 @@ public class TrainPartFactory : MonoBehaviour
         return parentObject;
     }
 
-    public GameObject CreateStraightWall(float length, float height, float thickness, bool isFrontToBack = true){
+    /*public GameObject CreateStraightWall(float length, float height, float thickness, bool isFrontToBack = true){
         // Instantiates a wall prefab, scaled to the desired dimensions
         GameObject parentObject = new GameObject("Straight Wall");
         Transform parentTransform = parentObject.transform;
 
-        GameObject wallObject = Instantiate(straightWall);
-        wallObject.transform.parent = parentTransform;
+        GameObject wallObject = Instantiate(straightWall.ChooseVariant(), parentTransform);
 
         Vector3 wallDimensions = isFrontToBack ? new Vector3(thickness, height, length) : new Vector3(length, height, thickness);
 
@@ -102,51 +101,7 @@ public class TrainPartFactory : MonoBehaviour
         wallObject.GetComponent<BoxCollider>().size = wallDimensions;
 
         return parentObject;
-    }
+    }*/
 
 
-    public GameObject CreateLadder(float inputHeight, float inputRungDistance = 0.5f){
-        // Instantiates ladder prefabs, scales them to required size and number of rungs
-        GameObject parentObject = new GameObject("Ladder");
-        Transform parentTransform = parentObject.transform;
-
-        Ladder ladderScript = parentObject.AddComponent<Ladder>();
-        ladderScript.Initialize(inputHeight, inputRungDistance);
-
-        // Side bars
-        GameObject bars = Instantiate(ladderBars);
-        bars.transform.parent = parentTransform;
-
-        MeshFilter[] barMeshes = bars.GetComponentsInChildren<MeshFilter>();
-        foreach (MeshFilter mf in barMeshes){
-            Mesh m = mf.mesh;
-            m.ScaleVerticesNonUniform(1, inputHeight, 1);
-
-            CapsuleCollider coll = mf.gameObject.GetComponent<CapsuleCollider>();
-            coll.height = inputHeight;
-            coll.center = new Vector3(coll.center.x, inputHeight / 2, coll.center.z);
-        }
-
-        // Connectors
-        GameObject connectors = Instantiate(ladderConnector);
-        connectors.transform.parent = parentTransform;
-        connectors.transform.position = new Vector3(0, inputHeight, 0);
-
-        // Rungs
-        GameObject rungs = new GameObject("Ladder Rungs");
-        rungs.transform.parent = parentTransform;
-
-        float currRungHeight = inputHeight;
-        while (currRungHeight > 0){
-            GameObject thisRung = Instantiate(ladderRung);
-            thisRung.transform.parent = rungs.transform;
-
-            thisRung.transform.position = new Vector3(0, currRungHeight, 0);
-
-            currRungHeight -= inputRungDistance;
-        }
-
-
-        return parentObject;
-    }
 }
