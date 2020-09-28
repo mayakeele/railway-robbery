@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7949860895221016695}
   - component: {fileID: 7241163600077035127}
   m_Layer: 0
-  m_Name: Boxcar Side Panel LB 1
+  m_Name: Boxcar Side Panel LB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,4 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   variants:
   - {fileID: 184435884555586003, guid: b568043b160e0f2499fac3db65fe4534, type: 3}
-  weights: 01000000
+  - {fileID: 4694376987211127169, guid: 6b4fea56e7cf7cc459b7c1f58c880f25, type: 3}
+  weights:
+  - 2
+  - 1
