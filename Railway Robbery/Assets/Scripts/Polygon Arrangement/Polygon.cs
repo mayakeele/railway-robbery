@@ -1,0 +1,139 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Polygon
+{
+    public struct Edge{
+        public Vector2 pointA;
+        public Vector2 pointB;
+        public Vector2 directionAtoB;
+
+        public Edge(Vector2 pointA, Vector2 pointB){
+            this.pointA = pointA;
+            this.pointB = pointB;
+            this.directionAtoB = (pointB - pointA).normalized;
+        }
+    }
+
+
+    public Vector2[] points;
+    public Vector2 position;
+
+    
+    public Polygon(Vector2[] points, Vector2 position){
+        this.points = points;
+        this.position = position;
+    }
+
+
+    public Vector2[] GetWorldPoints(){
+        // Returns an array of points shifted by this polygon's position
+
+        Vector2[] translatedPoints = new Vector2[points.Length];
+        for (int i = 0; i < points.Length; i++){
+            translatedPoints[i] = points[i] + position;
+        }
+        return translatedPoints;
+    }
+
+    public Edge[] GetLocalEdges(){
+        int numEdges = points.Length;
+        Edge[] newEdges = new Edge[numEdges];
+
+        for (int i = 0; i < numEdges - 1; i++){
+            newEdges[i] = new Edge(points[i], points[i+1]);
+        }
+        newEdges[numEdges-1] = new Edge(points[numEdges-1], points[0]);
+
+        return newEdges;
+    }
+
+    public Edge[] GetWorldEdges(){
+        int numEdges = points.Length;
+        Edge[] newEdges = new Edge[numEdges];
+
+        Vector2[] worldPoints = GetWorldPoints();
+
+        for (int i = 0; i < numEdges - 1; i++){
+            newEdges[i] = new Edge(worldPoints[i], worldPoints[i+1]);
+        }
+        newEdges[numEdges-1] = new Edge(worldPoints[numEdges-1], worldPoints[0]);
+
+        return newEdges;
+    }
+
+    private float[] ProjectToAxis(Vector2 axis){
+        // Projects each point of this polygon to a given axis, and returns [min, max] in a 2-part float array.
+
+        Vector2[] worldPoints = GetWorldPoints();
+
+        float dot = Vector2.Dot(axis, worldPoints[0]);
+        float min = dot;
+        float max = dot;
+
+        for(int i = 0; i < worldPoints.Length; i++){
+            dot = Vector2.Dot(axis, worldPoints[i]);
+
+            if (dot < min){
+                min = dot;
+            }
+            else if (dot > max){
+                max = dot;
+            }
+        }
+
+        return new float[] {min, max};
+    }
+
+    private float IntervalDistance(float minA, float maxA, float minB, float maxB) {
+        // Calculate the distance between [minA, maxA] and [minB, maxB]. The distance will be negative if the intervals overlap
+
+        if (minA < minB) {
+            return minB - maxA;
+        } else {
+            return minA - maxB;
+        }
+    }
+
+    public bool IsColliding(Polygon polygonB) {
+        // Check if polygon A is colliding with polygon B.
+
+        Polygon polygonA = this;
+
+        Edge[] edgesA = polygonA.GetWorldEdges();
+        Edge[] edgesB = polygonB.GetWorldEdges();
+
+        int edgeCountA = edgesA.Length;
+        int edgeCountB = edgesB.Length;
+
+        Vector2 edge;
+
+        // Loop through all the edges of both polygons
+        for (int edgeIndex = 0; edgeIndex < edgeCountA + edgeCountB; edgeIndex++) {
+            if (edgeIndex < edgeCountA) {
+                edge = edgesA[edgeIndex].directionAtoB;
+            } else {
+                edge = edgesB[edgeIndex - edgeCountA].directionAtoB;
+            }
+
+            // Find the axis perpendicular to the current edge
+            Vector2 axis = new Vector2(-edge.y, edge.x).normalized;
+
+            // Find the projection of the polygon on the current axis
+            float[] rangeA = polygonA.ProjectToAxis(axis);
+            float[] rangeB = polygonB.ProjectToAxis(axis);
+
+            float minA = rangeA[0]; float maxA = rangeA[1];
+            float minB = rangeB[0]; float maxB = rangeB[1];
+
+            // If the polygon projections do not intersect on this projection, they are not colliding
+            if (IntervalDistance(minA, maxA, minB, maxB) > 0){
+                return false;
+            }
+        }
+
+        // If polygon projections intersect across ALL axes, the polygons are colliding
+        return true;
+    }
+}
