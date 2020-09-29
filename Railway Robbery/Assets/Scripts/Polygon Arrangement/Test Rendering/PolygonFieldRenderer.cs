@@ -5,7 +5,6 @@ using UnityEngine;
 public class PolygonFieldRenderer : MonoBehaviour
 {
     [SerializeField] private PolygonField polygonField;
-    [SerializeField] private LineRenderer lineRenderer;
 
     [SerializeField] private GameObject planePrefab;
     
@@ -18,16 +17,17 @@ public class PolygonFieldRenderer : MonoBehaviour
 
     void Update()
     {
-        List<Vector3> allPoints = new List<Vector3>();
+        
+    }
 
+    private void OnDrawGizmos() {
         foreach (Polygon polygon in polygonField.polygons){
             foreach (Polygon.Edge edge in polygon.GetWorldEdges()){
-                allPoints.Add(new Vector3(edge.pointA.x, 0, edge.pointA.y));
-                allPoints.Add(new Vector3(edge.pointB.x, 0, edge.pointB.y));
+                Vector3 worldA = new Vector3(edge.pointA.x, 0, edge.pointA.y);
+                Vector3 worldB = new Vector3(edge.pointB.x, 0, edge.pointB.y);
+
+                Gizmos.DrawLine(worldA, worldB);
             }
         }
-
-        lineRenderer.positionCount = allPoints.Count;
-        lineRenderer.SetPositions(allPoints.ToArray());
     }
 }
