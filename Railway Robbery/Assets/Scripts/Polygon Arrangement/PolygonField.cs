@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class PolygonField : MonoBehaviour
 {
-    public List<Polygon> polygons = new List<Polygon>();
-
     public float fieldWidth;
     public float fieldLength;
+
+    public float repulsionConstant;
+    public float stepSize;
+
+    public List<Polygon> polygons = new List<Polygon>();
+    //public List<Polygon> exclusionZones = new List<Polygon>();
+    
 
 
     public Vector2[] pointsA;
@@ -19,6 +24,7 @@ public class PolygonField : MonoBehaviour
     Polygon polyA;
     Polygon polyB;
 
+
     void Start()
     {
         polyA = new Polygon(pointsA, posA);
@@ -26,13 +32,38 @@ public class PolygonField : MonoBehaviour
 
         polygons.Add(polyA);
         polygons.Add(polyB);
+
+        //Debug.Log(CalculateRepulsion(polyB));
     }
 
     void Update()
     {
-        polyA.position = posA;
-        polyB.position = posB;
+        Vector2 forceA = CalculateRepulsion(polyA);
+        polyA.position += forceA * stepSize;
+    }
 
-        Debug.Log(polyA.IsColliding(polyB));
+
+    public Vector2 CalculateRepulsion(Polygon thisPoly){
+        Vector2 netForce = Vector2.zero;
+
+        foreach (Vector2 thisPoint in thisPoly.GetWorldPoints()){
+            // Calculate net force from all other polygon points
+            foreach (Polygon otherPoly in polygons){
+                if (otherPoly != thisPoly){
+                    foreach (Vector2 otherPoint in otherPoly.GetWorldPoints()){
+                        Vector2 displacement = thisPoint - otherPoint;
+                        Vector2 forceDirection = displacement.normalized;
+                        float distSquared = displacement.sqrMagnitude;
+
+                        netForce += forceDirection * (repulsionConstant/distSquared);
+                    }
+                }
+            }
+
+            // Calculate net force from walls
+
+        }
+
+        return netForce;
     }
 }

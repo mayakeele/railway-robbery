@@ -17,40 +17,46 @@ public class Polygon
     }
 
 
-    public Vector2[] points;
+    public Vector2[] localPoints;
     public Vector2 position;
 
+    public Edge[] localEdges;
+    public float area;
+
     
-    public Polygon(Vector2[] points, Vector2 position){
-        this.points = points;
+    public Polygon(Vector2[] localPoints, Vector2 position){
+        this.localPoints = localPoints;
         this.position = position;
+
+        this.localEdges = GetLocalEdges();
+        this.area = CalculateArea();
     }
 
 
     public Vector2[] GetWorldPoints(){
         // Returns an array of points shifted by this polygon's position
 
-        Vector2[] translatedPoints = new Vector2[points.Length];
-        for (int i = 0; i < points.Length; i++){
-            translatedPoints[i] = points[i] + position;
+        Vector2[] translatedPoints = new Vector2[localPoints.Length];
+        for (int i = 0; i < localPoints.Length; i++){
+            translatedPoints[i] = localPoints[i] + position;
         }
         return translatedPoints;
     }
 
     public Edge[] GetLocalEdges(){
-        int numEdges = points.Length;
+        int numEdges = localPoints.Length;
         Edge[] newEdges = new Edge[numEdges];
 
         for (int i = 0; i < numEdges - 1; i++){
-            newEdges[i] = new Edge(points[i], points[i+1]);
+            newEdges[i] = new Edge(localPoints[i], localPoints[i+1]);
         }
-        newEdges[numEdges-1] = new Edge(points[numEdges-1], points[0]);
+        newEdges[numEdges-1] = new Edge(localPoints[numEdges-1], localPoints[0]);
 
         return newEdges;
     }
 
     public Edge[] GetWorldEdges(){
-        int numEdges = points.Length;
+        int numEdges = localPoints.Length;
         Edge[] newEdges = new Edge[numEdges];
 
         Vector2[] worldPoints = GetWorldPoints();
@@ -135,5 +141,19 @@ public class Polygon
 
         // If polygon projections intersect across ALL axes, the polygons are colliding
         return true;
+    }
+
+    public float CalculateArea(){
+        // Calculate the area of this polygon, assuming it does not self-overlap
+
+        float area = 0;
+        int j = localPoints.Length - 1;
+
+        for (int i = 0; i < localPoints.Length; i++){
+            area += (localPoints[j].x + localPoints[i].x) * (localPoints[j].y - localPoints[i].y);
+            j = i;
+        }
+
+        return Mathf.Abs(area / 2);
     }
 }
