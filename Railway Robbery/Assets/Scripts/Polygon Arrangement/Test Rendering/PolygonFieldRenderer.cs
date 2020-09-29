@@ -23,9 +23,14 @@ public class PolygonFieldRenderer : MonoBehaviour
     private void OnDrawGizmos() {
         foreach (Polygon polygon in polygonField.polygons){
             foreach (Polygon.Edge edge in polygon.GetWorldEdges()){
+                Gizmos.color = Color.green;
+                float radius = 0.1f;
+
                 Vector3 worldA = new Vector3(edge.pointA.x, 0, edge.pointA.y);
                 Vector3 worldB = new Vector3(edge.pointB.x, 0, edge.pointB.y);
 
+                Gizmos.DrawWireSphere(worldA, radius);
+                Gizmos.DrawWireSphere(worldB, radius);
                 Gizmos.DrawLine(worldA, worldB);
             }
         }

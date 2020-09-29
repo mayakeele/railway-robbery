@@ -28,11 +28,18 @@ public static class RandomExtensions
         return choices;
     }
 
-    public static T RandomChoice<T>(this T[] inputArray){
+    public static T RandomChoice<T>(this T[] input){
         // Chooses and returns a random value from a given array of any type
-        int index = Random.Range(0, inputArray.Length);
+        int index = Random.Range(0, input.Length);
 
-        return inputArray[index];
+        return input[index];
+    }
+
+    public static T RandomChoice<T>(this List<T> input){
+        // Chooses and returns a random value from a given array of any type
+        int index = Random.Range(0, input.Count);
+
+        return input[index];
     }
 
     public static bool RandomBool(){
@@ -56,17 +63,17 @@ public static class RandomExtensions
         }   
     }
 
-    public static T WeightedRandomChoice<T>(this T[] inputArray, int[] weightArray){
+    public static T WeightedRandomChoice<T>(this T[] input, int[] weightArray){
 
         int totalWeight = weightArray.Sum();
         int rand = Random.Range(0, totalWeight);
 
         int currentWeight = 0;
-        for (int i = 0; i < inputArray.Length; i++){
+        for (int i = 0; i < input.Length; i++){
 
             currentWeight += weightArray[i];      
             if (rand < currentWeight){
-                return inputArray[i];
+                return input[i];
             }
             else{
                 continue;
@@ -74,17 +81,17 @@ public static class RandomExtensions
         }
         return default(T);
     }
-    public static T WeightedRandomChoice<T>(this T[] inputArray, float[] weightArray){
+    public static T WeightedRandomChoice<T>(this T[] input, float[] weightArray){
 
         float totalWeight = weightArray.Sum();
         float rand = Random.Range(0, totalWeight);
 
         float currentWeight = 0;
-        for (int i = 0; i < inputArray.Length; i++){
+        for (int i = 0; i < input.Length; i++){
 
             currentWeight += weightArray[i];      
             if (rand < currentWeight){
-                return inputArray[i];
+                return input[i];
             }
             else{
                 continue;
