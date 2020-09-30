@@ -155,23 +155,24 @@ MonoBehaviour:
   fieldLength: 5
   polygonRepulsion: 1
   wallRepulsion: 1
-  stepSize: 0.05
+  stepSize: 0.03
+  rotationConstant: 300
   maxCycles: 1000
-  sleepThreshold: 0.008
-  percentSleepingToContinue: 0.5
+  sleepThreshold: 0.005
+  percentSleepingToContinue: 1
   currCycle: 0
   numSleeping: 0
   pointsA:
   - {x: -0.5, y: 0}
   - {x: 0.5, y: 0}
   - {x: 0, y: 1}
-  posA: {x: 1, y: 1.8}
+  posA: {x: 1, y: 1}
   pointsB:
-  - {x: 0.3, y: 0.3}
-  - {x: 0.3, y: -0.3}
-  - {x: -0.3, y: -0.3}
-  - {x: -0.3, y: 0.3}
-  posB: {x: 2, y: -3}
+  - {x: 0.1, y: 1}
+  - {x: 0.1, y: -1}
+  - {x: -0.1, y: -1}
+  - {x: -0.1, y: 1}
+  posB: {x: 0, y: 0}
 --- !u!4 &110131162
 Transform:
   m_ObjectHideFlags: 0

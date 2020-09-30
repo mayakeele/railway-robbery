@@ -22,9 +22,9 @@ public class PolygonFieldRenderer : MonoBehaviour
 
     private void OnDrawGizmos() {
         foreach (Polygon polygon in polygonField.polygons){
-            foreach (Polygon.Edge edge in polygon.GetWorldEdges()){
+            foreach (Polygon.Edge edge in polygon.CalculateWorldEdges()){
                 Gizmos.color = Color.green;
-                float radius = 0.1f;
+                float radius = 0.08f;
 
                 Vector3 worldA = new Vector3(edge.pointA.x, 0, edge.pointA.y);
                 Vector3 worldB = new Vector3(edge.pointB.x, 0, edge.pointB.y);

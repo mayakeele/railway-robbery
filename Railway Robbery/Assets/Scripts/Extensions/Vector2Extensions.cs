@@ -4,15 +4,35 @@ using UnityEngine;
 
 public static class Vector2Extensions
 {
+    public static Vector2 Sum(this Vector2[] array){
+        Vector2 sum = Vector2.zero;
+        foreach (Vector2 vector in array){
+            sum += vector;
+        }
+
+        return sum;
+    }
+
+    public static Vector2 Sum(this List<Vector2> list){
+        Vector2 sum = Vector2.zero;
+        foreach (Vector2 vector in list){
+            sum += vector;
+        }
+        
+        return sum;
+    }
+
     public static Vector2 Rotate(this Vector2 v, float degrees) {
          float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
          float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
          
          float tx = v.x;
          float ty = v.y;
-         v.x = (cos * tx) - (sin * ty);
-         v.y = (sin * tx) + (cos * ty);
-         return v;
+
+         Vector2 rotatedVector = new Vector2();
+         rotatedVector.x = (cos * tx) - (sin * ty);
+         rotatedVector.y = (sin * tx) + (cos * ty);
+         return rotatedVector;
     }
 
     public static Vector2 MaxValues(this Vector2[] array){

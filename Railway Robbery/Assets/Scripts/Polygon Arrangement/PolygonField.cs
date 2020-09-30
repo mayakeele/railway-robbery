@@ -11,6 +11,7 @@ public class PolygonField : MonoBehaviour
     public float wallRepulsion;
 
     public float stepSize;
+    public float rotationConstant;
     public float maxCycles;
 
     public float sleepThreshold;
@@ -37,8 +38,8 @@ public class PolygonField : MonoBehaviour
 
     void Start()
     {
-        polyA = new Polygon(pointsA, posA);
-        polyB = new Polygon(pointsB, posB);
+        polyA = new Polygon(pointsA, posA, 90);
+        polyB = new Polygon(pointsB, posB, -90);
 
         polygons.Add(polyA);
         polygons.Add(polyB);
@@ -55,22 +56,43 @@ public class PolygonField : MonoBehaviour
     public void RunSimulationFrame(){
         // Runs a simulation of this polygon field until end conditions are met
 
-        List<Vector2> forces = new List<Vector2>();
+        List<Vector2> forcePerPoly = new List<Vector2>();
+        List<float> torquePerPoly = new List<float>();
 
-        // Calculate forces on each polygon in the simulation
+        // Calculate forces and torques on each polygon in the simulation
         for (int p = 0; p < polygons.Count; p++){
-            forces.Add(CalculateRepulsion(polygons[p]));
+            Polygon thisPoly = polygons[p];
+            List<Vector2> forcePerPoint = CalculateForcePerPoint(thisPoly);
+
+            Vector2 netForce = forcePerPoint.Sum();
+            forcePerPoly.Add(netForce);
+
+            float numPoints = forcePerPoint.Count;
+            Vector2[] rotatedPoints = thisPoly.CalculateRotatedPoints();
+            float netTorque = 0;
+            for (int i = 0; i < numPoints; i++){
+                Vector2 position = rotatedPoints[i];
+                Vector2 force = forcePerPoint[i];
+                float sinTheta = Mathf.Sin(Mathf.Deg2Rad * Vector2.SignedAngle(position, force));
+
+                float thisTorque = position.magnitude * force.magnitude * sinTheta;
+                netTorque += thisTorque;
+            }
+
+            torquePerPoly.Add(netTorque);
         }
 
         // Apply movement to all polygons and count how many fall below the sleep threshold
         numSleeping = 0;
         for (int p = 0; p < polygons.Count; p++){
-            Vector2 displacement = forces[p] * stepSize;
 
-            if (displacement.magnitude > sleepThreshold){
-                polygons[p].position += displacement;
-            }
-            else{
+            Vector2 displacement = forcePerPoly[p] * stepSize;
+            float angularDisplacement = torquePerPoly[p] * stepSize * rotationConstant;
+
+            polygons[p].position += displacement;
+            polygons[p].rotation += angularDisplacement;
+
+            if (displacement.magnitude <= sleepThreshold){
                 numSleeping++;
             }
         }
@@ -84,8 +106,8 @@ public class PolygonField : MonoBehaviour
             for (int p = 0; p < polygons.Count; p++){
                 numCollisions.Add(CalculateNumCollisions(polygons[p]));
 
-                Vector2 maxPoint = polygons[p].GetWorldPoints().MaxValues();
-                Vector2 minPoint = polygons[p].GetWorldPoints().MinValues();
+                Vector2 maxPoint = polygons[p].CalculateWorldPoints().MaxValues();
+                Vector2 minPoint = polygons[p].CalculateWorldPoints().MinValues();
 
                 if (maxPoint.x >= fieldWidth/2 || minPoint.x <= -fieldWidth/2){
                     numCollisions[p]++;
@@ -115,15 +137,16 @@ public class PolygonField : MonoBehaviour
     }
 
 
-    public Vector2 CalculateRepulsion(Polygon thisPoly){
-        Vector2 netForce = Vector2.zero;
+    public List<Vector2> CalculateForcePerPoint(Polygon thisPoly){
+        List<Vector2> forces = new List<Vector2>();
 
-        foreach (Vector2 thisPoint in thisPoly.GetWorldPoints()){
+        foreach (Vector2 thisPoint in thisPoly.CalculateWorldPoints()){
+            Vector2 netForce = Vector2.zero;
 
             // Calculate net force from all other polygon points
             foreach (Polygon otherPoly in polygons){
                 if (otherPoly != thisPoly){
-                    foreach (Vector2 otherPoint in otherPoly.GetWorldPoints()){
+                    foreach (Vector2 otherPoint in otherPoly.CalculateWorldPoints()){
                         Vector2 displacement = thisPoint - otherPoint;
                         Vector2 forceDirection = displacement.normalized;
                         float distSquared = displacement.sqrMagnitude;
@@ -144,9 +167,11 @@ public class PolygonField : MonoBehaviour
             float wallForceBack = (wallRepulsion / Mathf.Pow(-halfLength - thisPoint.y, 2));
 
             netForce += new Vector2(wallForceLeft - wallForceRight, wallForceBack - wallForceFront);
+
+            forces.Add(netForce);
         }
 
-        return netForce;
+        return forces;
     }
 
     public int CalculateNumCollisions(Polygon thisPoly){

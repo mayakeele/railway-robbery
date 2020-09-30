@@ -19,31 +19,46 @@ public class Polygon
 
     public Vector2[] localPoints;
     public Vector2 position;
+    public float rotation;
 
     public Edge[] localEdges;
     public float area;
 
     
-    public Polygon(Vector2[] localPoints, Vector2 position){
+    public Polygon(Vector2[] localPoints, Vector2 position, float rotation){
         this.localPoints = localPoints;
         this.position = position;
+        this.rotation = rotation;
 
-        this.localEdges = GetLocalEdges();
+        this.localEdges = CalculateLocalEdges();
         this.area = CalculateArea();
     }
 
 
-    public Vector2[] GetWorldPoints(){
-        // Returns an array of points shifted by this polygon's position
+    public Vector2[] CalculateRotatedPoints(){
+        // Rotates the points in this polygon by its rotation and returns a new array of rotated points
+        Vector2[] rotatedPoints = new Vector2[localPoints.Length];
+
+        for(int i = 0; i < localPoints.Length; i++){
+            rotatedPoints[i] = localPoints[i].Rotate(rotation);
+        }
+
+        return rotatedPoints;
+    }
+
+    public Vector2[] CalculateWorldPoints(){
+        // Returns an array of points rotated and shifted by this polygon's position and rotation
 
         Vector2[] translatedPoints = new Vector2[localPoints.Length];
+        Vector2[] rotatedPoints = CalculateRotatedPoints();
+
         for (int i = 0; i < localPoints.Length; i++){
-            translatedPoints[i] = localPoints[i] + position;
+            translatedPoints[i] = rotatedPoints[i] + position;
         }
         return translatedPoints;
     }
 
-    public Edge[] GetLocalEdges(){
+    public Edge[] CalculateLocalEdges(){
         int numEdges = localPoints.Length;
         Edge[] newEdges = new Edge[numEdges];
 
@@ -55,11 +70,11 @@ public class Polygon
         return newEdges;
     }
 
-    public Edge[] GetWorldEdges(){
+    public Edge[] CalculateWorldEdges(){
         int numEdges = localPoints.Length;
         Edge[] newEdges = new Edge[numEdges];
 
-        Vector2[] worldPoints = GetWorldPoints();
+        Vector2[] worldPoints = CalculateWorldPoints();
 
         for (int i = 0; i < numEdges - 1; i++){
             newEdges[i] = new Edge(worldPoints[i], worldPoints[i+1]);
@@ -72,7 +87,7 @@ public class Polygon
     private float[] ProjectToAxis(Vector2 axis){
         // Projects each point of this polygon to a given axis, and returns [min, max] in a 2-part float array.
 
-        Vector2[] worldPoints = GetWorldPoints();
+        Vector2[] worldPoints = CalculateWorldPoints();
 
         float dot = Vector2.Dot(axis, worldPoints[0]);
         float min = dot;
@@ -107,8 +122,8 @@ public class Polygon
 
         Polygon polygonA = this;
 
-        Edge[] edgesA = polygonA.GetWorldEdges();
-        Edge[] edgesB = polygonB.GetWorldEdges();
+        Edge[] edgesA = polygonA.CalculateWorldEdges();
+        Edge[] edgesB = polygonB.CalculateWorldEdges();
 
         int edgeCountA = edgesA.Length;
         int edgeCountB = edgesB.Length;
