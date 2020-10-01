@@ -38,8 +38,8 @@ public class PolygonField : MonoBehaviour
 
     void Start()
     {
-        polyA = new Polygon(pointsA, posA, 90);
-        polyB = new Polygon(pointsB, posB, -90);
+        polyA = new Polygon(pointsA, posA, 180);
+        polyB = new Polygon(pointsB, posB, 0);
 
         polygons.Add(polyA);
         polygons.Add(polyB);
@@ -86,11 +86,13 @@ public class PolygonField : MonoBehaviour
         numSleeping = 0;
         for (int p = 0; p < polygons.Count; p++){
 
-            Vector2 displacement = forcePerPoly[p] * stepSize;
-            float angularDisplacement = torquePerPoly[p] * stepSize * rotationConstant;
+            Vector2 displacement = forcePerPoly[p] * stepSize / polygons[p].localPoints.Length;
+            float angularDisplacement = torquePerPoly[p] * stepSize * rotationConstant / polygons[p].localPoints.Length;
 
             polygons[p].position += displacement;
             polygons[p].rotation += angularDisplacement;
+
+            polygons[p].position = polygons[p].position.Clamp(new Vector2(-fieldWidth/2, -fieldLength/2), new Vector2(fieldWidth/2, fieldLength/2));
 
             if (displacement.magnitude <= sleepThreshold){
                 numSleeping++;

@@ -155,8 +155,8 @@ MonoBehaviour:
   fieldLength: 5
   polygonRepulsion: 1
   wallRepulsion: 1
-  stepSize: 0.03
-  rotationConstant: 300
+  stepSize: 0.08
+  rotationConstant: 500
   maxCycles: 1000
   sleepThreshold: 0.005
   percentSleepingToContinue: 1
@@ -166,7 +166,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0}
   - {x: 0.5, y: 0}
   - {x: 0, y: 1}
-  posA: {x: 1, y: 1}
+  posA: {x: 1, y: 10}
   pointsB:
   - {x: 0.1, y: 1}
   - {x: 0.1, y: -1}

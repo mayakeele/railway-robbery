@@ -62,4 +62,11 @@ public static class Vector2Extensions
 
         return minValues;
     } 
+
+    public static Vector2 Clamp(this Vector2 vector, Vector2 min, Vector2 max){
+        float x = Mathf.Clamp(vector.x, min.x, max.x);
+        float y = Mathf.Clamp(vector.y, min.y, max.y);
+
+        return new Vector2(x, y);
+    }
 }
