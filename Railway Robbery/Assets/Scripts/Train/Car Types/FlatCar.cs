@@ -11,18 +11,18 @@ public class FlatCar : MonoBehaviour
     }
 
 
-    public GameObject GenerateCar(int seed, float length, float width, float height, float groundOffset){
+    public GameObject GenerateCar(int seed, float carLength, float carWidth, float carHeight, float groundOffset){
         GameObject parentObject = new GameObject("Flatcar");
         Transform parentTransform = parentObject.transform;
 
         // Create a base platform to build upon
-        GameObject platform = trainPartFactory.CreateBasePlatform(length, width, 0.15f, groundOffset);
+        GameObject platform = trainPartFactory.CreateBasePlatform(carLength, carWidth, 0.15f, groundOffset);
         platform.transform.SetParent(parentTransform);
 
         // Generate cargo on the deck of this car
         CargoGenerator cargoGenerator = gameObject.AddComponent<CargoGenerator>();
 
-        GameObject cargo = cargoGenerator.GenerateCargoRoom(width, length);
+        GameObject cargo = cargoGenerator.GenerateCargoRoom(carWidth, carWidth);
 
         cargo.transform.parent = parentTransform;
         cargo.transform.position = new Vector3(0, groundOffset, 0);

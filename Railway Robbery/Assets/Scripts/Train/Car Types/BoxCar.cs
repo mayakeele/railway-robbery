@@ -87,6 +87,15 @@ public class BoxCar : MonoBehaviour
         roof.GetComponent<MeshCollider>().sharedMesh = roofMesh;
 
 
+        // Generate cargo on the deck of this car
+        CargoGenerator cargoGenerator = gameObject.AddComponent<CargoGenerator>();
+
+        GameObject cargo = cargoGenerator.GenerateCargoRoom(carWidth - (2*sidePanelThickness), carLength - (2*backPanelThickness));
+
+        cargo.transform.parent = parentTransform;
+        cargo.transform.position = new Vector3(0, groundOffset, 0);
+
+
         return parentObject;
     }
 }

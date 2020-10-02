@@ -26,6 +26,31 @@ public class CargoGenerator : MonoBehaviour
             polygonField.RunSimulationStep();
         }
 
+        // Shuffle polygons and delete one at a time until none are colliding
+        /*int triesPerStep = 5;
+        bool continueShuffling = true;
+        while (continueShuffling){
+            for(int i = 0; i < polygonField.polygons.Count - 1; i++){
+                Polygon thisPoly = polygonField.polygons[i];
+                for (int j = i + 1; j < polygonField.polygons.Count; j++){
+                    Polygon otherPoly = polygonField.polygons[j];
+
+                    if (thisPoly.IsColliding(otherPoly)){
+                        // Remove a random polygon, reshuffle all positions and rotations and check collisions again
+                        polygonField.polygons.Remove(polygonField.polygons.RandomChoice());
+
+                        foreach (Polygon poly in polygonField.polygons){
+                            poly.position = new Vector2(Random.Range(-width/2, width/2), Random.Range(-length/2, length/2));
+                            poly.rotation = Random.Range(0f, 360f);
+                        }
+
+                        i = 0;
+                    }
+                }
+            }
+            continueShuffling = false;
+        }*/
+
 
         // Instantiate cargo prefabs to match final polygon configuration
         GameObject cargoParent = new GameObject("Cargo Parent");
@@ -46,7 +71,7 @@ public class CargoGenerator : MonoBehaviour
 
         int currID = 0;
         float totalCargoArea = 0;
-        while (totalCargoArea < roomArea * 0.75f){// && currID < 16){
+        while (totalCargoArea < roomArea){// && currID < 16){
 
             Vector2 position = new Vector2(Random.Range(-width/2, width/2), Random.Range(-length/2, length/2));
             float rotation = Random.Range(0f, 360f);
@@ -61,7 +86,6 @@ public class CargoGenerator : MonoBehaviour
 
             currID++;
             totalCargoArea += cargoPolygon.area;
-            Debug.Log(cargoPolygon.area);
         }
 
     }

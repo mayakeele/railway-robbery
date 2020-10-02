@@ -12,10 +12,10 @@ public class PolygonField
 
     public float stepSize = 0.08f;
     public float rotationConstant = 2;
-    public int maxCycles = 50;
+    public int maxCycles = 20;
 
-    public float sleepThreshold = 0.005f;
-    public float percentSleepingToContinue = 0.1f;
+    public float sleepThreshold = 0.01f;
+    public float percentSleepingToContinue = 0.2f;
 
     private float currCycle = 0;
     private int numSleeping = 0;
@@ -66,11 +66,11 @@ public class PolygonField
         numSleeping = 0;
         for (int p = 0; p < polygons.Count; p++){
 
-            Vector2 displacement = forcePerPoly[p] * stepSize / polygons[p].localPoints.Length;
-            float angularDisplacement = torquePerPoly[p] * stepSize * rotationConstant / polygons[p].localPoints.Length;
+            Vector2 displacement = forcePerPoly[p] * stepSize / (polygons[p].localPoints.Length * polygons[p].area);
+            //float angularDisplacement = torquePerPoly[p] * stepSize * rotationConstant / polygons[p].localPoints.Length;
 
             polygons[p].position += displacement;
-            polygons[p].rotation += angularDisplacement;
+            //polygons[p].rotation += angularDisplacement;
 
             polygons[p].position = polygons[p].position.Clamp(new Vector2(-fieldWidth/2, -fieldLength/2), new Vector2(fieldWidth/2, fieldLength/2));
 
@@ -135,7 +135,7 @@ public class PolygonField
                         float distSquared = displacement.sqrMagnitude;
                         if (distSquared == 0){ distSquared = 0.0001f; }
 
-                        netForce += forceDirection * (polygonRepulsion/distSquared);
+                        netForce += forceDirection * (polygonRepulsion/distSquared) * otherPoly.area;
                     }
                 }
             }
