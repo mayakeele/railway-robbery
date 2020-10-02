@@ -17,10 +17,10 @@ public static class MeshToPolygon
         return pointCloud;
     }
 
-    public static Polygon GeneratePolygonFromPointCloud(List<Vector2> pointCloud){
-        List<Vector2> convexHullPoints = ConvexHull.ComputeConvexHull(pointCloud);
+    public static List<Vector2> GeneratePolygonPointsFromMesh(Mesh mesh){
+        List<Vector2> pointCloud = ProjectMeshToXZPlane(mesh);
+        List<Vector2> polygonPoints = ConvexHull.ComputeConvexHull(pointCloud);
 
-        Polygon poly = new Polygon(convexHullPoints.ToArray(), Vector2.zero, 0);
-        return poly;
+        return polygonPoints;
     }
 }

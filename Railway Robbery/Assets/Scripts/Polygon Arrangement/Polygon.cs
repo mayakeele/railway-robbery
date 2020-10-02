@@ -18,6 +18,7 @@ public class Polygon
 
 
     public Vector2[] localPoints;
+    public int id;
     public Vector2 position;
     public float rotation;
 
@@ -25,8 +26,9 @@ public class Polygon
     public float area;
 
     
-    public Polygon(Vector2[] localPoints, Vector2 position, float rotation){
+    public Polygon(Vector2[] localPoints, int id, Vector2 position, float rotation){
         this.localPoints = localPoints;
+        this.id = id;
         this.position = position;
         this.rotation = rotation;
 

@@ -2,58 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PolygonField : MonoBehaviour
+public class PolygonField
 {
     public float fieldWidth;
     public float fieldLength;
 
-    public float polygonRepulsion;
-    public float wallRepulsion;
+    public float polygonRepulsion = 0.5f;
+    public float wallRepulsion = 0.5f;
 
-    public float stepSize;
-    public float rotationConstant;
-    public float maxCycles;
+    public float stepSize = 0.08f;
+    public float rotationConstant = 2;
+    public int maxCycles = 50;
 
-    public float sleepThreshold;
-    public float percentSleepingToContinue;
+    public float sleepThreshold = 0.005f;
+    public float percentSleepingToContinue = 0.1f;
 
-    public float currCycle = 0;
-    public int numSleeping = 0;
+    private float currCycle = 0;
+    private int numSleeping = 0;
+
+    public bool isSimulationFinished = false;
     
 
     public List<Polygon> polygons = new List<Polygon>();
     //public List<Polygon> exclusionZones = new List<Polygon>();
     
 
-
-    public Vector2[] pointsA;
-    public Vector2 posA;
-
-    public Vector2[] pointsB;
-    public Vector2 posB;
-
-    Polygon polyA;
-    Polygon polyB;
-
-
-    void Start()
-    {
-        polyA = new Polygon(pointsA, posA, 180);
-        polyB = new Polygon(pointsB, posB, 0);
-
-        polygons.Add(polyA);
-        polygons.Add(polyB);
-
-        //Debug.Log(CalculateRepulsion(polyB));
-    }
-
-    void Update()
-    {
-        RunSimulationFrame();
+    public PolygonField(float width, float length) {
+        this.fieldWidth = width;
+        this.fieldLength = length;
     }
 
 
-    public void RunSimulationFrame(){
+    public void RunSimulationStep(){
         // Runs a simulation of this polygon field until end conditions are met
 
         List<Vector2> forcePerPoly = new List<Vector2>();
@@ -124,6 +104,7 @@ public class PolygonField : MonoBehaviour
             if (maxCollisions == 0){
                 // No collisions means the system is in equilibrium, and the simulation is done
                 Debug.Log("Simulation finished.");
+                isSimulationFinished = true;
                 return; 
             }
             else{

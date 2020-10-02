@@ -70,7 +70,7 @@ public static class ConvexHull
         {
             get
             {
-                return this[this.Count];
+                return this[this.Count - 1];
             }
             set
             {

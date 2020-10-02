@@ -9,7 +9,7 @@ public class PolygonFieldRenderer : MonoBehaviour
     [SerializeField] private GameObject planePrefab;
     
 
-    void Start()
+    void Awake()
     {
         GameObject plane = Instantiate(planePrefab, new Vector3(0, -0.1f, 0), Quaternion.identity);
         plane.transform.localScale = new Vector3(polygonField.fieldWidth / 10, 1, polygonField.fieldLength / 10);
