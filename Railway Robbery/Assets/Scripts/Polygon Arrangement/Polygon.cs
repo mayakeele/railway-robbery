@@ -42,7 +42,8 @@ public class Polygon
         Vector2[] rotatedPoints = new Vector2[localPoints.Length];
 
         for(int i = 0; i < localPoints.Length; i++){
-            rotatedPoints[i] = localPoints[i].Rotate(rotation);
+            Vector2 thisPoint = localPoints[i];
+            rotatedPoints[i] = Vector2Extensions.Rotate(thisPoint, rotation);
         }
 
         return rotatedPoints;

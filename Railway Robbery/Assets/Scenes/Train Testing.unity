@@ -681,7 +681,7 @@ MonoBehaviour:
   trainCarTypeContainer: {fileID: 154612605}
   trainCars: []
   numTrainCars: 1
-  test_cartype: 4
+  test_cartype: 3
   standardCarLength: 0
   standardCarWidth: 0
   standardCarHeight: 0
@@ -854,7 +854,7 @@ MonoBehaviour:
   weights:
   - 1
   - 1
-  - 2
+  - 1
 --- !u!1 &1634010304
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PolygonFieldRenderer : MonoBehaviour
 {
-    [SerializeField] private PolygonField polygonField;
+    public PolygonField polygonField;
 
-    [SerializeField] private GameObject planePrefab;
+    //[SerializeField] private GameObject planePrefab;
     
 
     void Awake()
     {
-        GameObject plane = Instantiate(planePrefab, new Vector3(0, -0.1f, 0), Quaternion.identity);
-        plane.transform.localScale = new Vector3(polygonField.fieldWidth / 10, 1, polygonField.fieldLength / 10);
+        //GameObject plane = Instantiate(planePrefab, new Vector3(0, -0.1f, 0), Quaternion.identity);
+        //plane.transform.localScale = new Vector3(polygonField.fieldWidth / 10, 1, polygonField.fieldLength / 10);
     }
 
     void Update()

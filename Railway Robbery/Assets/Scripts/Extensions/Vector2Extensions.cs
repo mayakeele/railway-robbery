@@ -22,9 +22,9 @@ public static class Vector2Extensions
         return sum;
     }
 
-    public static Vector2 Rotate(this Vector2 v, float degrees) {
-         float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
-         float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
+    public static Vector2 Rotate(Vector2 v, float radians) {
+         float sin = Mathf.Sin(radians);
+         float cos = Mathf.Cos(radians);
          
          float tx = v.x;
          float ty = v.y;
@@ -32,6 +32,7 @@ public static class Vector2Extensions
          Vector2 rotatedVector = new Vector2();
          rotatedVector.x = (cos * tx) - (sin * ty);
          rotatedVector.y = (sin * tx) + (cos * ty);
+
          return rotatedVector;
     }
 

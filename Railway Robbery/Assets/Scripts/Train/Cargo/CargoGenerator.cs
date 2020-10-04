@@ -20,36 +20,14 @@ public class CargoGenerator : MonoBehaviour
 
         polygonField = new PolygonField(width, length);
 
+        PolygonFieldRenderer fieldRenderer = gameObject.AddComponent<PolygonFieldRenderer>();
+        fieldRenderer.polygonField = this.polygonField;
+
         InitializeCargo();
 
         while (polygonField.isSimulationFinished == false){
-            polygonField.RunSimulationStep();
+            polygonField.RunSimulationStepCollisionOnly();
         }
-
-        // Shuffle polygons and delete one at a time until none are colliding
-        /*int triesPerStep = 5;
-        bool continueShuffling = true;
-        while (continueShuffling){
-            for(int i = 0; i < polygonField.polygons.Count - 1; i++){
-                Polygon thisPoly = polygonField.polygons[i];
-                for (int j = i + 1; j < polygonField.polygons.Count; j++){
-                    Polygon otherPoly = polygonField.polygons[j];
-
-                    if (thisPoly.IsColliding(otherPoly)){
-                        // Remove a random polygon, reshuffle all positions and rotations and check collisions again
-                        polygonField.polygons.Remove(polygonField.polygons.RandomChoice());
-
-                        foreach (Polygon poly in polygonField.polygons){
-                            poly.position = new Vector2(Random.Range(-width/2, width/2), Random.Range(-length/2, length/2));
-                            poly.rotation = Random.Range(0f, 360f);
-                        }
-
-                        i = 0;
-                    }
-                }
-            }
-            continueShuffling = false;
-        }*/
 
 
         // Instantiate cargo prefabs to match final polygon configuration
@@ -58,7 +36,7 @@ public class CargoGenerator : MonoBehaviour
             GameObject prefab = initialCargo[polygon.id];
 
             Vector3 cargoPosition = new Vector3(polygon.position.x, 0, polygon.position.y);
-            Quaternion cargoRotation = Quaternion.Euler(0, polygon.rotation, 0);
+            Quaternion cargoRotation = Quaternion.Euler(0, -polygon.rotation * Mathf.Rad2Deg, 0);
 
             GameObject thisCargo = Instantiate(prefab, cargoPosition, cargoRotation, cargoParent.transform);
         }
@@ -74,7 +52,7 @@ public class CargoGenerator : MonoBehaviour
         while (totalCargoArea < roomArea){// && currID < 16){
 
             Vector2 position = new Vector2(Random.Range(-width/2, width/2), Random.Range(-length/2, length/2));
-            float rotation = Random.Range(0f, 360f);
+            float rotation = Random.Range(0f, 2 * Mathf.PI);
 
             GameObject cargoObject = cargoPrefabs.ChooseVariant();
 

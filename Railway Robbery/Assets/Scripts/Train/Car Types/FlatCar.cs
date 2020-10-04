@@ -22,7 +22,7 @@ public class FlatCar : MonoBehaviour
         // Generate cargo on the deck of this car
         CargoGenerator cargoGenerator = gameObject.AddComponent<CargoGenerator>();
 
-        GameObject cargo = cargoGenerator.GenerateCargoRoom(carWidth, carWidth);
+        GameObject cargo = cargoGenerator.GenerateCargoRoom(carWidth, carLength);
 
         cargo.transform.parent = parentTransform;
         cargo.transform.position = new Vector3(0, groundOffset, 0);
