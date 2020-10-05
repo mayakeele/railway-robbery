@@ -10,13 +10,15 @@ public class CargoGenerator : MonoBehaviour
     private List<GameObject> initialCargo = new List<GameObject>();
 
     private float width, length;
+    private float fillPercent;
  
 
-    public GameObject GenerateCargoRoom(float roomWidth, float roomLength){
+    public GameObject GenerateCargoRoom(float roomWidth, float roomLength, float roomFillPercent){
         cargoPrefabs = GameObject.FindGameObjectWithTag("CargoPrefabContainer").GetComponent<PartVariantGroup>();
 
         this.width = roomWidth;
         this.length = roomLength;
+        this.fillPercent = roomFillPercent;
 
         polygonField = new PolygonField(width, length);
 
@@ -49,7 +51,7 @@ public class CargoGenerator : MonoBehaviour
 
         int currID = 0;
         float totalCargoArea = 0;
-        while (totalCargoArea < roomArea){// && currID < 16){
+        while (totalCargoArea < roomArea * fillPercent){
 
             Vector2 position = new Vector2(Random.Range(-width/2, width/2), Random.Range(-length/2, length/2));
             float rotation = Random.Range(0f, 2 * Mathf.PI);

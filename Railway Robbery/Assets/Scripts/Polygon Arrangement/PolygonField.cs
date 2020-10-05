@@ -12,7 +12,7 @@ public class PolygonField
 
     public float stepSize = 0.1f;
     public float rotationConstant = 2;
-    public int maxCycles = 10;
+    public int maxCycles = 3;
 
     public float sleepThreshold = 0.01f;
     public float percentSleepingToContinue = 0.2f;
@@ -123,63 +123,57 @@ public class PolygonField
     public void RunSimulationStepCollisionOnly(){
         // Runs a simulation of this polygon field until end conditions are met, only applying forces if the polygons are colliding
 
-        List<Vector2> forcePerPoly = new List<Vector2>();
-        List<float> torquePerPoly = new List<float>();
-
+        Vector2[] forcePerPoly = new Vector2[polygons.Count];
+        //List<Vector2> forcePerPoly = new List<Vector2>(polygons.Count);
+        //forcePerPoly.SetAllValues(Vector2.zero);
         
-        for (int p = 0; p < polygons.Count; p++){
+        for (int p = 0; p < polygons.Count - 1; p++){
 
             Polygon thisPoly = polygons[p];
-            Vector2 netForce = Vector2.zero;
 
             // If this polygon polygon is colliding with another, add force and torque to this polygon 
-            for (int o = 0; o < polygons.Count; o++){
+            for (int o = p + 1; o < polygons.Count; o++){
                 if (o != p){
                     Polygon otherPoly = polygons[o];
 
                     if(thisPoly.IsColliding(otherPoly)){
-                        List<Vector2> forcePerPoint = CalculatePolygonRepulsionOnPolygon(thisPoly, otherPoly);
+                        List<Vector2> thisForcePerPoint = CalculatePolygonRepulsionOnPolygon(thisPoly, otherPoly);
 
-                        netForce += forcePerPoint.Sum();
+                        Vector2 thisRepulsion = thisForcePerPoint.Sum();
+                        Vector2 otherRepulsion = -thisRepulsion;
 
-                        /*float numPoints = forcePerPoint.Count;
-                        Vector2[] rotatedPoints = thisPoly.CalculateRotatedPoints();
-                        float netTorque = 0;
-                        for (int i = 0; i < numPoints; i++){
-                            Vector2 position = rotatedPoints[i];
-                            Vector2 force = forcePerPoint[i];
-                            float sinTheta = Mathf.Sin(Mathf.Deg2Rad * Vector2.SignedAngle(position, force));
-
-                            float thisTorque = position.magnitude * force.magnitude * sinTheta;
-                            netTorque += thisTorque;
-                        }
-
-                        torquePerPoly.Add(netTorque);*/
+                        forcePerPoly[p] += thisRepulsion;
+                        forcePerPoly[o] += otherRepulsion;
                     }
                 }
             }
+        }
 
+        for (int p = 0; p < polygons.Count; p++){
             // If this polygon is touching a wall, add a force inwards
+
+            Polygon thisPoly = polygons[p];
+            Vector2 wallForce = Vector2.zero;
+            
             float halfWidth = fieldWidth/2;
             float halfLength = fieldLength/2;
             foreach (Vector2 point in thisPoly.CalculateWorldPoints()){
                 if (point.x > halfWidth){
-                    netForce += new Vector2(-wallRepulsion / Mathf.Pow(point.x - halfWidth, 2), 0);
+                    wallForce += new Vector2(-wallRepulsion / Mathf.Pow(point.x - halfWidth, 2), 0);
                 }
                 else if (point.x < -halfWidth){
-                    netForce += new Vector2(wallRepulsion / Mathf.Pow(point.x - halfWidth, 2), 0);
+                    wallForce += new Vector2(wallRepulsion / Mathf.Pow(point.x - halfWidth, 2), 0);
                 }
                 
                 if (point.y > halfLength){
-                    netForce += new Vector2(0, -wallRepulsion / Mathf.Pow(point.y - halfLength, 2));
+                    wallForce += new Vector2(0, -wallRepulsion / Mathf.Pow(point.y - halfLength, 2));
                 }
                 else if (point.y < -halfLength){
-                    netForce += new Vector2(0, wallRepulsion / Mathf.Pow(point.y - halfLength, 2));
+                    wallForce += new Vector2(0, wallRepulsion / Mathf.Pow(point.y - halfLength, 2));
                 }
             }
 
-
-            forcePerPoly.Add(netForce);
+            forcePerPoly[p] += wallForce;
         }
 
         // Apply movement to all polygons and count how many fall below the sleep threshold

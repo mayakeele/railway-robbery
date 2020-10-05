@@ -90,7 +90,7 @@ public class BoxCar : MonoBehaviour
         // Generate cargo on the deck of this car
         CargoGenerator cargoGenerator = gameObject.AddComponent<CargoGenerator>();
 
-        GameObject cargo = cargoGenerator.GenerateCargoRoom(carWidth - (2*sidePanelThickness), carLength - (2*backPanelThickness));
+        GameObject cargo = cargoGenerator.GenerateCargoRoom(carWidth - (2*sidePanelThickness), carLength - (2*backPanelThickness), 0.8f);
 
         cargo.transform.parent = parentTransform;
         cargo.transform.position = new Vector3(0, groundOffset, 0);
