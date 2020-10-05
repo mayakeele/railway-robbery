@@ -22,8 +22,8 @@ public class CargoGenerator : MonoBehaviour
 
         polygonField = new PolygonField(width, length);
 
-        PolygonFieldRenderer fieldRenderer = gameObject.AddComponent<PolygonFieldRenderer>();
-        fieldRenderer.polygonField = this.polygonField;
+        //PolygonFieldRenderer fieldRenderer = gameObject.AddComponent<PolygonFieldRenderer>();
+        //fieldRenderer.polygonField = this.polygonField;
 
         InitializeCargo();
 

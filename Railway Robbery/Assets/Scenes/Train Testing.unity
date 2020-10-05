@@ -680,8 +680,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trainCarTypeContainer: {fileID: 154612605}
   trainCars: []
-  numTrainCars: 1
-  test_cartype: 3
+  numTrainCars: 6
+  test_cartype: 4
   standardCarLength: 0
   standardCarWidth: 0
   standardCarHeight: 0
@@ -851,7 +851,13 @@ MonoBehaviour:
   - {fileID: 558584626836612794, guid: be1958e98ac13c842b7a3a6325cb3f6a, type: 3}
   - {fileID: 8846428263548059794, guid: 5c7ecf5920a40d246b200d9501e556ae, type: 3}
   - {fileID: 8067160696503175942, guid: 82e497da4376cd04592fd797fe6ffa8f, type: 3}
+  - {fileID: 2261969335871025510, guid: 18c7ebcfeb9987b42a37955f6528d568, type: 3}
+  - {fileID: 4189058385124112344, guid: be3beb0a5a47c9a44b1d7069519f3255, type: 3}
+  - {fileID: 3740144882780994553, guid: b9b28c597f08dc940b1ca2cb8b6254f8, type: 3}
   weights:
+  - 1
+  - 1
+  - 1
   - 1
   - 1
   - 1
