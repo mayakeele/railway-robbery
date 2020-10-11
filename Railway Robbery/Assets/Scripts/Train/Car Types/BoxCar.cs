@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class BoxCar : MonoBehaviour
 {
+    float sidePanelLength = 1.5f;
+    float sidePanelThickness = 0.1f;
+
+    float backPanelThickness = 0.1f;
+
+
     private TrainPartFactory trainPartFactory;
     void Awake() {
         trainPartFactory = GameObject.FindObjectOfType<TrainPartFactory>();
@@ -25,12 +31,8 @@ public class BoxCar : MonoBehaviour
 
         
         // Walls
-        float sidePanelLength = 1.5f;
-        float sidePanelThickness = 0.1f;
-
         int numPanelsLong = Mathf.RoundToInt(carLength / sidePanelLength);
         int doorSlot = numPanelsLong % 2 == 0 ? (numPanelsLong / 2) - 1 : (numPanelsLong / 2);
-
         for (int i = 0; i < numPanelsLong; i++) {
 
             if (i == doorSlot){
@@ -66,7 +68,6 @@ public class BoxCar : MonoBehaviour
 
         }
 
-        float backPanelThickness = 0.1f;
 
         GameObject backWall = Instantiate(trainPartFactory.boxcarBackPanelStandard.ChooseVariant(), parentTransform);
         backWall.GetComponent<BoxcarBackPanel>().Initialize();

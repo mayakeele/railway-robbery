@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 0.2
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: e11f5b66aad75483b8cd16ee18a0c917, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 9ca22510633fbfd4399f1704cd9d5c72, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.516
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2017826961}
-  m_IndirectSpecularColor: {r: 0.4415945, g: 0.6097529, b: 0.70151716, a: 0.516}
+  m_IndirectSpecularColor: {r: 0.4670223, g: 0.64978254, b: 0.73669595, a: 0.516}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 154612607}
   - component: {fileID: 154612608}
   - component: {fileID: 154612609}
+  - component: {fileID: 154612610}
   m_Layer: 0
   m_Name: Train Car Type Container
   m_TagString: TrainCarTypeContainer
@@ -242,6 +243,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b9f25c9c8a7d7f46acbbd5259bf01d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &154612610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154612605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ac38c5457eecca45b4c07c609900ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &162042449
@@ -662,7 +675,7 @@ GameObject:
   - component: {fileID: 673070834}
   - component: {fileID: 673070833}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Human for scale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -775,7 +788,7 @@ MonoBehaviour:
   trainCarTypeContainer: {fileID: 154612605}
   trainCars: []
   numTrainCars: 6
-  test_cartype: 4
+  test_cartype: 6
   standardCarLength: 0
   standardCarWidth: 0
   standardCarHeight: 0
@@ -1129,6 +1142,10 @@ MonoBehaviour:
     type: 3}
   cabooseDoorwayFront: {fileID: 5516336025241553621, guid: 256af9292048b434da564ccd759a3887,
     type: 3}
+  passengerWallLeft: {fileID: 3350654268168406005, guid: 2d020305ef446e144b3047b14d39adb0,
+    type: 3}
+  passengerWallRight: {fileID: 5544870772017192428, guid: 7c5ac9b0024b01740b404f2f13c4eccc,
+    type: 3}
 --- !u!1 &1997478376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1306,13 +1323,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017826960}
-  m_LocalRotation: {x: 0.45262426, y: -0.4090048, z: 0.24575485, w: 0.7532934}
+  m_LocalRotation: {x: 0.391638, y: -0.5566856, z: 0.33449042, w: 0.65179515}
   m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 525919097}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 62, y: -57, z: 0}
+  m_LocalEulerAnglesHint: {x: 62, y: -81, z: 0}
 --- !u!1 &2018589404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,6 +1368,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &235830133962093679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6207255994138815890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a37ac29820c181545a27b40f13edc8dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  variants: []
+  weights: []
 --- !u!1001 &540194223906779928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1420,6 +1451,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b19bad637064d74abdb0739700d97b5, type: 3}
+--- !u!4 &678783439458716271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6207255994138815890}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6207255994138815890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 678783439458716271}
+  - component: {fileID: 235830133962093679}
+  m_Layer: 0
+  m_Name: Part Variant Group
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1001 &6314924007403226105
 PrefabInstance:
   m_ObjectHideFlags: 0
