@@ -30,8 +30,12 @@ public class TrainPartFactory : MonoBehaviour
     public PartVariantGroup caboosePorchFront;
     public PartVariantGroup cabooseDoorwayFront;
 
-    public PartVariantGroup passengerWallLeft;
-    public PartVariantGroup passengerWallRight;
+    public PartVariantGroup passengerCarWallLeft;
+    public PartVariantGroup passengerCarWallRight;
+    public PartVariantGroup passengerCarRoof;
+    public PartVariantGroup passengerCarInteriorLeft;
+    public PartVariantGroup passengerCarInteriorRight;
+    public PartVariantGroup passengerCarWalkway;
 
 
 

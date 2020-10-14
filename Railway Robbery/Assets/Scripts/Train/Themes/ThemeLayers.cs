@@ -10,9 +10,13 @@ public static class ThemeLayers
         Roof_Primary,
         Roof_Detail,
         Floor_Primary,
+        Floor_Detail,
         Glass_Primary,
         Metal_Primary_Exterior,
         Metal_Primary_Interior,
+        Interior_Upholstery_Primary,
+        Interior_Upholstery_Secondary,
+        Interior_Wood
     }
 
     public static int GetLayerCount(){
