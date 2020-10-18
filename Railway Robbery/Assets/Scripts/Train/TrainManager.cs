@@ -86,7 +86,7 @@ public class TrainManager : MonoBehaviour
                 break;
 
             case CarType.PassengerCar:
-                length = Random.Range(9f, 21f).RoundToMultiple(3f, false);
+                length = Random.Range(9f, 21f).RoundToMultiple(3f, false) + 3;
                 width = 4f;
                 height = 4f;
 

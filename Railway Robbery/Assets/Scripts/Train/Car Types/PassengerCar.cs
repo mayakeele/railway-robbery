@@ -34,8 +34,8 @@ public class PassengerCar : MonoBehaviour
 
         float floorHeight = groundOffset + floorThickness;
 
-        int numSectionsLong = Mathf.RoundToInt(carLength / interiorSectionLength);
-        int numPanelsLong = Mathf.RoundToInt(carLength / sidePanelLength);
+        int numSectionsLong = Mathf.RoundToInt(carLength / interiorSectionLength) - 1;
+        int numPanelsLong = Mathf.RoundToInt(carLength / sidePanelLength) - 2;
 
 
         GameObject parentObject = new GameObject("Passenger Car");
@@ -48,42 +48,51 @@ public class PassengerCar : MonoBehaviour
         
         // Inside seating and external walls
         for (int i = 0; i < numSectionsLong; i++) {
+            float sectionX = halfWidth - (interiorSectionWidth/2);
+            float sectionZ = halfLength - sidePanelLength - (interiorSectionLength/2) - (i * interiorSectionLength);
+
+            float panelX = (halfWidth + (sidePanelThickness/2));
+            float panelZ = halfLength - sidePanelLength - (sidePanelLength/2) - (2 * i * sidePanelLength);
 
             // Choose an interior section variant for each side
             GameObject leftSection = Instantiate(trainPartFactory.passengerCarInteriorLeft.ChooseVariant(), parentTransform);
-            leftSection.transform.position = new Vector3(-(halfWidth - (interiorSectionWidth/2)), groundOffset, halfLength - (interiorSectionLength/2) - (i * interiorSectionLength));
+            leftSection.transform.position = new Vector3(-sectionX, groundOffset, sectionZ);
 
             GameObject rightSection = Instantiate(trainPartFactory.passengerCarInteriorRight.ChooseVariant(), parentTransform);
-            rightSection.transform.position = new Vector3((halfWidth - (interiorSectionWidth/2)), groundOffset, halfLength - (interiorSectionLength/2) - (i * interiorSectionLength));  
+            rightSection.transform.position = new Vector3(sectionX, groundOffset, sectionZ);
+
+
+            // Put floor panel in the middle
+            GameObject floorPanel = Instantiate(trainPartFactory.passengerCarFloor.ChooseVariant(), parentTransform);
+            floorPanel.transform.position = new Vector3(0, groundOffset, sectionZ);
 
 
             // Since each interior section is twice as long as each external wall panel, create 2 wall panels for each side
             GameObject leftWallA = Instantiate(trainPartFactory.passengerCarWallLeft.ChooseVariant(), parentTransform);
-            leftWallA.transform.position = new Vector3(-(halfWidth + (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (2 * i * sidePanelLength));
+            leftWallA.transform.position = new Vector3(-panelX, groundOffset, panelZ);
 
             GameObject rightWallA = Instantiate(trainPartFactory.passengerCarWallRight.ChooseVariant(), parentTransform);
-            rightWallA.transform.position = new Vector3((halfWidth + (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (2 * i * sidePanelLength));
+            rightWallA.transform.position = new Vector3(panelX, groundOffset, panelZ);
 
             GameObject leftWallB = Instantiate(trainPartFactory.passengerCarWallLeft.ChooseVariant(), parentTransform);
-            leftWallB.transform.position = new Vector3(-(halfWidth + (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (2 * i * sidePanelLength) - sidePanelLength);
+            leftWallB.transform.position = new Vector3(-panelX, groundOffset, panelZ - sidePanelLength);
 
             GameObject rightWallB = Instantiate(trainPartFactory.passengerCarWallRight.ChooseVariant(), parentTransform);
-            rightWallB.transform.position = new Vector3((halfWidth + (sidePanelThickness/2)), groundOffset, halfLength - (sidePanelLength/2) - (2 * i * sidePanelLength) - sidePanelLength);
+            rightWallB.transform.position = new Vector3(panelX, groundOffset, panelZ - sidePanelLength);
         }
 
 
-        /*GameObject backWall = Instantiate(trainPartFactory.boxcarBackPanelStandard.ChooseVariant(), parentTransform);
-        backWall.GetComponent<BoxcarBackPanel>().Initialize();
-        backWall.transform.position = new Vector3(0, groundOffset, -(halfLength - (backPanelThickness/2)));
+        // Front and back porches
+        GameObject frontPorch = Instantiate(trainPartFactory.passengerCarPorchFront.ChooseVariant(), parentTransform);
+        frontPorch.transform.position = new Vector3(0, groundOffset, halfLength - (sidePanelLength / 2));
 
-        GameObject frontWall = Instantiate(trainPartFactory.boxcarBackPanelStandard.ChooseVariant(), parentTransform);
-        frontWall.GetComponent<BoxcarBackPanel>().Initialize();
-        frontWall.transform.position = new Vector3(0, groundOffset, (halfLength - (backPanelThickness/2)));
-        frontWall.transform.eulerAngles = new Vector3(0, 180, 0);*/
+        GameObject backPorch = Instantiate(trainPartFactory.passengerCarPorchBack.ChooseVariant(), parentTransform);
+        backPorch.transform.position = new Vector3(0, groundOffset, -(halfLength - (sidePanelLength / 2)));
+        //backPorch.transform.eulerAngles = new Vector3(0, 180, 0);
         
 
         // Roof
-        for (int i = 0; i < numPanelsLong; i++){
+        for (int i = 1; i < numPanelsLong + 1; i++){
             GameObject roofPanel = Instantiate(trainPartFactory.passengerCarRoof.ChooseVariant(), parentTransform);
 
             roofPanel.transform.position = new Vector3(0, groundOffset + sidePanelHeight, halfLength - (sidePanelLength/2) - (i * sidePanelLength));
