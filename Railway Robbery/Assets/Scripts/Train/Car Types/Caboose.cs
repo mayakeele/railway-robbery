@@ -5,6 +5,13 @@ using System;
 
 public class Caboose : MonoBehaviour
 {
+    float sidePanelLength = 1f;
+    float sidePanelThickness = 0.1f;
+    float sidePanelHeight = 3f;
+
+    float doorwayThickness = 0.1f;
+
+
     private TrainPartFactory trainPartFactory;
     void Awake() {
         trainPartFactory = GameObject.FindGameObjectWithTag("TrainPartPrefabsContainer").GetComponent<TrainPartFactory>();
@@ -27,12 +34,7 @@ public class Caboose : MonoBehaviour
 
 
         // Side Walls
-        float sidePanelLength = 1f;
-        float sidePanelThickness = 0.1f;
-        float sidePanelHeight = 3f;
-
         int numPanelsLong = Mathf.RoundToInt(carLength / sidePanelLength);
-
         for (int i = 1; i < numPanelsLong - 1; i++) {
 
             // Walls if anywhere else
@@ -45,8 +47,7 @@ public class Caboose : MonoBehaviour
         
 
         // Front and back doorways and porches
-        float doorwayThickness = 0.1f;
-
+        
         GameObject frontDoorway = Instantiate(trainPartFactory.cabooseDoorwayFront.ChooseVariant(), parentTransform);
         frontDoorway.transform.position = new Vector3(0, groundOffset, halfLength - sidePanelLength - (doorwayThickness / 2));
 

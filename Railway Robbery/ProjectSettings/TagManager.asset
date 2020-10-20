@@ -11,6 +11,7 @@ TagManager:
   - TrainPartPrefabsContainer
   - TrainCarTypeContainer
   - ThemeLayerPaletteContainer
+  - CargoPrefabContainer
   layers:
   - Default
   - TransparentFX
