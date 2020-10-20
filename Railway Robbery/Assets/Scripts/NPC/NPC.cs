@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    public bool isAlive;
 
     public int maxHealth;
     public int currHealth;
@@ -12,6 +11,25 @@ public class NPC : MonoBehaviour
     public int alertnessLevel;
 
     public Vector3 lastSeenPlayerPosition;
+
+    public bool isAlive;
+    public bool isImmobilized;
+    public bool canSeePlayer;
+
+
+    public enum BehaviorState{
+        Idle = 0,
+        Patrolling,
+        Curious,
+        Alerted_Pursuit,
+        Alerted_Combat,
+        Attacking,
+        Immobilized,
+        Dead
+    }
+
+
+    public Animator animator;
 
 
     void Start()
