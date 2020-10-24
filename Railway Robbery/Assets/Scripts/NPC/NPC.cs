@@ -28,8 +28,11 @@ public class NPC : MonoBehaviour
         Dead
     }
 
+    public BehaviorState currentState;
+
 
     public Animator animator;
+    public Rigidbody rb;
 
 
     void Start()
