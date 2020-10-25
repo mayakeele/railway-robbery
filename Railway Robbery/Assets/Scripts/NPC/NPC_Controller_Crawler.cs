@@ -10,6 +10,11 @@ public class NPC_Controller_Crawler : NPC
     public float walkSpeed = 0.75f;
     public float runSpeed = 1.5f;
 
+    public float minShootingRange = 1f;
+    public float maxShootingRange = 5f;
+
+    public int numSearchAttempts = 5;
+
 
     public enum Action {
         Null,
@@ -49,19 +54,42 @@ public class NPC_Controller_Crawler : NPC
                         }
                     break;
 
-                    case BehaviorState.Curious:
+                    case BehaviorState.Investigating:
+                    // Get the GameObject and position of whatever alerted this NPC (thrown object, sound, sees player, etc)
+
+                    // Play surprise animation, turn towards object
+
+                    // Use navmeshagent to calculate a path to this point, then add actions to the queue for each waypoint in the path
+
+                    // Investigate the object, then return to patrolling behavior state
                     break;
 
-                    case BehaviorState.Alerted_Pursuit:
+                    case BehaviorState.Pursuit:
+                    // Get last known position of the player and calculate path
+
+                    // Add waypoints to path and queue movement actions to waypoints
+
+                    // Search for player by picking random search points in a radius until it hits the attempts required to give up
+                    
+                    // Add each set of waypoints to action queue, with a 'look around' animation in between each group of waypoints
+
+                    // When finished, change behavior state to Idle
                     break;
 
-                    case BehaviorState.Alerted_Combat:
-                    break;
+                    case BehaviorState.Combat:
+                    // Make a weighted choice between shooting, dodging, flanking
 
-                    case BehaviorState.Attacking:
+                    // Add occasional combat idle animations to space apart combat actions
                     break;
 
                     case BehaviorState.Immobilized:
+                    // Play electrocuted/immobilized animation
+
+                    // Set ragdoll / let physics take over
+
+                    // Wait for x seconds
+
+                    // Reinstate animation control, set state to Idle
                     break;
 
                     case BehaviorState.Dead:

@@ -20,10 +20,9 @@ public class NPC : MonoBehaviour
     public enum BehaviorState{
         Idle = 0,
         Patrolling,
-        Curious,
-        Alerted_Pursuit,
-        Alerted_Combat,
-        Attacking,
+        Investigating,
+        Pursuit,
+        Combat,
         Immobilized,
         Dead
     }
