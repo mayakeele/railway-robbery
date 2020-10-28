@@ -30,6 +30,7 @@ public class NPC : MonoBehaviour
     public BehaviorState currentState;
 
 
+    public NavMeshAgent navMeshAgent;
     public Animator animator;
     public Rigidbody rb;
 
