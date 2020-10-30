@@ -54,4 +54,16 @@ public static class FloatExtensions
         return inputs;
     }
 
+    public static float SignZero(this float input){
+        // Returns 0, 1, or -1 based on the sign or 0-ness of input
+        if (input > 0){
+            return 1;
+        }
+        else if (input < 0){
+            return -1;
+        }
+        else {
+            return 0;
+        }
+    }
 }

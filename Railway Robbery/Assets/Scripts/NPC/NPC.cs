@@ -38,7 +38,7 @@ public class NPC : MonoBehaviour
 
     void Start()
     {
-        
+        currentState = BehaviorState.Patrolling;
     }
 
     void Update()
