@@ -31,10 +31,16 @@ public class NPC : MonoBehaviour
     public BehaviorState currentState;
 
 
-    public NavMeshAgent navMeshAgent;
-    public Animator animator;
-    public Rigidbody rb;
+    [HideInInspector] public NavMeshAgent navMeshAgent;
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public Rigidbody rb;
 
+
+    void Awake() {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
+    }
 
     void Start()
     {

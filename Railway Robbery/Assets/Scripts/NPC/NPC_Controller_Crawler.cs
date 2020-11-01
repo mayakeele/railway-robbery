@@ -7,26 +7,31 @@ public class NPC_Controller_Crawler : MonoBehaviour
 {
 
     // NPC Properties
+    [Header("References")] 
     public NPC npc;
-    public float walkSpeed;
-    public float runSpeed;
-    public float turningSpeed;
+    //public Transform testSphere;
 
-    public float patrolStoppingDistance = 0f;
-    public float investigateStoppingDistance = 2f;
-    public float pursuitStoppingDistance = 0f;
+    [Header("Patrol Properties")] 
+    public float patrolWalkSpeed;
+    public float patrolTurnSpeed;
+    public float patrolAcceleration;
+    public float patrolStoppingDistance;
+    public float patrolWaypointRadius;
+    
+    [Header("Investigate Properties")] 
+    public float investigateStoppingDistance;
 
-    public float minShootingRange = 1f;
-    public float maxShootingRange = 5f;
+    [Header("Pursuit Properties")] 
+    public float pursuitStoppingDistance;
+    public int numSearchAttempts;
 
-    public int numSearchAttempts = 5;
-
-    public Transform testSphere;
-
+    [Header("Attack Properties")] 
+    public float minShootingRange;
+    public float maxShootingRange;
 
 
     // Action queue variables
-    public enum Action {
+    private enum Action {
         Null,
         BeginMoveToTarget,
         WaitUntilTargetReached,
@@ -35,15 +40,17 @@ public class NPC_Controller_Crawler : MonoBehaviour
         Attack_Shoot
     }
 
-    public List<Action> actionQueue = new List<Action>();
-    public Action currentAction;
-    public bool actionCompleted = true;
+    [SerializeField] private List<Action> actionQueue = new List<Action>();
+    [SerializeField] private Action currentAction;
+    private bool actionCompleted = true;
 
 
-    // Behavior variables
-    public Vector3 navigationTarget;
-    Vector3 lookTarget = Vector3.one;
-    public float waitTimeRemaining;
+    // Action parameters
+    [Header("Action Parameters")]
+    [SerializeField] private Vector3 navigationTarget;
+    [SerializeField] private Vector3 lookTarget = Vector3.one;
+    [SerializeField] private float waitTimeRemaining;
+    // Add variable to track how long it has been blocked by other npcs
 
 
     void Start() {
@@ -73,15 +80,21 @@ public class NPC_Controller_Crawler : MonoBehaviour
 
                     case NPC.BehaviorState.Patrolling:
                         // Use navmeshagent to calculate a path to a random point in the train, then add actions to the queue for each waypoint in the path
-                        Vector3 targetLocation = testSphere.position;
-                        navigationTarget = targetLocation;
+                        Vector2 randomWaypoint = Random.insideUnitCircle * patrolWaypointRadius;
+                        
+                        navigationTarget = new Vector3(randomWaypoint.x + transform.position.x, transform.position.y, randomWaypoint.y + transform.position.z);
+                        //testSphere.position = navigationTarget;
 
-                        npc.navMeshAgent.speed = walkSpeed;
+                        npc.navMeshAgent.speed = patrolWalkSpeed;
+                        npc.navMeshAgent.angularSpeed = patrolTurnSpeed;
+                        npc.navMeshAgent.acceleration = patrolAcceleration;
                         npc.navMeshAgent.stoppingDistance = patrolStoppingDistance;
-                           
 
-                        lookTarget = navigationTarget;
-                        AddAction(Action.RotateTowardsLookTarget);
+                        waitTimeRemaining = Random.Range(0.5f, 1.5f);
+                        AddAction(Action.WaitForSeconds);
+
+                        //lookTarget = navigationTarget;
+                        //AddAction(Action.RotateTowardsLookTarget);
 
                         AddAction(Action.BeginMoveToTarget);
                         AddAction(Action.WaitUntilTargetReached);
@@ -117,7 +130,7 @@ public class NPC_Controller_Crawler : MonoBehaviour
                     break;
 
                     case NPC.BehaviorState.Immobilized:
-                    // Play electrocuted/immobilized animation
+                    // Start electrocuted/immobilized animation
 
                     // Set ragdoll / let physics take over
 
@@ -177,7 +190,7 @@ public class NPC_Controller_Crawler : MonoBehaviour
 
                 float originalAngleBetween = Vector2.SignedAngle(targetDirection, currLookDirection);
 
-                float rotationAmount = originalAngleBetween.SignZero() * turningSpeed * Time.deltaTime;
+                float rotationAmount = originalAngleBetween.SignZero() * npc.navMeshAgent.angularSpeed * Time.deltaTime;
                 transform.Rotate(0, rotationAmount, 0);
 
                 float newAngleBetween = Vector2.SignedAngle(targetDirection, currLookDirection);
