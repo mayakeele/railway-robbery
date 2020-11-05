@@ -5,23 +5,6 @@ using UnityEngine.AI;
 
 public class NPC : MonoBehaviour
 {
-    [Header("Default Properties")]
-    public int minNavigationPriority;
-    public int maxNavigationPriority;
-    public int maxHealth;
-
-    [Header("Internal State Variables")]
-    public int currHealth;
-    public int alertnessLevel;
-    public bool isAlive;
-    public bool isImmobilized;
-
-    [Header("Sensory Variables")]
-    public bool canSeePlayer;
-    public Vector3 lastSeenPlayerPosition;
-    public float timeSincePlayerSeen;
-
-
     // Behavior states are ordered by priority; lowest index = highest priority
     public enum BehaviorState{
         Dead = 0,
@@ -33,13 +16,53 @@ public class NPC : MonoBehaviour
         Idle     
     }
 
+    public enum AlertnessLevel{
+        Unwary = 0,
+        Suspicious = 1,
+        Alerted = 2
+    }
+
+
     public BehaviorState currentState;
+
+
+    [Header("Default Properties")]
+
+    public int minNavigationPriority;
+    public int maxNavigationPriority;
+
+    public int maxHealth;
+
+    public Transform eyeTransform;
+    public float maxVisionDistance;
+    public float visionConeAngle;
+
+
+    [Header("External Objects")]
+
+    public Transform playerHead;
+    public Transform playerHandLeft;
+    public Transform playerHandRight;
+
+    public Transform currentTrainCar;
+
+
+    [Header("Sensory Variables")]
+
+    public int currHealth;
+    public bool isAlive;
+    public bool isImmobilized;
+
+    public AlertnessLevel currAlertnessLevel = AlertnessLevel.Unwary;
+
+    public bool canSeePlayer;
+    public Vector3 lastSeenPlayerPosition;
+    public float timeSincePlayerSeen;
 
 
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public Animator animator;
     [HideInInspector] public Rigidbody rb;
-
 
 
     void Awake() {
@@ -66,31 +89,21 @@ public class NPC : MonoBehaviour
     
     private void UpdateSensoryData(){
         // Collect data from the world and store in variables
+
+        // Cast rays to each part of the player's body
+        Vector3 directionToPlayer = playerHead.position - eyeTransform.position;
+        if(Vector3.Angle(eyeTransform.forward, directionToPlayer) <= visionConeAngle / 2){
+
+        }
+        if(Physics.Raycast(eyeTransform.position, directionToPlayer, out RaycastHit hitInfo, maxVisionDistance)){
+
+        }
     }
 
 
     private void EvaluateCurrentState(){
         // Using sensory data variables, determine whether to change state based on priority
         
-        switch (alertnessLevel){
-            // Idle, not alert
-            case 0:
-            break;
-
-            case 1:
-            break;
-
-            case 2:
-            break;
-
-            default:
-                alertnessLevel = 0;
-            break;
-        }
-
-        if(canSeePlayer){
-            
-        }
     }
 
 
