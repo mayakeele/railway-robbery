@@ -36,6 +36,7 @@ public class NPC : MonoBehaviour
     public Transform eyeTransform;
     public float maxVisionDistance;
     public float visionConeAngle;
+    public LayerMask visionObstructingLayers;
 
 
     [Header("External Objects")]
@@ -55,7 +56,7 @@ public class NPC : MonoBehaviour
 
     public AlertnessLevel currAlertnessLevel = AlertnessLevel.Unwary;
 
-    public bool canSeePlayer;
+    public bool canSeePlayer = false;
     public Vector3 lastSeenPlayerPosition;
     public float timeSincePlayerSeen;
 
@@ -85,18 +86,40 @@ public class NPC : MonoBehaviour
         EvaluateCurrentState();
     }
 
+    private void OnDrawGizmos() {
+        if(canSeePlayer){
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(eyeTransform.position, playerHead.position);
+        }
+        else{
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(eyeTransform.position, eyeTransform.position + (eyeTransform.forward * maxVisionDistance));
+        }    
+    }
+
 
     
     private void UpdateSensoryData(){
         // Collect data from the world and store in variables
 
-        // Cast rays to each part of the player's body
+        // Cast rays to each part of the player's body if the player is within the vision cone and within maximum sight distance
         Vector3 directionToPlayer = playerHead.position - eyeTransform.position;
-        if(Vector3.Angle(eyeTransform.forward, directionToPlayer) <= visionConeAngle / 2){
 
+        canSeePlayer = false;
+        if(directionToPlayer.magnitude <= maxVisionDistance){
+            if(Vector3.Angle(eyeTransform.forward, directionToPlayer) <= visionConeAngle / 2){
+
+                if(Physics.Raycast(eyeTransform.position, directionToPlayer, maxVisionDistance, visionObstructingLayers) == false){
+                    canSeePlayer = true;
+                }
+            }
         }
-        if(Physics.Raycast(eyeTransform.position, directionToPlayer, out RaycastHit hitInfo, maxVisionDistance)){
 
+        if (canSeePlayer){
+            timeSincePlayerSeen = 0;
+        }
+        else{
+            timeSincePlayerSeen += Time.deltaTime;
         }
     }
 

@@ -81,8 +81,11 @@ MonoBehaviour:
   maxNavigationPriority: 20
   maxHealth: 100
   eyeTransform: {fileID: 2392027667937442362}
-  maxVisionDistance: 0
-  visionConeAngle: 0
+  maxVisionDistance: 15
+  visionConeAngle: 140
+  visionObstructingLayers:
+    serializedVersion: 2
+    m_Bits: 768
   playerHead: {fileID: 0}
   playerHandLeft: {fileID: 0}
   playerHandRight: {fileID: 0}
