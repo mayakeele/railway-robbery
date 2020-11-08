@@ -58,7 +58,8 @@ public class NPC : MonoBehaviour
 
     public bool canSeePlayer = false;
     public Vector3 lastSeenPlayerPosition;
-    public float timeSincePlayerSeen;
+    public float timePlayerIsSeen;
+    public float timePlayerIsHidden;
 
 
     [HideInInspector] public NavMeshAgent navMeshAgent;
@@ -91,10 +92,13 @@ public class NPC : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawLine(eyeTransform.position, playerHead.position);
         }
-        else{
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(eyeTransform.position, eyeTransform.position + (eyeTransform.forward * maxVisionDistance));
-        }    
+        
+        Gizmos.color = Color.yellow;
+        //Vector3 leftLine = Quaternion.Euler(0, -visionConeAngle/2, 0) * eyeTransform.forward * maxVisionDistance;
+        //Vector3 rightLine = Quaternion.Euler(0, visionConeAngle/2, 0) * eyeTransform.forward * maxVisionDistance;
+        //Gizmos.DrawLine(eyeTransform.position, eyeTransform.position + leftLine);
+        //Gizmos.DrawLine(eyeTransform.position, eyeTransform.position + rightLine);
+        Gizmos.DrawLine(eyeTransform.position, eyeTransform.position + (eyeTransform.forward * maxVisionDistance));
     }
 
 
@@ -116,10 +120,12 @@ public class NPC : MonoBehaviour
         }
 
         if (canSeePlayer){
-            timeSincePlayerSeen = 0;
+            timePlayerIsSeen += Time.deltaTime;
+            timePlayerIsHidden = 0;
         }
         else{
-            timeSincePlayerSeen += Time.deltaTime;
+            timePlayerIsSeen = 0;
+            timePlayerIsHidden += Time.deltaTime;
         }
     }
 
