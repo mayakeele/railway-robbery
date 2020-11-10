@@ -9,7 +9,7 @@ public class NPC_Controller_Crawler : MonoBehaviour
     // NPC Properties
     [Header("References")] 
     public NPC npc;
-    //public Transform testSphere;
+    public LegManager legManager;
 
     [Header("Patrol Properties")] 
     public float patrolWalkSpeed;
@@ -55,11 +55,14 @@ public class NPC_Controller_Crawler : MonoBehaviour
 
     void Start() {
         npc = GetComponent<NPC>();
+        legManager = GetComponent<LegManager>();
     }
 
     void Update() {
         EvaluateActionQueue();
         PerformCurrentAction();
+
+        legManager.velocity = npc.navMeshAgent.velocity;
     }
 
 
