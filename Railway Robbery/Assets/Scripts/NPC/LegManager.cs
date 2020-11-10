@@ -5,18 +5,24 @@ using DitzelGames.FastIK;
 
 public class LegManager : MonoBehaviour
 {
-    public float displacementToChangeTarget;
+    
     public List<FastIKFabric> legs;
 
     public List<Transform> restingTargets;
 
     public List<Transform> currentTargets;
-    public List<bool> isLegMoving;
 
     public Vector3 velocity;
     public float movingStepOffset;
 
+    public bool useDynamicGait;
+
+    public float minDisplacementToMove;
+    public float stepCycleLength;
     public float stepDuration;
+
+    private float timeSinceLastStep;
+    private int currentLegIndex = 0;
 
 
     void Start()
@@ -27,15 +33,36 @@ public class LegManager : MonoBehaviour
 
             currentTargets.Add(Instantiate(restingTargets[i]));
             currentLeg.Target = currentTargets[i];
-
-            isLegMoving[i] = false;
         }
     }
 
     void Update()
     {
+        timeSinceLastStep += Time.deltaTime;
+
+        // Move the current leg after its alotted time
+        if(timeSinceLastStep >= stepCycleLength / legs.Count){
+            timeSinceLastStep = 0;
+
+            FastIKFabric currentLeg = legs[currentLegIndex];
+            Transform currentTarget = currentTargets[currentLegIndex];
+
+            Vector3 desiredPosition = GetDesiredPosition(currentLegIndex);
+            float displacementFromDefault = Vector3.Distance(currentTarget.position, desiredPosition);
+
+            if(displacementFromDefault >= minDisplacementToMove){
+                currentTarget.position = desiredPosition;
+                currentLeg.Target = currentTarget;
+            }
+
+            currentLegIndex++;
+            if (currentLegIndex >= legs.Count){
+                currentLegIndex = 0;
+            }
+        }
+
         // Evaluate each leg on whether it should move; if so, calculate new position and trigger transition between targets
-        for(int i = 0; i < legs.Count; i++){
+        /*for(int i = 0; i < legs.Count; i++){
             FastIKFabric currentLeg = legs[i];
             Transform currentTarget = currentTargets[i];
 
@@ -46,7 +73,7 @@ public class LegManager : MonoBehaviour
                 currentTarget.position = desiredPosition;
                 currentLeg.Target = currentTarget;
             }
-        }
+        }*/
     }
 
 

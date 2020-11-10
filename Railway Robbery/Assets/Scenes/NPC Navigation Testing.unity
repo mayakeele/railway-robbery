@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.4
+    agentRadius: 0.6
     agentHeight: 0.6
     agentSlope: 45
     agentClimb: 0.5
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 2
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.13333334
+    cellSize: 0.2
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -4488,7 +4488,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.13333334
+  m_VoxelSize: 0.2
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: d1ec222235ba06c4793696be28bccf12, type: 2}
 --- !u!1 &1004298515
@@ -9281,8 +9281,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4272070409541776621}
   - component: {fileID: 4272070409541776609}
-  - component: {fileID: 4272070409541776610}
   - component: {fileID: 4272070409541776620}
+  - component: {fileID: 4272070409541776610}
   - component: {fileID: 4272070409541776611}
   m_Layer: 0
   m_Name: im walkin here
@@ -9303,7 +9303,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e98a69162179c4458c3df27289acf1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displacementToChangeTarget: 0.5
   legs:
   - {fileID: 199380808}
   - {fileID: 486414528}
@@ -9319,9 +9318,11 @@ MonoBehaviour:
   - {fileID: 555467311}
   - {fileID: 1940921096}
   currentTargets: []
-  isLegMoving: 000000000000
   velocity: {x: 0, y: 0, z: 0}
   movingStepOffset: 0.25
+  useDynamicGait: 0
+  minDisplacementToMove: 0.1
+  stepCycleLength: 0.5
   stepDuration: 0
 --- !u!114 &4272070409541776610
 MonoBehaviour:
@@ -9369,7 +9370,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4272070409541776608}
   m_Enabled: 1
   m_AgentTypeID: -334000983
-  m_Radius: 0.8
+  m_Radius: 0.6
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 10
@@ -9419,7 +9420,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4272070409541776608}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.137, y: 0, z: -9.08}
+  m_LocalPosition: {x: -15.69, y: 6.005, z: -6.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2392027669050028440}
