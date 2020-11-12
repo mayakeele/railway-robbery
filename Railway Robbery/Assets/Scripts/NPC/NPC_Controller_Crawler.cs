@@ -8,8 +8,8 @@ public class NPC_Controller_Crawler : MonoBehaviour
 
     // NPC Properties
     [Header("References")] 
-    public NPC npc;
-    public LegManager legManager;
+    private NPC npc;
+    private LegManager legManager;
 
     [Header("Patrol Properties")] 
     public float patrolWalkSpeed;

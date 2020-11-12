@@ -5,22 +5,21 @@ using DitzelGames.FastIK;
 
 public class LegManager : MonoBehaviour
 {
-    
-    public List<FastIKFabric> legs;
 
+    public List<FastIKFabric> legs;
     public List<Transform> restingTargets;
 
-    public List<Transform> currentTargets;
-
-    public Vector3 velocity;
     public float movingStepOffset;
-
-    public bool useDynamicGait;
-
     public float minDisplacementToMove;
     public float stepCycleLength;
-    public float stepDuration;
+    public float stepAnimationDuration;
+    public float stepHeight;
+    public AnimationCurve stepHeightCurve;
 
+    public Vector3 velocity;
+    public bool useDynamicGait;
+
+    //private List<Transform> currentTargets;
     private float timeSinceLastStep;
     private int currentLegIndex = 0;
 
@@ -31,8 +30,8 @@ public class LegManager : MonoBehaviour
             // Initialize leg targets to the positions of resting targets
             FastIKFabric currentLeg = legs[i];
 
-            currentTargets.Add(Instantiate(restingTargets[i]));
-            currentLeg.Target = currentTargets[i];
+            Transform currentTarget = Instantiate(restingTargets[i], restingTargets[i].position, restingTargets[i].rotation);
+            currentLeg.Target = currentTarget;
         }
     }
 
@@ -45,14 +44,15 @@ public class LegManager : MonoBehaviour
             timeSinceLastStep = 0;
 
             FastIKFabric currentLeg = legs[currentLegIndex];
-            Transform currentTarget = currentTargets[currentLegIndex];
+            Transform currentTarget = currentLeg.Target;//currentTargets[currentLegIndex];
 
             Vector3 desiredPosition = GetDesiredPosition(currentLegIndex);
             float displacementFromDefault = Vector3.Distance(currentTarget.position, desiredPosition);
 
             if(displacementFromDefault >= minDisplacementToMove){
-                currentTarget.position = desiredPosition;
-                currentLeg.Target = currentTarget;
+                StartCoroutine(MoveLeg(currentLegIndex, desiredPosition));
+                //currentTarget.position = desiredPosition;
+                //currentLeg.Target = currentTarget;
             }
 
             currentLegIndex++;
@@ -80,5 +80,31 @@ public class LegManager : MonoBehaviour
     public Vector3 GetDesiredPosition(int legIndex){
         Vector3 restingPosition = restingTargets[legIndex].position;
         return restingPosition + (velocity * movingStepOffset);
+    }
+
+    IEnumerator MoveLeg(int legIndex, Vector3 newPosition){
+        // Moves the given leg along a path defined by direction to the new target and the step animation curve
+        FastIKFabric currentLeg = legs[legIndex];
+
+        Vector3 oldPosition = currentLeg.Target.position;
+        Vector3 totalDisplacement = newPosition - oldPosition;
+
+        float percent = 0;
+        while (percent <= 1){
+            percent = Mathf.Clamp01(percent);
+
+            float currentHeight = stepHeightCurve.Evaluate(percent) * stepHeight;
+            Vector3 currentDirection = percent * totalDisplacement;
+
+            Vector3 currentPosition = oldPosition + currentDirection;
+            currentPosition.y += currentHeight;
+
+            currentLeg.Target.position = currentPosition;
+
+            percent += Time.deltaTime / stepAnimationDuration;
+            yield return null;
+        }
+
+        yield break;
     }
 }
