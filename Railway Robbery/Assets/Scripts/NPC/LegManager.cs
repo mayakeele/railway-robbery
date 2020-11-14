@@ -26,11 +26,15 @@ public class LegManager : MonoBehaviour
 
     void Start()
     {
+        GameObject targetHolder = new GameObject("NPC Leg Targets");
         for(int i = 0; i < legs.Count; i++){
             // Initialize leg targets to the positions of resting targets
             FastIKFabric currentLeg = legs[i];
 
+            restingTargets[i].position = currentLeg.transform.position;
+
             Transform currentTarget = Instantiate(restingTargets[i], restingTargets[i].position, restingTargets[i].rotation);
+            currentTarget.SetParent(targetHolder.transform);
             currentLeg.Target = currentTarget;
         }
     }
