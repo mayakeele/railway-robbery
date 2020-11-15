@@ -5,21 +5,32 @@ using DitzelGames.FastIK;
 
 public class LegManager : MonoBehaviour
 {
-
+    [Header("References")]
     public List<FastIKFabric> legs;
     public List<Transform> restingTargets;
+    public Transform bodyTransform;
 
+    [Header("Movement Properties")]
     public float movingStepOffset;
     public float minDisplacementToMove;
+    public bool rotateBodyWithLegs;
+
+    [Header("Step Animation Properties")]
     public float stepCycleLength;
     public float stepAnimationDuration;
-    public float stepHeight;
+    public float stepAnimationHeight;
     public AnimationCurve stepHeightCurve;
 
+    [Header("Step Calculation Properties")]
+    public float maxFootHeightDisplacement;
+    public LayerMask walkableLayers;
+    
+
+    [Header("Variables")]
     public Vector3 velocity;
     public bool useDynamicGait;
+    public Vector3 currentUpDirection;
 
-    //private List<Transform> currentTargets;
     private float timeSinceLastStep;
     private int currentLegIndex = 0;
 
@@ -37,6 +48,8 @@ public class LegManager : MonoBehaviour
             currentTarget.SetParent(targetHolder.transform);
             currentLeg.Target = currentTarget;
         }
+
+        currentUpDirection = Vector3.up;
     }
 
     void Update()
@@ -50,11 +63,11 @@ public class LegManager : MonoBehaviour
             FastIKFabric currentLeg = legs[currentLegIndex];
             Transform currentTarget = currentLeg.Target;//currentTargets[currentLegIndex];
 
-            Vector3 desiredPosition = GetDesiredPosition(currentLegIndex);
+            Vector3 desiredPosition = CastToGround(currentLegIndex, out Vector3 groundNormal);
             float displacementFromDefault = Vector3.Distance(currentTarget.position, desiredPosition);
 
             if(displacementFromDefault >= minDisplacementToMove){
-                StartCoroutine(MoveLeg(currentLegIndex, desiredPosition));
+                StartCoroutine(MoveLeg(currentLegIndex, desiredPosition, groundNormal));
                 //currentTarget.position = desiredPosition;
                 //currentLeg.Target = currentTarget;
             }
@@ -65,28 +78,41 @@ public class LegManager : MonoBehaviour
             }
         }
 
-        // Evaluate each leg on whether it should move; if so, calculate new position and trigger transition between targets
-        /*for(int i = 0; i < legs.Count; i++){
-            FastIKFabric currentLeg = legs[i];
-            Transform currentTarget = currentTargets[i];
-
-            Vector3 desiredPosition = GetDesiredPosition(i);
-            float displacementFromDefault = Vector3.Distance(currentTarget.position, desiredPosition);
-
-            if(displacementFromDefault >= displacementToChangeTarget){
-                currentTarget.position = desiredPosition;
-                currentLeg.Target = currentTarget;
-            }
-        }*/
+        float rollAngle = CalculateBodyAngle(transform.forward, true);
+        float pitchAngle = CalculateBodyAngle(transform.right, true);
+        Quaternion desiredBodyRotation = Quaternion.Euler(pitchAngle, 0, rollAngle);
+        bodyTransform.localRotation = Quaternion.Slerp(bodyTransform.localRotation, desiredBodyRotation, 0.05f);
     }
 
 
     public Vector3 GetDesiredPosition(int legIndex){
+        // Finds the optimal position for this leg to be in
         Vector3 restingPosition = restingTargets[legIndex].position;
         return restingPosition + (velocity * movingStepOffset);
     }
 
-    IEnumerator MoveLeg(int legIndex, Vector3 newPosition){
+    public Vector3 CastToGround(int legIndex, out Vector3 groundNormal){
+        // Casts a ray down and through the desired position to find solid ground
+        Vector3 desiredPosition = GetDesiredPosition(legIndex);
+
+        Vector3 startingPosition = desiredPosition;
+        startingPosition.y += maxFootHeightDisplacement;
+
+        Vector3 rayDirection = -currentUpDirection;
+
+        if (Physics.Raycast(startingPosition, rayDirection, out RaycastHit hitInfo, maxFootHeightDisplacement * 2, walkableLayers)){
+            Vector3 newPosition = hitInfo.point;
+
+            groundNormal = hitInfo.normal;
+            return newPosition;
+        }
+        else{
+            groundNormal = currentUpDirection;
+            return desiredPosition;
+        }
+    }
+
+    IEnumerator MoveLeg(int legIndex, Vector3 newPosition, Vector3 newNormal){
         // Moves the given leg along a path defined by direction to the new target and the step animation curve
         FastIKFabric currentLeg = legs[legIndex];
 
@@ -97,7 +123,7 @@ public class LegManager : MonoBehaviour
         while (percent <= 1){
             percent = Mathf.Clamp01(percent);
 
-            float currentHeight = stepHeightCurve.Evaluate(percent) * stepHeight;
+            float currentHeight = stepHeightCurve.Evaluate(percent) * stepAnimationHeight;
             Vector3 currentDirection = percent * totalDisplacement;
 
             Vector3 currentPosition = oldPosition + currentDirection;
@@ -111,4 +137,29 @@ public class LegManager : MonoBehaviour
 
         yield break;
     }
+
+    float CalculateBodyAngle(Vector3 axis, bool includeMovingLeg){
+        // Calculates the average angle of leg displacement around the forward axis
+        float averageAngle = 0;
+        
+        for(int i = 0; i < legs.Count; i++){
+            if(includeMovingLeg == true || i != currentLegIndex){
+                FastIKFabric currentLeg = legs[i];
+
+                Vector3 defaultPosition = restingTargets[i].position;
+                Vector3 currentPosition = new Vector3(defaultPosition.x, currentLeg.Target.position.y, defaultPosition.z);
+
+                // Angle of displacement is the angle between a vector from center to default and a vector from center to current
+                Vector3 toDefault = Vector3.ProjectOnPlane(defaultPosition - bodyTransform.position, axis);
+                Vector3 toTarget = Vector3.ProjectOnPlane(currentPosition - bodyTransform.position, axis);
+
+                float angle;
+                angle = Vector3.SignedAngle(toDefault, toTarget, axis);
+                averageAngle += angle;
+            }    
+        }
+
+        return includeMovingLeg ? averageAngle / legs.Count : averageAngle / (legs.Count - 1);
+    }
+
 }
