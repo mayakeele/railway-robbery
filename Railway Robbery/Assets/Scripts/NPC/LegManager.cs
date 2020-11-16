@@ -14,6 +14,7 @@ public class LegManager : MonoBehaviour
     public float movingStepOffset;
     public float minDisplacementToMove;
     public bool rotateBodyWithLegs;
+    public float bodyRotationRate;
 
     [Header("Step Animation Properties")]
     public float stepCycleLength;
@@ -24,6 +25,8 @@ public class LegManager : MonoBehaviour
     [Header("Step Calculation Properties")]
     public float maxFootHeightDisplacement;
     public LayerMask walkableLayers;
+    public int maxRaycastsPerStep;
+    public float maxObstructedStepInset;
     
 
     [Header("Variables")]
@@ -78,10 +81,13 @@ public class LegManager : MonoBehaviour
             }
         }
 
-        float rollAngle = CalculateBodyAngle(transform.forward, true);
-        float pitchAngle = CalculateBodyAngle(transform.right, true);
-        Quaternion desiredBodyRotation = Quaternion.Euler(pitchAngle, 0, rollAngle);
-        bodyTransform.localRotation = Quaternion.Slerp(bodyTransform.localRotation, desiredBodyRotation, 0.05f);
+        if(rotateBodyWithLegs){
+            float rollAngle = CalculateBodyAngle(transform.forward, true);
+            float pitchAngle = CalculateBodyAngle(transform.right, true);
+            Quaternion desiredBodyRotation = Quaternion.Euler(pitchAngle, 0, rollAngle);
+            bodyTransform.localRotation = Quaternion.Lerp(bodyTransform.localRotation, desiredBodyRotation, bodyRotationRate);
+        }
+        
     }
 
 
@@ -93,23 +99,32 @@ public class LegManager : MonoBehaviour
 
     public Vector3 CastToGround(int legIndex, out Vector3 groundNormal){
         // Casts a ray down and through the desired position to find solid ground
+        FastIKFabric currentLeg = legs[legIndex];
         Vector3 desiredPosition = GetDesiredPosition(legIndex);
 
-        Vector3 startingPosition = desiredPosition;
-        startingPosition.y += maxFootHeightDisplacement;
+        Vector3 currentPosition = desiredPosition;
+        currentPosition.y += maxFootHeightDisplacement;
 
         Vector3 rayDirection = -currentUpDirection;
 
-        if (Physics.Raycast(startingPosition, rayDirection, out RaycastHit hitInfo, maxFootHeightDisplacement * 2, walkableLayers)){
-            Vector3 newPosition = hitInfo.point;
+        Vector3 inwardsDirection = (maxObstructedStepInset / maxRaycastsPerStep) * Vector3.ProjectOnPlane(transform.position - currentLeg.Target.position, currentUpDirection);
 
-            groundNormal = hitInfo.normal;
-            return newPosition;
+        for(int i = 0; i < maxRaycastsPerStep; i++){
+            if (Physics.Raycast(currentPosition, rayDirection, out RaycastHit hitInfo, maxFootHeightDisplacement * 2, walkableLayers)){
+                Vector3 newPosition = hitInfo.point;
+
+                groundNormal = hitInfo.normal;
+                return newPosition;
+            }
+            else{
+                currentPosition += inwardsDirection;
+            }
         }
-        else{
-            groundNormal = currentUpDirection;
-            return desiredPosition;
-        }
+
+        // If no valid position is available, just move the leg to its default position
+        groundNormal = currentUpDirection;
+        return new Vector3(currentPosition.x, desiredPosition.y, currentPosition.z);
+        
     }
 
     IEnumerator MoveLeg(int legIndex, Vector3 newPosition, Vector3 newNormal){

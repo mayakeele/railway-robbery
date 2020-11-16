@@ -1311,7 +1311,7 @@ Transform:
   m_GameObject: {fileID: 266428517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.77, y: 5.6049995, z: -9.082001}
-  m_LocalScale: {x: 5.9, y: 0.4, z: 7.25}
+  m_LocalScale: {x: 5.9, y: 0.73, z: 7.25}
   m_Children: []
   m_Father: {fileID: 990955176}
   m_RootOrder: 15
@@ -3337,7 +3337,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.2
+  m_VoxelSize: 0.14999999
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: d1ec222235ba06c4793696be28bccf12, type: 2}
 --- !u!1 &1038799075
@@ -4452,6 +4452,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1328801467}
     m_Modifications:
+    - target: {fileID: 5695601824323487748, guid: f34a0db4207f90b4e816d632270ed803,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5695601824323487749, guid: f34a0db4207f90b4e816d632270ed803,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4460,7 +4465,7 @@ PrefabInstance:
     - target: {fileID: 5695601824323487749, guid: f34a0db4207f90b4e816d632270ed803,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8
+      value: 6.02
       objectReference: {fileID: 0}
     - target: {fileID: 5695601824323487749, guid: f34a0db4207f90b4e816d632270ed803,
         type: 3}
@@ -4522,6 +4527,16 @@ PrefabInstance:
       propertyPath: playerHead
       value: 
       objectReference: {fileID: 2092020273}
+    - target: {fileID: 5695601824323487754, guid: f34a0db4207f90b4e816d632270ed803,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695601824323487755, guid: f34a0db4207f90b4e816d632270ed803,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f34a0db4207f90b4e816d632270ed803, type: 3}
 --- !u!4 &1488964778 stripped
