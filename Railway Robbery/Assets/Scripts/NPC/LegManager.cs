@@ -9,6 +9,7 @@ public class LegManager : MonoBehaviour
     public List<FastIKFabric> legs;
     public List<Transform> restingTargets;
     public Transform bodyTransform;
+    public List<Transform> legRoots;
 
     [Header("Movement Properties")]
     public float movingStepOffset;
@@ -25,6 +26,8 @@ public class LegManager : MonoBehaviour
     [Header("Step Calculation Properties")]
     public float maxFootHeightDisplacement;
     public LayerMask walkableLayers;
+    public LayerMask obstacleLayers;
+    public bool canStepOnObstacles;
     public int maxRaycastsPerStep;
     public float maxObstructedStepInset;
     
@@ -53,6 +56,7 @@ public class LegManager : MonoBehaviour
         }
 
         currentUpDirection = Vector3.up;
+        SetLegRoots();
     }
 
     void Update()
@@ -100,30 +104,42 @@ public class LegManager : MonoBehaviour
     public Vector3 CastToGround(int legIndex, out Vector3 groundNormal){
         // Casts a ray down and through the desired position to find solid ground
         FastIKFabric currentLeg = legs[legIndex];
+
         Vector3 desiredPosition = GetDesiredPosition(legIndex);
-
-        Vector3 currentPosition = desiredPosition;
-        currentPosition.y += maxFootHeightDisplacement;
-
-        Vector3 rayDirection = -currentUpDirection;
-
+        Vector3 rootPosition = legRoots[legIndex].position;
         Vector3 inwardsDirection = (maxObstructedStepInset / maxRaycastsPerStep) * Vector3.ProjectOnPlane(transform.position - currentLeg.Target.position, currentUpDirection);
-
+        
+        Vector3 targetPosition = desiredPosition;
         for(int i = 0; i < maxRaycastsPerStep; i++){
-            if (Physics.Raycast(currentPosition, rayDirection, out RaycastHit hitInfo, maxFootHeightDisplacement * 2, walkableLayers)){
-                Vector3 newPosition = hitInfo.point;
+            // Cast a ray down from above the desired position to find solid ground
+            Ray groundRay = new Ray(new Vector3(targetPosition.x, targetPosition.y + maxFootHeightDisplacement, targetPosition.z), -currentUpDirection);
+            if (Physics.Raycast(groundRay, out RaycastHit groundHitInfo, maxFootHeightDisplacement * 2, walkableLayers)){
 
-                groundNormal = hitInfo.normal;
-                return newPosition;
+                // Check if the current target is inside of an obstacle; if so, move foot to wall of obstacle instead
+                Ray obstacleRay = new Ray(rootPosition, targetPosition - rootPosition);
+                if (Physics.Raycast(obstacleRay, out RaycastHit obstacleHitInfo, Vector3.Distance(targetPosition, rootPosition), obstacleLayers)){
+                    if(canStepOnObstacles){
+                        groundNormal = obstacleHitInfo.normal;
+                        return obstacleHitInfo.point;
+                    }
+                    else{
+                        targetPosition += inwardsDirection;
+                    }        
+                }
+                else{
+                    groundNormal = groundHitInfo.normal;
+                    return groundHitInfo.point;
+                }
+       
             }
             else{
-                currentPosition += inwardsDirection;
+                targetPosition += inwardsDirection;
             }
         }
 
-        // If no valid position is available, just move the leg to its default position
+        // If no valid position is available, move the leg to the closest possible position
         groundNormal = currentUpDirection;
-        return new Vector3(currentPosition.x, desiredPosition.y, currentPosition.z);
+        return targetPosition;
         
     }
 
@@ -134,15 +150,16 @@ public class LegManager : MonoBehaviour
         Vector3 oldPosition = currentLeg.Target.position;
         Vector3 totalDisplacement = newPosition - oldPosition;
 
+        newNormal.Normalize();
+
         float percent = 0;
         while (percent <= 1){
             percent = Mathf.Clamp01(percent);
 
-            float currentHeight = stepHeightCurve.Evaluate(percent) * stepAnimationHeight;
+            Vector3 currentHeight = stepHeightCurve.Evaluate(percent) * stepAnimationHeight * newNormal;
             Vector3 currentDirection = percent * totalDisplacement;
 
-            Vector3 currentPosition = oldPosition + currentDirection;
-            currentPosition.y += currentHeight;
+            Vector3 currentPosition = oldPosition + currentDirection + currentHeight;
 
             currentLeg.Target.position = currentPosition;
 
@@ -175,6 +192,20 @@ public class LegManager : MonoBehaviour
         }
 
         return includeMovingLeg ? averageAngle / legs.Count : averageAngle / (legs.Count - 1);
+    }
+
+    void SetLegRoots(){
+        // Find the nth parent of each leg (the 1st bone in the chain) and store in legRoots
+        for(int l = 0; l < legs.Count; l++){
+            FastIKFabric currentLeg = legs[l];
+
+            Transform currentJoint = currentLeg.transform;
+            for(int i = 0; i < currentLeg.ChainLength; i++){
+                currentJoint = currentJoint.parent;
+            }
+
+            legRoots.Add(currentJoint);
+        }
     }
 
 }

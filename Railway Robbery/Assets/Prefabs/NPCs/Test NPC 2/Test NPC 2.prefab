@@ -349,7 +349,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5695601824323487752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.2, y: 0, z: -15.44}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8377723116765308638}
@@ -384,13 +384,14 @@ MonoBehaviour:
   - {fileID: 8377723117580353223}
   - {fileID: 8377723116261976032}
   bodyTransform: {fileID: 8187781238795097316}
-  movingStepOffset: 0.25
+  legRoots: []
+  movingStepOffset: 0.28
   minDisplacementToMove: 0.1
   rotateBodyWithLegs: 1
   bodyRotationRate: 0.05
-  stepCycleLength: 0.35
-  stepAnimationDuration: 0.12
-  stepAnimationHeight: 0.05
+  stepCycleLength: 0.38
+  stepAnimationDuration: 0.2
+  stepAnimationHeight: 0.08
   stepHeightCurve:
     serializedVersion: 2
     m_Curve:
@@ -424,12 +425,16 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxFootHeightDisplacement: 0.8
+  maxFootHeightDisplacement: 0.5
   walkableLayers:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  canStepOnObstacles: 1
   maxRaycastsPerStep: 3
-  maxObstructedStepInset: 0.4
+  maxObstructedStepInset: 0.5
   velocity: {x: 0, y: 0, z: 0}
   useDynamicGait: 0
   currentUpDirection: {x: 0, y: 0, z: 0}
