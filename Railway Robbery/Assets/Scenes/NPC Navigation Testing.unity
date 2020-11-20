@@ -6371,6 +6371,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1328801467}
     m_Modifications:
+    - target: {fileID: 5695601824323487748, guid: f34a0db4207f90b4e816d632270ed803,
+        type: 3}
+      propertyPath: investigateWalkSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695601824323487748, guid: f34a0db4207f90b4e816d632270ed803,
+        type: 3}
+      propertyPath: investigateAcceleration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5695601824323487749, guid: f34a0db4207f90b4e816d632270ed803,
         type: 3}
       propertyPath: m_LocalPosition.x

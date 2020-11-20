@@ -330,9 +330,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5695601824323487749}
-  - component: {fileID: 5695601824323487753}
   - component: {fileID: 5695601824323487748}
   - component: {fileID: 5695601824323487754}
+  - component: {fileID: 5695601824323487753}
   - component: {fileID: 5695601824323487755}
   m_Layer: 0
   m_Name: Test NPC 2
@@ -357,6 +357,77 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5695601824323487748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695601824323487752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e100f8ba0ddc3da4283a82649c510782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolWalkSpeed: 1.2
+  patrolTurnSpeed: 110
+  patrolAcceleration: 0.5
+  patrolStoppingDistance: 0
+  patrolWaypointRadius: 10
+  investigateWalkSpeed: 1.5
+  investigateTurnSpeed: 120
+  investigateAcceleration: 0.8
+  investigateStoppingDistance: 1.5
+  investigateWanderRadius: 5
+  pursuitStoppingDistance: 0
+  numSearchAttempts: 5
+  minShootingRange: 1
+  maxShootingRange: 0
+  actionQueue: 
+  currentAction: 0
+  navigationTarget: {x: 0, y: 0, z: 0}
+  lookTarget: {x: 1, y: 1, z: 1}
+  waitTimeRemaining: 0
+--- !u!114 &5695601824323487754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695601824323487752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be6534fa2eaebf47b52fef4463a1f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 6
+  minNavigationPriority: 0
+  maxNavigationPriority: 20
+  maxHealth: 100
+  eyeTransform: {fileID: 6156867866006015344}
+  maxVisionDistance: 15
+  visionConeAngle: 90
+  visionObstructingLayers:
+    serializedVersion: 2
+    m_Bits: 768
+  seenTimeToTriggerCombat: 2
+  alertLevelDecrementInterval: 10
+  playerHead: {fileID: 0}
+  playerHandLeft: {fileID: 0}
+  playerHandRight: {fileID: 0}
+  currentTrainCar: {fileID: 0}
+  currentHealth: 0
+  isAlive: 1
+  isImmobilized: 0
+  currentAlertnessLevel: 0
+  canSeePlayer: 0
+  lastSeenPlayerPosition: {x: 0, y: 0, z: 0}
+  timePlayerIsSeen: 0
+  timePlayerIsHidden: 0
+  timeUntilAlertDecremented: 0
+  navMeshAgent: {fileID: 5695601824323487755}
+  animator: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!114 &5695601824323487753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,70 +509,6 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   useDynamicGait: 0
   currentUpDirection: {x: 0, y: 0, z: 0}
---- !u!114 &5695601824323487748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5695601824323487752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e100f8ba0ddc3da4283a82649c510782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolWalkSpeed: 1.2
-  patrolTurnSpeed: 110
-  patrolAcceleration: 0.5
-  patrolStoppingDistance: 0
-  patrolWaypointRadius: 10
-  investigateStoppingDistance: 2
-  pursuitStoppingDistance: 0
-  numSearchAttempts: 5
-  minShootingRange: 1
-  maxShootingRange: 0
-  actionQueue: 
-  currentAction: 0
-  navigationTarget: {x: 0, y: 0, z: 0}
-  lookTarget: {x: 1, y: 1, z: 1}
-  waitTimeRemaining: 0
---- !u!114 &5695601824323487754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5695601824323487752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6be6534fa2eaebf47b52fef4463a1f33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 6
-  minNavigationPriority: 0
-  maxNavigationPriority: 20
-  maxHealth: 100
-  eyeTransform: {fileID: 6156867866006015344}
-  maxVisionDistance: 15
-  visionConeAngle: 90
-  visionObstructingLayers:
-    serializedVersion: 2
-    m_Bits: 768
-  playerHead: {fileID: 0}
-  playerHandLeft: {fileID: 0}
-  playerHandRight: {fileID: 0}
-  currentTrainCar: {fileID: 0}
-  currHealth: 100
-  isAlive: 1
-  isImmobilized: 0
-  currAlertnessLevel: 0
-  canSeePlayer: 0
-  lastSeenPlayerPosition: {x: 0, y: 0, z: 0}
-  timePlayerIsSeen: 0
-  timePlayerIsHidden: 0
-  navMeshAgent: {fileID: 5695601824323487755}
-  animator: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!195 &5695601824323487755
 NavMeshAgent:
   m_ObjectHideFlags: 0

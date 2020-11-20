@@ -19,7 +19,11 @@ public class NPC_Controller_Crawler : MonoBehaviour
     public float patrolWaypointRadius;
     
     [Header("Investigate Properties")] 
+    public float investigateWalkSpeed;
+    public float investigateTurnSpeed;
+    public float investigateAcceleration;
     public float investigateStoppingDistance;
+    public float investigateWanderRadius;
 
     [Header("Pursuit Properties")] 
     public float pursuitStoppingDistance;
@@ -44,6 +48,8 @@ public class NPC_Controller_Crawler : MonoBehaviour
     [SerializeField] private Action currentAction;
     private bool actionCompleted = true;
 
+    private NPC.BehaviorState previousBehaviorState;
+
 
     // Action parameters
     [Header("Action Parameters")]
@@ -56,13 +62,25 @@ public class NPC_Controller_Crawler : MonoBehaviour
     void Start() {
         npc = GetComponent<NPC>();
         legManager = GetComponent<LegManager>();
+
+        previousBehaviorState = npc.currentState;
     }
 
     void Update() {
+        // Reset action queue if the behavior state has changed
+        if(npc.currentState != previousBehaviorState){
+            actionQueue = new List<Action>();
+            actionCompleted = true;
+
+            npc.navMeshAgent.isStopped = true;
+        }
+
         EvaluateActionQueue();
         PerformCurrentAction();
 
         legManager.velocity = npc.navMeshAgent.velocity;
+
+        previousBehaviorState = npc.currentState;
     }
 
 
@@ -93,7 +111,7 @@ public class NPC_Controller_Crawler : MonoBehaviour
                         npc.navMeshAgent.acceleration = patrolAcceleration;
                         npc.navMeshAgent.stoppingDistance = patrolStoppingDistance;
 
-                        waitTimeRemaining = Random.Range(0.5f, 1.5f);
+                        waitTimeRemaining = Random.Range(0.5f, 2f);
                         AddAction(Action.WaitForSeconds);
 
                         //lookTarget = navigationTarget;
@@ -105,13 +123,26 @@ public class NPC_Controller_Crawler : MonoBehaviour
                     break;
 
                     case NPC.BehaviorState.Investigating:
-                    // Get the GameObject and position of whatever alerted this NPC (thrown object, sound, sees player, etc)
+                        // Get the GameObject and position of whatever alerted this NPC (thrown object, sound, sees player, etc)
+                        Vector3 playerPosition = npc.lastSeenPlayerPosition;
 
-                    // Play surprise animation, turn towards object
+                        // Play surprise animation, turn towards object
 
-                    // Use navmeshagent to calculate a path to this point, then add actions to the queue for each waypoint in the path
+                        // Use navmeshagent to calculate a path to this point, then add actions to the queue for each waypoint in the path
 
-                    // Investigate the object, then return to patrolling behavior state
+                        npc.navMeshAgent.speed = investigateWalkSpeed;
+                        npc.navMeshAgent.angularSpeed = investigateTurnSpeed;
+                        npc.navMeshAgent.acceleration = investigateAcceleration;
+                        npc.navMeshAgent.stoppingDistance = investigateStoppingDistance;
+
+                        navigationTarget = playerPosition;
+
+                        AddAction(Action.RotateTowardsLookTarget);
+                        AddAction(Action.BeginMoveToTarget);
+                        AddAction(Action.WaitUntilTargetReached);
+
+                        // Investigate the object, then return to patrolling behavior state
+                        npc.TrySetState(NPC.BehaviorState.Patrolling);
                     break;
 
                     case NPC.BehaviorState.Pursuit:

@@ -38,6 +38,9 @@ public class NPC : MonoBehaviour
     public float visionConeAngle;
     public LayerMask visionObstructingLayers;
 
+    public float seenTimeToTriggerCombat;
+    public float alertLevelDecrementInterval;
+
 
     [Header("External Objects")]
 
@@ -50,16 +53,18 @@ public class NPC : MonoBehaviour
 
     [Header("Sensory Variables")]
 
-    public int currHealth;
+    public int currentHealth;
     public bool isAlive;
     public bool isImmobilized;
 
-    public AlertnessLevel currAlertnessLevel = AlertnessLevel.Unwary;
+    public AlertnessLevel currentAlertnessLevel = AlertnessLevel.Unwary;
 
     public bool canSeePlayer = false;
     public Vector3 lastSeenPlayerPosition;
     public float timePlayerIsSeen;
     public float timePlayerIsHidden;
+
+    public float timeUntilAlertDecremented;
 
 
     [HideInInspector] public NavMeshAgent navMeshAgent;
@@ -77,7 +82,7 @@ public class NPC : MonoBehaviour
 
     void Start()
     {
-        currHealth = maxHealth;
+        currentHealth = maxHealth;
         currentState = BehaviorState.Patrolling;
     }
 
@@ -119,20 +124,80 @@ public class NPC : MonoBehaviour
             }
         }
 
+        // Increment the amount of time the player has or has not been seen
         if (canSeePlayer){
+            lastSeenPlayerPosition = playerHead.position;
+
             timePlayerIsSeen += Time.deltaTime;
             timePlayerIsHidden = 0;
+            timeUntilAlertDecremented = 0;
         }
         else{
             timePlayerIsSeen = 0;
             timePlayerIsHidden += Time.deltaTime;
+            timeUntilAlertDecremented += Time.deltaTime;
         }
+
     }
 
 
     private void EvaluateCurrentState(){
         // Using sensory data variables, determine whether to change state based on priority
         
+        // Immediately stop all processes if the NPC has died
+        if(currentHealth <= 0){
+            TrySetState(BehaviorState.Dead, true);
+        }
+
+        // Main priority: look for player, raise alarm level if player is seen
+        if(canSeePlayer){
+            switch (currentAlertnessLevel){
+
+                case AlertnessLevel.Unwary:
+                    currentAlertnessLevel = AlertnessLevel.Suspicious;
+                    TrySetState(BehaviorState.Investigating);
+                break;
+
+                case AlertnessLevel.Suspicious:
+                    TrySetState(BehaviorState.Investigating);
+                    if(timePlayerIsSeen >= seenTimeToTriggerCombat){
+                        currentAlertnessLevel = AlertnessLevel.Alerted;
+                        TrySetState(BehaviorState.Combat);
+                    }
+                break;
+
+                case AlertnessLevel.Alerted:
+                    TrySetState(BehaviorState.Combat);
+                break;
+            }
+        }
+
+
+        // Decrement alarm level if enough time has passed without seeing the player
+        if(timeUntilAlertDecremented >= alertLevelDecrementInterval){
+            timeUntilAlertDecremented = 0;
+
+            switch (currentAlertnessLevel){
+                case AlertnessLevel.Alerted:
+                    currentAlertnessLevel = AlertnessLevel.Suspicious;
+                    TrySetState(BehaviorState.Patrolling, true);
+                break;
+                
+                case AlertnessLevel.Suspicious:
+                    currentAlertnessLevel = AlertnessLevel.Unwary;
+                    TrySetState(BehaviorState.Patrolling, true);
+                break;
+
+                default:
+                    currentAlertnessLevel = AlertnessLevel.Unwary;
+                break;
+            }
+
+        }
+
+
+        // Set state to patrolling if no higher priority state has been selected
+        TrySetState(BehaviorState.Patrolling);
     }
 
 
@@ -155,7 +220,15 @@ public class NPC : MonoBehaviour
         }
     }
 
-    private void SetState(BehaviorState state){
-        // Reset action queue and change state ONLY IF the desired state is different from the current one
+    public void TrySetState(BehaviorState state, bool overridePriority = false){
+        // Reset action queue and change state IF the desired state is of a higher priority OR override priority is set to true  
+
+        if (IsPriorityHigher(state) || overridePriority == true){
+            currentState = state;
+
+            Debug.Log(state.ToString());
+            // reset action queue goes here
+        }
     }
+
 }
