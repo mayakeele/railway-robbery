@@ -24,6 +24,7 @@ public class NPC : MonoBehaviour
 
 
     public BehaviorState currentState;
+    public bool behaviorStateChanged;
 
 
     [Header("Default Properties")]
@@ -34,7 +35,7 @@ public class NPC : MonoBehaviour
     public int maxHealth;
 
     public Transform eyeTransform;
-    public float maxVisionDistance;
+    public float visionRange;
     public float visionConeAngle;
     public LayerMask visionObstructingLayers;
 
@@ -88,6 +89,7 @@ public class NPC : MonoBehaviour
 
     void Update()
     {
+        behaviorStateChanged = false;
         UpdateSensoryData();
         EvaluateCurrentState();
     }
@@ -99,11 +101,9 @@ public class NPC : MonoBehaviour
         }
         
         Gizmos.color = Color.yellow;
-        //Vector3 leftLine = Quaternion.Euler(0, -visionConeAngle/2, 0) * eyeTransform.forward * maxVisionDistance;
-        //Vector3 rightLine = Quaternion.Euler(0, visionConeAngle/2, 0) * eyeTransform.forward * maxVisionDistance;
-        //Gizmos.DrawLine(eyeTransform.position, eyeTransform.position + leftLine);
-        //Gizmos.DrawLine(eyeTransform.position, eyeTransform.position + rightLine);
-        Gizmos.DrawLine(eyeTransform.position, eyeTransform.position + (eyeTransform.forward * maxVisionDistance));
+        Gizmos.DrawLine(eyeTransform.position, eyeTransform.position + (eyeTransform.forward * visionRange));
+
+        Gizmos.DrawSphere(lastSeenPlayerPosition, 0.1f);
     }
 
 
@@ -113,12 +113,14 @@ public class NPC : MonoBehaviour
 
         // Cast rays to each part of the player's body if the player is within the vision cone and within maximum sight distance
         Vector3 directionToPlayer = playerHead.position - eyeTransform.position;
+        float distanceToPlayer = directionToPlayer.magnitude;
+        directionToPlayer.Normalize();
 
         canSeePlayer = false;
-        if(directionToPlayer.magnitude <= maxVisionDistance){
+        if(distanceToPlayer <= visionRange){
             if(Vector3.Angle(eyeTransform.forward, directionToPlayer) <= visionConeAngle / 2){
 
-                if(Physics.Raycast(eyeTransform.position, directionToPlayer, maxVisionDistance, visionObstructingLayers) == false){
+                if(Physics.Raycast(eyeTransform.position, directionToPlayer, distanceToPlayer, visionObstructingLayers) == false){
                     canSeePlayer = true;
                 }
             }
@@ -146,7 +148,7 @@ public class NPC : MonoBehaviour
         
         // Immediately stop all processes if the NPC has died
         if(currentHealth <= 0){
-            TrySetState(BehaviorState.Dead, true);
+            TrySetState(BehaviorState.Dead);
         }
 
         // Main priority: look for player, raise alarm level if player is seen
@@ -195,15 +197,14 @@ public class NPC : MonoBehaviour
 
         }
 
-
-        // Set state to patrolling if no higher priority state has been selected
-        TrySetState(BehaviorState.Patrolling);
+        // Set a default state if no higher priority state has been selected
+        //TrySetState(BehaviorState.Patrolling);
     }
 
 
 
-    private bool IsPriorityHigher(BehaviorState newState){
-        if ((int)newState < (int)currentState){
+    private bool IsPriorityHigher(BehaviorState newState, BehaviorState prevState){
+        if ((int)newState < (int)prevState){
             return true;
         }
         else{
@@ -211,23 +212,33 @@ public class NPC : MonoBehaviour
         }
     }
 
-    private BehaviorState ReturnHigherPriority(BehaviorState newState){
-        if ((int)newState < (int)currentState){
-            return newState;
+    private bool IsPriorityGreaterOrEqual(BehaviorState newState, BehaviorState prevState){
+        if ((int)newState <= (int)prevState){
+            return true;
         }
         else{
-            return currentState;
+            return false;
         }
     }
 
-    public void TrySetState(BehaviorState state, bool overridePriority = false){
-        // Reset action queue and change state IF the desired state is of a higher priority OR override priority is set to true  
+    private BehaviorState ReturnHigherPriority(BehaviorState newState, BehaviorState prevState){
+        if ((int)newState < (int)prevState){
+            return newState;
+        }
+        else{
+            return prevState;
+        }
+    }
 
-        if (IsPriorityHigher(state) || overridePriority == true){
+    public void TrySetState(BehaviorState state, bool overrideDefaultPriority = false, BehaviorState newPriority = BehaviorState.Combat){
+        // Reset action queue and change state IF the desired state is of a higher priority OR override priority is set to true
+
+        if (IsPriorityHigher(state, currentState) || (overrideDefaultPriority == true && IsPriorityGreaterOrEqual(newPriority, currentState))){
             currentState = state;
 
             Debug.Log(state.ToString());
             // reset action queue goes here
+            behaviorStateChanged = true;
         }
     }
 

@@ -10,6 +10,7 @@ public class NPC_Controller_Crawler : MonoBehaviour
     [Header("References")] 
     private NPC npc;
     private LegManager legManager;
+    private EyeManager eyeManager;
 
     [Header("Patrol Properties")] 
     public float patrolWalkSpeed;
@@ -41,14 +42,13 @@ public class NPC_Controller_Crawler : MonoBehaviour
         WaitUntilTargetReached,
         RotateTowardsLookTarget,
         WaitForSeconds,
-        Attack_Shoot
+        Attack_Shoot,
+        SetNPCState
     }
 
     [SerializeField] private List<Action> actionQueue = new List<Action>();
     [SerializeField] private Action currentAction;
     private bool actionCompleted = true;
-
-    private NPC.BehaviorState previousBehaviorState;
 
 
     // Action parameters
@@ -56,19 +56,20 @@ public class NPC_Controller_Crawler : MonoBehaviour
     [SerializeField] private Vector3 navigationTarget;
     [SerializeField] private Vector3 lookTarget = Vector3.one;
     [SerializeField] private float waitTimeRemaining;
+    [SerializeField] private NPC.BehaviorState stateToSet;
+
     // Add variable to track how long it has been blocked by other npcs
 
 
     void Start() {
         npc = GetComponent<NPC>();
         legManager = GetComponent<LegManager>();
-
-        previousBehaviorState = npc.currentState;
+        eyeManager = GetComponent<EyeManager>();
     }
 
     void Update() {
         // Reset action queue if the behavior state has changed
-        if(npc.currentState != previousBehaviorState){
+        if(npc.behaviorStateChanged){
             actionQueue = new List<Action>();
             actionCompleted = true;
 
@@ -79,8 +80,6 @@ public class NPC_Controller_Crawler : MonoBehaviour
         PerformCurrentAction();
 
         legManager.velocity = npc.navMeshAgent.velocity;
-
-        previousBehaviorState = npc.currentState;
     }
 
 
@@ -127,9 +126,9 @@ public class NPC_Controller_Crawler : MonoBehaviour
                         Vector3 playerPosition = npc.lastSeenPlayerPosition;
 
                         // Play surprise animation, turn towards object
+                        
 
                         // Use navmeshagent to calculate a path to this point, then add actions to the queue for each waypoint in the path
-
                         npc.navMeshAgent.speed = investigateWalkSpeed;
                         npc.navMeshAgent.angularSpeed = investigateTurnSpeed;
                         npc.navMeshAgent.acceleration = investigateAcceleration;
@@ -137,30 +136,33 @@ public class NPC_Controller_Crawler : MonoBehaviour
 
                         navigationTarget = playerPosition;
 
-                        AddAction(Action.RotateTowardsLookTarget);
                         AddAction(Action.BeginMoveToTarget);
                         AddAction(Action.WaitUntilTargetReached);
+                        //AddAction(Action.RotateTowardsLookTarget);
 
                         // Investigate the object, then return to patrolling behavior state
-                        npc.TrySetState(NPC.BehaviorState.Patrolling);
+                        stateToSet = NPC.BehaviorState.Patrolling;
+                        AddAction(Action.SetNPCState);
                     break;
 
                     case NPC.BehaviorState.Pursuit:
-                    // Get last known position of the player and calculate path
+                        // Get last known position of the player and calculate path
 
-                    // Add waypoints to path and queue movement actions to waypoints
+                        // Add waypoints to path and queue movement actions to waypoints
 
-                    // Search for player by picking random search points in a radius until it hits the attempts required to give up
-                    
-                    // Add each set of waypoints to action queue, with a 'look around' animation in between each group of waypoints
+                        // Search for player by picking random search points in a radius until it hits the attempts required to give up
+                        
+                        // Add each set of waypoints to action queue, with a 'look around' animation in between each group of waypoints
 
-                    // When finished, change behavior state to Idle
+                        // When finished, change behavior state to Idle
                     break;
 
                     case NPC.BehaviorState.Combat:
-                    // Make a weighted choice between shooting, dodging, flanking
+                        // Play combat initiated animation
 
-                    // Add occasional combat idle animations to space apart combat actions
+                        // Make a weighted choice between shooting, dodging, flanking
+
+                        // Add occasional combat idle animations to space apart combat actions
                     break;
 
                     case NPC.BehaviorState.Immobilized:
@@ -248,6 +250,12 @@ public class NPC_Controller_Crawler : MonoBehaviour
             case Action.Attack_Shoot:
                 // bang bang
             break;
+
+            case Action.SetNPCState:
+                // Set NPC's Behavior State with default priority overrided
+                npc.TrySetState(stateToSet, true);
+                actionCompleted = true;
+            break;
             
             default:
                 actionCompleted = true;
@@ -261,6 +269,7 @@ public class NPC_Controller_Crawler : MonoBehaviour
             currentAction = actionQueue[0];
         }
         else{
+            actionCompleted = true;
             currentAction = Action.Null;
         }
     }
