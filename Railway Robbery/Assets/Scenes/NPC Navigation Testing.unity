@@ -2192,7 +2192,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.9622642, g: 0.9573126, b: 0.9259523, a: 1}
-  m_Intensity: 1.1
+  m_Intensity: 0.85
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3330,7 +3330,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 256
-  m_UseGeometry: 1
+  m_UseGeometry: 0
   m_DefaultArea: 3
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
@@ -4463,7 +4463,7 @@ PrefabInstance:
     - target: {fileID: 5695601824323487749, guid: f34a0db4207f90b4e816d632270ed803,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.02
+      value: 6.036
       objectReference: {fileID: 0}
     - target: {fileID: 5695601824323487749, guid: f34a0db4207f90b4e816d632270ed803,
         type: 3}
@@ -6188,12 +6188,12 @@ PrefabInstance:
     - target: {fileID: 5695601824323487748, guid: f34a0db4207f90b4e816d632270ed803,
         type: 3}
       propertyPath: investigateWalkSpeed
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5695601824323487748, guid: f34a0db4207f90b4e816d632270ed803,
         type: 3}
       propertyPath: investigateAcceleration
-      value: 3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5695601824323487749, guid: f34a0db4207f90b4e816d632270ed803,
         type: 3}
@@ -6259,6 +6259,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5695601824323487753, guid: f34a0db4207f90b4e816d632270ed803,
+        type: 3}
+      propertyPath: includeMovingLegsForRotation
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5695601824323487754, guid: f34a0db4207f90b4e816d632270ed803,
         type: 3}

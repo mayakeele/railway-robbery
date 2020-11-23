@@ -425,8 +425,8 @@ GameObject:
   - component: {fileID: 5695601824323487749}
   - component: {fileID: 5695601824323487748}
   - component: {fileID: 5695601824323487754}
-  - component: {fileID: 2039381971714424609}
   - component: {fileID: 5695601824323487753}
+  - component: {fileID: 2039381971714424609}
   - component: {fileID: 5695601824323487755}
   m_Layer: 0
   m_Name: Test NPC 2
@@ -471,7 +471,7 @@ MonoBehaviour:
   investigateWalkSpeed: 2
   investigateTurnSpeed: 120
   investigateAcceleration: 1.5
-  investigateStoppingDistance: 2.5
+  investigateStoppingDistance: 1
   investigateWanderRadius: 5
   pursuitStoppingDistance: 0
   numSearchAttempts: 5
@@ -507,6 +507,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   seenTimeToTriggerCombat: 1.2
+  obstructedTimeToTriggerPursuit: 0
   alertLevelDecrementInterval: 15
   playerHead: {fileID: 0}
   playerHandLeft: {fileID: 0}
@@ -518,30 +519,13 @@ MonoBehaviour:
   currentAlertnessLevel: 0
   canSeePlayer: 0
   lastSeenPlayerPosition: {x: 0, y: 0, z: 0}
+  lastSeenPlayerVelocity: {x: 0, y: 0, z: 0}
   timePlayerIsSeen: 0
   timePlayerIsHidden: 0
   timeUntilAlertDecremented: 0
   navMeshAgent: {fileID: 5695601824323487755}
   animator: {fileID: 0}
   rb: {fileID: 0}
---- !u!114 &2039381971714424609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5695601824323487752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fed444adbffc9ac4295651e2999a54bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eyeTransform: {fileID: 7798822419322637495}
-  eyeLight: {fileID: 5806473503226853676}
-  defaultMaterial: {fileID: 2100000, guid: 2ffefa53f357e3f41890024c97653c52, type: 2}
-  suspiciousMaterial: {fileID: 2100000, guid: 77cdf0f8dd95fc9488e1f14f00984043, type: 2}
-  alertedMaterial: {fileID: 2100000, guid: a1da8b97405129c4685be3fe2ae4642b, type: 2}
-  defaultLightIntensity: 1.2
 --- !u!114 &5695601824323487753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,7 +557,8 @@ MonoBehaviour:
   movingStepOffset: 0.28
   minDisplacementToMove: 0.1
   rotateBodyWithLegs: 1
-  bodyRotationRate: 0.05
+  bodyRotationRate: 0.02
+  includeMovingLegsForRotation: 0
   stepCycleLength: 0.38
   stepAnimationDuration: 0.2
   stepAnimationHeight: 0.08
@@ -623,6 +608,25 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   useDynamicGait: 0
   currentUpDirection: {x: 0, y: 0, z: 0}
+  legsInMotion: 
+--- !u!114 &2039381971714424609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695601824323487752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed444adbffc9ac4295651e2999a54bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eyeTransform: {fileID: 7798822419322637495}
+  eyeLight: {fileID: 5806473503226853676}
+  defaultMaterial: {fileID: 2100000, guid: 2ffefa53f357e3f41890024c97653c52, type: 2}
+  suspiciousMaterial: {fileID: 2100000, guid: 77cdf0f8dd95fc9488e1f14f00984043, type: 2}
+  alertedMaterial: {fileID: 2100000, guid: a1da8b97405129c4685be3fe2ae4642b, type: 2}
+  defaultLightIntensity: 1.2
 --- !u!195 &5695601824323487755
 NavMeshAgent:
   m_ObjectHideFlags: 0

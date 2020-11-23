@@ -16,6 +16,7 @@ public class LegManager : MonoBehaviour
     public float minDisplacementToMove;
     public bool rotateBodyWithLegs;
     public float bodyRotationRate;
+    public bool includeMovingLegsForRotation;
 
     [Header("Step Animation Properties")]
     public float stepCycleLength;
@@ -39,6 +40,7 @@ public class LegManager : MonoBehaviour
 
     private float timeSinceLastStep;
     private int currentLegIndex = 0;
+    public List<bool> legsInMotion = new List<bool>();
 
 
     void Start()
@@ -48,11 +50,13 @@ public class LegManager : MonoBehaviour
             // Initialize leg targets to the positions of resting targets
             FastIKFabric currentLeg = legs[i];
 
-            restingTargets[i].position = currentLeg.transform.position;
+            restingTargets[i].position = new Vector3(currentLeg.transform.position.x, this.transform.position.y, currentLeg.transform.position.z);
 
             Transform currentTarget = Instantiate(restingTargets[i], restingTargets[i].position, restingTargets[i].rotation);
             currentTarget.SetParent(targetHolder.transform);
             currentLeg.Target = currentTarget;
+
+            legsInMotion.Add(false);
         }
 
         currentUpDirection = Vector3.up;
@@ -86,8 +90,8 @@ public class LegManager : MonoBehaviour
         }
 
         if(rotateBodyWithLegs){
-            float rollAngle = CalculateBodyAngle(transform.forward, true);
-            float pitchAngle = CalculateBodyAngle(transform.right, true);
+            float rollAngle = CalculateBodyAngle(transform.forward, includeMovingLegsForRotation);
+            float pitchAngle = CalculateBodyAngle(transform.right, includeMovingLegsForRotation);
             Quaternion desiredBodyRotation = Quaternion.Euler(pitchAngle, 0, rollAngle);
             bodyTransform.localRotation = Quaternion.Lerp(bodyTransform.localRotation, desiredBodyRotation, bodyRotationRate);
         }
@@ -145,6 +149,8 @@ public class LegManager : MonoBehaviour
 
     IEnumerator MoveLeg(int legIndex, Vector3 newPosition, Vector3 newNormal){
         // Moves the given leg along a path defined by direction to the new target and the step animation curve
+        legsInMotion[legIndex] = true;
+
         FastIKFabric currentLeg = legs[legIndex];
 
         Vector3 oldPosition = currentLeg.Target.position;
@@ -167,15 +173,21 @@ public class LegManager : MonoBehaviour
             yield return null;
         }
 
+        currentLeg.Target.position = newPosition;
+        legsInMotion[legIndex] = false;
+
         yield break;
     }
 
-    float CalculateBodyAngle(Vector3 axis, bool includeMovingLeg){
+    float CalculateBodyAngle(Vector3 axis, bool includeMovingLegs){
         // Calculates the average angle of leg displacement around the forward axis
-        float averageAngle = 0;
+        float angleSum = 0;
+        int numLegsIncluded = 0;
         
         for(int i = 0; i < legs.Count; i++){
-            if(includeMovingLeg == true || i != currentLegIndex){
+            if(legsInMotion[i] == false || includeMovingLegs){
+                numLegsIncluded++;
+
                 FastIKFabric currentLeg = legs[i];
 
                 Vector3 defaultPosition = restingTargets[i].position;
@@ -187,11 +199,13 @@ public class LegManager : MonoBehaviour
 
                 float angle;
                 angle = Vector3.SignedAngle(toDefault, toTarget, axis);
-                averageAngle += angle;
+                angleSum += angle;
             }    
         }
+        // Failsafe incase all legs are moving at once, avoid dividing by 0
+        if(numLegsIncluded == 0) numLegsIncluded = 1;
 
-        return includeMovingLeg ? averageAngle / legs.Count : averageAngle / (legs.Count - 1);
+        return angleSum / numLegsIncluded;
     }
 
     void SetLegRoots(){

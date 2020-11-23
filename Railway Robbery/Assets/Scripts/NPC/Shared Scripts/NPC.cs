@@ -40,6 +40,7 @@ public class NPC : MonoBehaviour
     public LayerMask visionObstructingLayers;
 
     public float seenTimeToTriggerCombat;
+    public float obstructedTimeToTriggerPursuit;
     public float alertLevelDecrementInterval;
 
 
@@ -62,6 +63,7 @@ public class NPC : MonoBehaviour
 
     public bool canSeePlayer = false;
     public Vector3 lastSeenPlayerPosition;
+    public Vector3 lastSeenPlayerVelocity;
     public float timePlayerIsSeen;
     public float timePlayerIsHidden;
 
@@ -129,6 +131,7 @@ public class NPC : MonoBehaviour
         // Increment the amount of time the player has or has not been seen
         if (canSeePlayer){
             lastSeenPlayerPosition = playerHead.position;
+            //lastSeenPlayerVelocity = playerHead.GetComponent<Rigidbody>().velocity;  ~~~~~~~~~~~~~~~~~~~~~~~~~  EXPAND THIS ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             timePlayerIsSeen += Time.deltaTime;
             timePlayerIsHidden = 0;
@@ -156,12 +159,18 @@ public class NPC : MonoBehaviour
             switch (currentAlertnessLevel){
 
                 case AlertnessLevel.Unwary:
+                    // Immediately raise suspicion and investigate disturbance
                     currentAlertnessLevel = AlertnessLevel.Suspicious;
                     TrySetState(BehaviorState.Investigating);
                 break;
 
                 case AlertnessLevel.Suspicious:
-                    TrySetState(BehaviorState.Investigating);
+                    // Re-trigger investigation on the first frame the player is seen after being hidden
+                    if(timePlayerIsSeen <= Time.deltaTime){
+                        TrySetState(BehaviorState.Investigating, true);
+                    }
+
+                    // Trigger combat if the player remains seen for too long
                     if(timePlayerIsSeen >= seenTimeToTriggerCombat){
                         currentAlertnessLevel = AlertnessLevel.Alerted;
                         TrySetState(BehaviorState.Combat);
@@ -172,6 +181,13 @@ public class NPC : MonoBehaviour
                     TrySetState(BehaviorState.Combat);
                 break;
             }
+        }
+
+
+        // Enter pursuit mode if player has disappeared from view for too long during combat
+        if(currentState == BehaviorState.Combat && timePlayerIsHidden >= obstructedTimeToTriggerPursuit){
+            TrySetState(BehaviorState.Pursuit, true);
+
         }
 
 
@@ -198,7 +214,7 @@ public class NPC : MonoBehaviour
         }
 
         // Set a default state if no higher priority state has been selected
-        //TrySetState(BehaviorState.Patrolling);
+        TrySetState(BehaviorState.Patrolling);
     }
 
 

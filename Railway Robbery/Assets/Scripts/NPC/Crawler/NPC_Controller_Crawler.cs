@@ -138,6 +138,9 @@ public class NPC_Controller_Crawler : MonoBehaviour
 
                         AddAction(Action.BeginMoveToTarget);
                         AddAction(Action.WaitUntilTargetReached);
+
+                        waitTimeRemaining = 1.5f;
+                        AddAction(Action.WaitForSeconds);
                         //AddAction(Action.RotateTowardsLookTarget);
 
                         // Investigate the object, then return to patrolling behavior state
