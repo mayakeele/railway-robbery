@@ -46,6 +46,7 @@ public class NPC : MonoBehaviour
 
     [Header("External Objects")]
 
+    public Transform playerFeet;
     public Transform playerHead;
     public Transform playerHandLeft;
     public Transform playerHandRight;
@@ -130,7 +131,7 @@ public class NPC : MonoBehaviour
 
         // Increment the amount of time the player has or has not been seen
         if (canSeePlayer){
-            lastSeenPlayerPosition = playerHead.position;
+            lastSeenPlayerPosition = playerFeet.position;
             //lastSeenPlayerVelocity = playerHead.GetComponent<Rigidbody>().velocity;  ~~~~~~~~~~~~~~~~~~~~~~~~~  EXPAND THIS ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             timePlayerIsSeen += Time.deltaTime;
@@ -252,7 +253,7 @@ public class NPC : MonoBehaviour
         if (IsPriorityHigher(state, currentState) || (overrideDefaultPriority == true && IsPriorityGreaterOrEqual(newPriority, currentState))){
             currentState = state;
 
-            Debug.Log(state.ToString());
+            //Debug.Log(state.ToString());
             // reset action queue goes here
             behaviorStateChanged = true;
         }

@@ -25,9 +25,9 @@ TagManager:
   - Moveable Structure
   - Player Body
   - Physics Hand
-  - 
-  - 
-  - 
+  - Enemy Projectile
+  - Player Projectile
+  - Enemy
   - 
   - 
   - 
