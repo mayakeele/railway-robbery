@@ -11,20 +11,24 @@ public class BodyManager : MonoBehaviour
     private float currHeadsetHeight;
     [SerializeField] private float legLiftPercentage;
 
-    public Transform bodyGameobject;
+    public Transform headTransform;
+    public Transform bodyTransform;
+    public Transform feetTransform;
     private CapsuleCollider bodyCollider;
 
     void Start()
     {
         inputHandler = GetComponent<InputHandler>();
         climbingManager = GetComponent<ClimbingManager>();
-        bodyCollider = bodyGameobject.GetComponent<CapsuleCollider>();
+        bodyCollider = bodyTransform.GetComponent<CapsuleCollider>();
     }
 
 
     void FixedUpdate()
     {
-        
+        headTransform.position = inputHandler.cameraTransform.position;
+        feetTransform.position = transform.position;
+
         currHeadsetHeight = inputHandler.cameraTransform.localPosition.y;
 
         if (climbingManager.leftPhysicsHand.isClimbing || climbingManager.rightPhysicsHand.isClimbing){
@@ -32,7 +36,7 @@ public class BodyManager : MonoBehaviour
 
             bodyCollider.height = currHeadsetHeight * (1 - legLiftPercentage);
 
-            bodyGameobject.transform.position = new Vector3(
+            bodyTransform.position = new Vector3(
                 inputHandler.cameraTransform.position.x, 
                 inputHandler.cameraTransform.position.y - (bodyCollider.height / 2),
                 inputHandler.cameraTransform.position.z
@@ -44,7 +48,7 @@ public class BodyManager : MonoBehaviour
 
             bodyCollider.height = currHeadsetHeight;
 
-            bodyGameobject.transform.position = new Vector3(
+            bodyTransform.position = new Vector3(
                 inputHandler.cameraTransform.position.x, 
                 inputHandler.cameraTransform.position.y - (bodyCollider.height / 2),
                 inputHandler.cameraTransform.position.z
