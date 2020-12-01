@@ -33,6 +33,13 @@ public class NPC_Controller_Crawler : MonoBehaviour
     [Header("Attack Properties")] 
     public float minShootingRange;
     public float maxShootingRange;
+    public float timeBetweenShots;
+    public float maxSpreadAngleWidth;
+    public float maxSpreadAngleHeight;
+
+    [Header("Weapon Prefabs")]
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnLocation;
 
 
     // Action queue variables
@@ -42,7 +49,7 @@ public class NPC_Controller_Crawler : MonoBehaviour
         WaitUntilTargetReached,
         RotateTowardsLookTarget,
         WaitForSeconds,
-        Attack_Shoot,
+        ShootBullet,
         SetNPCState
     }
 
@@ -123,7 +130,7 @@ public class NPC_Controller_Crawler : MonoBehaviour
 
                     case NPC.BehaviorState.Investigating:
                         // Get the GameObject and position of whatever alerted this NPC (thrown object, sound, sees player, etc)
-                        Vector3 playerPosition = npc.lastSeenPlayerPosition;
+                        Vector3 playerPosition = npc.playerFeet.position;
 
                         // Play surprise animation, turn towards object
                         
@@ -164,6 +171,13 @@ public class NPC_Controller_Crawler : MonoBehaviour
                         // Play combat initiated animation
 
                         // Make a weighted choice between shooting, dodging, flanking
+                        //navigationTarget = npc.lastSeenPlayerPosition;
+                        //AddAction(Action.RotateTowardsLookTarget);
+
+                        AddAction(Action.ShootBullet);
+
+                        waitTimeRemaining = timeBetweenShots;
+                        AddAction(Action.WaitForSeconds);
 
                         // Add occasional combat idle animations to space apart combat actions
                     break;
@@ -250,8 +264,17 @@ public class NPC_Controller_Crawler : MonoBehaviour
                 }
             break;
 
-            case Action.Attack_Shoot:
-                // bang bang
+            case Action.ShootBullet:
+                // Spawn bullet prefab at the desired location, aim bullet at player and add some angular randomness, play shooting animation
+                
+                float widthAngleChange = Random.Range(-maxSpreadAngleWidth, maxSpreadAngleWidth);
+                float heightAngleChange = Random.Range(-maxSpreadAngleHeight, maxSpreadAngleHeight);
+
+                Quaternion bulletDirection = Quaternion.LookRotation(npc.lastSeenPlayerPosition - bulletSpawnLocation.position) * Quaternion.Euler(heightAngleChange, widthAngleChange, 0);
+
+                GameObject bullet = Instantiate(bulletPrefab, bulletSpawnLocation.position, bulletDirection);
+
+                actionCompleted = true;
             break;
 
             case Action.SetNPCState:

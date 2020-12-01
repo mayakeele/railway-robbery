@@ -46,8 +46,10 @@ public class NPC : MonoBehaviour
 
     [Header("External Objects")]
 
-    public Transform playerFeet;
+    public GameObject player;
     public Transform playerHead;
+    public Transform playerBody;
+    public Transform playerFeet;
     public Transform playerHandLeft;
     public Transform playerHandRight;
 
@@ -56,7 +58,7 @@ public class NPC : MonoBehaviour
 
     [Header("Sensory Variables")]
 
-    public int currentHealth;
+    public float currentHealth;
     public bool isAlive;
     public bool isImmobilized;
 
@@ -80,6 +82,11 @@ public class NPC : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerHead = player.GetComponent<InputHandler>().cameraTransform;
+        playerBody = player.GetComponent<BodyManager>().bodyTransform;
+        playerFeet = player.GetComponent<BodyManager>().feetTransform;
 
         navMeshAgent.avoidancePriority = Random.Range(minNavigationPriority, maxNavigationPriority + 1);
     }
@@ -131,7 +138,7 @@ public class NPC : MonoBehaviour
 
         // Increment the amount of time the player has or has not been seen
         if (canSeePlayer){
-            lastSeenPlayerPosition = playerFeet.position;
+            lastSeenPlayerPosition = playerBody.position;
             //lastSeenPlayerVelocity = playerHead.GetComponent<Rigidbody>().velocity;  ~~~~~~~~~~~~~~~~~~~~~~~~~  EXPAND THIS ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             timePlayerIsSeen += Time.deltaTime;
@@ -188,7 +195,6 @@ public class NPC : MonoBehaviour
         // Enter pursuit mode if player has disappeared from view for too long during combat
         if(currentState == BehaviorState.Combat && timePlayerIsHidden >= obstructedTimeToTriggerPursuit){
             TrySetState(BehaviorState.Pursuit, true);
-
         }
 
 
@@ -257,6 +263,16 @@ public class NPC : MonoBehaviour
             // reset action queue goes here
             behaviorStateChanged = true;
         }
+    }
+
+
+
+    public void DealDamage(int baseDamageAmount, Transform bodyPartHit, Vector3 hitLocation){
+        float damageMultiplier = 1;
+
+        currentHealth -= (baseDamageAmount * damageMultiplier);
+
+        Debug.Log("Enemy Health: " + currentHealth.ToString());
     }
 
 }

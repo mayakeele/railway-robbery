@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour
 {
-    [SerializeField] private int maxHealth; 
-    [SerializeField] private int currentHealth;
+    [Header("Health")]
+    [SerializeField] private float maxHealth; 
+    [SerializeField] private float currentHealth;
+
+    [Header("Body Parts")]
+    [SerializeField] private Transform headTransform;
+    [SerializeField] private Transform bodyTransform;
+    [SerializeField] private Transform leftHandTransform;
+    [SerializeField] private Transform rightHandTransform;
 
     private bool isDead = false;
 
@@ -23,11 +30,31 @@ public class HealthManager : MonoBehaviour
     }
 
 
-    public void DealDamage(int damageAmount){
+    public void DealDamageRaw(int damageAmount){
+
         currentHealth -= damageAmount;
+
+        Debug.Log("Current Health: " + currentHealth.ToString());
     }
 
-    public void DisplayHitLocation(Vector3 position){
+    public void DealDamage(int baseDamageAmount, Transform bodyPartHit, Vector3 hitLocation){
+        float damageMultiplier = 1;
+
+        if(bodyPartHit == bodyTransform){
+            damageMultiplier = 1;
+        }
+        else if (bodyPartHit == leftHandTransform || bodyPartHit == rightHandTransform){
+            damageMultiplier = 0.5f;
+        }
+        else if (bodyPartHit == headTransform){
+            damageMultiplier = 2.5f;
+        }
+        else{
+            damageMultiplier = 1;
+        }
+
+        currentHealth -= (baseDamageAmount * damageMultiplier);
+
         Debug.Log("Current Health: " + currentHealth.ToString());
     }
 }
