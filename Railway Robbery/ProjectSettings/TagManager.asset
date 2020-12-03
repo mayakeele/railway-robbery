@@ -4,10 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Placeable
+  - projectile
+  - FxTemporaire
   - Climbable
-  - PlayerBody
-  - PhysicsHand
-  - Non-Climbable Static Geometry
   - TrainPartPrefabsContainer
   - TrainCarTypeContainer
   - ThemeLayerPaletteContainer
@@ -21,26 +21,26 @@ TagManager:
   - UI
   - 
   - 
-  - Static Structure
-  - Moveable Structure
-  - Player Body
-  - Physics Hand
-  - Enemy Projectile
-  - Player Projectile
-  - Enemy
+  - PostProcessing
   - 
+  - StaticStructure
+  - MoveableStructure
   - 
+  - PlayerDamageHitbox
+  - EnemyDamageHitbox
   - 
+  - PlayerPhysicsCollider
+  - EnemyPhysicsCollider
   - 
+  - PlayerProjectile
+  - EnemyProjectile
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Hand
+  - HandHolding
+  - Grabbable
+  - Grabbing
+  - Releasing
+  - Player
   - 
   - 
   - 
