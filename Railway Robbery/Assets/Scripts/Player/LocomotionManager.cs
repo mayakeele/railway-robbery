@@ -19,7 +19,7 @@ public class LocomotionManager : MonoBehaviour
     }
 
 
-    private void FixedUpdate() {
+    private void Update() {
 
         // If the player is not climbing, receive left stick input and calculate resulting velocity
         if(bodyParts.leftClimbingHand.isClimbing == false && bodyParts.rightClimbingHand.isClimbing == false){
@@ -42,7 +42,7 @@ public class LocomotionManager : MonoBehaviour
         }
     }
 
-    private void Update() {
+    private void LateUpdate() {
         float rotationInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x;
         float rotationDegrees = rotationInput * maxRotationSpeed * Time.deltaTime;
 

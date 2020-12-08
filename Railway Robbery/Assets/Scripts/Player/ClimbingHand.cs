@@ -52,6 +52,8 @@ public class ClimbingHand : MonoBehaviour
 
         handRigidbody.isKinematic = true;
         handRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+
+        transform.SetPositionAndRotation(climbingAnchorPosition, climbingAnchorRotation);
     }
 
     public void Unfreeze(){

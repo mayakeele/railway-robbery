@@ -84,6 +84,9 @@ namespace Autohand {
         public float grabTime = 0f;
         
 
+        [Header("Added in by Grant Keele")]
+        public Rigidbody playerRigidbody;
+
 
 #if UNITY_EDITOR
         [Header("Editor"), Space, Space]
@@ -372,6 +375,9 @@ namespace Autohand {
 
             //Sets velocity linearly based on distance from hand
             var vel = (movePos - transform.position).normalized * followPositionStrength * distance;
+            // Added by Grant Keele
+            vel += playerRigidbody.velocity;
+
             vel.x = Mathf.Clamp(vel.x, -velocityClamp, velocityClamp);
             vel.y = Mathf.Clamp(vel.y, -velocityClamp, velocityClamp);
             vel.z = Mathf.Clamp(vel.z, -velocityClamp, velocityClamp);

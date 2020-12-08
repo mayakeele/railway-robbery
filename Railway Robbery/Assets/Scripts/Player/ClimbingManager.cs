@@ -12,15 +12,14 @@ public class ClimbingManager : MonoBehaviour
     private float currentSpringFrequency;
     [SerializeField] private float springDamping;
 
-    [SerializeField] private float handRadius;
 
     private string climbingTag = "Climbable";
 
     private ClimbingHand leftHand;
     private ClimbingHand rightHand;
 
-    private ControllerCollisionTrigger leftControllerCollider;
-    private ControllerCollisionTrigger rightControllerCollider;
+    public ControllerCollisionTrigger leftClimbingTrigger;
+    public ControllerCollisionTrigger rightClimbingTrigger;
 
     private Vector3 leftBodyTarget;
     private Vector3 rightBodyTarget;
@@ -88,10 +87,13 @@ public class ClimbingManager : MonoBehaviour
         Transform controllerTransform = isLeft ? bodyParts.leftControllerTransform : bodyParts.rightControllerTransform;
         ClimbingHand climbingHand = isLeft ? bodyParts.leftClimbingHand : bodyParts.rightClimbingHand;
         Hand autoHand = isLeft ? bodyParts.leftHand : bodyParts.rightHand;
+        ControllerCollisionTrigger climbingTrigger = isLeft ? leftClimbingTrigger : rightClimbingTrigger;
 
-        if ((climbingHand.collidingTag == climbingTag || climbingHand.isClimbing) && bodyParts.inputHandler.GetHeldState(climbingHand.grabButton)){
+        if ((climbingTrigger.isColliding || climbingHand.isClimbing) && bodyParts.inputHandler.GetHeldState(climbingHand.grabButton)){
             climbingHand.isClimbing = true;
             climbingHand.Freeze();
+            
+            autoHand.RelaxHand();
 
             Vector3 targetPosition = transform.position - (controllerTransform.position - climbingHand.climbingAnchorPosition); //leftHand.controllerAnchor + leftHand.controllerToBodyOffset;
 
