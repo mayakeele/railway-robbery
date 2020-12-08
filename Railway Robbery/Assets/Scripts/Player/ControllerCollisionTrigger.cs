@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ControllerCollisionTrigger : MonoBehaviour
 {
-    [SerializeField] private InputHandler inputHandler;
-    [SerializeField] private ClimbingManager climbingManager;
     public bool isLeftController;
 
     [HideInInspector] public bool isColliding;

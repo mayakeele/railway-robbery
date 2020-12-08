@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour
 {
+    private BodyPartReferences bodyParts;
+
     [Header("Health")]
     [SerializeField] private float maxHealth; 
     [SerializeField] private float currentHealth;
 
-    [Header("Body Parts")]
-    [SerializeField] private Transform headTransform;
-    [SerializeField] private Transform bodyTransform;
-    [SerializeField] private Transform leftHandTransform;
-    [SerializeField] private Transform rightHandTransform;
-
     private bool isDead = false;
 
+    void Awake() {
+        bodyParts = GetComponent<BodyPartReferences>();
+    }
+    
     void Start()
     {
         currentHealth = maxHealth;
@@ -40,13 +40,13 @@ public class HealthManager : MonoBehaviour
     public void DealDamage(int baseDamageAmount, Transform bodyPartHit, Vector3 hitLocation){
         float damageMultiplier = 1;
 
-        if(bodyPartHit == bodyTransform){
+        if(bodyPartHit == bodyParts.bodyCollider.transform){
             damageMultiplier = 1;
         }
-        else if (bodyPartHit == leftHandTransform || bodyPartHit == rightHandTransform){
+        else if (bodyPartHit == bodyParts.leftHandTransform || bodyPartHit == bodyParts.rightHandTransform){
             damageMultiplier = 0.5f;
         }
-        else if (bodyPartHit == headTransform){
+        else if (bodyPartHit == bodyParts.headCollider.transform){
             damageMultiplier = 2.5f;
         }
         else{

@@ -5,18 +5,11 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    public Transform cameraTransform;
-
-    public Transform leftController;
-    public Transform rightController;
-
-    public Transform leftPhysicsHand;
-    public Transform rightPhysicsHand;
+    private BodyPartReferences bodyParts;
 
     [SerializeField] public float gripThreshold = 0.5f;
     [SerializeField] public float triggerThreshold = 0.5f;
 
-    [HideInInspector] public Rigidbody playerRigidbody;
     
     //[SerializeField] private MeshFilter meshFilter;
 
@@ -39,13 +32,10 @@ public class InputHandler : MonoBehaviour
     private bool[] inputHeld = new bool[Enum.GetValues(typeof(InputButton)).Length];
 
 
-    void Start()
-    {
-        playerRigidbody = GetComponent<Rigidbody>();
-
-        //leftPhysicsHand.position = leftControllerAnchor.position;
-        //rightPhysicsHand.position = rightControllerAnchor.position;
+    void Awake() {
+        bodyParts = GetComponent<BodyPartReferences>();
     }
+
 
     void Update()
     {

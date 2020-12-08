@@ -47,6 +47,7 @@ public class NPC : MonoBehaviour
     [Header("External Objects")]
 
     public GameObject player;
+    private BodyPartReferences playerParts;
     public Transform playerHead;
     public Transform playerBody;
     public Transform playerFeet;
@@ -84,9 +85,10 @@ public class NPC : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         player = GameObject.FindGameObjectWithTag("Player");
-        playerHead = player.GetComponent<InputHandler>().cameraTransform;
-        playerBody = player.GetComponent<BodyManager>().bodyTransform;
-        playerFeet = player.GetComponent<BodyManager>().feetTransform;
+        playerParts = player.GetComponent<BodyPartReferences>();
+        playerHead = playerParts.cameraTransform;
+        playerBody = playerParts.bodyTransform;
+        playerFeet = playerParts.feetTransform;
 
         navMeshAgent.avoidancePriority = Random.Range(minNavigationPriority, maxNavigationPriority + 1);
     }
