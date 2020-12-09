@@ -22,10 +22,13 @@ public class ClimbingHand : MonoBehaviour
     [HideInInspector] public Vector3 controllerToBodyOffset;
     [HideInInspector] public Vector3 handToControllerOffset;
 
+    public Transform controllerTransform;
+    public Transform handTransform;
     private Rigidbody handRigidbody;
-    public Transform controllerAnchor;
-    [HideInInspector]public Vector3 climbingAnchorPosition;
-    [HideInInspector]public Quaternion climbingAnchorRotation;
+    
+    [HideInInspector] public Vector3 controllerAnchorPosition;
+    [HideInInspector] public Vector3 handAnchorPosition;
+    [HideInInspector] public Quaternion handAnchorRotation;
 
 
     void Awake()
@@ -37,14 +40,19 @@ public class ClimbingHand : MonoBehaviour
 
     void Start() {
         Unfreeze();
-        UpdateClimbingAnchor();
+        UpdateControllerAnchor();
     }
 
 
-    public void UpdateClimbingAnchor(){
+    public void UpdateControllerAnchor(){
         // Sets the transform of the climbing anchor to match the controller at this point in time
-        climbingAnchorPosition = controllerAnchor.position;
-        climbingAnchorRotation = controllerAnchor.rotation;
+        controllerAnchorPosition = controllerTransform.position;
+    }
+
+    public void UpdateHandAnchor(){
+        // Sets the transform of the climbing anchor to match the controller at this point in time
+        handAnchorPosition = handTransform.position;
+        handAnchorRotation = handTransform.rotation;
     }
 
     public void Freeze(){
@@ -53,7 +61,7 @@ public class ClimbingHand : MonoBehaviour
         handRigidbody.isKinematic = true;
         handRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
-        transform.SetPositionAndRotation(climbingAnchorPosition, climbingAnchorRotation);
+        transform.SetPositionAndRotation(handAnchorPosition, handAnchorRotation);
     }
 
     public void Unfreeze(){

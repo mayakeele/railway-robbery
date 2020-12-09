@@ -1020,7 +1020,12 @@ namespace Autohand {
 
             //Responsable for movement finger sway
             if(!holdingObj && !disableIK && !grabPose && handPoseArea == null && handAnimateRoutine == null) {
-                float vel = -palmTransform.InverseTransformDirection(body.velocity).z;
+
+                // Added by Grant Keele
+                Vector3 relativeVelocity = body.velocity - playerRigidbody.velocity;
+
+                //float vel = -palmTransform.InverseTransformDirection(body.velocity).z;
+                float vel = -palmTransform.InverseTransformDirection(relativeVelocity).z;
                 float grip = idealGrip + gripOffset + swayStrength * (vel / 8f);
 
                 if(currGrip != grip) {

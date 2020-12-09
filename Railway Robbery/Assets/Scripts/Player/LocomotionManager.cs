@@ -11,7 +11,9 @@ public class LocomotionManager : MonoBehaviour
 
     [SerializeField] private bool useHeadAsForward;
 
-    [SerializeField] private float stickDeadzone;
+    [SerializeField] private float translationStickDeadzone;
+    [SerializeField] private float rotationStickDeadzone;
+
 
     
     void Awake() {
@@ -21,24 +23,33 @@ public class LocomotionManager : MonoBehaviour
 
     private void Update() {
 
-        // If the player is not climbing, receive left stick input and calculate resulting velocity
+        // Calculate translational velocity of the player based on input
+
         if(bodyParts.leftClimbingHand.isClimbing == false && bodyParts.rightClimbingHand.isClimbing == false){
 
-            // Get left stick input and determine whether 'forward' should be based on controller orientation or head orientation
-            Vector3 inputForward = useHeadAsForward ? bodyParts.cameraTransform.forward : bodyParts.leftControllerTransform.forward;
-
-            Vector3 targetForward = Vector3.ProjectOnPlane(inputForward, Vector3.up).normalized;
-            Vector3 targetRight = Vector3.Cross(Vector3.up, targetForward);
-
+            // Get left stick input, apply velocity if outside of deadzone
             Vector2 movementInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch);
-            
-            // Combine joystick input and forward direction to determine the direction of movement
-            Vector3 movementDirection = (targetForward * movementInput.y) + (targetRight * movementInput.x);
 
-            Vector3 inputVelocity = movementDirection * maxMovementSpeed;
+            if(movementInput.magnitude > translationStickDeadzone){
+                // Determine whether 'forward' should be based on controller orientation or head orientation
+                Vector3 inputForward = useHeadAsForward ? bodyParts.cameraTransform.forward : bodyParts.leftControllerTransform.forward;
 
-            // Set x and z components of movement while preserving y
-            bodyParts.playerRigidbody.velocity = new Vector3(inputVelocity.x, bodyParts.playerRigidbody.velocity.y, inputVelocity.z);
+                Vector3 targetForward = Vector3.ProjectOnPlane(inputForward, Vector3.up).normalized;
+                Vector3 targetRight = Vector3.Cross(Vector3.up, targetForward);
+                
+                // Combine joystick input and forward direction to determine the direction of movement
+                Vector3 movementDirection = (targetForward * movementInput.y) + (targetRight * movementInput.x);
+
+                Vector3 inputVelocity = movementDirection * maxMovementSpeed;
+
+                // Set x and z components of movement while preserving y
+                bodyParts.playerRigidbody.velocity = new Vector3(inputVelocity.x, bodyParts.playerRigidbody.velocity.y, inputVelocity.z);
+
+                // Translate hands along with body
+                //Vector3 translationAmount = inputVelocity * Time.deltaTime;
+                //bodyParts.leftHand.transform.Translate(translationAmount, Space.World);
+                //bodyParts.rightHand.transform.Translate(translationAmount, Space.World);
+            }
         }
     }
 
@@ -46,13 +57,13 @@ public class LocomotionManager : MonoBehaviour
         float rotationInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).x;
         float rotationDegrees = rotationInput * maxRotationSpeed * Time.deltaTime;
 
-        if(Mathf.Abs(rotationInput) > stickDeadzone){
+        if(Mathf.Abs(rotationInput) > rotationStickDeadzone){
             // Rotate the player container object around the camera position
             this.transform.RotateAround(bodyParts.cameraTransform.position, Vector3.up, rotationDegrees);
 
             // Rotate player's velocity as well
-            Quaternion velocityRotation = Quaternion.Euler(0, rotationDegrees, 0);
-            bodyParts.playerRigidbody.velocity = velocityRotation * bodyParts.playerRigidbody.velocity;
+            //Quaternion velocityRotation = Quaternion.Euler(0, rotationDegrees, 0);
+            //bodyParts.playerRigidbody.velocity = velocityRotation * bodyParts.playerRigidbody.velocity;
         }
 
         // Safeguard for testing, remove later

@@ -34,7 +34,7 @@ public class ClimbingManager : MonoBehaviour
     }
     
 
-    void Update()
+    void FixedUpdate()
     {
         // Update the climbing state and targets for both hands
         UpdateClimbingHandState(true);
@@ -77,7 +77,7 @@ public class ClimbingManager : MonoBehaviour
 
         if (leftHand.isClimbing || rightHand.isClimbing){
             bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
-        }    
+        }
     }
 
     private void UpdateClimbingHandState(bool isLeft){
@@ -93,9 +93,11 @@ public class ClimbingManager : MonoBehaviour
             climbingHand.isClimbing = true;
             climbingHand.Freeze();
             
-            autoHand.RelaxHand();
+            autoHand.ForceReleaseGrab();
+            autoHand.disableIK = true;
+            autoHand.SetGrip(autoHand.gripOffset);
 
-            Vector3 targetPosition = transform.position - (controllerTransform.position - climbingHand.climbingAnchorPosition); //leftHand.controllerAnchor + leftHand.controllerToBodyOffset;
+            Vector3 targetPosition = transform.position - (controllerTransform.position - climbingHand.controllerAnchorPosition); //leftHand.controllerAnchor + leftHand.controllerToBodyOffset;
 
             if (isLeft) { leftBodyTarget = targetPosition; }
             else { rightBodyTarget = targetPosition; }
@@ -104,7 +106,10 @@ public class ClimbingManager : MonoBehaviour
             climbingHand.isClimbing = false;
             climbingHand.Unfreeze();
 
-            climbingHand.UpdateClimbingAnchor();
+            climbingHand.UpdateControllerAnchor();
+            climbingHand.UpdateHandAnchor();
+
+            autoHand.disableIK = false;
         }
 
     }

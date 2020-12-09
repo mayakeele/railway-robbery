@@ -14,11 +14,11 @@ namespace Autohand.Demo{
         public void Update() {
             if(OVRInput.GetDown(grabButton, controller)) {
                 hand.Grab();
-                hand.gripOffset += 1;
+                //hand.gripOffset += 1;
             }
             if(OVRInput.GetUp(grabButton, controller)) {
                 hand.Release();
-                hand.gripOffset -= 1;
+                //hand.gripOffset -= 1;
             }
             if(OVRInput.GetDown(squeezeButton, controller)) {
                 hand.Squeeze();

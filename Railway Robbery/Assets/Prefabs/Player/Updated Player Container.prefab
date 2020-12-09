@@ -2811,10 +2811,10 @@ GameObject:
   - component: {fileID: 9138552443116942752}
   - component: {fileID: 7850472898639038}
   - component: {fileID: 8117117942921093231}
+  - component: {fileID: 2066169506306111618}
   - component: {fileID: 3844127808068846007}
   - component: {fileID: 2066169506306111616}
   - component: {fileID: 2066169506306111617}
-  - component: {fileID: 2066169506306111618}
   - component: {fileID: 2066169506306111619}
   m_Layer: 22
   m_Name: RobotHand (L)
@@ -2880,16 +2880,17 @@ MonoBehaviour:
   maxFollowDistance: 0.75
   left: 1
   palmTransform: {fileID: 4791154166001549107}
-  throwPower: 1
+  throwPower: 1.2
   reachDistance: 0.3
   disableIK: 0
-  swayStrength: 1.5
+  swayStrength: 1
   gripOffset: 0.14
   lookAssistSpeed: 3
-  ignoreReleaseTime: 0.25
+  ignoreReleaseTime: 0.3
   grabSpreadOffset: 0
-  fingerBendSteps: 100
-  grabTime: 0.1
+  fingerBendSteps: 80
+  grabTime: 0.05
+  playerRigidbody: {fileID: 997185679673188248}
   showGizmos: 0
   editorAutoGrab: 0
   useLayerBasedAutoGrab: 0
@@ -2917,9 +2918,28 @@ MonoBehaviour:
   angleToController: 0
   controllerToBodyOffset: {x: 0, y: 0, z: 0}
   handToControllerOffset: {x: 0, y: 0, z: 0}
-  controllerAnchor: {fileID: 997185680030339848}
-  climbingAnchorPosition: {x: 0, y: 0, z: 0}
-  climbingAnchorRotation: {x: 0, y: 0, z: 0, w: 0}
+  controllerTransform: {fileID: 997185680030339848}
+  handTransform: {fileID: 8022510759525761882}
+  controllerAnchorPosition: {x: 0, y: 0, z: 0}
+  handAnchorPosition: {x: 0, y: 0, z: 0}
+  handAnchorRotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2066169506306111618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513435906291531831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b342023c735bfab4983eabf299ff2670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hand: {fileID: 7850472898639038}
+  controller: 1
+  grabAxis: 4
+  grabButton: 16384
+  squeezeButton: 8192
 --- !u!135 &3844127808068846007
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2974,23 +2994,6 @@ MonoBehaviour:
   - 1
   - 1
   - 1
---- !u!114 &2066169506306111618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 513435906291531831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b342023c735bfab4983eabf299ff2670, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hand: {fileID: 7850472898639038}
-  controller: 33
-  grabAxis: 4
-  grabButton: 16384
-  squeezeButton: 8192
 --- !u!114 &2066169506306111619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5957,10 +5960,10 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997185679557406638}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e56fd3eb6e03b7b4abbb4d9371509be5, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.12
+  m_Radius: 0.1
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -6079,10 +6082,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a6a6166c1f0a4b47a73c05cef67362a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMovementSpeed: 2
+  maxMovementSpeed: 2.5
   maxRotationSpeed: 80
   useHeadAsForward: 1
-  stickDeadzone: 0.05
+  translationStickDeadzone: 0.05
+  rotationStickDeadzone: 0.1
 --- !u!114 &997185679673188229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6098,7 +6102,6 @@ MonoBehaviour:
   oneHandedSpringFrequency: 4
   twoHandedSpringFrequency: 9
   springDamping: 0.4
-  handRadius: 0.05
   leftClimbingTrigger: {fileID: 7187108724920442788}
   rightClimbingTrigger: {fileID: 7187108724043840428}
 --- !u!114 &1308346514305866056
@@ -7207,8 +7210,8 @@ GameObject:
   - component: {fileID: 6088757776325271737}
   - component: {fileID: 3077882698634731943}
   - component: {fileID: 6487714763631612284}
-  - component: {fileID: 2302500668602422446}
   - component: {fileID: 3891593654675844500}
+  - component: {fileID: 2302500668602422446}
   - component: {fileID: 3891593654675844501}
   - component: {fileID: 3891593654675844504}
   - component: {fileID: 3891593654675844506}
@@ -7273,20 +7276,21 @@ MonoBehaviour:
   followPositionOffset: {x: 0, y: 0, z: 0}
   followPositionStrength: 35
   followRotationStrength: 30
-  maxVelocity: 4
+  maxVelocity: 6
   maxFollowDistance: 0.75
   left: 0
   palmTransform: {fileID: 939042271093849579}
-  throwPower: 1
+  throwPower: 1.2
   reachDistance: 0.3
   disableIK: 0
-  swayStrength: 1.5
+  swayStrength: 1
   gripOffset: 0.14
   lookAssistSpeed: 3
-  ignoreReleaseTime: 0.25
+  ignoreReleaseTime: 0.3
   grabSpreadOffset: 0
-  fingerBendSteps: 100
-  grabTime: 0.1
+  fingerBendSteps: 80
+  grabTime: 0.05
+  playerRigidbody: {fileID: 997185679673188248}
   showGizmos: 0
   editorAutoGrab: 0
   useLayerBasedAutoGrab: 0
@@ -7314,22 +7318,11 @@ MonoBehaviour:
   angleToController: 0
   controllerToBodyOffset: {x: 0, y: 0, z: 0}
   handToControllerOffset: {x: 0, y: 0, z: 0}
-  controllerAnchor: {fileID: 997185680030344972}
-  climbingAnchorPosition: {x: 0, y: 0, z: 0}
-  climbingAnchorRotation: {x: 0, y: 0, z: 0, w: 0}
---- !u!135 &2302500668602422446
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3282317962747352366}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.16
-  m_Center: {x: 0, y: 0, z: 0}
+  controllerTransform: {fileID: 997185680030344972}
+  handTransform: {fileID: 5041950141180335683}
+  controllerAnchorPosition: {x: 0, y: 0, z: 0}
+  handAnchorPosition: {x: 0, y: 0, z: 0}
+  handAnchorRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &3891593654675844500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7343,10 +7336,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: {fileID: 3077882698634731943}
-  controller: 66
+  controller: 2
   grabAxis: 4
   grabButton: 16384
   squeezeButton: 8192
+--- !u!135 &2302500668602422446
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3282317962747352366}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.16
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3891593654675844501
 MonoBehaviour:
   m_ObjectHideFlags: 0
