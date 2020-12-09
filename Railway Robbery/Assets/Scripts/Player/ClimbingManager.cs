@@ -97,6 +97,8 @@ public class ClimbingManager : MonoBehaviour
             autoHand.disableIK = true;
             autoHand.SetGrip(autoHand.gripOffset);
 
+            //autoHand.follow = autoHand.transform;
+
             Vector3 targetPosition = transform.position - (controllerTransform.position - climbingHand.controllerAnchorPosition); //leftHand.controllerAnchor + leftHand.controllerToBodyOffset;
 
             if (isLeft) { leftBodyTarget = targetPosition; }
@@ -105,6 +107,8 @@ public class ClimbingManager : MonoBehaviour
         else{
             climbingHand.isClimbing = false;
             climbingHand.Unfreeze();
+
+            //autoHand.follow = controllerTransform;
 
             climbingHand.UpdateControllerAnchor();
             climbingHand.UpdateHandAnchor();

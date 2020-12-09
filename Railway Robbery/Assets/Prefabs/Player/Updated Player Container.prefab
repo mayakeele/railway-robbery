@@ -2935,8 +2935,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b342023c735bfab4983eabf299ff2670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputHandler: {fileID: 997185679673188230}
   hand: {fileID: 7850472898639038}
-  controller: 1
+  controller: 33
   grabAxis: 4
   grabButton: 16384
   squeezeButton: 8192
@@ -6054,7 +6055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc28dd7cd053d045bdbe99125820128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gripThreshold: 0.5
+  gripThreshold: 0.4
   triggerThreshold: 0.5
 --- !u!114 &997185679673188249
 MonoBehaviour:
@@ -6068,8 +6069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a274fc1963b9248ad9aa0cdb38121f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHeight: 2
-  legLiftPercentage: 0.5
+  legLiftPercentage: 0.25
 --- !u!114 &997185679673188231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7335,8 +7335,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b342023c735bfab4983eabf299ff2670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputHandler: {fileID: 997185679673188230}
   hand: {fileID: 3077882698634731943}
-  controller: 2
+  controller: 66
   grabAxis: 4
   grabButton: 16384
   squeezeButton: 8192
@@ -8699,7 +8700,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6155239034815307214}
   - component: {fileID: 187482578097914265}
-  - component: {fileID: 7187108724599096625}
   m_Layer: 22
   m_Name: Collider
   m_TagString: Untagged
@@ -8734,20 +8734,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.09, y: 0.09, z: 0.05}
   m_Center: {x: -0.05, y: 0, z: 0}
---- !u!114 &7187108724599096625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6876080068096263427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bebf900f84c1bff4aabbd71b55a225d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isLeftController: 1
-  isColliding: 0
 --- !u!1 &7016641421792706946
 GameObject:
   m_ObjectHideFlags: 0

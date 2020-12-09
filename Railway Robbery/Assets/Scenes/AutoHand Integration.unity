@@ -328,6 +328,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &152148063 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7437147876841395352, guid: 219b3db786e5a164286993fc260197c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 783366698}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5aa5c06028015b45918ad5dbbefc548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &380461493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1064,7 +1076,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 9047720025326364693, guid: 219b3db786e5a164286993fc260197c9,
+        type: 3}
+      propertyPath: onSqueeze.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 152148063}
+    - target: {fileID: 9047720025326364693, guid: 219b3db786e5a164286993fc260197c9,
+        type: 3}
+      propertyPath: onSqueeze.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Shoot
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 480404902, guid: 219b3db786e5a164286993fc260197c9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 219b3db786e5a164286993fc260197c9, type: 3}
 --- !u!4 &783366699 stripped
 Transform:
@@ -2313,6 +2336,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6932398145551033134, guid: 684adc7d54241db44994b67ace3e5b08,
+        type: 3}
+      propertyPath: hideEvents
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 684adc7d54241db44994b67ace3e5b08, type: 3}
 --- !u!4 &1742260960 stripped
@@ -3502,25 +3530,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2066169506306111618, guid: 8e39fabba95d43a428b5adf286f8ba92,
+    - target: {fileID: 7187108724043840431, guid: 8e39fabba95d43a428b5adf286f8ba92,
         type: 3}
-      propertyPath: actionButton1
-      value: 4
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2066169506306111618, guid: 8e39fabba95d43a428b5adf286f8ba92,
+    - target: {fileID: 7187108724920442791, guid: 8e39fabba95d43a428b5adf286f8ba92,
         type: 3}
-      propertyPath: actionButton2
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3891593654675844500, guid: 8e39fabba95d43a428b5adf286f8ba92,
-        type: 3}
-      propertyPath: actionButton1
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3891593654675844500, guid: 8e39fabba95d43a428b5adf286f8ba92,
-        type: 3}
-      propertyPath: actionButton2
-      value: 2
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e39fabba95d43a428b5adf286f8ba92, type: 3}

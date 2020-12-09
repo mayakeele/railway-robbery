@@ -58,8 +58,8 @@ public class ClimbingHand : MonoBehaviour
     public void Freeze(){
         // Disables movement and grabbing with this hand, locking it in place
 
-        handRigidbody.isKinematic = true;
         handRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+        handRigidbody.isKinematic = true;  
 
         transform.SetPositionAndRotation(handAnchorPosition, handAnchorRotation);
     }

@@ -10,7 +10,7 @@ public class ControllerCollisionTrigger : MonoBehaviour
 
     void Start()
     {
-
+        gameObject.layer = 0;
     }
 
     void Update()

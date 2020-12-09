@@ -14,8 +14,8 @@ namespace Autohand{
 
         public OVRInput.Button grabButton;
         public OVRInput.Button squeezeButton;
-        public OVRInput.Button actionButton1;
-        public OVRInput.Button actionButton2;
+        //public OVRInput.Button actionButton1;
+        //public OVRInput.Button actionButton2;
 
         public void Update() {
             if(OVRInput.GetDown(grabButton, controller)) {
