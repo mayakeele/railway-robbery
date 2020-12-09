@@ -6,7 +6,6 @@ public class BodyManager : MonoBehaviour
 {
     private BodyPartReferences bodyParts;
 
-    public float playerHeight;
     private float currHeadsetHeight;
     [SerializeField] private float legLiftPercentage;
 
@@ -15,17 +14,13 @@ public class BodyManager : MonoBehaviour
         bodyParts = GetComponent<BodyPartReferences>();
     }
 
-    void Start()
-    {
-        
-    }
-
 
     void FixedUpdate()
     {
         bodyParts.feetTransform.position = transform.position;
+        bodyParts.headCollider.transform.position = bodyParts.cameraTransform.position;
 
-        currHeadsetHeight = bodyParts.cameraTransform.localPosition.y;
+        currHeadsetHeight = bodyParts.cameraTransform.position.y - bodyParts.feetTransform.position.y; //bodyParts.cameraTransform.localPosition.y;
 
         if (bodyParts.leftClimbingHand.isClimbing || bodyParts.rightClimbingHand.isClimbing){
             // Scale body capsule collider to match the current height of the player's headset and the height of the player's feet

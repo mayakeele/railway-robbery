@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using OVR;
 
-namespace Autohand.Demo{
+namespace Autohand{
     public class OVRHandControllerLink : MonoBehaviour{
+
+        public InputHandler inputHandler;
+
         public Hand hand;
         public OVRInput.Controller controller;
         public OVRInput.Axis1D grabAxis;
+
         public OVRInput.Button grabButton;
         public OVRInput.Button squeezeButton;
+        public OVRInput.Button actionButton1;
+        public OVRInput.Button actionButton2;
 
         public void Update() {
             if(OVRInput.GetDown(grabButton, controller)) {
@@ -27,8 +33,10 @@ namespace Autohand.Demo{
                 hand.Unsqueeze();
             }
 
-            //Debug.Log(OVRInput.Get(grabAxis, controller));
-            hand.SetGrip(OVRInput.Get(grabAxis, controller));
+            if(hand.disableIK == false){
+                hand.SetGrip(OVRInput.Get(grabAxis, controller));
+            }
+            
         }
 
         public float GetAxis(OVRInput.Axis1D axis) {
