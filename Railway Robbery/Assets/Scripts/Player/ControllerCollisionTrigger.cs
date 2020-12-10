@@ -8,14 +8,10 @@ public class ControllerCollisionTrigger : MonoBehaviour
 
     [HideInInspector] public bool isColliding;
 
-    void Start()
-    {
-        gameObject.layer = 0;
-    }
 
     void Update()
     {
- 
+        gameObject.layer = LayerMask.NameToLayer("PlayerPhysicsCollider");
     }
 
 

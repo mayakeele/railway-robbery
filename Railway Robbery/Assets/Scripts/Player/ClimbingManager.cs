@@ -108,12 +108,12 @@ public class ClimbingManager : MonoBehaviour
             climbingHand.isClimbing = false;
             climbingHand.Unfreeze();
 
+            autoHand.disableIK = false;
+
             //autoHand.follow = controllerTransform;
 
             climbingHand.UpdateControllerAnchor();
             climbingHand.UpdateHandAnchor();
-
-            autoHand.disableIK = false;
         }
 
     }
