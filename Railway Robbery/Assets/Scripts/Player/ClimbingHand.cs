@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Autohand;
 
 public class ClimbingHand : MonoBehaviour
 {
     [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public Hand autoHand;
 
     public bool isLeftHand;
     [HideInInspector] public InputHandler.InputButton grabButton;
@@ -36,6 +38,7 @@ public class ClimbingHand : MonoBehaviour
         grabButton = isLeftHand ? InputHandler.InputButton.L_Grip : InputHandler.InputButton.R_Grip;
 
         handRigidbody = GetComponent<Rigidbody>();
+        autoHand = GetComponent<Hand>();
     }
 
     void Start() {
@@ -59,13 +62,19 @@ public class ClimbingHand : MonoBehaviour
         // Disables movement and grabbing with this hand, locking it in place
 
         handRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-        handRigidbody.isKinematic = true;  
+        handRigidbody.isKinematic = true;
+
+        autoHand.freezePos = true;
+        autoHand.freezeRot = true;
 
         transform.SetPositionAndRotation(handAnchorPosition, handAnchorRotation);
     }
 
     public void Unfreeze(){
         // Re-enables movement and grabbing with this hand, locking it in place
+
+        autoHand.freezePos = false;
+        autoHand.freezeRot = false;
 
         handRigidbody.isKinematic = false;
         handRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;

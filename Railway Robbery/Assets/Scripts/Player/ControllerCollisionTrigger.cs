@@ -11,7 +11,7 @@ public class ControllerCollisionTrigger : MonoBehaviour
 
     void Update()
     {
-        gameObject.layer = LayerMask.NameToLayer("PlayerPhysicsCollider");
+        gameObject.layer = LayerMask.NameToLayer("ClimbingTrigger");
     }
 
 

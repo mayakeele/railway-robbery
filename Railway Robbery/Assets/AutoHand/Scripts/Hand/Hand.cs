@@ -99,8 +99,8 @@ namespace Autohand {
 
         
 
-        bool freezePos = false;
-        bool freezeRot = false;
+        public bool freezePos = false;
+        public bool freezeRot = false;
 
         internal GameObject lookingAtObj = null;
         internal Grabbable holdingObj = null;
@@ -1189,14 +1189,24 @@ namespace Autohand {
                 obj.gameObject.layer = toLayer;
             }
             for(int i = 0; i < obj.childCount; i++) {
-                SetLayerRecursive(obj.GetChild(i), toLayer, fromLayer);
+                Transform child = obj.GetChild(i);
+                // Added by Grant Keele
+                if(!child.GetComponent<ControllerCollisionTrigger>()){
+                    SetLayerRecursive(child, toLayer, fromLayer);
+                }
+                //SetLayerRecursive(obj.GetChild(i), toLayer, fromLayer);
             }
         }
 
         public static void SetLayerRecursive(Transform obj, int newLayer) {
             obj.gameObject.layer = newLayer;
             for(int i = 0; i < obj.childCount; i++) {
-                SetLayerRecursive(obj.GetChild(i), newLayer);
+                Transform child = obj.GetChild(i);
+                // Added by Grant Keele
+                if(!child.GetComponent<ControllerCollisionTrigger>()){
+                    SetLayerRecursive(child, newLayer);
+                }
+                //SetLayerRecursive(obj.GetChild(i), newLayer);
             }
         }
 

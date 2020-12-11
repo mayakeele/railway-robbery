@@ -21,7 +21,7 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
+  - 
   - 
   - StaticStructure
   - MoveableStructure
@@ -41,7 +41,7 @@ TagManager:
   - Grabbing
   - Releasing
   - Player
-  - 
+  - ClimbingTrigger
   - 
   - 
   - 

@@ -14,6 +14,8 @@ public class LocomotionManager : MonoBehaviour
     [SerializeField] private float translationStickDeadzone;
     [SerializeField] private float rotationStickDeadzone;
 
+    public Vector3 currentPosition;
+    public Vector3 previousPosition;
 
     
     void Awake() {
@@ -21,9 +23,15 @@ public class LocomotionManager : MonoBehaviour
     }
 
 
-    private void Update() {
+    void Start() {
+        currentPosition = transform.position;
+        previousPosition = transform.position;
+    }
 
+    private void Update() {
         // Calculate translational velocity of the player based on input
+
+        currentPosition = transform.position;
 
         if(bodyParts.leftClimbingHand.isClimbing == false && bodyParts.rightClimbingHand.isClimbing == false){
 
@@ -50,6 +58,13 @@ public class LocomotionManager : MonoBehaviour
                 //bodyParts.leftHand.transform.Translate(translationAmount, Space.World);
                 //bodyParts.rightHand.transform.Translate(translationAmount, Space.World);
             }
+
+            // Move hands the same distance as the body
+            Vector3 positionChange = currentPosition - previousPosition;
+            bodyParts.leftHand.transform.Translate(positionChange, Space.World);
+            bodyParts.rightHand.transform.Translate(positionChange, Space.World);
+
+            previousPosition = transform.position;
         }
     }
 
