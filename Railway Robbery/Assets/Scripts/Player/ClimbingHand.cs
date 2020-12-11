@@ -64,8 +64,8 @@ public class ClimbingHand : MonoBehaviour
         handRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         handRigidbody.isKinematic = true;
 
-        autoHand.freezePos = true;
-        autoHand.freezeRot = true;
+        //autoHand.freezePos = true;
+        //autoHand.freezeRot = true;
 
         transform.SetPositionAndRotation(handAnchorPosition, handAnchorRotation);
     }
@@ -73,8 +73,8 @@ public class ClimbingHand : MonoBehaviour
     public void Unfreeze(){
         // Re-enables movement and grabbing with this hand, locking it in place
 
-        autoHand.freezePos = false;
-        autoHand.freezeRot = false;
+        //autoHand.freezePos = false;
+        //autoHand.freezeRot = false;
 
         handRigidbody.isKinematic = false;
         handRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;

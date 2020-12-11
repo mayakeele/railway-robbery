@@ -376,7 +376,7 @@ namespace Autohand {
             //Sets velocity linearly based on distance from hand
             var vel = (movePos - transform.position).normalized * followPositionStrength * distance;
             // Added by Grant Keele
-            vel += playerRigidbody.velocity;
+            //vel += playerRigidbody.velocity;
 
             vel.x = Mathf.Clamp(vel.x, -velocityClamp, velocityClamp);
             vel.y = Mathf.Clamp(vel.y, -velocityClamp, velocityClamp);
@@ -1022,10 +1022,10 @@ namespace Autohand {
             if(!holdingObj && !disableIK && !grabPose && handPoseArea == null && handAnimateRoutine == null) {
 
                 // Added by Grant Keele
-                Vector3 relativeVelocity = body.velocity - playerRigidbody.velocity;
+                //Vector3 relativeVelocity = body.velocity - playerRigidbody.velocity;
+                //float vel = -palmTransform.InverseTransformDirection(relativeVelocity).z;
 
-                //float vel = -palmTransform.InverseTransformDirection(body.velocity).z;
-                float vel = -palmTransform.InverseTransformDirection(relativeVelocity).z;
+                float vel = -palmTransform.InverseTransformDirection(body.velocity).z; 
                 float grip = idealGrip + gripOffset + swayStrength * (vel / 8f);
 
                 if(currGrip != grip) {

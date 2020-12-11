@@ -33,4 +33,5 @@ public class BodyPartReferences : MonoBehaviour
     public LocomotionManager locomotionManager;
     public ClimbingManager climbingManager;
     public HealthManager healthManager;
+    public GroundedStateTracker groundedStateTracker;
 }

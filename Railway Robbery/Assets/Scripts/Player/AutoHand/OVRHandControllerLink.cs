@@ -20,7 +20,6 @@ namespace Autohand{
         public void Update() {
             if(OVRInput.GetDown(grabButton, controller)) {
                 hand.Grab();
-                Debug.Log("Grabbed");
                 //hand.gripOffset += 1;
             }
             if(OVRInput.GetUp(grabButton, controller)) {

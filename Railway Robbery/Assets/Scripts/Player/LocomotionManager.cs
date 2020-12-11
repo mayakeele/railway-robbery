@@ -38,6 +38,7 @@ public class LocomotionManager : MonoBehaviour
             // Get left stick input, apply velocity if outside of deadzone
             Vector2 movementInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch);
 
+            //if(movementInput.magnitude > translationStickDeadzone && bodyParts.groundedStateTracker.isGrounded){
             if(movementInput.magnitude > translationStickDeadzone){
                 // Determine whether 'forward' should be based on controller orientation or head orientation
                 Vector3 inputForward = useHeadAsForward ? bodyParts.cameraTransform.forward : bodyParts.leftControllerTransform.forward;
@@ -61,8 +62,8 @@ public class LocomotionManager : MonoBehaviour
 
             // Move hands the same distance as the body
             Vector3 positionChange = currentPosition - previousPosition;
-            bodyParts.leftHand.transform.Translate(positionChange, Space.World);
-            bodyParts.rightHand.transform.Translate(positionChange, Space.World);
+            //bodyParts.leftHand.transform.Translate(positionChange, Space.World);
+            //bodyParts.rightHand.transform.Translate(positionChange, Space.World);
 
             previousPosition = transform.position;
         }
@@ -75,15 +76,18 @@ public class LocomotionManager : MonoBehaviour
         if(Mathf.Abs(rotationInput) > rotationStickDeadzone){
             // Rotate the player container object around the camera position
             this.transform.RotateAround(bodyParts.cameraTransform.position, Vector3.up, rotationDegrees);
-
+            
+            // Rotate hands with body
+            //bodyParts.leftHand.transform.RotateAround(bodyParts.cameraTransform.position, Vector3.up, rotationDegrees);
+            //bodyParts.rightHand.transform.RotateAround(bodyParts.cameraTransform.position, Vector3.up, rotationDegrees);
             // Rotate player's velocity as well
             //Quaternion velocityRotation = Quaternion.Euler(0, rotationDegrees, 0);
             //bodyParts.playerRigidbody.velocity = velocityRotation * bodyParts.playerRigidbody.velocity;
         }
 
         // Safeguard for testing, remove later
-        if (transform.position.y < -10){
-            transform.position = new Vector3(0, 2, 0);
+        if (transform.position.y < -5){
+            transform.position = new Vector3(transform.position.x, 2, transform.position.z);
             bodyParts.playerRigidbody.velocity = Vector3.zero;
         }
     }

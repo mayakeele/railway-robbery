@@ -2894,6 +2894,8 @@ MonoBehaviour:
   showGizmos: 0
   editorAutoGrab: 0
   useLayerBasedAutoGrab: 0
+  freezePos: 0
+  freezeRot: 0
 --- !u!114 &8117117942921093231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2907,6 +2909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  autoHand: {fileID: 0}
   isLeftHand: 1
   grabButton: 0
   maxHandDisplacement: 0.3
@@ -6082,11 +6085,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a6a6166c1f0a4b47a73c05cef67362a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMovementSpeed: 2.5
-  maxRotationSpeed: 80
+  maxMovementSpeed: 2.2
+  maxRotationSpeed: 100
   useHeadAsForward: 1
-  translationStickDeadzone: 0.05
+  translationStickDeadzone: 0.1
   rotationStickDeadzone: 0.1
+  currentPosition: {x: 0, y: 0, z: 0}
+  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &997185679673188229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6099,8 +6104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e463c0d2e1fa494a981cee2c4333196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oneHandedSpringFrequency: 4
-  twoHandedSpringFrequency: 9
+  oneHandedSpringFrequency: 5
+  twoHandedSpringFrequency: 10
   springDamping: 0.4
   leftClimbingTrigger: {fileID: 7187108724920442788}
   rightClimbingTrigger: {fileID: 7187108724043840428}
@@ -7294,6 +7299,8 @@ MonoBehaviour:
   showGizmos: 0
   editorAutoGrab: 0
   useLayerBasedAutoGrab: 0
+  freezePos: 0
+  freezeRot: 0
 --- !u!114 &6487714763631612284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7307,6 +7314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  autoHand: {fileID: 0}
   isLeftHand: 0
   grabButton: 0
   maxHandDisplacement: 0.3
@@ -8791,7 +8799,7 @@ GameObject:
   - component: {fileID: 7187108724043840430}
   - component: {fileID: 7187108724043840429}
   - component: {fileID: 7187108724043840428}
-  m_Layer: 22
+  m_Layer: 28
   m_Name: Climbing Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8850,7 +8858,7 @@ GameObject:
   - component: {fileID: 7187108724920442790}
   - component: {fileID: 7187108724920442789}
   - component: {fileID: 7187108724920442788}
-  m_Layer: 22
+  m_Layer: 28
   m_Name: Climbing Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
