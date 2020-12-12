@@ -71,7 +71,7 @@ public class ClimbingHand : MonoBehaviour
     }
 
     public void Unfreeze(){
-        // Re-enables movement and grabbing with this hand, locking it in place
+        // Re-enables movement and grabbing with this hand
 
         //autoHand.freezePos = false;
         //autoHand.freezeRot = false;

@@ -125,13 +125,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822bc9090447b9c40833509c4a32e597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 0}
   heldPositionOffset: {x: 0, y: 0, z: 0}
   heldRotationOffset: {x: 0, y: 0, z: 0}
+  releaseOnTeleport: 0
+  throwMultiplyer: 1
   handType: 0
   singleHandOnly: 1
-  releaseOnTeleport: 0
+  instantGrab: 1
+  parentOnGrab: 1
+  lockHandOnGrab: 0
+  maintainGrabOffset: 0
   hightlightMaterial: {fileID: 0}
-  throwMultiplyer: 1
   pullApartBreakOnly: 1
   makeChildrenGrabbable: 1
   jointBreakForce: 1500

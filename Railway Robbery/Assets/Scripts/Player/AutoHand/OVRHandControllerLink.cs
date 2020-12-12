@@ -18,11 +18,14 @@ namespace Autohand{
         //public OVRInput.Button actionButton2;
 
         public void Update() {
+
             if(OVRInput.GetDown(grabButton, controller)) {
+                Debug.Log("Grab");
                 hand.Grab();
                 //hand.gripOffset += 1;
             }
             if(OVRInput.GetUp(grabButton, controller)) {
+                Debug.Log("Release");
                 hand.Release();
                 //hand.gripOffset -= 1;
             }

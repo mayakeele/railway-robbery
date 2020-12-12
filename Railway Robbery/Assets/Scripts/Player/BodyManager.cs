@@ -26,7 +26,7 @@ public class BodyManager : MonoBehaviour
 
         currHeadsetHeight = bodyParts.cameraTransform.position.y - bodyParts.feetTransform.position.y; //bodyParts.cameraTransform.localPosition.y;
 
-        if (bodyParts.leftClimbingHand.isClimbing || bodyParts.rightClimbingHand.isClimbing){
+        if (bodyParts.leftClimbingHand.isClimbing && bodyParts.rightClimbingHand.isClimbing){
             // Scale body capsule collider to match the current height of the player's headset and the height of the player's feet
             if (!areLegsMoving){
                 StartCoroutine(InterpolateLegLift(maxLegLiftPercent, legLiftTime));

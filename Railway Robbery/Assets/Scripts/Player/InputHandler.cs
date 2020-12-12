@@ -39,8 +39,6 @@ public class InputHandler : MonoBehaviour
 
     void Update()
     {
-        OVRInput.Update();
-
         // Update inputHeld flags with current input states
         inputHeld[(int)InputButton.L_ButtonOne] = OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.LTouch);
         inputHeld[(int)InputButton.R_ButtonOne] = OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.RTouch);
