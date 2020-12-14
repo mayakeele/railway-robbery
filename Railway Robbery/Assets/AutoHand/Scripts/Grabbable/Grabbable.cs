@@ -99,6 +99,9 @@ namespace Autohand {
         public HandGrabEvent OnHighlightEvent;
         public HandGrabEvent OnUnhighlightEvent;
 
+        // Added by Grant Keele
+        public HandGrabEvent OnAction1Event;
+        public HandGrabEvent OnAction2Event;
 
 
 
@@ -281,6 +284,17 @@ namespace Autohand {
                     placePoint.StopHighlight(this);
                 }
             }
+        }
+
+
+        // Added by Grant Keele
+        public virtual void OnAction1(Hand hand){
+            OnAction1Event?.Invoke(hand, this);
+            onAction1?.Invoke();
+        }
+        public virtual void OnAction2(Hand hand){
+            OnAction2Event?.Invoke(hand, this);
+            onAction2?.Invoke();
         }
 
 
@@ -478,5 +492,6 @@ namespace Autohand {
             if(body != null)
                 body.detectCollisions = true;
         }
+
     }
 }

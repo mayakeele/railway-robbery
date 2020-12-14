@@ -515,6 +515,16 @@ namespace Autohand {
             holdingObj?.OnHandJointBreak(this);
             ForceReleaseGrab();
         }
+
+
+        // Added by Grant Keele
+
+        public virtual void Action1(){
+            holdingObj?.OnAction1(this);
+        }
+        public virtual void Action2(){
+            holdingObj?.OnAction2(this);
+        }
         
 
         /// <summary>Sets the hands grip 0 is open 1 is closed</summary>

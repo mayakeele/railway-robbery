@@ -20,12 +20,10 @@ namespace Autohand{
         public void Update() {
 
             if(OVRInput.GetDown(grabButton, controller)) {
-                Debug.Log("Grab");
                 hand.Grab();
                 //hand.gripOffset += 1;
             }
             if(OVRInput.GetUp(grabButton, controller)) {
-                Debug.Log("Release");
                 hand.Release();
                 //hand.gripOffset -= 1;
             }
@@ -37,7 +35,10 @@ namespace Autohand{
             }
 
             if(OVRInput.GetDown(action1Button, controller)) {
-                
+                hand.Action1();
+            }
+            if(OVRInput.GetDown(action2Button, controller)) {
+                hand.Action2();
             }
 
             if(hand.disableIK == false){

@@ -37,6 +37,9 @@ namespace Autohand {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onSqueeze"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("onUnsqueeze"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("OnJointBreak"));
+                // Added by Grant Keele
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onAction1"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("onAction2"));
             }
             serializedObject.ApplyModifiedProperties();
 

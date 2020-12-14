@@ -381,18 +381,7 @@ MonoBehaviour:
   jointBreakTorque: 6000
   onGrab:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8533740330309830940}
-        m_MethodName: Reload
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onRelease:
     m_PersistentCalls:
       m_Calls: []
@@ -421,7 +410,18 @@ MonoBehaviour:
       m_Calls: []
   onAction2:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8533740330309830940}
+        m_MethodName: Reload
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   hideEvents: 0
 --- !u!114 &7101248040203243670
 MonoBehaviour:
