@@ -183,14 +183,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07de18a24ff5a7246b3d2da9013494a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 18
+  speed: 22
   hitDamage: 5
   maxTravelDistance: 75
   maxRicochetsAllowed: 1
-  maxRicochetSurfaceAngle: 20
+  maxRicochetSurfaceAngle: 23
   collidableLayers:
     serializedVersion: 2
-    m_Bits: 17152
+    m_Bits: 16796672
   model: {fileID: 7171059609326922977}
   trailRenderer: {fileID: 9099480348210879903}
   audioSource: {fileID: 8623134456035407255}

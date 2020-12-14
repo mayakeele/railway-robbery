@@ -8,7 +8,7 @@ public class Revolver : MonoBehaviour
     [SerializeField] private int maxRoundsInChamber;
     [SerializeField] private float minTimeBetweenShots;
     [SerializeField] private float recoilPower;
-    private Rigidbody gunRigidbody;
+    [SerializeField] private Rigidbody gunRigidbody;
 
     [Header("Transforms")]
     [SerializeField] private Transform barrelTip;
@@ -55,7 +55,9 @@ public class Revolver : MonoBehaviour
                 //Instantiate(muzzleFlashParticleEffect, barrelTip.position, barrelTip.rotation, barrelTip);
                 audioSource.PlayOneShot(shootSound);
 
-                gunRigidbody.AddForceAtPosition(-barrelTip.transform.forward * recoilPower, barrelTip.position, ForceMode.Impulse);
+                gunRigidbody.AddForce(barrelTip.transform.up * recoilPower, ForceMode.Impulse);
+                //gunRigidbody.AddForce(-barrelTip.transform.forward * recoilPower, ForceMode.Impulse);
+                //gunRigidbody.AddRelativeTorque(new Vector3(recoilPower, 0, 0), ForceMode.Impulse);
             }
             else{
                 // No bullet in chamber, click
