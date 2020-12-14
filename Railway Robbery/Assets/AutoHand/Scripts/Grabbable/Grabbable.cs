@@ -80,6 +80,10 @@ namespace Autohand {
         [HideInInspector]
         public UnityEvent OnJointBreak;
 
+        // Added by Grant Keele
+        [HideInInspector] public UnityEvent onAction1;
+        [HideInInspector] public UnityEvent onAction2;
+
 
 
         //For programmers <3
@@ -94,6 +98,8 @@ namespace Autohand {
 
         public HandGrabEvent OnHighlightEvent;
         public HandGrabEvent OnUnhighlightEvent;
+
+
 
 
 #if UNITY_EDITOR
