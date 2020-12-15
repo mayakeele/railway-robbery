@@ -185,6 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 22
   hitDamage: 5
+  mass: 0.3
   maxTravelDistance: 75
   maxRicochetsAllowed: 1
   maxRicochetSurfaceAngle: 23
@@ -194,9 +195,17 @@ MonoBehaviour:
   model: {fileID: 7171059609326922977}
   trailRenderer: {fileID: 9099480348210879903}
   audioSource: {fileID: 8623134456035407255}
-  targetHitSound: {fileID: 8300000, guid: 7afcbc62779a5fc4994cbd7c5ef12f99, type: 3}
-  ricochetSound: {fileID: 8300000, guid: 53d282e701ebab149b9c70018d450d76, type: 3}
-  destroyedSound: {fileID: 8300000, guid: ffa62bf583aed6e4e83bf2587e9a7e1b, type: 3}
+  targetHitSounds:
+  - {fileID: 8300000, guid: 53d282e701ebab149b9c70018d450d76, type: 3}
+  ricochetSounds:
+  - {fileID: 8300000, guid: 934e7f66b8fc4ff45a4d8399cc812184, type: 3}
+  - {fileID: 8300000, guid: a547144f34458014b92e622374e7f3b7, type: 3}
+  - {fileID: 8300000, guid: 15c15177a5c8a454d9a6790de9166e24, type: 3}
+  - {fileID: 8300000, guid: 153ceaf9c2eea1644a6572c9cd0f9cdc, type: 3}
+  - {fileID: 8300000, guid: c6ca560267a64ef48837987eabc39d73, type: 3}
+  - {fileID: 8300000, guid: eaa66a92d39cbc14eb8b567b25ddc74c, type: 3}
+  destroyedSounds:
+  - {fileID: 8300000, guid: ffa62bf583aed6e4e83bf2587e9a7e1b, type: 3}
 --- !u!1 &7031926548232377668
 GameObject:
   m_ObjectHideFlags: 0

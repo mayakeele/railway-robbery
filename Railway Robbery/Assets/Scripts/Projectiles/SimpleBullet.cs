@@ -8,6 +8,7 @@ public class SimpleBullet : MonoBehaviour
     [Header("Bullet Properties")]
     [SerializeField] private float speed;
     [SerializeField] private int hitDamage;
+    [SerializeField] private float mass;
     [SerializeField] private float maxTravelDistance;
     [SerializeField] private int maxRicochetsAllowed;
     [SerializeField] private float maxRicochetSurfaceAngle;
@@ -21,9 +22,9 @@ public class SimpleBullet : MonoBehaviour
 
 
     [Header("Sound Effects")]
-    [SerializeField] private AudioClip targetHitSound;
-    [SerializeField] private AudioClip ricochetSound;
-    [SerializeField] private AudioClip destroyedSound;
+    [SerializeField] private List<AudioClip> targetHitSounds;
+    [SerializeField] private  List<AudioClip> ricochetSounds;
+    [SerializeField] private  List<AudioClip> destroyedSounds;
     
 
     [Header("Particle Effects")]
@@ -64,23 +65,35 @@ public class SimpleBullet : MonoBehaviour
 
                 transform.position = hitPoint;
 
+                // If the hit object is destructible, destroy the object and keep the bullet moving
+                Destructible destructible = hitTransform.GetComponent<Destructible>();
+                if(destructible != null && destructible.canBreakByProjectile){
+                    destructible.DestroyByProjectile();
+                }
+
                 // Determine whether the bullet is hitting the player or an enemy
-                if(hitTag == "Player"){
+                else if(hitTag == "Player"){
                     HealthManager playerHealth = player.GetComponent<HealthManager>();
 
                     playerHealth.DealDamage(hitDamage, hitTransform, hitPoint);
 
-                    DestroyBullet(targetHitSound);
+                    DestroyBullet(targetHitSounds.RandomChoice());
                 }
                 else if(hitTag == "Enemy"){
                     NPC hitNPC = GetComponentInParent<NPC>();
 
                     hitNPC.DealDamage(hitDamage, hitTransform, hitPoint);
 
-                    DestroyBullet(targetHitSound);
+                    DestroyBullet(targetHitSounds.RandomChoice());
                 }
-                // Determine whether the bullet should ricochet
+
+                // If the bullet has hit a solid surface, destroy or ricochet the bullet based on its angle. Apply force to object if it has rigidbody
                 else{
+                    Rigidbody hitRigidbody = hitInfo.rigidbody;
+                    if(hitRigidbody != null){
+                        hitRigidbody.AddForceAtPosition(transform.forward * speed * mass, hitPoint, ForceMode.Impulse);
+                    }
+
                     float angleToSurface = 90 - Vector3.Angle(hitNormal, -transform.forward);
 
                     if (currentRicochetCount < maxRicochetsAllowed && angleToSurface <= maxRicochetSurfaceAngle){
@@ -90,12 +103,11 @@ public class SimpleBullet : MonoBehaviour
 
                         transform.LookAt(transform.position + newDirection);
 
-                        audioSource.clip = ricochetSound;
-                        audioSource.Play();
+                        audioSource.PlayOneShot(ricochetSounds.RandomChoice());
                     }
                     else{
                         // Play bullet destruction animation
-                        DestroyBullet(destroyedSound);
+                        DestroyBullet(destroyedSounds.RandomChoice());
                     }
                 }
             }

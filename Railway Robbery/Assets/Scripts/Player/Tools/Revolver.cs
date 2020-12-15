@@ -16,9 +16,9 @@ public class Revolver : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip shootSound;
-    [SerializeField] private AudioClip clickSound;
-    [SerializeField] private AudioClip chamberSpinSound;
+    [SerializeField] private List<AudioClip> shootSounds;
+    [SerializeField] private List<AudioClip> clickSounds;
+    [SerializeField] private List<AudioClip> chamberSpinSounds;
     
     [Header("Prefabs")]
     public GameObject bulletPrefab;
@@ -53,15 +53,15 @@ public class Revolver : MonoBehaviour
 
                 Instantiate(bulletPrefab, barrelTip.position, barrelTip.rotation);
                 //Instantiate(muzzleFlashParticleEffect, barrelTip.position, barrelTip.rotation, barrelTip);
-                audioSource.PlayOneShot(shootSound);
+                audioSource.PlayOneShot(shootSounds.RandomChoice());
 
-                gunRigidbody.AddForce(barrelTip.transform.up * recoilPower, ForceMode.Impulse);
-                //gunRigidbody.AddForce(-barrelTip.transform.forward * recoilPower, ForceMode.Impulse);
+                //gunRigidbody.AddForce(barrelTip.transform.up * recoilPower, ForceMode.Impulse);
+                gunRigidbody.AddForceAtPosition(-barrelTip.transform.forward * recoilPower, barrelTip.position, ForceMode.Impulse);
                 //gunRigidbody.AddRelativeTorque(new Vector3(recoilPower, 0, 0), ForceMode.Impulse);
             }
             else{
                 // No bullet in chamber, click
-                audioSource.PlayOneShot(clickSound);
+                audioSource.PlayOneShot(clickSounds.RandomChoice());
             }
         }
     }
@@ -78,6 +78,6 @@ public class Revolver : MonoBehaviour
         currentRoundsInChamber = maxRoundsInChamber;
         timeSinceLastShot = 0;
 
-        audioSource.PlayOneShot(chamberSpinSound);
+        audioSource.PlayOneShot(chamberSpinSounds.RandomChoice());
     }
 }
