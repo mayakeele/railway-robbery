@@ -112,7 +112,10 @@ namespace Autohand {
 
         protected bool beingHeld = false;
 
-        protected List<Hand> heldBy;
+        //Added by Grant Keele
+        public List<Hand> heldBy { get; protected set; }
+        //protected List<Hand> heldBy;
+
         protected bool throwing;
         protected bool hightlighting;
         protected GameObject highlightObj;

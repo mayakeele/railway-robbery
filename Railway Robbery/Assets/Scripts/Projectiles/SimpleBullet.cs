@@ -23,9 +23,14 @@ public class SimpleBullet : MonoBehaviour
 
     [Header("Sound Effects")]
     [SerializeField] private List<AudioClip> targetHitSounds;
+    [SerializeField] [Range(0, 1)] private float targetHitVolume;
+    [Space]
     [SerializeField] private  List<AudioClip> ricochetSounds;
+    [SerializeField] [Range(0, 1)] private float ricochetVolume;
+    [Space]
     [SerializeField] private  List<AudioClip> destroyedSounds;
-    
+    [SerializeField] [Range(0, 1)] private float destroyedVolume;
+    [Space]
 
     [Header("Particle Effects")]
     //[SerializeField] private ParticleSystem particleSystem;

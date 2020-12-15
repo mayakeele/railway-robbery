@@ -84,8 +84,13 @@ namespace Autohand {
         public float grabTime = 0f;
         
 
-        [Header("Added in by Grant Keele")]
+        // Added by Grant Keele
+        [Header("Added by Grant Keele")]
         public Rigidbody playerRigidbody;
+        [Range(0, 1)] public float grabHapticFrequency;
+        [Range(0, 1)] public float grabHapticAmplitude;
+        public float grabHapticDuration;
+        private Coroutine currentHapticCoroutine;
 
 
 #if UNITY_EDITOR
@@ -518,7 +523,6 @@ namespace Autohand {
 
 
         // Added by Grant Keele
-
         public virtual void Action1(){
             holdingObj?.OnAction1(this);
         }
@@ -526,6 +530,24 @@ namespace Autohand {
             holdingObj?.OnAction2(this);
         }
         
+        // Added by Grant Keele
+        public void ClearHaptics(){
+            OVRInput.Controller controller = GetComponent<OVRHandControllerLink>().controller;
+            OVRInput.SetControllerVibration(0, 0, controller);
+        }
+        public void SetHapticsDuration(float frequency, float amplitude, float duration){
+            OVRInput.Controller controller = GetComponent<OVRHandControllerLink>().controller;
+            if(currentHapticCoroutine != null) StopCoroutine(currentHapticCoroutine);
+            currentHapticCoroutine = StartCoroutine(SetHapticsDuration(frequency, amplitude, duration, controller));
+        }
+        private IEnumerator SetHapticsDuration(float frequency, float amplitude, float duration, OVRInput.Controller controller){
+            // Triggers haptic feedback on the controller this hand is attached to for a given duration
+            OVRInput.SetControllerVibration(frequency, amplitude, controller);
+            yield return new WaitForSeconds(duration);
+            OVRInput.SetControllerVibration(0, 0, controller);
+        }
+
+
 
         /// <summary>Sets the hands grip 0 is open 1 is closed</summary>
         public void SetGrip(float grip) {
@@ -599,6 +621,9 @@ namespace Autohand {
             
             OnBeforeGrabbed?.Invoke(this, holdingObj);
 
+
+            // Added by Grant Keele
+            SetHapticsDuration(grabHapticFrequency, grabHapticAmplitude, grabHapticDuration);
 
 
             //Set layers for grabbing
@@ -802,10 +827,6 @@ namespace Autohand {
             if(grabPose != null || grabBase != null)
                 transform.rotation = follow.rotation;
         }
-        
-
-
-
         
 
 

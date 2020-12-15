@@ -185,9 +185,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 22
   hitDamage: 5
-  mass: 0.3
+  mass: 0.5
   maxTravelDistance: 75
-  maxRicochetsAllowed: 1
+  maxRicochetsAllowed: 2
   maxRicochetSurfaceAngle: 23
   collidableLayers:
     serializedVersion: 2
@@ -197,6 +197,7 @@ MonoBehaviour:
   audioSource: {fileID: 8623134456035407255}
   targetHitSounds:
   - {fileID: 8300000, guid: 53d282e701ebab149b9c70018d450d76, type: 3}
+  targetHitVolume: 0.733
   ricochetSounds:
   - {fileID: 8300000, guid: 934e7f66b8fc4ff45a4d8399cc812184, type: 3}
   - {fileID: 8300000, guid: a547144f34458014b92e622374e7f3b7, type: 3}
@@ -204,8 +205,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 153ceaf9c2eea1644a6572c9cd0f9cdc, type: 3}
   - {fileID: 8300000, guid: c6ca560267a64ef48837987eabc39d73, type: 3}
   - {fileID: 8300000, guid: eaa66a92d39cbc14eb8b567b25ddc74c, type: 3}
+  ricochetVolume: 1
   destroyedSounds:
   - {fileID: 8300000, guid: ffa62bf583aed6e4e83bf2587e9a7e1b, type: 3}
+  destroyedVolume: 0.855
 --- !u!1 &7031926548232377668
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +260,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 0.1
+  MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0

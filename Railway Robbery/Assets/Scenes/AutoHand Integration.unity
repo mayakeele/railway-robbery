@@ -14404,6 +14404,9 @@ MonoBehaviour:
   fingerBendSteps: 80
   grabTime: 0.05
   playerRigidbody: {fileID: 7956464546593569863}
+  grabHapticFrequency: 0.3
+  grabHapticAmplitude: 0.5
+  grabHapticDuration: 0.18
   showGizmos: 0
   editorAutoGrab: 0
   useLayerBasedAutoGrab: 0
@@ -17724,6 +17727,9 @@ MonoBehaviour:
   fingerBendSteps: 80
   grabTime: 0.05
   playerRigidbody: {fileID: 7956464546593569863}
+  grabHapticFrequency: 0.3
+  grabHapticAmplitude: 0.5
+  grabHapticDuration: 0.18
   showGizmos: 0
   editorAutoGrab: 0
   useLayerBasedAutoGrab: 0
@@ -22031,6 +22037,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Revolver
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710409737771622620, guid: 9a46948a7742e0c4a9184c8a8bb655da,
+        type: 3}
+      propertyPath: onSqueeze.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710409737771622620, guid: 9a46948a7742e0c4a9184c8a8bb655da,
+        type: 3}
+      propertyPath: onSqueeze.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710409737771622620, guid: 9a46948a7742e0c4a9184c8a8bb655da,
+        type: 3}
+      propertyPath: onSqueeze.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a46948a7742e0c4a9184c8a8bb655da, type: 3}
