@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4296189532291687127}
   - component: {fileID: 7625574835019631172}
   - component: {fileID: 6039760561955971916}
+  - component: {fileID: 5189412304008628454}
   m_Layer: 0
   m_Name: Soda
   m_TagString: Untagged
@@ -125,9 +126,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822bc9090447b9c40833509c4a32e597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 0}
+  heldPositionOffset: {x: 0, y: 0, z: 0}
+  heldRotationOffset: {x: 0, y: 0, z: 0}
+  releaseOnTeleport: 0
   throwMultiplyer: 1
-  allowManyHands: 1
+  handType: 0
+  singleHandOnly: 0
+  instantGrab: 0
+  parentOnGrab: 1
+  lockHandOnGrab: 0
+  maintainGrabOffset: 0
+  hightlightMaterial: {fileID: 0}
   pullApartBreakOnly: 1
+  makeChildrenGrabbable: 1
   jointBreakForce: 1500
   jointBreakTorque: 1000
   onGrab:
@@ -145,3 +157,38 @@ MonoBehaviour:
   OnJointBreak:
     m_PersistentCalls:
       m_Calls: []
+  onAction1:
+    m_PersistentCalls:
+      m_Calls: []
+  onAction2:
+    m_PersistentCalls:
+      m_Calls: []
+  hideEvents: 0
+--- !u!114 &5189412304008628454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 627616503915408604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08899ebce1a7edc48bdff5f335d42c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBreakBySpeed: 1
+  destructionSpeed: 2.5
+  canBreakByProjectile: 1
+  canBreakByForce: 1
+  destructionForce: 600
+  destroyedBySpeedPrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
+    type: 3}
+  destroyedByProjectilePrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
+    type: 3}
+  destroyedByForcePrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
+    type: 3}
+  destroyedByHandsPrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
+    type: 3}
+  coll: {fileID: 0}
+  rb: {fileID: 0}
+  grabbable: {fileID: 0}
