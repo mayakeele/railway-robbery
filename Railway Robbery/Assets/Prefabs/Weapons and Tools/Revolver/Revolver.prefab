@@ -355,10 +355,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 68a279731b7457a4a80ce0e6f999aa4d, type: 3}
   spinVolume: 0.921
   hapticFrequency: 0.75
-  shootHapticAmplitude: 0.8
-  shootHapticDuration: 0.2
-  reloadHapticAmplitude: 0
-  reloadHapticDuration: 0
+  shootHapticAmplitude: 0.85
+  shootHapticDuration: 0.15
+  reloadHapticAmplitude: 0.5
+  reloadHapticDuration: 0.45
   bulletPrefab: {fileID: 5066217385409175838, guid: 6b472cf3994d5ed488817946a4ced01a,
     type: 3}
   muzzleFlashParticleEffect: {fileID: 0}

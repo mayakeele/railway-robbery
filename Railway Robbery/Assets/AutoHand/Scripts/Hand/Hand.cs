@@ -535,6 +535,11 @@ namespace Autohand {
             OVRInput.Controller controller = GetComponent<OVRHandControllerLink>().controller;
             OVRInput.SetControllerVibration(0, 0, controller);
         }
+        public void SetHaptics(float frequency, float amplitude){
+            OVRInput.Controller controller = GetComponent<OVRHandControllerLink>().controller;
+            if(currentHapticCoroutine != null) StopCoroutine(currentHapticCoroutine);
+            OVRInput.SetControllerVibration(frequency, amplitude, controller);
+        }
         public void SetHapticsDuration(float frequency, float amplitude, float duration){
             OVRInput.Controller controller = GetComponent<OVRHandControllerLink>().controller;
             if(currentHapticCoroutine != null) StopCoroutine(currentHapticCoroutine);

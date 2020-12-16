@@ -5,22 +5,28 @@ using Autohand;
 
 public class ClimbingManager : MonoBehaviour
 {
-    private BodyPartReferences bodyParts;
 
+    [Header("Climbing Settings")]
     [SerializeField] private float oneHandedSpringFrequency;
     [SerializeField] private float twoHandedSpringFrequency;
-    private float currentSpringFrequency;
     [SerializeField] private float springDamping;
-
-
     private string climbingTag = "Climbable";
 
+    [Header("Haptic Settings")]
+    [SerializeField] [Range(0, 1)] private float climbingHapticFrequency;
+    [SerializeField] [Range(0, 1)] private float climbingHapticMaxAmplitude;
+    [SerializeField] [Range(0, 1)] private float climbingHapticBaseGradient;
+    [SerializeField] private float maxHapticDistance;
+
+    [Header("References")]
+    private BodyPartReferences bodyParts;
     private ClimbingHand leftHand;
     private ClimbingHand rightHand;
-
     public ControllerCollisionTrigger leftClimbingTrigger;
     public ControllerCollisionTrigger rightClimbingTrigger;
 
+
+    private float currentSpringFrequency;
     private Vector3 leftBodyTarget;
     private Vector3 rightBodyTarget;
     private Vector3 mainBodyTarget;
@@ -40,12 +46,14 @@ public class ClimbingManager : MonoBehaviour
         UpdateClimbingHandState(true);
         UpdateClimbingHandState(false);
 
-        // If both hands are holding climbable geometry, calculate the average displacement of each one to determine target body position
+
+        // Calculate the target body position based on which hands are climbing
         if (leftHand.isClimbing && rightHand.isClimbing){
             mainBodyTarget = (leftBodyTarget + rightBodyTarget) / 2;
 
             currentSpringFrequency = twoHandedSpringFrequency;
             bodyParts.playerRigidbody.useGravity = false;
+
         }
         else if(leftHand.isClimbing){
             mainBodyTarget = leftBodyTarget;
@@ -65,7 +73,6 @@ public class ClimbingManager : MonoBehaviour
             currentSpringFrequency = 0;
             bodyParts.playerRigidbody.useGravity = true;
         }
-
 
         Vector3 bodySpringForce = DampedSpring.GetDampedSpringAcceleration(
             transform.position, 
@@ -90,27 +97,36 @@ public class ClimbingManager : MonoBehaviour
         ControllerCollisionTrigger climbingTrigger = isLeft ? leftClimbingTrigger : rightClimbingTrigger;
 
         if ((climbingTrigger.isColliding || climbingHand.isClimbing) && bodyParts.inputHandler.GetHeldState(climbingHand.grabButton)){
+            // Detect if this is the first frame climbing is initiated
+            if(climbingHand.isClimbing == false){
+                StartClimbing(autoHand);
+            }
+
             climbingHand.isClimbing = true;
             climbingHand.Freeze();
-            
-            autoHand.ForceReleaseGrab();
+
             autoHand.disableIK = true;
             autoHand.SetGrip(autoHand.gripOffset);
-
-            //autoHand.follow = autoHand.transform;
 
             Vector3 targetPosition = transform.position - (controllerTransform.position - climbingHand.controllerAnchorPosition); //leftHand.controllerAnchor + leftHand.controllerToBodyOffset;
 
             if (isLeft) { leftBodyTarget = targetPosition; }
             else { rightBodyTarget = targetPosition; }
+
+            float handDistance = (targetPosition - transform.position).magnitude;
+            float gradient = Mathf.Clamp(handDistance / maxHapticDistance, climbingHapticBaseGradient, 1);
+            autoHand.SetHaptics(climbingHapticFrequency, climbingHapticMaxAmplitude * gradient);
         }
         else{
+            // Detect if climbing was just released this frame
+            if(climbingHand.isClimbing){
+                StopClimbing(autoHand);
+            }
+
             climbingHand.isClimbing = false;
             climbingHand.Unfreeze();
 
             autoHand.disableIK = false;
-
-            //autoHand.follow = controllerTransform;
 
             climbingHand.UpdateControllerAnchor();
             climbingHand.UpdateHandAnchor();
@@ -118,4 +134,12 @@ public class ClimbingManager : MonoBehaviour
 
     }
 
+
+    private void StartClimbing(Hand hand){
+        hand.Release();
+    }
+
+    private void StopClimbing(Hand hand){
+        hand.ClearHaptics();
+    }
 }
