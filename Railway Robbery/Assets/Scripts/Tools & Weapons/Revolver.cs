@@ -23,12 +23,18 @@ public class Revolver : MonoBehaviour
     [Space]
     [SerializeField] private List<AudioClip> shootSounds;
     [SerializeField] [Range(0, 1)] private float shootVolume;
+    [SerializeField] private float shootPitchMin;
+    [SerializeField] private float shootPitchMax;
     [Space]
     [SerializeField] private List<AudioClip> clickSounds;
     [SerializeField] [Range(0, 1)] private float clickVolume;
+    [SerializeField] private float clickPitchMin;
+    [SerializeField] private float clickPitchMax;
     [Space]
     [SerializeField] private List<AudioClip> chamberSpinSounds;
     [SerializeField] [Range(0, 1)] private float spinVolume;
+    [SerializeField] private float spinPitchMin;
+    [SerializeField] private float spinPitchMax;
 
     [Header("Haptics")]
     [SerializeField] [Range(0, 1)] private float hapticFrequency;
@@ -73,7 +79,7 @@ public class Revolver : MonoBehaviour
 
                 Instantiate(bulletPrefab, barrelTip.position, barrelTip.rotation);
                 //Instantiate(muzzleFlashParticleEffect, barrelTip.position, barrelTip.rotation, barrelTip);
-                audioSource.PlayOneShot(shootSounds.RandomChoice(), shootVolume);
+                audioSource.PlayClipPitchShifted(shootSounds.RandomChoice(), shootVolume, shootPitchMin, shootPitchMax);
 
                 //gunRigidbody.AddForce(barrelTip.transform.up * recoilPower, ForceMode.Impulse);
                 gunRigidbody.AddForceAtPosition(-barrelTip.transform.forward * recoilPower, barrelTip.position, ForceMode.Impulse);
@@ -83,9 +89,11 @@ public class Revolver : MonoBehaviour
                     hand.SetHapticsDuration(hapticFrequency, shootHapticAmplitude, shootHapticDuration);
                 }
             }
+
             else{
                 // No bullet in chamber, click
-                audioSource.PlayOneShot(clickSounds.RandomChoice(), clickVolume);
+                audioSource.PlayClipPitchShifted(clickSounds.RandomChoice(), clickVolume, clickPitchMin, clickPitchMax);
+
                 foreach(Hand hand in grabbable.heldBy){
                     hand.SetHapticsDuration(hapticFrequency, shootHapticAmplitude/2, shootHapticDuration/2);
                 }
@@ -105,7 +113,7 @@ public class Revolver : MonoBehaviour
         currentRoundsInChamber = maxRoundsInChamber;
         timeSinceLastShot = 0;
 
-        audioSource.PlayOneShot(chamberSpinSounds.RandomChoice(), spinVolume);
+        audioSource.PlayClipPitchShifted(chamberSpinSounds.RandomChoice(), spinVolume, spinPitchMin, spinPitchMax);
 
         foreach(Hand hand in grabbable.heldBy){
             hand.SetHapticsDuration(hapticFrequency, reloadHapticAmplitude, reloadHapticDuration);

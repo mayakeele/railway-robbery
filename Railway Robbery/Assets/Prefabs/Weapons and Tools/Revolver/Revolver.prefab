@@ -339,7 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxRoundsInChamber: 6
   minTimeBetweenShots: 0.1
-  recoilPower: 3.5
+  recoilPower: 3.3
   gunRigidbody: {fileID: 7712273334430559696}
   grabbable: {fileID: 6710409737771622620}
   barrelTip: {fileID: 864729522913766977}
@@ -347,17 +347,23 @@ MonoBehaviour:
   audioSource: {fileID: 439762144332213990}
   shootSounds:
   - {fileID: 8300000, guid: febffd76c2470e648a5a8b4e3b8063f7, type: 3}
-  shootVolume: 0.322
+  shootVolume: 0.258
+  shootPitchMin: 0.9
+  shootPitchMax: 1.1
   clickSounds:
   - {fileID: 8300000, guid: a95980bc380f35146aacb78640bc2bcf, type: 3}
   clickVolume: 0.88
+  clickPitchMin: 0.8
+  clickPitchMax: 1.05
   chamberSpinSounds:
   - {fileID: 8300000, guid: 68a279731b7457a4a80ce0e6f999aa4d, type: 3}
   spinVolume: 0.921
-  hapticFrequency: 0.75
-  shootHapticAmplitude: 0.85
-  shootHapticDuration: 0.15
-  reloadHapticAmplitude: 0.5
+  spinPitchMin: 0.95
+  spinPitchMax: 1.3
+  hapticFrequency: 0.809
+  shootHapticAmplitude: 0.936
+  shootHapticDuration: 0.13
+  reloadHapticAmplitude: 0.67
   reloadHapticDuration: 0.45
   bulletPrefab: {fileID: 5066217385409175838, guid: 6b472cf3994d5ed488817946a4ced01a,
     type: 3}
@@ -551,7 +557,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2186382209386226420}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.85
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1

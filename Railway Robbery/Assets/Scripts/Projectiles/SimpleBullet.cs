@@ -21,15 +21,18 @@ public class SimpleBullet : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
 
-    [Header("Sound Effects")]
+    [Header("Audio")]
     [SerializeField] private List<AudioClip> targetHitSounds;
     [SerializeField] [Range(0, 1)] private float targetHitVolume;
+    [SerializeField] private float targetHitPitchMax;
     [Space]
     [SerializeField] private  List<AudioClip> ricochetSounds;
     [SerializeField] [Range(0, 1)] private float ricochetVolume;
+    [SerializeField] private float ricochetPitchMax;
     [Space]
     [SerializeField] private  List<AudioClip> destroyedSounds;
     [SerializeField] [Range(0, 1)] private float destroyedVolume;
+    [SerializeField] private float destroyedPitchMax;
     [Space]
 
     [Header("Particle Effects")]
@@ -39,7 +42,6 @@ public class SimpleBullet : MonoBehaviour
     // Variables
     private bool isActive = true;
     private GameObject player;
-    private float trailEndTime;
     private int currentRicochetCount = 0;
     private float currentDistanceTravelled = 0;
 
@@ -47,7 +49,6 @@ public class SimpleBullet : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        trailEndTime = trailRenderer.time;
     }
 
 
@@ -82,14 +83,14 @@ public class SimpleBullet : MonoBehaviour
 
                     playerHealth.DealDamage(hitDamage, hitTransform, hitPoint);
 
-                    DestroyBullet(targetHitSounds.RandomChoice());
+                    DestroyBullet(targetHitSounds.RandomChoice(), targetHitVolume, targetHitPitchMax);
                 }
                 else if(hitTag == "Enemy"){
                     NPC hitNPC = GetComponentInParent<NPC>();
 
                     hitNPC.DealDamage(hitDamage, hitTransform, hitPoint);
 
-                    DestroyBullet(targetHitSounds.RandomChoice());
+                    DestroyBullet(targetHitSounds.RandomChoice(), targetHitVolume, targetHitPitchMax);
                 }
 
                 // If the bullet has hit a solid surface, destroy or ricochet the bullet based on its angle. Apply force to object if it has rigidbody
@@ -108,11 +109,11 @@ public class SimpleBullet : MonoBehaviour
 
                         transform.LookAt(transform.position + newDirection);
 
-                        audioSource.PlayOneShot(ricochetSounds.RandomChoice());
+                        audioSource.PlayClipPitchShifted(ricochetSounds.RandomChoice(), ricochetVolume, ricochetPitchMax);
                     }
                     else{
                         // Play bullet destruction animation
-                        DestroyBullet(destroyedSounds.RandomChoice());
+                        DestroyBullet(destroyedSounds.RandomChoice(), destroyedVolume, destroyedPitchMax);
                     }
                 }
             }
@@ -132,16 +133,18 @@ public class SimpleBullet : MonoBehaviour
     }
 
 
-    void DestroyBullet(AudioClip soundToPlay = null){
+    void DestroyBullet(AudioClip soundToPlay = null, float soundVolume = 1, float soundPitch = 1){
         // Stop rendering the bullet, leave the bullet trail intact until it runs out, and then destroy bullet
         isActive = false;
         model.SetActive(false);
 
         float soundLength = 0;
         if(soundToPlay != null){
-            soundLength = soundToPlay.length;
-            audioSource.PlayOneShot(soundToPlay);
-        } 
+            float newPitch = audioSource.PlayClipPitchShifted(soundToPlay, soundVolume, soundPitch);
+            soundLength = soundToPlay.length / newPitch;
+        }
+
+        float trailEndTime = trailRenderer ? trailRenderer.time : 0;
 
         float timeUntilDestroyed = Mathf.Max(trailEndTime, soundLength);
         StartCoroutine(DestroyDelayed(timeUntilDestroyed));

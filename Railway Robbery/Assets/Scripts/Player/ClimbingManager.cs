@@ -19,12 +19,12 @@ public class ClimbingManager : MonoBehaviour
     [SerializeField] private float maxHapticDistance;
 
     [Header("References")]
+    public ControllerCollisionTrigger leftClimbingTrigger;
+    public ControllerCollisionTrigger rightClimbingTrigger;
     private BodyPartReferences bodyParts;
     private ClimbingHand leftHand;
     private ClimbingHand rightHand;
-    public ControllerCollisionTrigger leftClimbingTrigger;
-    public ControllerCollisionTrigger rightClimbingTrigger;
-
+    
 
     private float currentSpringFrequency;
     private Vector3 leftBodyTarget;
