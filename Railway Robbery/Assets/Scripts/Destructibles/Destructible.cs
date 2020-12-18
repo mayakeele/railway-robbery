@@ -37,6 +37,7 @@ public class Destructible : MonoBehaviour
     private void OnCollisionEnter(Collision other) {
         if(canBreakBySpeed){
             if(rb.velocity.magnitude >= destructionSpeed){
+            //if(other.relativeVelocity.magnitude >= destructionSpeed){
                 DestroyBySpeed();
             }
         }

@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 3911564594799461887}
   - component: {fileID: 3911564594799461881}
   - component: {fileID: 3911564594799461886}
+  - component: {fileID: 4855156547277072507}
   m_Layer: 0
   m_Name: Sub
   m_TagString: Untagged
@@ -370,9 +371,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822bc9090447b9c40833509c4a32e597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 0}
+  heldPositionOffset: {x: 0, y: 0, z: 0}
+  heldRotationOffset: {x: 0, y: 0, z: 0}
+  releaseOnTeleport: 0
   throwMultiplyer: 1
-  holdableBy: 0
+  handType: 0
   singleHandOnly: 0
+  instantGrab: 0
+  parentOnGrab: 1
+  lockHandOnGrab: 0
+  maintainGrabOffset: 0
+  hightlightMaterial: {fileID: 0}
   pullApartBreakOnly: 1
   makeChildrenGrabbable: 1
   jointBreakForce: 1500
@@ -391,7 +401,53 @@ MonoBehaviour:
       m_Calls: []
   OnJointBreak:
     m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4855156547277072507}
+        m_MethodName: DestroyByHands
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onAction1:
+    m_PersistentCalls:
       m_Calls: []
+  onAction2:
+    m_PersistentCalls:
+      m_Calls: []
+  hideEvents: 0
+--- !u!114 &4855156547277072507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5001606171170905330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08899ebce1a7edc48bdff5f335d42c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBreakBySpeed: 1
+  destructionSpeed: 2.5
+  canBreakByProjectile: 1
+  canBreakByForce: 0
+  destructionForce: 0
+  destroyedBySpeedPrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
+    type: 3}
+  destroyedByProjectilePrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
+    type: 3}
+  destroyedByForcePrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
+    type: 3}
+  destroyedByHandsPrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
+    type: 3}
+  coll: {fileID: 0}
+  rb: {fileID: 0}
+  grabbable: {fileID: 0}
 --- !u!1 &6171555204017190985
 GameObject:
   m_ObjectHideFlags: 0

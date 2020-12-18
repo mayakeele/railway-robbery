@@ -4,13 +4,20 @@ using UnityEngine;
 
 public static class AudioSourceExtensions
 {
+    public static void PlayClip(this AudioSource audioSource, AudioClip clip, float volume = 1, float pitch = 1){
+        // Plays an audio clip on an audio source as a one shot, randomly shifted down in pitch, returns the new pitch
+
+        audioSource.pitch = pitch;
+        audioSource.PlayOneShot(clip, volume);
+    }
+
     public static float PlayClipPitchShifted(this AudioSource audioSource, AudioClip clip, float volume, float minPitchMultiplier, float maxPitchMultiplier){
         // Plays an audio clip on an audio source as a one shot, randomly shifted in pitch either up or down, returns the new pitch
         float newPitch = Random.Range(minPitchMultiplier, maxPitchMultiplier);
 
         audioSource.pitch = newPitch;
         audioSource.PlayOneShot(clip, volume);
-        audioSource.pitch = 1;
+        //audioSource.pitch = 1;
 
         return newPitch;
     }
@@ -21,7 +28,7 @@ public static class AudioSourceExtensions
 
         audioSource.pitch = newPitch;
         audioSource.PlayOneShot(clip, volume);
-        audioSource.pitch = 1;
+        //audioSource.pitch = 1;
 
         return newPitch;
     }
@@ -32,7 +39,7 @@ public static class AudioSourceExtensions
 
         audioSource.pitch = newPitch;
         audioSource.PlayOneShot(clip, volume);
-        audioSource.pitch = 1;
+        //audioSource.pitch = 1;
         
         return newPitch;
     }
@@ -43,7 +50,7 @@ public static class AudioSourceExtensions
 
         audioSource.pitch = newPitch;
         audioSource.PlayOneShot(clip, volume);
-        audioSource.pitch = 1;
+        //audioSource.pitch = 1;
         
         return newPitch;
     }
