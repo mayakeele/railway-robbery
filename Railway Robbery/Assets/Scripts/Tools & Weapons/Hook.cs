@@ -7,6 +7,7 @@ public class Hook : MonoBehaviour
     [Header("Hook Properties")]
     public float launchSpeed;
     public float minHookingSpeed;
+    public int ignoreLauncherFrames;
     public LayerMask hookableLayers;
 
     [Header("References")]
@@ -16,17 +17,16 @@ public class Hook : MonoBehaviour
 
 
     bool hookable = true;
+    int numFramesIgnored = 0;
 
  
-    // Start is called before the first frame update
     void Start()
     {
         rb.velocity = transform.forward * launchSpeed;
     }
 
-    // Update is called once per frame
     void Update()
-    {
+    {   
         if(hookable){
             Vector3 forwardTarget = transform.position + rb.velocity.normalized;
             transform.LookAt(forwardTarget, Vector3.up);
@@ -34,14 +34,34 @@ public class Hook : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision other) {
+    private void OnCollisionEnter(Collision other) {    
+
         if(hookable){
-            if(hookableLayers.Contains(other.gameObject.layer) && rb.velocity.magnitude >= minHookingSpeed){
-                OnHookSuccess();
+
+             // Ignore collision with the launcher in the first few frames
+            if(numFramesIgnored < ignoreLauncherFrames){
+                numFramesIgnored++;
+            
+                if(other.gameObject.GetComponentInParent<GrapplingHookLauncher>() == false){
+                    if(hookableLayers.Contains(other.gameObject.layer) && rb.velocity.magnitude >= minHookingSpeed){
+                        OnHookSuccess();
+                    }
+                    else{
+                        OnHookFail();
+                    }
+                }
+                
             }
+
+            // Can collide with anything afterwards
             else{
-                OnHookFail();
-            }
+                if(hookableLayers.Contains(other.gameObject.layer) && rb.velocity.magnitude >= minHookingSpeed){
+                    OnHookSuccess();
+                }
+                else{
+                    OnHookFail();
+                }
+            }    
         }
     }
 
@@ -50,12 +70,21 @@ public class Hook : MonoBehaviour
         rb.isKinematic = true;
         hookable = false;
 
-        attachedLauncher.OnHookSuccess();
+        attachedLauncher?.OnHookSuccess();
     }
 
     private void OnHookFail(){
         hookable = false;
 
-        attachedLauncher.OnHookFail();
+        attachedLauncher?.OnHookFail();
+    }
+
+
+    public void Attach(GrapplingHookLauncher launcher){
+        attachedLauncher = launcher;
+    }
+
+    public void Detach(){
+        attachedLauncher = null;
     }
 }
