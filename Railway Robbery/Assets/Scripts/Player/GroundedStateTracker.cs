@@ -5,29 +5,21 @@ using UnityEngine;
 public class GroundedStateTracker : MonoBehaviour
 {
     public bool isGrounded;
-    public string[] groundLayers;
+    public LayerMask groundLayers;
 
     void Start() {
         isGrounded = false;
     }
 
     void OnCollisionEnter(Collision other) {
-        Debug.Log("enter");
-        string otherLayer = LayerMask.LayerToName(other.gameObject.layer);
-        foreach (string groundLayer in groundLayers){
-            if (otherLayer == groundLayer){
-                isGrounded = true;
-            }
+        if(groundLayers.Contains(other.gameObject.layer)){
+            isGrounded = true;
         }
     }
 
     void OnCollisionExit(Collision other) {
-        Debug.Log("exit");
-        string otherLayer = LayerMask.LayerToName(other.gameObject.layer);
-        foreach (string groundLayer in groundLayers){
-            if (otherLayer == groundLayer){
-                isGrounded = false;
-            }
+        if(groundLayers.Contains(other.gameObject.layer)){
+            isGrounded = false;
         }
     }
 }

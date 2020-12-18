@@ -21,6 +21,7 @@ namespace Autohand {
         
         [Header("Follow Settings"), Space]
         [Tooltip("Follow target, the hand will always try to match this transforms rotation and position with rigidbody movements")]
+        [SerializeField] private Transform controllerFollow;
         public Transform follow;
 
         
@@ -86,7 +87,7 @@ namespace Autohand {
 
         // Added by Grant Keele
         [Header("Added by Grant Keele")]
-        public Rigidbody playerRigidbody;
+        public BodyPartReferences playerBodyParts;
         [Range(0, 1)] public float grabHapticFrequency;
         [Range(0, 1)] public float grabHapticAmplitude;
         public float grabHapticDuration;
@@ -381,7 +382,7 @@ namespace Autohand {
             //Sets velocity linearly based on distance from hand
             var vel = (movePos - transform.position).normalized * followPositionStrength * distance;
             // Added by Grant Keele
-            //vel += playerRigidbody.velocity;
+            //vel += playerBodyParts.playerRigidbody.velocity;
 
             vel.x = Mathf.Clamp(vel.x, -velocityClamp, velocityClamp);
             vel.y = Mathf.Clamp(vel.y, -velocityClamp, velocityClamp);
@@ -553,6 +554,10 @@ namespace Autohand {
         }
 
 
+        public void FollowController(){
+            follow = controllerFollow;
+        }
+        
 
         /// <summary>Sets the hands grip 0 is open 1 is closed</summary>
         public void SetGrip(float grip) {
@@ -1058,7 +1063,7 @@ namespace Autohand {
             if(!holdingObj && !disableIK && !grabPose && handPoseArea == null && handAnimateRoutine == null) {
 
                 // Added by Grant Keele
-                //Vector3 relativeVelocity = body.velocity - playerRigidbody.velocity;
+                //Vector3 relativeVelocity = body.velocity - playerBodyParts.playerRigidbody.velocity;
                 //float vel = -palmTransform.InverseTransformDirection(relativeVelocity).z;
 
                 float vel = -palmTransform.InverseTransformDirection(body.velocity).z; 
