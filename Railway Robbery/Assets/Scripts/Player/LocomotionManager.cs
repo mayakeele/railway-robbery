@@ -9,6 +9,8 @@ public class LocomotionManager : MonoBehaviour
     [SerializeField] private float maxMovementSpeed;
     [SerializeField] private float maxRotationSpeed;
 
+    [SerializeField] private float jumpSpeed;
+
     [SerializeField] private bool useHeadAsForward;
 
     [SerializeField] private float translationStickDeadzone;
@@ -66,6 +68,12 @@ public class LocomotionManager : MonoBehaviour
             //bodyParts.rightHand.transform.Translate(positionChange, Space.World);
 
             previousPosition = transform.position;
+
+
+            // Handle jumping if player is grounded and pressing jump button
+            if(bodyParts.groundedStateTracker.isGrounded && bodyParts.inputHandler.GetHeldState(InputHandler.InputButton.R_StickPress)){
+                bodyParts.playerRigidbody.velocity = new Vector3(bodyParts.playerRigidbody.velocity.x, jumpSpeed, bodyParts.playerRigidbody.velocity.z);
+            }
         }
     }
 

@@ -18,6 +18,7 @@ public class BodyPartReferences : MonoBehaviour
     public Rigidbody playerRigidbody;
     public SphereCollider headCollider;
     public CapsuleCollider bodyCollider;
+    public SphereCollider feetCollider;
     public Rigidbody leftHandRigidbody;
     public Rigidbody rightHandRigidbody;
 

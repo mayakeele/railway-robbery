@@ -7,19 +7,34 @@ public class GroundedStateTracker : MonoBehaviour
     public bool isGrounded;
     public LayerMask groundLayers;
 
+    private int numCollisions;
+
+
     void Start() {
         isGrounded = false;
+        numCollisions = 0;
     }
 
-    void OnCollisionEnter(Collision other) {
-        if(groundLayers.Contains(other.gameObject.layer)){
+
+    void Update() {
+        if (numCollisions > 0){
             isGrounded = true;
+        }
+        else{
+            isGrounded = false;
         }
     }
 
-    void OnCollisionExit(Collision other) {
+
+    void OnTriggerEnter(Collider other) {
         if(groundLayers.Contains(other.gameObject.layer)){
-            isGrounded = false;
+            numCollisions++;
+        }
+    }
+
+    void OnTriggerExit(Collider other) {
+        if(groundLayers.Contains(other.gameObject.layer)){
+            numCollisions--;
         }
     }
 }

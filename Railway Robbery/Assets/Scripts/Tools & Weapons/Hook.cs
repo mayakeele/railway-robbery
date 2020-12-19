@@ -70,6 +70,8 @@ public class Hook : MonoBehaviour
         rb.isKinematic = true;
         hookable = false;
 
+        gameObject.layer = LayerMask.NameToLayer("StaticStructure");
+        gameObject.tag = "Climbable";
         attachedLauncher?.OnHookSuccess();
     }
 

@@ -88,6 +88,8 @@ namespace Autohand {
         // Added by Grant Keele
         [Header("Added by Grant Keele")]
         public BodyPartReferences playerBodyParts;
+        public bool enableFollowForce = true;
+        public bool enableFollowTorque = true;
         [Range(0, 1)] public float grabHapticFrequency;
         [Range(0, 1)] public float grabHapticAmplitude;
         public float grabHapticDuration;
@@ -251,8 +253,9 @@ namespace Autohand {
             UpdateMoveTo();
 
             //Calls physics movements
-            if(!freezePos) MoveTo();
-            if(!freezeRot) TorqueTo();
+            // && enableFollowForce added by Grant Keele
+            if(!freezePos && enableFollowForce) MoveTo();
+            if(!freezeRot && enableFollowTorque) TorqueTo();
             
             //Strongly stabilizes one handed holding
             if(holdingObj != null && grabLocked && holdingObj.HeldCount() == 1) {
@@ -553,10 +556,22 @@ namespace Autohand {
             OVRInput.SetControllerVibration(0, 0, controller);
         }
 
-
+        // Added by Grant Keele
         public void FollowController(){
             follow = controllerFollow;
         }
+
+        public void EnableFollowForce(){
+            enableFollowForce = true;
+        }
+        public void DisableFollowForce(){
+            enableFollowForce = false;
+        }
+
+        public float GetMass(){
+            return body.mass;
+        }
+
         
 
         /// <summary>Sets the hands grip 0 is open 1 is closed</summary>

@@ -16,6 +16,7 @@ public class GrapplingHookLauncher : MonoBehaviour
 
     [Header("Grappling Gun Settings")]
     [SerializeField] private float reelInRate;
+    [SerializeField] private float velocityDecayMultiplier;
     [SerializeField] private float minCableLength;
     [SerializeField] private float oneHandedSpringFrequency;
     [SerializeField] private float twoHandedSpringFrequency;
@@ -54,6 +55,8 @@ public class GrapplingHookLauncher : MonoBehaviour
 
     void FixedUpdate()
     {
+        List<Hand> handsHolding = grabbable.heldBy;
+
         if(currentHookState == HookState.Hooked){
 
             // Use cable distance and physics to constrain the launcher's position and velocity
@@ -61,19 +64,17 @@ public class GrapplingHookLauncher : MonoBehaviour
             if(initialhookToLauncher.magnitude > cableLength){
                 transform.position = hookAnchor + (initialhookToLauncher.normalized * cableLength);
             }
-            Vector3 newhookToLauncher = transform.position - hookAnchor;
+            Vector3 newHookToLauncher = transform.position - hookAnchor;
 
             Vector3 initialVelocity = rb.velocity;
-            Vector3 newVelocity = Vector3.ProjectOnPlane(initialVelocity, newhookToLauncher).normalized * initialVelocity.magnitude;
+            Vector3 newVelocity = Vector3.ProjectOnPlane(initialVelocity, newHookToLauncher).normalized * initialVelocity.magnitude * velocityDecayMultiplier;
             rb.velocity = newVelocity;
 
-
-            List<Hand> handsHolding = grabbable.heldBy;
 
             // Player controls movement while grounded, but constrained to within radius of cable length
             if(handsHolding.Count > 0 && handsHolding[0].playerBodyParts.groundedStateTracker.isGrounded){
                 foreach(Hand hand in handsHolding){
-                    hand.FollowController();
+                    hand.EnableFollowForce();
                 }
             }
 
@@ -85,7 +86,7 @@ public class GrapplingHookLauncher : MonoBehaviour
                 Hand rightHand = null;
 
                 foreach(Hand hand in handsHolding){
-                    hand.follow = hand.transform;
+                    hand.DisableFollowForce();
 
                     if(hand.left) leftHand = hand;
                     else{ rightHand = hand; }
@@ -131,6 +132,18 @@ public class GrapplingHookLauncher : MonoBehaviour
                 if (leftHand || rightHand){
                     bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
                 }
+
+                rb.isKinematic = false;
+                float combinedMass = rb.mass + (handsHolding.Count * handsHolding[0].GetMass());
+                rb.AddForce(new Vector3(0, -9.81f * combinedMass, 0), ForceMode.Force);
+            }
+        }
+
+        else{
+            if(handsHolding.Count > 0){
+                foreach(Hand hand in handsHolding){
+                    hand.EnableFollowForce();
+                }
             }
         }
 
@@ -157,7 +170,6 @@ public class GrapplingHookLauncher : MonoBehaviour
         lineRenderer.SetPosition(1, endPosition);
         lineRenderer.enabled = true;
     }
-
     public void HideCable(){
         lineRenderer.enabled = false;
     }
@@ -170,7 +182,7 @@ public class GrapplingHookLauncher : MonoBehaviour
         if(currentHookState == HookState.Unloaded){
             currentHookState = HookState.Loaded;
             cableLength = minCableLength;
-        }    
+        }
     }
 
 
@@ -180,8 +192,7 @@ public class GrapplingHookLauncher : MonoBehaviour
 
             attachedHook = Instantiate(hookPrefab, hookSpawnTransform.position, hookSpawnTransform.rotation).GetComponent<Hook>();
             attachedHook.Attach(this);
-        }
-        
+        }       
     }
 
 

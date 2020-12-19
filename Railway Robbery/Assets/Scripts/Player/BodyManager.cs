@@ -8,23 +8,28 @@ public class BodyManager : MonoBehaviour
 
     [SerializeField] private float maxLegLiftPercent;
     [SerializeField] private float legLiftTime;
+    [SerializeField] private float footHeightOffset;
     
     private float currHeadsetHeight;
     private float currLegLiftPercent;
     private bool areLegsMoving;
+    private float bodyRadius;
 
 
     void Awake() {
         bodyParts = GetComponent<BodyPartReferences>();
+        bodyRadius = bodyParts.bodyCollider.radius;
     }
 
 
     void FixedUpdate()
     {
-        bodyParts.feetTransform.position = transform.position;
+        currHeadsetHeight = bodyParts.cameraTransform.localPosition.y;
+
         bodyParts.headCollider.transform.position = bodyParts.cameraTransform.position;
 
-        currHeadsetHeight = bodyParts.cameraTransform.position.y - bodyParts.feetTransform.position.y; //bodyParts.cameraTransform.localPosition.y;
+        float feetHeight = (currHeadsetHeight * currLegLiftPercent) + bodyRadius - footHeightOffset;
+        bodyParts.feetCollider.transform.position = new Vector3(bodyParts.cameraTransform.position.x, transform.position.y + feetHeight, bodyParts.cameraTransform.position.z);
 
         if (bodyParts.leftClimbingHand.isClimbing && bodyParts.rightClimbingHand.isClimbing){
             // Scale body capsule collider to match the current height of the player's headset and the height of the player's feet
