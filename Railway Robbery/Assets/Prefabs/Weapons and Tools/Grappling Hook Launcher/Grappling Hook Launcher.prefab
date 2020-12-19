@@ -612,13 +612,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5cc6677ac7f8e419dc95203b3ef8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reelInRate: 1.5
+  reelInRate: 3
   velocityDecayMultiplier: 1
   minCableLength: 0.5
-  oneHandedSpringFrequency: 6
-  twoHandedSpringFrequency: 12
+  reelInTriggerThreshold: 0.15
+  oneHandedSpringFrequency: 8
+  twoHandedSpringFrequency: 16
   springDamping: 0.4
+  reelInHapticFrequency: 0.899
+  reelInHapticAmplitude: 0.526
+  swingingHapticFrequency: 0.15
+  swingingHapticMaxAmplitude: 0.75
+  swingingHapticBaseGradient: 0.2
+  maxSwingingHapticDistance: 0.8
   hookPrefab: {fileID: 1382651287706178709, guid: 958618efbfcf8064c9e32cfb9e6f292f,
+    type: 3}
+  hookLoadedModel: {fileID: 4780381209584104073, guid: 0538c997082f51c49a0def144ee21cc2,
     type: 3}
   barrelTipTransform: {fileID: 7449638051875038551}
   cableOriginTransform: {fileID: 6638771002802717921}
@@ -626,10 +635,6 @@ MonoBehaviour:
   rb: {fileID: 686807594394875228}
   grabbable: {fileID: 8539629315780614464}
   lineRenderer: {fileID: 7736443751264008159}
-  currentHookState: 0
-  cableLength: 0
-  attachedHook: {fileID: 0}
-  hookAnchor: {x: 0, y: 0, z: 0}
 --- !u!114 &8539629315780614464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,7 +654,7 @@ MonoBehaviour:
   throwMultiplyer: 1
   handType: 0
   singleHandOnly: 0
-  instantGrab: 1
+  instantGrab: 0
   parentOnGrab: 0
   lockHandOnGrab: 0
   maintainGrabOffset: 0
@@ -700,56 +705,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8993051355635316395}
-        m_MethodName: StartReelIn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   onUnsqueeze:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8993051355635316395}
-        m_MethodName: StopReelIn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnJointBreak:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: EnableFollowForce
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: EnableFollowForce
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onAction1:
     m_PersistentCalls:
       m_Calls:
@@ -787,14 +748,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7923380398641247484}
   serializedVersion: 2
-  m_Mass: 2
+  m_Mass: 1.5
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!1 &8209783191633252122
 GameObject:
   m_ObjectHideFlags: 0

@@ -14501,28 +14501,8 @@ PrefabInstance:
       objectReference: {fileID: 5263418580380516984}
     - target: {fileID: 8539629315780614464, guid: a34b4e32bef280345bad6cf79a472c39,
         type: 3}
-      propertyPath: OnJointBreak.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 7180530802869213025}
-    - target: {fileID: 8539629315780614464, guid: a34b4e32bef280345bad6cf79a472c39,
-        type: 3}
-      propertyPath: OnJointBreak.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 5263418580380516984}
-    - target: {fileID: 8539629315780614464, guid: a34b4e32bef280345bad6cf79a472c39,
-        type: 3}
-      propertyPath: instantGrab
+      propertyPath: hideEvents
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
-        type: 3}
-      propertyPath: twoHandedSpringFrequency
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
-        type: 3}
-      propertyPath: oneHandedSpringFrequency
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a34b4e32bef280345bad6cf79a472c39, type: 3}
@@ -19574,7 +19554,7 @@ MonoBehaviour:
   oneHandedSpringFrequency: 7
   twoHandedSpringFrequency: 14
   springDamping: 0.4
-  climbingHapticFrequency: 0.146
+  climbingHapticFrequency: 0.15
   climbingHapticMaxAmplitude: 0.75
   climbingHapticBaseGradient: 0.2
   maxHapticDistance: 0.8

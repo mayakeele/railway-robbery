@@ -18,12 +18,23 @@ public class GrapplingHookLauncher : MonoBehaviour
     [SerializeField] private float reelInRate;
     [SerializeField] private float velocityDecayMultiplier;
     [SerializeField] private float minCableLength;
+    [SerializeField] private float reelInTriggerThreshold;
     [SerializeField] private float oneHandedSpringFrequency;
     [SerializeField] private float twoHandedSpringFrequency;
     [SerializeField] private float springDamping;
 
+    [Header("Haptic Settings")]
+    [SerializeField] [Range(0, 1)] private float reelInHapticFrequency;
+    [SerializeField] [Range(0, 1)] private float reelInHapticAmplitude;
+    [Space]
+    [SerializeField] [Range(0, 1)] private float swingingHapticFrequency;
+    [SerializeField] [Range(0, 1)] private float swingingHapticMaxAmplitude;
+    [SerializeField] [Range(0, 1)] private float swingingHapticBaseGradient;
+    [SerializeField] private float maxSwingingHapticDistance;
+
     [Header("Prefabs")]
     [SerializeField] private GameObject hookPrefab;
+    [SerializeField] private GameObject hookLoadedModel;
 
     [Header("References")]
     [SerializeField] private Transform barrelTipTransform;
@@ -35,17 +46,20 @@ public class GrapplingHookLauncher : MonoBehaviour
 
 
     // Hook variables
-    [SerializeField] private HookState currentHookState;
-    [SerializeField] private float cableLength;
-    [SerializeField] private Hook attachedHook;
-    [SerializeField] private Vector3 hookAnchor;
-    private Coroutine reelCoroutine;
+    private HookState currentHookState;
+    private float cableLength;
+    private Hook attachedHook;
+    private Vector3 hookAnchor;
 
     // Hand-to-body spring variables
     private float currentSpringFrequency;
     private Vector3 leftBodyTarget;
     private Vector3 rightBodyTarget;
     private Vector3 mainBodyTarget;
+
+    // Detail variables
+    private GameObject loadedHook;
+
 
 
     void Start()
@@ -71,72 +85,103 @@ public class GrapplingHookLauncher : MonoBehaviour
             rb.velocity = newVelocity;
 
 
-            // Player controls movement while grounded, but constrained to within radius of cable length
-            if(handsHolding.Count > 0 && handsHolding[0].playerBodyParts.groundedStateTracker.isGrounded){
-                foreach(Hand hand in handsHolding){
-                    hand.EnableFollowForce();
-                }
-            }
-
-            // Physics controls movement of the gun while the player is not grounded, and the player's body is attached to the hands by spring force
-            else if(handsHolding.Count > 0 && handsHolding[0].playerBodyParts.groundedStateTracker.isGrounded == false){
+            if(handsHolding.Count > 0){
                 BodyPartReferences bodyParts = handsHolding[0].playerBodyParts;
+                bool isGrounded = bodyParts.groundedStateTracker.isGrounded;
+                bool isClimbing = (bodyParts.leftClimbingHand.isClimbing || bodyParts.rightClimbingHand.isClimbing);
 
-                Hand leftHand = null;
-                Hand rightHand = null;
+                // Player controls movement while grounded or climbing, but constrained to within radius of cable length
+                if(isGrounded || isClimbing){
+                    foreach(Hand hand in handsHolding){
+                        hand.EnableFollowForce();
+                    }
+                }
 
+                // Physics controls movement of the gun while the player is not grounded, and the player's body is attached to the hands by spring force
+                else {
+                    Hand leftHand = null;
+                    Hand rightHand = null;
+
+                    foreach(Hand hand in handsHolding){
+                        hand.DisableFollowForce();
+
+                        if(hand.left) leftHand = hand;
+                        else{ rightHand = hand; }
+                    }
+
+                    if(leftHand) leftBodyTarget = bodyParts.transform.position - (bodyParts.leftControllerTransform.position - leftHand.transform.position);
+                    if(rightHand) rightBodyTarget = bodyParts.transform.position - (bodyParts.rightControllerTransform.position - rightHand.transform.position);
+
+                    // Calculate the target body position based on which hands are climbing
+                    if (leftHand && rightHand){
+                        mainBodyTarget = (leftBodyTarget + rightBodyTarget) / 2;
+
+                        currentSpringFrequency = twoHandedSpringFrequency;
+                        bodyParts.playerRigidbody.useGravity = false;
+                    }
+                    else if(leftHand){
+                        mainBodyTarget = leftBodyTarget;
+
+                        currentSpringFrequency = oneHandedSpringFrequency;
+                        bodyParts.playerRigidbody.useGravity = false;
+                    }
+                    else if (rightHand){
+                        mainBodyTarget = rightBodyTarget;
+
+                        currentSpringFrequency = oneHandedSpringFrequency;
+                        bodyParts.playerRigidbody.useGravity = false;
+                    }
+                    else{
+                        mainBodyTarget = transform.position;
+
+                        currentSpringFrequency = 0;
+                        bodyParts.playerRigidbody.useGravity = true;
+                    }
+
+                    Vector3 bodySpringForce = DampedSpring.GetDampedSpringAcceleration(
+                        bodyParts.transform.position, 
+                        mainBodyTarget, 
+                        bodyParts.playerRigidbody.velocity - rb.velocity,
+                        currentSpringFrequency, 
+                        springDamping
+                    );
+
+                    if (leftHand || rightHand){
+                        bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+                    }
+
+                    rb.isKinematic = false;
+                    rb.useGravity = true;
+                    //float combinedMass = rb.mass + (handsHolding.Count * handsHolding[0].GetMass());
+                    //rb.AddForce(new Vector3(0, -9.81f * combinedMass, 0), ForceMode.Force);
+
+
+                    // Set haptic strength based on distance from ideal position
+                    foreach(Hand hand in handsHolding){
+                        float handDistance = (mainBodyTarget - bodyParts.transform.position).magnitude;
+                        float gradient = Mathf.Clamp(handDistance / maxSwingingHapticDistance, swingingHapticBaseGradient, 1);
+                        hand.SetHaptics(swingingHapticFrequency, swingingHapticMaxAmplitude * gradient);
+                    } 
+                }
+
+
+                // Determine whether the gun should reel in its cable
+                float triggerPullPercent = 0;
                 foreach(Hand hand in handsHolding){
-                    hand.DisableFollowForce();
-
-                    if(hand.left) leftHand = hand;
-                    else{ rightHand = hand; }
+                    OVRInput.Controller controller = hand.GetComponent<OVRHandControllerLink>().controller;
+                    OVRInput.Axis1D trigger = OVRInput.Axis1D.PrimaryIndexTrigger;
+                    triggerPullPercent = Mathf.Max(triggerPullPercent, OVRInput.Get(trigger, controller));
                 }
-
-                if(leftHand) leftBodyTarget = bodyParts.transform.position - (bodyParts.leftControllerTransform.position - leftHand.transform.position);
-                if(rightHand) rightBodyTarget = bodyParts.transform.position - (bodyParts.rightControllerTransform.position - rightHand.transform.position);
-
-                // Calculate the target body position based on which hands are climbing
-                if (leftHand && rightHand){
-                    mainBodyTarget = (leftBodyTarget + rightBodyTarget) / 2;
-
-                    currentSpringFrequency = twoHandedSpringFrequency;
-                    bodyParts.playerRigidbody.useGravity = false;
+                // Reel in cable at a speed determined by the trigger pull percentage, activate haptics
+                if(triggerPullPercent > reelInTriggerThreshold){
+                    ReelInCable(triggerPullPercent * reelInRate, Time.fixedDeltaTime, bodyParts.playerRigidbody, -newHookToLauncher.normalized);
+                    
+                    foreach(Hand hand in handsHolding){
+                        hand.SetHaptics(reelInHapticFrequency * triggerPullPercent, reelInHapticAmplitude);
+                    }
                 }
-                else if(leftHand){
-                    mainBodyTarget = leftBodyTarget;
-
-                    currentSpringFrequency = oneHandedSpringFrequency;
-                    bodyParts.playerRigidbody.useGravity = false;
-                }
-                else if (rightHand){
-                    mainBodyTarget = rightBodyTarget;
-
-                    currentSpringFrequency = oneHandedSpringFrequency;
-                    bodyParts.playerRigidbody.useGravity = false;
-                }
-                else{
-                    mainBodyTarget = transform.position;
-
-                    currentSpringFrequency = 0;
-                    bodyParts.playerRigidbody.useGravity = true;
-                }
-
-                Vector3 bodySpringForce = DampedSpring.GetDampedSpringAcceleration(
-                    bodyParts.transform.position, 
-                    mainBodyTarget, 
-                    bodyParts.playerRigidbody.velocity - rb.velocity,
-                    currentSpringFrequency, 
-                    springDamping
-                );
-
-                if (leftHand || rightHand){
-                    bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
-                }
-
-                rb.isKinematic = false;
-                float combinedMass = rb.mass + (handsHolding.Count * handsHolding[0].GetMass());
-                rb.AddForce(new Vector3(0, -9.81f * combinedMass, 0), ForceMode.Force);
             }
+            
         }
 
         else{
@@ -180,6 +225,8 @@ public class GrapplingHookLauncher : MonoBehaviour
 
     public void ReloadHook(){
         if(currentHookState == HookState.Unloaded){
+            loadedHook = Instantiate(hookLoadedModel, hookSpawnTransform.position, hookSpawnTransform.rotation, this.transform);
+
             currentHookState = HookState.Loaded;
             cableLength = minCableLength;
         }
@@ -188,10 +235,14 @@ public class GrapplingHookLauncher : MonoBehaviour
 
     public void LaunchHook(){
         if(currentHookState == HookState.Loaded){
-            currentHookState = HookState.Launched;
+            Destroy(loadedHook);
+            loadedHook = null;
 
             attachedHook = Instantiate(hookPrefab, hookSpawnTransform.position, hookSpawnTransform.rotation).GetComponent<Hook>();
             attachedHook.Attach(this);
+
+            currentHookState = HookState.Launched;
+   
         }       
     }
 
@@ -208,21 +259,30 @@ public class GrapplingHookLauncher : MonoBehaviour
     }
 
 
-    public void StartReelIn(){
-        if(currentHookState == HookState.Hooked){
-            reelCoroutine = StartCoroutine(ReelCable());
+    private void ReelInCable(float rate, float timeStep){
+        // Continues to reel in the cable length until it gets to the minimum length
+        if(cableLength > minCableLength){
+            float distanceMoved = rate * timeStep;
+            cableLength -= distanceMoved;
         }
+        else{
+            cableLength = minCableLength;
+        }    
     }
-    public void StopReelIn(){
-        if(reelCoroutine != null) StopCoroutine(reelCoroutine);
-    }
-    private IEnumerator ReelCable(){
-        // Continues to reel in the cable length until it gets to zero
-        while(cableLength > minCableLength){
-            cableLength -= reelInRate * Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+    private void ReelInCable(float rate, float timeStep, Rigidbody playerRigidbody, Vector3 direction){
+        // Continues to reel in the cable length until it gets to the minimum length
+
+        if(cableLength > minCableLength){
+            float distanceMoved = rate * timeStep;
+            //Vector3 translation = direction.normalized * distanceMoved;
+            //playerRigidbody.transform.Translate(translation, Space.World);
+            playerRigidbody.velocity = rate * direction.normalized;
+
+            cableLength -= distanceMoved;
         }
-        cableLength = minCableLength;
+        else{
+            cableLength = minCableLength;
+        }    
     }
 
 
