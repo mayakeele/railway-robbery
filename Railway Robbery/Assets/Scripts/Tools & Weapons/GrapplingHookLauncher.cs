@@ -56,6 +56,7 @@ public class GrapplingHookLauncher : MonoBehaviour
     private Vector3 leftBodyTarget;
     private Vector3 rightBodyTarget;
     private Vector3 mainBodyTarget;
+    private Vector3 swingingVelocity;
 
     // Detail variables
     private GameObject loadedHook;
@@ -65,6 +66,7 @@ public class GrapplingHookLauncher : MonoBehaviour
     void Start()
     {
         currentHookState = HookState.Unloaded;
+        swingingVelocity = Vector3.zero;
     }
 
     void FixedUpdate()
@@ -75,20 +77,46 @@ public class GrapplingHookLauncher : MonoBehaviour
 
             // Use cable distance and physics to constrain the launcher's position and velocity
             Vector3 initialhookToLauncher = transform.position - hookAnchor;
+            Vector3 newHookToLauncher = initialhookToLauncher;
+
             if(initialhookToLauncher.magnitude > cableLength){
                 transform.position = hookAnchor + (initialhookToLauncher.normalized * cableLength);
+
+                newHookToLauncher = transform.position - hookAnchor;
+                Vector3 initialVelocity = rb.velocity;
+                Vector3 newVelocity = Vector3.ProjectOnPlane(initialVelocity, newHookToLauncher).normalized * initialVelocity.magnitude * velocityDecayMultiplier;
+                rb.velocity = newVelocity;
             }
-            Vector3 newHookToLauncher = transform.position - hookAnchor;
-
-            Vector3 initialVelocity = rb.velocity;
-            Vector3 newVelocity = Vector3.ProjectOnPlane(initialVelocity, newHookToLauncher).normalized * initialVelocity.magnitude * velocityDecayMultiplier;
-            rb.velocity = newVelocity;
-
+            
 
             if(handsHolding.Count > 0){
+
                 BodyPartReferences bodyParts = handsHolding[0].playerBodyParts;
                 bool isGrounded = bodyParts.groundedStateTracker.isGrounded;
                 bool isClimbing = (bodyParts.leftClimbingHand.isClimbing || bodyParts.rightClimbingHand.isClimbing);
+
+
+                // Determine whether the cable should reel in
+                float triggerPullPercent = 0;
+                foreach(Hand hand in handsHolding){
+                    OVRInput.Controller controller = hand.GetComponent<OVRHandControllerLink>().controller;
+                    OVRInput.Axis1D trigger = OVRInput.Axis1D.PrimaryIndexTrigger;
+                    triggerPullPercent = Mathf.Max(triggerPullPercent, OVRInput.Get(trigger, controller));
+                }
+                // Reel in cable at a speed determined by the trigger pull percentage, activate haptics
+                if(triggerPullPercent > reelInTriggerThreshold){
+                    ReelInCable(triggerPullPercent * reelInRate, Time.fixedDeltaTime, bodyParts.playerRigidbody, -newHookToLauncher.normalized);
+                    
+                    foreach(Hand hand in handsHolding){
+                        hand.SetHaptics(reelInHapticFrequency, reelInHapticAmplitude * triggerPullPercent);
+                    }
+                }
+                else{
+                    foreach(Hand hand in handsHolding){
+                        hand.ClearHaptics();
+                    }
+                }
+
 
                 // Player controls movement while grounded or climbing, but constrained to within radius of cable length
                 if(isGrounded || isClimbing){
@@ -96,7 +124,7 @@ public class GrapplingHookLauncher : MonoBehaviour
                         hand.EnableFollowForce();
                     }
                 }
-
+  
                 // Physics controls movement of the gun while the player is not grounded, and the player's body is attached to the hands by spring force
                 else {
                     Hand leftHand = null;
@@ -150,10 +178,12 @@ public class GrapplingHookLauncher : MonoBehaviour
                         bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
                     }
 
+
                     rb.isKinematic = false;
                     rb.useGravity = true;
-                    //float combinedMass = rb.mass + (handsHolding.Count * handsHolding[0].GetMass());
-                    //rb.AddForce(new Vector3(0, -9.81f * combinedMass, 0), ForceMode.Force);
+                    float combinedMass = rb.mass + (handsHolding.Count * handsHolding[0].GetMass());
+                    //float combinedMass = rb.mass;
+                    rb.AddForce(new Vector3(0, -9.81f * combinedMass, 0), ForceMode.Force);
 
 
                     // Set haptic strength based on distance from ideal position
@@ -162,23 +192,6 @@ public class GrapplingHookLauncher : MonoBehaviour
                         float gradient = Mathf.Clamp(handDistance / maxSwingingHapticDistance, swingingHapticBaseGradient, 1);
                         hand.SetHaptics(swingingHapticFrequency, swingingHapticMaxAmplitude * gradient);
                     } 
-                }
-
-
-                // Determine whether the gun should reel in its cable
-                float triggerPullPercent = 0;
-                foreach(Hand hand in handsHolding){
-                    OVRInput.Controller controller = hand.GetComponent<OVRHandControllerLink>().controller;
-                    OVRInput.Axis1D trigger = OVRInput.Axis1D.PrimaryIndexTrigger;
-                    triggerPullPercent = Mathf.Max(triggerPullPercent, OVRInput.Get(trigger, controller));
-                }
-                // Reel in cable at a speed determined by the trigger pull percentage, activate haptics
-                if(triggerPullPercent > reelInTriggerThreshold){
-                    ReelInCable(triggerPullPercent * reelInRate, Time.fixedDeltaTime, bodyParts.playerRigidbody, -newHookToLauncher.normalized);
-                    
-                    foreach(Hand hand in handsHolding){
-                        hand.SetHaptics(reelInHapticFrequency * triggerPullPercent, reelInHapticAmplitude);
-                    }
                 }
             }
             
@@ -274,9 +287,9 @@ public class GrapplingHookLauncher : MonoBehaviour
 
         if(cableLength > minCableLength){
             float distanceMoved = rate * timeStep;
-            //Vector3 translation = direction.normalized * distanceMoved;
-            //playerRigidbody.transform.Translate(translation, Space.World);
-            playerRigidbody.velocity = rate * direction.normalized;
+            Vector3 translation = direction.normalized * distanceMoved;
+            playerRigidbody.transform.Translate(translation, Space.World);
+            //playerRigidbody.velocity = rate * direction.normalized;
 
             cableLength -= distanceMoved;
         }
@@ -293,6 +306,8 @@ public class GrapplingHookLauncher : MonoBehaviour
         
             currentHookState = HookState.Unloaded;
             cableLength = minCableLength;
+
+            ReloadHook();
         } 
     }
 }

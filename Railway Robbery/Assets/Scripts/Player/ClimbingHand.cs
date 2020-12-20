@@ -58,6 +58,18 @@ public class ClimbingHand : MonoBehaviour
         handAnchorRotation = handTransform.rotation;
     }
 
+
+    public bool IsHoldingObject(){
+        // Returns whether the attached hand is holding on to a grabbable
+        if(autoHand.GetHeldGrabbable() != null){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
     public void Freeze(){
         // Disables movement and grabbing with this hand, locking it in place
 

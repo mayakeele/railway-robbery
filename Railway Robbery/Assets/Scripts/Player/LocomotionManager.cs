@@ -94,7 +94,7 @@ public class LocomotionManager : MonoBehaviour
         }
 
         // Safeguard for testing, remove later
-        if (transform.position.y < -5){
+        if (transform.position.y < -20){
             transform.position = new Vector3(transform.position.x, 2, transform.position.z);
             bodyParts.playerRigidbody.velocity = Vector3.zero;
         }

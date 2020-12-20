@@ -96,7 +96,10 @@ public class ClimbingManager : MonoBehaviour
         Hand autoHand = isLeft ? bodyParts.leftHand : bodyParts.rightHand;
         ControllerCollisionTrigger climbingTrigger = isLeft ? leftClimbingTrigger : rightClimbingTrigger;
 
-        if ((climbingTrigger.isColliding || climbingHand.isClimbing) && bodyParts.inputHandler.GetHeldState(climbingHand.grabButton)){
+        if ((climbingTrigger.isColliding || climbingHand.isClimbing) 
+        && bodyParts.inputHandler.GetHeldState(climbingHand.grabButton) 
+        && !climbingHand.IsHoldingObject())
+        {
             // Detect if this is the first frame climbing is initiated
             if(climbingHand.isClimbing == false){
                 StartClimbing(autoHand);

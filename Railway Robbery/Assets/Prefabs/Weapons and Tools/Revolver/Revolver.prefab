@@ -387,7 +387,7 @@ MonoBehaviour:
   releaseOnTeleport: 0
   throwMultiplyer: 1
   handType: 0
-  singleHandOnly: 1
+  singleHandOnly: 0
   instantGrab: 1
   parentOnGrab: 1
   lockHandOnGrab: 0
