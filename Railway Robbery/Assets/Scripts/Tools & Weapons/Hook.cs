@@ -6,14 +6,23 @@ public class Hook : MonoBehaviour
 {
     [Header("Hook Properties")]
     public float launchSpeed;
-    public float minHookingSpeed;
+    public float maxHookableAngle;
     public int ignoreLauncherFrames;
     public LayerMask hookableLayers;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [Space]
+    [SerializeField] private List<AudioClip> successfulHookSounds;
+    [SerializeField] [Range(0, 1)] private float successfulHookVolume;
+    [Space]
+    [SerializeField] private List<AudioClip> unsuccessfulHookSounds;
+    [SerializeField] [Range(0, 1)] private float unsuccessfulHookVolume;
 
     [Header("References")]
     public Transform buryPoint;
     public Rigidbody rb;
-    public GrapplingHookLauncher attachedLauncher;
+    [HideInInspector] public GrapplingHookLauncher attachedLauncher;
 
 
     bool hookable = true;
@@ -24,6 +33,7 @@ public class Hook : MonoBehaviour
     {
         rb.velocity = transform.forward * launchSpeed;
     }
+
 
     void Update()
     {   
@@ -38,12 +48,14 @@ public class Hook : MonoBehaviour
 
         if(hookable){
 
+            Vector3 hitNormal = other.GetContact(0).normal;
+
              // Ignore collision with the launcher in the first few frames
             if(numFramesIgnored < ignoreLauncherFrames){
                 numFramesIgnored++;
             
                 if(other.gameObject.GetComponentInParent<GrapplingHookLauncher>() == false){
-                    if(hookableLayers.Contains(other.gameObject.layer) && rb.velocity.magnitude >= minHookingSpeed){
+                    if(hookableLayers.Contains(other.gameObject.layer) && Vector3.Angle(hitNormal, -transform.forward) <= maxHookableAngle){
                         OnHookSuccess();
                     }
                     else{
@@ -55,7 +67,7 @@ public class Hook : MonoBehaviour
 
             // Can collide with anything afterwards
             else{
-                if(hookableLayers.Contains(other.gameObject.layer) && rb.velocity.magnitude >= minHookingSpeed){
+                if(hookableLayers.Contains(other.gameObject.layer) && Vector3.Angle(hitNormal, -rb.velocity) <= maxHookableAngle){
                     OnHookSuccess();
                 }
                 else{
@@ -73,12 +85,16 @@ public class Hook : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("StaticStructure");
         gameObject.tag = "Climbable";
         attachedLauncher?.OnHookSuccess();
+
+        audioSource.PlayClip(successfulHookSounds.RandomChoice(), successfulHookVolume);
     }
 
     private void OnHookFail(){
         hookable = false;
 
         attachedLauncher?.OnHookFail();
+
+        audioSource.PlayClip(unsuccessfulHookSounds.RandomChoice(), unsuccessfulHookVolume);
     }
 
 

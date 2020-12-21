@@ -79,7 +79,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.15671158
+        value: 0.18656005
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -119,7 +119,7 @@ LineRenderer:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
-    numCapVertices: 2
+    numCapVertices: 4
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
@@ -329,6 +329,133 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5903716995365422195, guid: 77187214c1fc61946adf81219221f531, type: 3}
+--- !u!1 &3983414005815811501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5334871491916842009}
+  - component: {fileID: 5669884233844297510}
+  m_Layer: 0
+  m_Name: Audio Source
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5334871491916842009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3983414005815811501}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7403443703470992966}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &5669884233844297510
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3983414005815811501}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 1
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 0.39
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4693330079832981050
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +725,7 @@ Transform:
   - {fileID: 8069297524365111907}
   - {fileID: 6696311642672458575}
   - {fileID: 7312534958832339581}
+  - {fileID: 5334871491916842009}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -614,16 +742,91 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reelInRate: 4
-  velocityDecayMultiplier: 1
-  minCableLength: 0.3
   reelInTriggerThreshold: 0.1
   oneHandedSpringFrequency: 16
   twoHandedSpringFrequency: 16
   springDamping: 0.5
+  cablePullMultiplier: 0.3
+  minCableLength: 0.3
+  numCableSegments: 25
+  lowestCablePointAtDistance:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.5
+      inSlope: 0.5
+      outSlope: 0.5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0.5
+      outSlope: 0.5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  cableShapeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -2
+      outSlope: -7.0441403
+      tangentMode: 1
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.19894123
+    - serializedVersion: 3
+      time: 0.5
+      value: -1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 6.9689775
+      outSlope: 0
+      tangentMode: 1
+      weightedMode: 3
+      inWeight: 0.20108688
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  audioSource: {fileID: 5669884233844297510}
+  launchSounds:
+  - {fileID: 8300000, guid: 3e07b525d0ac54343b01e225e4d60f03, type: 3}
+  launchVolume: 0.815
+  reelSound: {fileID: 8300000, guid: ea5a7369bbd177c468542cdd159c0b36, type: 3}
+  reelVolume: 0.88
+  reelPitchMin: 0.95
+  reelPitchMax: 1.1
+  releaseSounds:
+  - {fileID: 8300000, guid: a1a4e181cda86d64c90f80980dbdcb94, type: 3}
+  releaseVolume: 0.512
+  launchHapticFrequency: 0.583
+  launchHapticAmplitude: 0.842
+  launchHapticTime: 0.2
+  hookImpactHapticFrequency: 0.172
+  hookImpactHapticAmplitude: 0.101
+  hookImpactHapticTime: 0.12
   reelInHapticFrequency: 0.595
   reelInHapticAmplitude: 0.633
   swingingHapticFrequency: 0.366
-  swingingHapticMaxAmplitude: 0.652
+  swingingHapticMaxAmplitude: 0.728
   swingingHapticBaseGradient: 0.2
   maxSwingingHapticDistance: 0.8
   hookPrefab: {fileID: 1382651287706178709, guid: 958618efbfcf8064c9e32cfb9e6f292f,
@@ -660,7 +863,7 @@ MonoBehaviour:
   lockHandOnGrab: 0
   maintainGrabOffset: 0
   hightlightMaterial: {fileID: 0}
-  pullApartBreakOnly: 0
+  pullApartBreakOnly: 1
   makeChildrenGrabbable: 1
   jointBreakForce: 4000
   jointBreakTorque: 4000
@@ -671,7 +874,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: EnableFollowForce
+        m_MethodName: FollowController
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -682,7 +885,29 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_MethodName: EnableFollowForce
+        m_MethodName: ClearHaptics
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: FollowController
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: ClearHaptics
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -858,8 +1083,8 @@ Rigidbody:
   m_GameObject: {fileID: 7923380398641247484}
   serializedVersion: 2
   m_Mass: 1.5
-  m_Drag: 0
-  m_AngularDrag: 0
+  m_Drag: 0.1
+  m_AngularDrag: 0.4
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1

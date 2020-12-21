@@ -16,14 +16,41 @@ public class GrapplingHookLauncher : MonoBehaviour
 
     [Header("Grappling Gun Settings")]
     [SerializeField] private float reelInRate;
-    [SerializeField] private float velocityDecayMultiplier;
-    [SerializeField] private float minCableLength;
     [SerializeField] private float reelInTriggerThreshold;
     [SerializeField] private float oneHandedSpringFrequency;
     [SerializeField] private float twoHandedSpringFrequency;
     [SerializeField] private float springDamping;
+    [SerializeField] private float cablePullMultiplier;
 
-    [Header("Haptic Settings")]
+    [Header("Cable Settings")]
+    [SerializeField] private float minCableLength;
+    [SerializeField] private int numCableSegments;
+    [SerializeField] private AnimationCurve lowestCablePointAtDistance;
+    [SerializeField] private AnimationCurve cableShapeCurve;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [Space]
+    [SerializeField] private List<AudioClip> launchSounds;
+    [SerializeField] [Range(0, 1)] private float launchVolume;
+    [Space]
+    [SerializeField] private AudioClip reelSound;
+    [SerializeField] [Range(0, 1)] private float reelVolume;
+    [SerializeField] private float reelPitchMin;
+    [SerializeField] private float reelPitchMax;
+    [Space]
+    [SerializeField] private List<AudioClip> releaseSounds;
+    [SerializeField] [Range(0, 1)] private float releaseVolume;
+
+    [Header("Haptics")]
+    [SerializeField] [Range(0, 1)] private float launchHapticFrequency;
+    [SerializeField] [Range(0, 1)] private float launchHapticAmplitude;
+    [SerializeField] [Range(0, 1)] private float launchHapticTime;
+    [Space]
+    [SerializeField] [Range(0, 1)] private float hookImpactHapticFrequency;
+    [SerializeField] [Range(0, 1)] private float hookImpactHapticAmplitude;
+    [SerializeField] [Range(0, 1)] private float hookImpactHapticTime;
+    [Space]
     [SerializeField] [Range(0, 1)] private float reelInHapticFrequency;
     [SerializeField] [Range(0, 1)] private float reelInHapticAmplitude;
     [Space]
@@ -65,8 +92,11 @@ public class GrapplingHookLauncher : MonoBehaviour
 
     void Start()
     {
-        currentHookState = HookState.Unloaded;
         swingingVelocity = Vector3.zero;
+
+        currentHookState = HookState.Unloaded;
+        ReloadHook();
+        LaunchHook();
     }
 
     void FixedUpdate()
@@ -84,8 +114,10 @@ public class GrapplingHookLauncher : MonoBehaviour
 
                 newHookToLauncher = transform.position - hookAnchor;
                 Vector3 initialVelocity = rb.velocity;
-                Vector3 newVelocity = Vector3.ProjectOnPlane(initialVelocity, newHookToLauncher).normalized * initialVelocity.magnitude * velocityDecayMultiplier;
+                Vector3 newVelocity = Vector3.ProjectOnPlane(initialVelocity, newHookToLauncher).normalized * initialVelocity.magnitude;
                 rb.velocity = newVelocity;
+
+                rb.AddForceAtPosition(-newHookToLauncher * rb.mass * 9.81f * cablePullMultiplier, cableOriginTransform.position);
             }
             
 
@@ -105,13 +137,24 @@ public class GrapplingHookLauncher : MonoBehaviour
                 }
                 // Reel in cable at a speed determined by the trigger pull percentage, activate haptics
                 if(triggerPullPercent > reelInTriggerThreshold){
-                    ReelInCable(triggerPullPercent * reelInRate, Time.fixedDeltaTime, bodyParts.playerRigidbody, -newHookToLauncher.normalized);
+                    ReelInCable(triggerPullPercent * reelInRate, Time.fixedDeltaTime, bodyParts.playerRigidbody, handsHolding, -newHookToLauncher.normalized);
                     
+                    audioSource.clip = reelSound;
+                    audioSource.pitch = triggerPullPercent * (reelPitchMax - reelPitchMin) + reelPitchMin;
+                    audioSource.loop = true;
+                    if(!audioSource.isPlaying){
+                        audioSource.Play();
+                    }
+
                     foreach(Hand hand in handsHolding){
                         hand.SetHaptics(reelInHapticFrequency, reelInHapticAmplitude * triggerPullPercent);
                     }
                 }
                 else{
+                    audioSource.pitch = 1;
+                    audioSource.loop = false;
+                    audioSource.Pause();
+
                     foreach(Hand hand in handsHolding){
                         hand.ClearHaptics();
                     }
@@ -204,13 +247,18 @@ public class GrapplingHookLauncher : MonoBehaviour
                 }
             }
         }
+    }
 
 
-        if (currentHookState == HookState.Launched || currentHookState == HookState.Hooked || currentHookState == HookState.Failed){
-            RenderCable(cableOriginTransform.position, attachedHook.transform.position);
+    private void Update() {
+        if (currentHookState == HookState.Launched){
+            RenderCableLinear(cableOriginTransform.position, attachedHook.transform.position);
+        }
+        else if(currentHookState == HookState.Hooked || currentHookState == HookState.Failed){
+            RenderCableCurved(cableOriginTransform.position, attachedHook.transform.position, numCableSegments);
         }
         else if(currentHookState == HookState.Loaded){
-            RenderCable(cableOriginTransform.position, barrelTipTransform.position);
+            RenderCableLinear(cableOriginTransform.position, barrelTipTransform.position);
         }
         else{
             HideCable();
@@ -221,11 +269,35 @@ public class GrapplingHookLauncher : MonoBehaviour
 
     // ~~~ Regular Functions ~~~ //
 
-    public void RenderCable(Vector3 startPosition, Vector3 endPosition){
+    public void RenderCableLinear(Vector3 startPosition, Vector3 endPosition){
         // Enables the attached line renderer and sets its endpoints between the launcher and hook
         lineRenderer.positionCount = 2;
         lineRenderer.SetPosition(0, startPosition);
         lineRenderer.SetPosition(1, endPosition);
+        lineRenderer.enabled = true;
+    }
+    public void RenderCableCurved(Vector3 startPosition, Vector3 endPosition, int numSegments){
+        // Enables the attached line renderer, sets its endpoints between the launcher and hook and accounts sag due to slack
+        int numVertices = numSegments + 1;
+
+        float distanceBetween = Mathf.Clamp((endPosition - startPosition).magnitude, 0, cableLength);
+        float distancePercentBetween = distanceBetween / cableLength;
+
+        float curveHeight = -cableLength * lowestCablePointAtDistance.Evaluate(distancePercentBetween);
+
+        // Evaluate the cable shape curve at multiple sample points
+        float segmentLength = distanceBetween / numSegments;
+        List<Vector3> samplePoints = new List<Vector3>();
+        for(int i = 0; i < numVertices; i++){
+            float samplePercent = (float) i / numSegments;
+            float heightOffset = curveHeight * cableShapeCurve.Evaluate(samplePercent);
+
+            Vector3 currentPoint = Vector3.Lerp(startPosition, endPosition, samplePercent) + new Vector3(0, heightOffset, 0);
+            samplePoints.Add(currentPoint);
+        }
+
+        lineRenderer.positionCount = samplePoints.Count;
+        lineRenderer.SetPositions(samplePoints.ToArray());
         lineRenderer.enabled = true;
     }
     public void HideCable(){
@@ -255,7 +327,8 @@ public class GrapplingHookLauncher : MonoBehaviour
             attachedHook.Attach(this);
 
             currentHookState = HookState.Launched;
-   
+
+            audioSource.PlayClip(launchSounds.RandomChoice(), launchVolume);
         }       
     }
 
@@ -282,13 +355,17 @@ public class GrapplingHookLauncher : MonoBehaviour
             cableLength = minCableLength;
         }    
     }
-    private void ReelInCable(float rate, float timeStep, Rigidbody playerRigidbody, Vector3 direction){
+    private void ReelInCable(float rate, float timeStep, Rigidbody playerRigidbody, List<Hand> handsHolding, Vector3 direction){
         // Continues to reel in the cable length until it gets to the minimum length
 
         if(cableLength > minCableLength){
             float distanceMoved = rate * timeStep;
             Vector3 translation = direction.normalized * distanceMoved;
+
             playerRigidbody.transform.Translate(translation, Space.World);
+            foreach(Hand hand in handsHolding){
+                hand.transform.Translate(translation, Space.World);
+            }
             //playerRigidbody.velocity = rate * direction.normalized;
 
             cableLength -= distanceMoved;
@@ -306,6 +383,8 @@ public class GrapplingHookLauncher : MonoBehaviour
         
             currentHookState = HookState.Unloaded;
             cableLength = minCableLength;
+
+            audioSource.PlayClip(releaseSounds.RandomChoice(), releaseVolume);
 
             ReloadHook();
         } 
