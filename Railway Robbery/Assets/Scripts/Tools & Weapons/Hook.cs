@@ -25,13 +25,12 @@ public class Hook : MonoBehaviour
     [HideInInspector] public GrapplingHookLauncher attachedLauncher;
 
 
-    bool hookable = true;
-    int numFramesIgnored = 0;
+    private bool hookable = true;
+    private int numFramesIgnored = 0;
 
- 
-    void Start()
-    {
-        rb.velocity = transform.forward * launchSpeed;
+
+    public void Launch(Vector3 parentVelocity){
+        rb.velocity = (transform.forward * launchSpeed) + parentVelocity;
     }
 
 
@@ -55,7 +54,7 @@ public class Hook : MonoBehaviour
                 numFramesIgnored++;
             
                 if(other.gameObject.GetComponentInParent<GrapplingHookLauncher>() == false){
-                    if(hookableLayers.Contains(other.gameObject.layer) && Vector3.Angle(hitNormal, -transform.forward) <= maxHookableAngle){
+                    if(hookableLayers.Contains(other.gameObject.layer)){
                         OnHookSuccess();
                     }
                     else{
@@ -67,7 +66,7 @@ public class Hook : MonoBehaviour
 
             // Can collide with anything afterwards
             else{
-                if(hookableLayers.Contains(other.gameObject.layer) && Vector3.Angle(hitNormal, -rb.velocity) <= maxHookableAngle){
+                if(hookableLayers.Contains(other.gameObject.layer)){
                     OnHookSuccess();
                 }
                 else{
@@ -79,8 +78,16 @@ public class Hook : MonoBehaviour
 
 
     private void OnHookSuccess(){
+        if(Physics.Raycast(transform.position - rb.velocity * Time.fixedDeltaTime, transform.forward, out RaycastHit hitInfo, 0.3f, hookableLayers)){
+            Vector3 buryPointOffset = buryPoint.position - transform.position;
+            Vector3 hitPoint = hitInfo.point;
+
+            transform.position = hitPoint - buryPointOffset;
+        }
+        
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         rb.isKinematic = true;
-        hookable = false;
+        hookable = false;   
 
         gameObject.layer = LayerMask.NameToLayer("StaticStructure");
         gameObject.tag = "Climbable";

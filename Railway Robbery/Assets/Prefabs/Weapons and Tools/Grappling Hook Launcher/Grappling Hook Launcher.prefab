@@ -79,7 +79,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.18656005
+        value: 0.2421173
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -746,9 +746,10 @@ MonoBehaviour:
   oneHandedSpringFrequency: 16
   twoHandedSpringFrequency: 16
   springDamping: 0.5
-  cablePullMultiplier: 0.3
+  cablePullMultiplier: 0.5
   minCableLength: 0.3
   numCableSegments: 25
+  cableBreakDistance: 0
   lowestCablePointAtDistance:
     serializedVersion: 2
     m_Curve:
@@ -809,26 +810,32 @@ MonoBehaviour:
   audioSource: {fileID: 5669884233844297510}
   launchSounds:
   - {fileID: 8300000, guid: 3e07b525d0ac54343b01e225e4d60f03, type: 3}
-  launchVolume: 0.815
+  launchVolume: 1
   reelSound: {fileID: 8300000, guid: ea5a7369bbd177c468542cdd159c0b36, type: 3}
   reelVolume: 0.88
   reelPitchMin: 0.95
   reelPitchMax: 1.1
   releaseSounds:
   - {fileID: 8300000, guid: a1a4e181cda86d64c90f80980dbdcb94, type: 3}
-  releaseVolume: 0.512
-  launchHapticFrequency: 0.583
+  releaseVolume: 0.798
+  cableSnapSounds:
+  - {fileID: 8300000, guid: 272fd396ca06ef848b71b3e3902a54b8, type: 3}
+  cableSnapVolume: 0.762
+  launchHapticFrequency: 0.7
   launchHapticAmplitude: 0.842
-  launchHapticTime: 0.2
+  launchHapticDuration: 0
   hookImpactHapticFrequency: 0.172
   hookImpactHapticAmplitude: 0.101
-  hookImpactHapticTime: 0.12
+  hookImpactHapticDuration: 0
   reelInHapticFrequency: 0.595
   reelInHapticAmplitude: 0.633
   swingingHapticFrequency: 0.366
-  swingingHapticMaxAmplitude: 0.728
+  swingingHapticMaxAmplitude: 0.814
   swingingHapticBaseGradient: 0.2
   maxSwingingHapticDistance: 0.8
+  cableSnapHapticFrequency: 0.805
+  cableSnapHapticAmplitude: 0.738
+  cableSnapHapticDuration: 0.12
   hookPrefab: {fileID: 1382651287706178709, guid: 958618efbfcf8064c9e32cfb9e6f292f,
     type: 3}
   hookLoadedModel: {fileID: 4780381209584104073, guid: 0538c997082f51c49a0def144ee21cc2,
@@ -874,7 +881,29 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: FollowController
+        m_MethodName: EnableFollowForce
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: ClearHaptics
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: EnableFollowForce
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -907,7 +936,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_MethodName: ClearHaptics
+        m_MethodName: FollowController
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -936,7 +965,73 @@ MonoBehaviour:
       m_Calls: []
   OnJointBreak:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: EnableFollowForce
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: ClearHaptics
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: EnableFollowForce
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: ClearHaptics
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: FollowController
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: FollowController
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onAction1:
     m_PersistentCalls:
       m_Calls:
@@ -1084,7 +1179,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1.5
   m_Drag: 0.1
-  m_AngularDrag: 0.4
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1

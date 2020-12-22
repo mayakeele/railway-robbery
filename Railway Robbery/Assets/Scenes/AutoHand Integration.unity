@@ -14999,6 +14999,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 686807594394875228, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: m_Drag
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 7403443703470992966, guid: a34b4e32bef280345bad6cf79a472c39,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15079,6 +15084,106 @@ PrefabInstance:
       propertyPath: onRelease.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
       objectReference: {fileID: 5263418580380516984}
+    - target: {fileID: 8539629315780614464, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: onRelease.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 7180530802869213025}
+    - target: {fileID: 8539629315780614464, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: onRelease.m_PersistentCalls.m_Calls.Array.data[5].m_Target
+      value: 
+      objectReference: {fileID: 5263418580380516984}
+    - target: {fileID: 8539629315780614464, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: OnJointBreak.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7180530802869213025}
+    - target: {fileID: 8539629315780614464, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: OnJointBreak.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 7180530802869213025}
+    - target: {fileID: 8539629315780614464, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: OnJointBreak.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 5263418580380516984}
+    - target: {fileID: 8539629315780614464, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: OnJointBreak.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 5263418580380516984}
+    - target: {fileID: 8539629315780614464, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: OnJointBreak.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 7180530802869213025}
+    - target: {fileID: 8539629315780614464, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: OnJointBreak.m_PersistentCalls.m_Calls.Array.data[5].m_Target
+      value: 
+      objectReference: {fileID: 5263418580380516984}
+    - target: {fileID: 8539629315780614464, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: parentOnGrab
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: cableBreakDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: launchHapticDuration
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: hookImpactHapticDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: cableBreakDistanceHand
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: cableBreakDistanceLauncher
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: cableBreakHandDistance
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: oneHandedSpringFrequency
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: twoHandedSpringFrequency
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: reelInHapticFrequency
+      value: 0.743
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: numCableSegments
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993051355635316395, guid: a34b4e32bef280345bad6cf79a472c39,
+        type: 3}
+      propertyPath: reelPercentToMovePlayer
+      value: 0.95
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a34b4e32bef280345bad6cf79a472c39, type: 3}
 --- !u!1 &4411114236531470892
@@ -15311,8 +15416,8 @@ MonoBehaviour:
   followPositionOffset: {x: 0, y: 0, z: 0}
   followPositionStrength: 45
   followRotationStrength: 30
-  maxVelocity: 50
-  maxFollowDistance: 0.75
+  maxVelocity: 500
+  maxFollowDistance: 2
   left: 0
   palmTransform: {fileID: 7977450223853887028}
   throwPower: 1.3
@@ -18638,8 +18743,8 @@ MonoBehaviour:
   followPositionOffset: {x: 0, y: 0, z: 0}
   followPositionStrength: 45
   followRotationStrength: 30
-  maxVelocity: 50
-  maxFollowDistance: 0.75
+  maxVelocity: 500
+  maxFollowDistance: 2
   left: 1
   palmTransform: {fileID: 2431983494530047212}
   throwPower: 1.3
