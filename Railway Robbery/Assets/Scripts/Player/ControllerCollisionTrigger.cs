@@ -6,8 +6,9 @@ public class ControllerCollisionTrigger : MonoBehaviour
 {
     public bool isLeftController;
 
+    private string climbableTag = "Climbable";
     [HideInInspector] public bool isColliding;
-
+    [HideInInspector] public Transform collidingTransform;
 
     void Update()
     {
@@ -16,14 +17,16 @@ public class ControllerCollisionTrigger : MonoBehaviour
 
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "Climbable"){
+        if (other.gameObject.tag == climbableTag){
             isColliding = true;
+            collidingTransform = other.gameObject.transform;
         }
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.gameObject.tag == "Climbable"){
+        if (other.gameObject.tag == climbableTag){
             isColliding = false;
+            collidingTransform = null;
         }
     }
 }

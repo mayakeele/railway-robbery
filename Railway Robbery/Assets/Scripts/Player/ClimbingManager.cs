@@ -26,10 +26,12 @@ public class ClimbingManager : MonoBehaviour
     private ClimbingHand rightHand;
     
 
+    // Variables
     private float currentSpringFrequency;
     private Vector3 leftBodyTarget;
     private Vector3 rightBodyTarget;
     private Vector3 mainBodyTarget;
+
 
 
     void Awake() {
@@ -87,6 +89,8 @@ public class ClimbingManager : MonoBehaviour
         }
     }
 
+
+
     private void UpdateClimbingHandState(bool isLeft){
         // Continue climbing if grip is held and the hand is touching climbable geometry / was previously climbing. 
         // Otherwise, update anchor positions and unfreeze the physics hand
@@ -102,16 +106,16 @@ public class ClimbingManager : MonoBehaviour
         {
             // Detect if this is the first frame climbing is initiated
             if(climbingHand.isClimbing == false){
-                StartClimbing(autoHand);
+                StartClimbing(autoHand, climbingHand, climbingTrigger.collidingTransform); 
             }
 
-            climbingHand.isClimbing = true;
-            climbingHand.Freeze();
+            climbingHand.FollowClimbingAnchor();
 
             autoHand.disableIK = true;
             autoHand.SetGrip(autoHand.gripOffset);
 
-            Vector3 targetPosition = transform.position - (controllerTransform.position - climbingHand.controllerAnchorPosition); //leftHand.controllerAnchor + leftHand.controllerToBodyOffset;
+            //Vector3 targetPosition = transform.position - (controllerTransform.position - climbingHand.controllerAnchorPosition);
+            Vector3 targetPosition = transform.position - (controllerTransform.position - climbingHand.climbingAnchor.position);
 
             if (isLeft) { leftBodyTarget = targetPosition; }
             else { rightBodyTarget = targetPosition; }
@@ -123,11 +127,8 @@ public class ClimbingManager : MonoBehaviour
         else{
             // Detect if climbing was just released this frame
             if(climbingHand.isClimbing){
-                StopClimbing(autoHand);
+                StopClimbing(autoHand, climbingHand);
             }
-
-            climbingHand.isClimbing = false;
-            climbingHand.Unfreeze();
 
             autoHand.disableIK = false;
 
@@ -138,11 +139,13 @@ public class ClimbingManager : MonoBehaviour
     }
 
 
-    private void StartClimbing(Hand hand){
-        hand.Release();
+    private void StartClimbing(Hand autoHand, ClimbingHand climbingHand, Transform climbingParent){
+        autoHand.Release();
+        climbingHand.OnClimbingStart(climbingParent);
     }
 
-    private void StopClimbing(Hand hand){
-        hand.ClearHaptics();
+    private void StopClimbing(Hand autoHand, ClimbingHand climbingHand){
+        autoHand.ClearHaptics();
+        climbingHand.OnClimbingStop();
     }
 }

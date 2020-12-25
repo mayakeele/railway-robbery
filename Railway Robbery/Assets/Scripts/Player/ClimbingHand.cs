@@ -5,32 +5,28 @@ using Autohand;
 
 public class ClimbingHand : MonoBehaviour
 {
-    [HideInInspector] public Rigidbody rb;
+    [Header("References")]
     [HideInInspector] public Hand autoHand;
+    public Transform controllerTransform;
+    private Rigidbody handRigidbody;
 
+
+    [Header("Hand Settings")]
     public bool isLeftHand;
+    [SerializeField] private float maxHandDistance;
     [HideInInspector] public InputHandler.InputButton grabButton;
 
-    [SerializeField] private float maxHandDisplacement = 0.3f;
-    
-    [SerializeField] private Vector3 rotationOffsetEuler;
-    [HideInInspector] public Quaternion rotationOffset;
-    [SerializeField] private Vector3 positionOffset;
 
-    [HideInInspector] public string collidingTag;
+
+    // Climbing Variables
     [HideInInspector] public bool isClimbing;
 
-    [HideInInspector] public float angleToController;
-    [HideInInspector] public Vector3 controllerToBodyOffset;
-    [HideInInspector] public Vector3 handToControllerOffset;
-
-    public Transform controllerTransform;
-    public Transform handTransform;
-    private Rigidbody handRigidbody;
-    
     [HideInInspector] public Vector3 controllerAnchorPosition;
     [HideInInspector] public Vector3 handAnchorPosition;
     [HideInInspector] public Quaternion handAnchorRotation;
+    
+    [HideInInspector] public Transform climbingAnchor;
+
 
 
     void Awake()
@@ -39,12 +35,25 @@ public class ClimbingHand : MonoBehaviour
 
         handRigidbody = GetComponent<Rigidbody>();
         autoHand = GetComponent<Hand>();
+
+        climbingAnchor = new GameObject("Climbing Anchor").transform;
     }
 
+
     void Start() {
-        Unfreeze();
+        OnClimbingStop();
         UpdateControllerAnchor();
     }
+
+
+    void Update() {
+        float handDistance = (controllerTransform.position - transform.position).magnitude;
+
+        if(isClimbing && handDistance > maxHandDistance){
+            OnClimbingStop();
+        }
+    }
+
 
 
     public void UpdateControllerAnchor(){
@@ -54,8 +63,8 @@ public class ClimbingHand : MonoBehaviour
 
     public void UpdateHandAnchor(){
         // Sets the transform of the climbing anchor to match the controller at this point in time
-        handAnchorPosition = handTransform.position;
-        handAnchorRotation = handTransform.rotation;
+        handAnchorPosition = transform.position;
+        handAnchorRotation = transform.rotation;
     }
 
 
@@ -69,46 +78,34 @@ public class ClimbingHand : MonoBehaviour
         }
     }
 
-
-    public void Freeze(){
+    
+    public void OnClimbingStart(Transform climbingParent){
         // Disables movement and grabbing with this hand, locking it in place
+        isClimbing = true;
 
         handRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         handRigidbody.isKinematic = true;
 
-        //autoHand.freezePos = true;
-        //autoHand.freezeRot = true;
+        climbingAnchor.SetPositionAndRotation(handAnchorPosition, handAnchorRotation);
+        climbingAnchor.SetParent(climbingParent);
 
         transform.SetPositionAndRotation(handAnchorPosition, handAnchorRotation);
     }
 
-    public void Unfreeze(){
+    public void OnClimbingStop(){
         // Re-enables movement and grabbing with this hand
+        isClimbing = false;
 
-        //autoHand.freezePos = false;
-        //autoHand.freezeRot = false;
+        climbingAnchor.SetPositionAndRotation(transform.position, transform.rotation);
+        climbingAnchor.SetParent(this.transform);
 
         handRigidbody.isKinematic = false;
         handRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
 
-    public void SetPositionOffset(Vector3 newPos){
-        // Sets the position of this hand to position, with respect to hand offset
-        transform.position = newPos + positionOffset;
-    }
-
-    public void SetRotationOffset(Quaternion newRot){
-        // Sets the position of this hand to position, with respect to hand offset
-        transform.rotation = newRot * rotationOffset;
-    }
-
-
-    private void OnCollisionEnter(Collision other) {
-        collidingTag = other.gameObject.tag;
-    }
-
-    private void OnCollisionExit(Collision other) {
-        collidingTag = null;
+    public void FollowClimbingAnchor(){
+        // Keep this hand locked onto the climbing anchor, even if the anchor is moving
+        transform.SetPositionAndRotation(climbingAnchor.position, climbingAnchor.rotation);
     }
 }
