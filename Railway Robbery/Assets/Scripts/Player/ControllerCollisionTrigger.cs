@@ -7,12 +7,19 @@ public class ControllerCollisionTrigger : MonoBehaviour
     public bool isLeftController;
 
     private string climbableTag = "Climbable";
+    private int triggerLayer;
+
     [HideInInspector] public bool isColliding;
     [HideInInspector] public Transform collidingTransform;
 
+
+    private void Awake() {
+        triggerLayer = LayerMask.NameToLayer("ClimbingTrigger");
+    }
+
     void Update()
     {
-        gameObject.layer = LayerMask.NameToLayer("ClimbingTrigger");
+        gameObject.layer = triggerLayer;
     }
 
 

@@ -13,6 +13,9 @@ public class ClimbingHand : MonoBehaviour
 
     [Header("Hand Settings")]
     public bool isLeftHand;
+    [SerializeField] private string handLayerName;
+    [SerializeField] private string handClimbingLayerName;
+
     [SerializeField] private float maxHandDistance;
     [HideInInspector] public InputHandler.InputButton grabButton;
 
@@ -25,6 +28,7 @@ public class ClimbingHand : MonoBehaviour
     [HideInInspector] public Vector3 handAnchorPosition;
     [HideInInspector] public Quaternion handAnchorRotation;
     
+    [HideInInspector] public GameObject climbedObject;
     [HideInInspector] public Transform climbingAnchor;
 
 
@@ -81,6 +85,8 @@ public class ClimbingHand : MonoBehaviour
     
     public void OnClimbingStart(Transform climbingParent){
         // Disables movement and grabbing with this hand, locking it in place
+        climbedObject = climbingParent.gameObject;
+
         isClimbing = true;
 
         handRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
@@ -90,6 +96,16 @@ public class ClimbingHand : MonoBehaviour
         climbingAnchor.SetParent(climbingParent);
 
         transform.SetPositionAndRotation(handAnchorPosition, handAnchorRotation);
+
+        
+        DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
+        if(dynamicClimbable){
+            dynamicClimbable.SetAttachedMass(autoHand.playerBodyParts.playerRigidbody.mass);
+            dynamicClimbable.SetClimbingState(true);
+        }
+
+
+        //Hand.SetLayerRecursive(autoHand.transform, LayerMask.NameToLayer(handClimbingLayerName));
     }
 
     public void OnClimbingStop(){
@@ -101,6 +117,17 @@ public class ClimbingHand : MonoBehaviour
 
         handRigidbody.isKinematic = false;
         handRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
+        if(climbedObject){
+            DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
+            if(dynamicClimbable){
+                dynamicClimbable.SetAttachedMass(0);
+                dynamicClimbable.SetClimbingState(false);
+            }
+            climbedObject = null;
+        }
+        
+        //Hand.SetLayerRecursive(autoHand.transform, LayerMask.NameToLayer(handLayerName));
     }
 
 

@@ -76,6 +76,7 @@ public class ClimbingManager : MonoBehaviour
             bodyParts.playerRigidbody.useGravity = true;
         }
 
+
         Vector3 bodySpringForce = DampedSpring.GetDampedSpringAcceleration(
             transform.position, 
             mainBodyTarget, 
@@ -84,9 +85,11 @@ public class ClimbingManager : MonoBehaviour
             springDamping
         );
 
+
         if (leftHand.isClimbing || rightHand.isClimbing){
             bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
         }
+
     }
 
 

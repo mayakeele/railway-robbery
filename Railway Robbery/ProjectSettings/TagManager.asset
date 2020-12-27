@@ -25,7 +25,7 @@ TagManager:
   - 
   - StaticStructure
   - MoveableStructure
-  - 
+  - BeingClimbed
   - PlayerDamageHitbox
   - EnemyDamageHitbox
   - 
@@ -42,7 +42,7 @@ TagManager:
   - Releasing
   - Player
   - ClimbingTrigger
-  - 
+  - HandClimbing
   - 
   - 
   m_SortingLayers:
