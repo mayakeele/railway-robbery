@@ -17,6 +17,6 @@ public class PlayerFollower : MonoBehaviour
     void Update()
     {
         Vector3 translationAmount = playerRigidbody.velocity * Time.deltaTime;
-        transform.Translate(translationAmount);
+        transform.Translate(translationAmount, Space.World);
     }
 }

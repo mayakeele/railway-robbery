@@ -29,6 +29,7 @@ public class ClimbingHand : MonoBehaviour
     [HideInInspector] public Quaternion handAnchorRotation;
     
     [HideInInspector] public GameObject climbedObject;
+    [HideInInspector] public Rigidbody climbedRigidbody;
     [HideInInspector] public Transform climbingAnchor;
 
 
@@ -105,7 +106,7 @@ public class ClimbingHand : MonoBehaviour
         }
 
 
-        //Hand.SetLayerRecursive(autoHand.transform, LayerMask.NameToLayer(handClimbingLayerName));
+        Hand.SetLayerRecursive(autoHand.transform, LayerMask.NameToLayer(handClimbingLayerName));
     }
 
     public void OnClimbingStop(){
@@ -127,7 +128,7 @@ public class ClimbingHand : MonoBehaviour
             climbedObject = null;
         }
         
-        //Hand.SetLayerRecursive(autoHand.transform, LayerMask.NameToLayer(handLayerName));
+        Hand.SetLayerRecursive(autoHand.transform, LayerMask.NameToLayer(handLayerName));
     }
 
 

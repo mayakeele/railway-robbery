@@ -44,10 +44,11 @@ public class ClimbingManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        bool isGrounded = bodyParts.groundedStateTracker.isGrounded;
+
         // Update the climbing state and targets for both hands
         UpdateClimbingHandState(true);
         UpdateClimbingHandState(false);
-
 
         // Calculate the target body position based on which hands are climbing
         if (leftHand.isClimbing && rightHand.isClimbing){
@@ -56,19 +57,62 @@ public class ClimbingManager : MonoBehaviour
             currentSpringFrequency = twoHandedSpringFrequency;
             bodyParts.playerRigidbody.useGravity = false;
 
+            // Apply spring forces to both hands
+            Vector3 rightHandSpringForce = DampedSpring.GetDampedSpringAcceleration(
+                transform.position, 
+                rightBodyTarget, 
+                bodyParts.playerRigidbody.velocity - Vector3.zero,
+                currentSpringFrequency,
+                springDamping
+            );
+            Vector3 leftHandSpringForce = DampedSpring.GetDampedSpringAcceleration(
+                transform.position, 
+                leftBodyTarget, 
+                bodyParts.playerRigidbody.velocity - Vector3.zero,
+                currentSpringFrequency,
+                springDamping
+            );
+
+            rightHand.climbedRigidbody?.AddForceAtPosition(-rightHandSpringForce / 2, rightHand.climbingAnchor.position,  ForceMode.Acceleration);
+            leftHand.climbedRigidbody?.AddForceAtPosition(-leftHandSpringForce / 2, leftHand.climbingAnchor.position, ForceMode.Acceleration);
         }
+
         else if(leftHand.isClimbing){
             mainBodyTarget = leftBodyTarget;
 
             currentSpringFrequency = oneHandedSpringFrequency;
             bodyParts.playerRigidbody.useGravity = false;
+
+            // Apply spring force to left hand
+            Vector3 leftHandSpringForce = DampedSpring.GetDampedSpringAcceleration(
+                transform.position, 
+                leftBodyTarget, 
+                bodyParts.playerRigidbody.velocity - Vector3.zero,
+                currentSpringFrequency,
+                springDamping
+            );
+
+            leftHand.climbedRigidbody?.AddForceAtPosition(-leftHandSpringForce / 2, leftHand.climbingAnchor.position, ForceMode.Acceleration);
         }
+
         else if (rightHand.isClimbing){
             mainBodyTarget = rightBodyTarget;
 
             currentSpringFrequency = oneHandedSpringFrequency;
             bodyParts.playerRigidbody.useGravity = false;
+
+            // Apply spring force to right climbed object
+            Vector3 rightHandSpringForce = DampedSpring.GetDampedSpringAcceleration(
+                transform.position, 
+                rightBodyTarget, 
+                bodyParts.playerRigidbody.velocity - Vector3.zero,
+                currentSpringFrequency,
+                springDamping
+            );
+
+            rightHand.climbedRigidbody?.AddForceAtPosition(-rightHandSpringForce / 2, rightHand.climbingAnchor.position,  ForceMode.Acceleration);
         }
+
         else{
             mainBodyTarget = transform.position;
 
@@ -81,13 +125,56 @@ public class ClimbingManager : MonoBehaviour
             transform.position, 
             mainBodyTarget, 
             bodyParts.playerRigidbody.velocity - Vector3.zero,
-            currentSpringFrequency, 
+            currentSpringFrequency,
             springDamping
         );
 
 
+        // Applies forces to player and climbed object differently based on what is being climbed
         if (leftHand.isClimbing || rightHand.isClimbing){
+            
+            int numSurfacesClimbed = 0;
+            if(leftHand.climbedRigidbody) numSurfacesClimbed++;
+            if(rightHand.climbedRigidbody) numSurfacesClimbed++;
+
+
             bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+
+
+            /*bool isClimbingStatic = false;
+            if((leftHand.isClimbing && !leftHand.climbedRigidbody) || (rightHand.isClimbing && !rightHand.climbedRigidbody)){
+                isClimbingStatic = true;
+            }
+
+            int numSurfacesClimbed = 0;
+            if(leftHand.climbedRigidbody) numSurfacesClimbed++;
+            if(rightHand.climbedRigidbody) numSurfacesClimbed++;
+            //if(leftHand.climbedRigidbody == rightHand.climbedRigidbody) numSurfacesClimbed = 1;
+
+
+            // Climbing on a static surface only
+            if(!leftHand.climbedRigidbody && !rightHand.climbedRigidbody){
+                bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);    
+            }
+
+            // Climbing on a mix between static and dynamic objects
+            else if(isClimbingStatic){
+                leftHand.climbedRigidbody?.AddForce(-bodySpringForce / numSurfacesClimbed, ForceMode.Acceleration);
+                rightHand.climbedRigidbody?.AddForce(-bodySpringForce / numSurfacesClimbed, ForceMode.Acceleration);
+
+                bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+            }
+
+            // Climbing on dynamic objects only
+            else{
+                leftHand.climbedRigidbody?.AddForce(-bodySpringForce / numSurfacesClimbed, ForceMode.Acceleration);
+                rightHand.climbedRigidbody?.AddForce(-bodySpringForce / numSurfacesClimbed, ForceMode.Acceleration);
+
+                if(!isGrounded){
+                    bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+                }
+            }*/
+
         }
 
     }
@@ -109,8 +196,8 @@ public class ClimbingManager : MonoBehaviour
         {
             // Detect if this is the first frame climbing is initiated
             if(climbingHand.isClimbing == false){
-                StartClimbing(autoHand, climbingHand, climbingTrigger.collidingTransform); 
-            }
+                StartClimbing(autoHand, climbingHand, climbingTrigger.collidingTransform, climbingTrigger);
+            }      
 
             climbingHand.FollowClimbingAnchor();
 
@@ -142,9 +229,17 @@ public class ClimbingManager : MonoBehaviour
     }
 
 
-    private void StartClimbing(Hand autoHand, ClimbingHand climbingHand, Transform climbingParent){
+    private void StartClimbing(Hand autoHand, ClimbingHand climbingHand, Transform climbingParent, ControllerCollisionTrigger climbingTrigger){
         autoHand.Release();
         climbingHand.OnClimbingStart(climbingParent);
+
+        Rigidbody climbedRigidbody = climbingTrigger.collidingTransform.GetComponent<Rigidbody>();
+        if(climbedRigidbody){
+            climbingHand.climbedRigidbody = climbedRigidbody;
+        }
+        else{
+            climbingHand.climbedRigidbody = null;
+        }
     }
 
     private void StopClimbing(Hand autoHand, ClimbingHand climbingHand){

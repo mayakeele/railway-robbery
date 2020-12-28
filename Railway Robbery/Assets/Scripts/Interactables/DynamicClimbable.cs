@@ -30,11 +30,11 @@ public class DynamicClimbable : MonoBehaviour
     public void SetClimbingState(bool isBeingClimbed){
         if(isBeingClimbed){
             //Autohand.Hand.SetLayerRecursive(transform, LayerMask.NameToLayer(beingClimbedLayerName));
-            gameObject.layer = LayerMask.NameToLayer(beingClimbedLayerName);
+            //gameObject.layer = LayerMask.NameToLayer(beingClimbedLayerName);
         }
         else{
             //Autohand.Hand.SetLayerRecursive(transform, LayerMask.NameToLayer(defaultLayerName));
-            gameObject.layer = LayerMask.NameToLayer(defaultLayerName);
+            //gameObject.layer = LayerMask.NameToLayer(defaultLayerName);
         }
     }
 }
