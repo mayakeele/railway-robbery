@@ -101,8 +101,8 @@ public class ClimbingHand : MonoBehaviour
         
         DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
         if(dynamicClimbable){
-            dynamicClimbable.SetAttachedMass(autoHand.playerBodyParts.playerRigidbody.mass);
-            dynamicClimbable.SetClimbingState(true);
+            //dynamicClimbable.SetAttachedMass(autoHand.playerBodyParts.playerRigidbody.mass);
+            //dynamicClimbable.SetClimbingState(true);
         }
 
 
@@ -122,8 +122,8 @@ public class ClimbingHand : MonoBehaviour
         if(climbedObject){
             DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
             if(dynamicClimbable){
-                dynamicClimbable.SetAttachedMass(0);
-                dynamicClimbable.SetClimbingState(false);
+                //dynamicClimbable.SetAttachedMass(0);
+                //dynamicClimbable.SetClimbingState(false);
             }
             climbedObject = null;
         }

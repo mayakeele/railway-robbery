@@ -43,12 +43,12 @@ public class ClimbingManager : MonoBehaviour
     
 
     void FixedUpdate()
-    {
-        bool isGrounded = bodyParts.groundedStateTracker.isGrounded;
+    { 
 
         // Update the climbing state and targets for both hands
         UpdateClimbingHandState(true);
         UpdateClimbingHandState(false);
+
 
         // Calculate the target body position based on which hands are climbing
         if (leftHand.isClimbing && rightHand.isClimbing){
@@ -56,43 +56,13 @@ public class ClimbingManager : MonoBehaviour
 
             currentSpringFrequency = twoHandedSpringFrequency;
             bodyParts.playerRigidbody.useGravity = false;
-
-            // Apply spring forces to both hands
-            Vector3 rightHandSpringForce = DampedSpring.GetDampedSpringAcceleration(
-                transform.position, 
-                rightBodyTarget, 
-                bodyParts.playerRigidbody.velocity - Vector3.zero,
-                currentSpringFrequency,
-                springDamping
-            );
-            Vector3 leftHandSpringForce = DampedSpring.GetDampedSpringAcceleration(
-                transform.position, 
-                leftBodyTarget, 
-                bodyParts.playerRigidbody.velocity - Vector3.zero,
-                currentSpringFrequency,
-                springDamping
-            );
-
-            rightHand.climbedRigidbody?.AddForceAtPosition(-rightHandSpringForce / 2, rightHand.climbingAnchor.position,  ForceMode.Acceleration);
-            leftHand.climbedRigidbody?.AddForceAtPosition(-leftHandSpringForce / 2, leftHand.climbingAnchor.position, ForceMode.Acceleration);
         }
 
         else if(leftHand.isClimbing){
             mainBodyTarget = leftBodyTarget;
 
             currentSpringFrequency = oneHandedSpringFrequency;
-            bodyParts.playerRigidbody.useGravity = false;
-
-            // Apply spring force to left hand
-            Vector3 leftHandSpringForce = DampedSpring.GetDampedSpringAcceleration(
-                transform.position, 
-                leftBodyTarget, 
-                bodyParts.playerRigidbody.velocity - Vector3.zero,
-                currentSpringFrequency,
-                springDamping
-            );
-
-            leftHand.climbedRigidbody?.AddForceAtPosition(-leftHandSpringForce / 2, leftHand.climbingAnchor.position, ForceMode.Acceleration);
+            bodyParts.playerRigidbody.useGravity = false;       
         }
 
         else if (rightHand.isClimbing){
@@ -100,17 +70,6 @@ public class ClimbingManager : MonoBehaviour
 
             currentSpringFrequency = oneHandedSpringFrequency;
             bodyParts.playerRigidbody.useGravity = false;
-
-            // Apply spring force to right climbed object
-            Vector3 rightHandSpringForce = DampedSpring.GetDampedSpringAcceleration(
-                transform.position, 
-                rightBodyTarget, 
-                bodyParts.playerRigidbody.velocity - Vector3.zero,
-                currentSpringFrequency,
-                springDamping
-            );
-
-            rightHand.climbedRigidbody?.AddForceAtPosition(-rightHandSpringForce / 2, rightHand.climbingAnchor.position,  ForceMode.Acceleration);
         }
 
         else{
@@ -130,15 +89,36 @@ public class ClimbingManager : MonoBehaviour
         );
 
 
-        // Applies forces to player and climbed object differently based on what is being climbed
-        if (leftHand.isClimbing || rightHand.isClimbing){
-            
-            int numSurfacesClimbed = 0;
-            if(leftHand.climbedRigidbody) numSurfacesClimbed++;
-            if(rightHand.climbedRigidbody) numSurfacesClimbed++;
+        // Applies forces to player and climbed object differently based on the state of the player and the climbed object(s)
+        bool isClimbing = leftHand.isClimbing || rightHand.isClimbing;
+        bool isClimbingStatic = (leftHand.isClimbing && !leftHand.climbedRigidbody) || 
+                              (rightHand.isClimbing && !rightHand.climbedRigidbody);
+        bool isGrounded = bodyParts.groundedStateTracker.isGrounded;
 
 
-            bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+        if(isClimbing){
+
+            // While climbing on a static surface, simply move player to where they should be
+            if(isClimbingStatic){
+                bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+            }
+
+            // Move the player if climbing on a dynamic object, while holding with both hands or not touching the ground
+            else if(!isGrounded || (leftHand.climbedRigidbody && rightHand.climbedRigidbody)){
+                bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+            }
+
+
+            // If a dynamic object is being climbed on, apply a force to it if the player is grounded or also climbing a static surface
+            if(isGrounded || isClimbingStatic){
+                leftHand.climbedRigidbody?.AddForceAtPosition(-bodySpringForce, leftHand.climbingAnchor.position, ForceMode.Force);
+                rightHand.climbedRigidbody?.AddForceAtPosition(-bodySpringForce, rightHand.climbingAnchor.position, ForceMode.Force);
+            }
+            else{
+                //Vector3 bodyTargetOffset = mainBodyTarget - transform.position;
+
+                //Vector3 leftHandOffset;
+            }
 
 
             /*bool isClimbingStatic = false;

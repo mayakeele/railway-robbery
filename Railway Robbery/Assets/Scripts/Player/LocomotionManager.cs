@@ -35,7 +35,12 @@ public class LocomotionManager : MonoBehaviour
 
         currentPosition = transform.position;
 
-        if(bodyParts.leftClimbingHand.isClimbing == false && bodyParts.rightClimbingHand.isClimbing == false){
+        bool handsClimbing = bodyParts.leftClimbingHand.isClimbing || bodyParts.rightClimbingHand.isClimbing;
+        bool climbingStatic = (bodyParts.leftClimbingHand.isClimbing && !bodyParts.leftClimbingHand.climbedRigidbody) || 
+                              (bodyParts.rightClimbingHand.isClimbing && !bodyParts.rightClimbingHand.climbedRigidbody);
+        bool isGrounded = bodyParts.groundedStateTracker.isGrounded;
+
+        if(!handsClimbing || (!climbingStatic && isGrounded)){
 
             // Get left stick input, apply velocity if outside of deadzone
             Vector2 movementInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.LTouch);
