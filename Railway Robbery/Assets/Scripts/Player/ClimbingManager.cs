@@ -80,10 +80,26 @@ public class ClimbingManager : MonoBehaviour
         }
 
 
+        Vector3 averageClimbedVelocity = Vector3.zero;
+        int numClimbedRigidbodies = 0;
+        if(leftHand.climbedRigidbody){
+            averageClimbedVelocity += leftHand.climbedRigidbody.velocity;
+            numClimbedRigidbodies++;
+        }
+        if(rightHand.climbedRigidbody){
+            averageClimbedVelocity += rightHand.climbedRigidbody.velocity;
+            numClimbedRigidbodies++;
+        }
+        if(numClimbedRigidbodies != 0) averageClimbedVelocity = averageClimbedVelocity / numClimbedRigidbodies;
+
+
+        Vector3 playerRelativeVelocity = bodyParts.playerRigidbody.velocity - averageClimbedVelocity;
+
+
         Vector3 bodySpringForce = DampedSpring.GetDampedSpringAcceleration(
             transform.position, 
             mainBodyTarget, 
-            bodyParts.playerRigidbody.velocity - Vector3.zero,
+            playerRelativeVelocity,
             currentSpringFrequency,
             springDamping
         );
@@ -109,54 +125,39 @@ public class ClimbingManager : MonoBehaviour
             }
 
 
-            // If a dynamic object is being climbed on, apply a force to it if the player is grounded or also climbing a static surface
-            if(isGrounded || isClimbingStatic){
-                leftHand.climbedRigidbody?.AddForceAtPosition(-bodySpringForce, leftHand.climbingAnchor.position, ForceMode.Force);
-                rightHand.climbedRigidbody?.AddForceAtPosition(-bodySpringForce, rightHand.climbingAnchor.position, ForceMode.Force);
+            // Apply hand forces to any climbed rigidbodies
+            if(leftHand.climbedRigidbody || rightHand.climbedRigidbody){
+                
+                Vector3 bodyTargetOffset = mainBodyTarget - transform.position;
+
+                Vector3 leftHandOffset = leftHand.transform.position - bodyParts.leftControllerTransform.position;
+                Vector3 rightHandOffset = rightHand.transform.position - bodyParts.rightControllerTransform.position;
+
+                Vector3 leftRelativeOffset = -leftHandOffset - bodyTargetOffset;
+                Vector3 rightRelativeOffset = -rightHandOffset - bodyTargetOffset;
+
+
+                Vector3 leftHandForce = DampedSpring.GetDampedSpringAcceleration(
+                    transform.position, 
+                    leftBodyTarget,
+                    playerRelativeVelocity,
+                    currentSpringFrequency,
+                    springDamping
+                );
+
+                Vector3 rightHandForce = DampedSpring.GetDampedSpringAcceleration(
+                    transform.position,
+                    rightBodyTarget,
+                    playerRelativeVelocity,
+                    currentSpringFrequency,
+                    springDamping
+                );
+
+
+                leftHand.climbedRigidbody?.AddForceAtPosition(-leftHandForce, leftHand.climbingAnchor.position, ForceMode.Force);
+                rightHand.climbedRigidbody?.AddForceAtPosition(-rightHandForce, rightHand.climbingAnchor.position, ForceMode.Force);
             }
-            else{
-                //Vector3 bodyTargetOffset = mainBodyTarget - transform.position;
-
-                //Vector3 leftHandOffset;
-            }
-
-
-            /*bool isClimbingStatic = false;
-            if((leftHand.isClimbing && !leftHand.climbedRigidbody) || (rightHand.isClimbing && !rightHand.climbedRigidbody)){
-                isClimbingStatic = true;
-            }
-
-            int numSurfacesClimbed = 0;
-            if(leftHand.climbedRigidbody) numSurfacesClimbed++;
-            if(rightHand.climbedRigidbody) numSurfacesClimbed++;
-            //if(leftHand.climbedRigidbody == rightHand.climbedRigidbody) numSurfacesClimbed = 1;
-
-
-            // Climbing on a static surface only
-            if(!leftHand.climbedRigidbody && !rightHand.climbedRigidbody){
-                bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);    
-            }
-
-            // Climbing on a mix between static and dynamic objects
-            else if(isClimbingStatic){
-                leftHand.climbedRigidbody?.AddForce(-bodySpringForce / numSurfacesClimbed, ForceMode.Acceleration);
-                rightHand.climbedRigidbody?.AddForce(-bodySpringForce / numSurfacesClimbed, ForceMode.Acceleration);
-
-                bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
-            }
-
-            // Climbing on dynamic objects only
-            else{
-                leftHand.climbedRigidbody?.AddForce(-bodySpringForce / numSurfacesClimbed, ForceMode.Acceleration);
-                rightHand.climbedRigidbody?.AddForce(-bodySpringForce / numSurfacesClimbed, ForceMode.Acceleration);
-
-                if(!isGrounded){
-                    bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
-                }
-            }*/
-
         }
-
     }
 
 
