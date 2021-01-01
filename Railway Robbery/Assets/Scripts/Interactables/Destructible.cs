@@ -12,13 +12,13 @@ public class Destructible : MonoBehaviour
     [Space]
     public bool canBreakByProjectile;
     [Space]
-    public bool canBreakByForce;
-    public float destructionForce;
+    public bool canBreakByMomentum;
+    public float destructionMomentum;
 
     [Header("Destruction Effects")]
     public GameObject destroyedBySpeedPrefab;
     public GameObject destroyedByProjectilePrefab;
-    public GameObject destroyedByForcePrefab;
+    public GameObject destroyedByMomentumPrefab;
     public GameObject destroyedByHandsPrefab;
 
     [Header("Components")]
@@ -42,10 +42,10 @@ public class Destructible : MonoBehaviour
             }
         }
 
-        if(canBreakByForce){
-            float forceDelivered = other.impulse.magnitude / Time.fixedDeltaTime;
-            if(forceDelivered > destructionForce){
-                DestroyByForce();
+        if(canBreakByMomentum && other.rigidbody){
+            float momentumDelivered = other.rigidbody.mass * other.rigidbody.velocity.magnitude;
+            if(momentumDelivered > destructionMomentum){
+                DestroyByMomentum();
             }
         }
     }
@@ -61,8 +61,8 @@ public class Destructible : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public void DestroyByForce(){
-        if(destroyedByForcePrefab != null) Instantiate(destroyedByForcePrefab, transform.position, transform.rotation);
+    public void DestroyByMomentum(){
+        if(destroyedByMomentumPrefab != null) Instantiate(destroyedByMomentumPrefab, transform.position, transform.rotation);
         Destroy(this.gameObject);
     }
 

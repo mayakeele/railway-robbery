@@ -26,13 +26,25 @@ public class GroundedStateTracker : MonoBehaviour
     }
 
 
-    void OnTriggerEnter(Collider other) {
+    /*void OnTriggerEnter(Collider other) {
         if(groundLayers.Contains(other.gameObject.layer)){
             numCollisions++;
         }
     }
 
     void OnTriggerExit(Collider other) {
+        if(groundLayers.Contains(other.gameObject.layer)){
+            numCollisions--;
+        }
+    }*/
+
+    void OnCollisionEnter(Collision other) {
+        if(groundLayers.Contains(other.gameObject.layer)){
+            numCollisions++;
+        }
+    }
+
+    void OnCollisionExit(Collision other) {
         if(groundLayers.Contains(other.gameObject.layer)){
             numCollisions--;
         }

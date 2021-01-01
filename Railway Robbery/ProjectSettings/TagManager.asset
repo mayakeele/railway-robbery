@@ -7,11 +7,12 @@ TagManager:
   - Placeable
   - projectile
   - FxTemporaire
-  - Climbable
   - TrainPartPrefabsContainer
   - TrainCarTypeContainer
   - ThemeLayerPaletteContainer
   - CargoPrefabContainer
+  - StaticClimbable
+  - DynamicClimbable
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - 
   - 
   - StaticStructure
-  - MoveableStructure
+  - DynamicStructure
   - BeingClimbed
   - PlayerDamageHitbox
   - EnemyDamageHitbox

@@ -201,13 +201,13 @@ MonoBehaviour:
   canBreakBySpeed: 1
   destructionSpeed: 2
   canBreakByProjectile: 1
-  canBreakByForce: 1
-  destructionForce: 320
+  canBreakByMomentum: 1
+  destructionMomentum: 1.5
   destroyedBySpeedPrefab: {fileID: 607072170870981586, guid: 7da16899c8affe242a71499d8d365865,
     type: 3}
   destroyedByProjectilePrefab: {fileID: 607072170870981586, guid: 7da16899c8affe242a71499d8d365865,
     type: 3}
-  destroyedByForcePrefab: {fileID: 607072170870981586, guid: 7da16899c8affe242a71499d8d365865,
+  destroyedByMomentumPrefab: {fileID: 607072170870981586, guid: 7da16899c8affe242a71499d8d365865,
     type: 3}
   destroyedByHandsPrefab: {fileID: 607072170870981586, guid: 7da16899c8affe242a71499d8d365865,
     type: 3}

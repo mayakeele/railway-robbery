@@ -10,7 +10,6 @@ public class ClimbingManager : MonoBehaviour
     [SerializeField] private float oneHandedSpringFrequency;
     [SerializeField] private float twoHandedSpringFrequency;
     [SerializeField] private float springDamping;
-    private string climbingTag = "Climbable";
 
     [Header("Haptic Settings")]
     [SerializeField] [Range(0, 1)] private float climbingHapticFrequency;
@@ -19,8 +18,8 @@ public class ClimbingManager : MonoBehaviour
     [SerializeField] private float maxHapticDistance;
 
     [Header("References")]
-    public ControllerCollisionTrigger leftClimbingTrigger;
-    public ControllerCollisionTrigger rightClimbingTrigger;
+    //public ControllerCollisionTrigger leftClimbingTrigger;
+    //public ControllerCollisionTrigger rightClimbingTrigger;
     private BodyPartReferences bodyParts;
     private ClimbingHand leftHand;
     private ClimbingHand rightHand;
@@ -154,8 +153,8 @@ public class ClimbingManager : MonoBehaviour
                 );
 
 
-                leftHand.climbedRigidbody?.AddForceAtPosition(-leftHandForce, leftHand.climbingAnchor.position, ForceMode.Force);
-                rightHand.climbedRigidbody?.AddForceAtPosition(-rightHandForce, rightHand.climbingAnchor.position, ForceMode.Force);
+                leftHand.climbedRigidbody?.AddForceAtPosition(-leftHandForce, leftHand.climbingAnchor.position, ForceMode.Acceleration);
+                rightHand.climbedRigidbody?.AddForceAtPosition(-rightHandForce, rightHand.climbingAnchor.position, ForceMode.Acceleration);
             }
         }
     }
@@ -169,15 +168,15 @@ public class ClimbingManager : MonoBehaviour
         Transform controllerTransform = isLeft ? bodyParts.leftControllerTransform : bodyParts.rightControllerTransform;
         ClimbingHand climbingHand = isLeft ? bodyParts.leftClimbingHand : bodyParts.rightClimbingHand;
         Hand autoHand = isLeft ? bodyParts.leftHand : bodyParts.rightHand;
-        ControllerCollisionTrigger climbingTrigger = isLeft ? leftClimbingTrigger : rightClimbingTrigger;
+        //ControllerCollisionTrigger climbingTrigger = isLeft ? leftClimbingTrigger : rightClimbingTrigger;
 
-        if ((climbingTrigger.isColliding || climbingHand.isClimbing) 
+        if ((climbingHand.isTriggerColliding || climbingHand.isClimbing) 
         && bodyParts.inputHandler.GetHeldState(climbingHand.grabButton) 
         && !climbingHand.IsHoldingObject())
         {
             // Detect if this is the first frame climbing is initiated
             if(climbingHand.isClimbing == false){
-                StartClimbing(autoHand, climbingHand, climbingTrigger.collidingTransform, climbingTrigger);
+                StartClimbing(autoHand, climbingHand);
             }      
 
             climbingHand.FollowClimbingAnchor();
@@ -210,17 +209,9 @@ public class ClimbingManager : MonoBehaviour
     }
 
 
-    private void StartClimbing(Hand autoHand, ClimbingHand climbingHand, Transform climbingParent, ControllerCollisionTrigger climbingTrigger){
+    private void StartClimbing(Hand autoHand, ClimbingHand climbingHand){
         autoHand.Release();
-        climbingHand.OnClimbingStart(climbingParent);
-
-        Rigidbody climbedRigidbody = climbingTrigger.collidingTransform.GetComponent<Rigidbody>();
-        if(climbedRigidbody){
-            climbingHand.climbedRigidbody = climbedRigidbody;
-        }
-        else{
-            climbingHand.climbedRigidbody = null;
-        }
+        climbingHand.OnClimbingStart();
     }
 
     private void StopClimbing(Hand autoHand, ClimbingHand climbingHand){

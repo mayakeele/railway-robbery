@@ -177,15 +177,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBreakBySpeed: 1
-  destructionSpeed: 3
+  destructionSpeed: 2.5
   canBreakByProjectile: 1
-  canBreakByForce: 1
-  destructionForce: 500
+  canBreakByMomentum: 1
+  destructionMomentum: 2
   destroyedBySpeedPrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
     type: 3}
   destroyedByProjectilePrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
     type: 3}
-  destroyedByForcePrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
+  destroyedByMomentumPrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
     type: 3}
   destroyedByHandsPrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
     type: 3}

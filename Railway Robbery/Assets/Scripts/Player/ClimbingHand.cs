@@ -8,6 +8,8 @@ public class ClimbingHand : MonoBehaviour
     [Header("References")]
     [HideInInspector] public Hand autoHand;
     public Transform controllerTransform;
+    public ControllerCollisionTrigger staticClimbingTrigger;
+    public ControllerCollisionTrigger dynamicClimbingTrigger;
     private Rigidbody handRigidbody;
 
 
@@ -23,6 +25,7 @@ public class ClimbingHand : MonoBehaviour
 
     // Climbing Variables
     [HideInInspector] public bool isClimbing;
+    [HideInInspector] public bool isTriggerColliding;
 
     [HideInInspector] public Vector3 controllerAnchorPosition;
     [HideInInspector] public Vector3 handAnchorPosition;
@@ -57,6 +60,8 @@ public class ClimbingHand : MonoBehaviour
         if(isClimbing && handDistance > maxHandDistance){
             OnClimbingStop();
         }
+
+        isTriggerColliding = (staticClimbingTrigger.isColliding || dynamicClimbingTrigger.isColliding);
     }
 
 
@@ -84,9 +89,15 @@ public class ClimbingHand : MonoBehaviour
     }
 
     
-    public void OnClimbingStart(Transform climbingParent){
+    public void OnClimbingStart(){
         // Disables movement and grabbing with this hand, locking it in place
-        climbedObject = climbingParent.gameObject;
+
+        if(staticClimbingTrigger.isColliding){
+            climbedObject = staticClimbingTrigger.collidingTransform.gameObject;
+        }
+        else{
+            climbedObject = dynamicClimbingTrigger.collidingTransform.gameObject;
+        }
 
         isClimbing = true;
 
@@ -94,20 +105,28 @@ public class ClimbingHand : MonoBehaviour
         handRigidbody.isKinematic = true;
 
         climbingAnchor.SetPositionAndRotation(handAnchorPosition, handAnchorRotation);
-        climbingAnchor.SetParent(climbingParent);
+        climbingAnchor.SetParent(climbedObject.transform);
 
         transform.SetPositionAndRotation(handAnchorPosition, handAnchorRotation);
 
         
-        DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
-        if(dynamicClimbable){
-            //dynamicClimbable.SetAttachedMass(autoHand.playerBodyParts.playerRigidbody.mass);
-            //dynamicClimbable.SetClimbingState(true);
+        Rigidbody currClimbedRigidbody = climbedObject.GetComponent<Rigidbody>();
+        if(currClimbedRigidbody){
+            climbedRigidbody = currClimbedRigidbody;
+
+            DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
+            if(dynamicClimbable){
+                dynamicClimbable.SetAttachedMass(autoHand.playerBodyParts.playerRigidbody.mass / 2);
+            }
+        }
+        else{
+            climbedRigidbody = null;
         }
 
 
         Hand.SetLayerRecursive(autoHand.transform, LayerMask.NameToLayer(handClimbingLayerName));
     }
+
 
     public void OnClimbingStop(){
         // Re-enables movement and grabbing with this hand
@@ -120,10 +139,11 @@ public class ClimbingHand : MonoBehaviour
         handRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
         if(climbedObject){
+            climbedRigidbody = null;
+
             DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
             if(dynamicClimbable){
-                //dynamicClimbable.SetAttachedMass(0);
-                //dynamicClimbable.SetClimbingState(false);
+                dynamicClimbable.SetAttachedMass(0);
             }
             climbedObject = null;
         }

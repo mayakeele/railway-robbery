@@ -6,7 +6,7 @@ public class DynamicClimbable : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private float defaultMass;
-    [SerializeField] private string defaultLayerName = "MoveableStructure";
+    [SerializeField] private string defaultLayerName = "DynamicStructure";
     [SerializeField] private string beingClimbedLayerName = "BeingClimbed";
 
     [Header("References")]
@@ -15,7 +15,7 @@ public class DynamicClimbable : MonoBehaviour
 
     void Awake() {
         if(!rb) rb = GetComponent<Rigidbody>();
-        gameObject.tag = "Climbable";
+        gameObject.tag = "DynamicClimbable";
     }
     void Start() {
         rb.mass = defaultMass;

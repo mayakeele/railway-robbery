@@ -267,6 +267,10 @@ namespace Autohand {
                 velocityOverTime[i] = velocityOverTime[i];
             }
             velocityOverTime[0] = body.velocity;
+
+
+            // Added by Grant Keele
+            Debug.Log(body.velocity.magnitude);
         }
         
         /// <summary>Manages where the hands ideal position should be -> where it will TRY to physics move/torque to</summary>
@@ -463,6 +467,10 @@ namespace Autohand {
             else if(grabLocked || holdingObj == null) {
                 BreakGrabConnection();
             }
+
+
+            // Added by Grant Keele
+            Debug.Log("~~~~~ OBJECT THROWN WITH SPEED: " + body.velocity.magnitude + " ~~~~~");
         }
         
 
