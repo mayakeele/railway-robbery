@@ -14,9 +14,9 @@ public class PlayerFollower : MonoBehaviour
         autoHand = GetComponent<Hand>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        Vector3 translationAmount = playerRigidbody.velocity * Time.deltaTime;
+        Vector3 translationAmount = playerRigidbody.velocity * Time.fixedDeltaTime;
         transform.Translate(translationAmount, Space.World);
     }
 }

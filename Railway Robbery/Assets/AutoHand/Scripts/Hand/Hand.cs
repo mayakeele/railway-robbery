@@ -270,7 +270,7 @@ namespace Autohand {
 
 
             // Added by Grant Keele
-            Debug.Log(body.velocity.magnitude);
+            //Debug.Log(body.velocity.magnitude);
         }
         
         /// <summary>Manages where the hands ideal position should be -> where it will TRY to physics move/torque to</summary>

@@ -126,35 +126,36 @@ public class ClimbingManager : MonoBehaviour
 
             // Apply hand forces to any climbed rigidbodies
             if(leftHand.climbedRigidbody || rightHand.climbedRigidbody){
-                
-                Vector3 bodyTargetOffset = mainBodyTarget - transform.position;
 
-                Vector3 leftHandOffset = leftHand.transform.position - bodyParts.leftControllerTransform.position;
-                Vector3 rightHandOffset = rightHand.transform.position - bodyParts.rightControllerTransform.position;
+                if(leftHand.climbedRigidbody){
+                    Vector3 leftHandForce = DampedSpring.GetDampedSpringAcceleration(
+                        transform.position, 
+                        leftBodyTarget,
+                        playerRelativeVelocity,
+                        currentSpringFrequency,
+                        springDamping
+                    );
 
-                Vector3 leftRelativeOffset = -leftHandOffset - bodyTargetOffset;
-                Vector3 rightRelativeOffset = -rightHandOffset - bodyTargetOffset;
+                    //Vector3 leftHandTorque = DampedSpring.GetDampedSpringAngularAcceleration(
+                        //leftHand.climbingAnchor.rotation,
+                        //bodyParts.leftControllerTransform.rotation,
+                        //leftHand.climbedRigidbody,
 
+                    //);
 
-                Vector3 leftHandForce = DampedSpring.GetDampedSpringAcceleration(
-                    transform.position, 
-                    leftBodyTarget,
-                    playerRelativeVelocity,
-                    currentSpringFrequency,
-                    springDamping
-                );
+                    leftHand.climbedRigidbody.AddForceAtPosition(-leftHandForce / numClimbedRigidbodies, leftHand.climbingAnchor.position, ForceMode.Acceleration);
+                } 
+                if(rightHand.climbedRigidbody){
+                    Vector3 rightHandForce = DampedSpring.GetDampedSpringAcceleration(
+                        transform.position,
+                        rightBodyTarget,
+                        playerRelativeVelocity,
+                        currentSpringFrequency,
+                        springDamping
+                    );
 
-                Vector3 rightHandForce = DampedSpring.GetDampedSpringAcceleration(
-                    transform.position,
-                    rightBodyTarget,
-                    playerRelativeVelocity,
-                    currentSpringFrequency,
-                    springDamping
-                );
-
-
-                leftHand.climbedRigidbody?.AddForceAtPosition(-leftHandForce, leftHand.climbingAnchor.position, ForceMode.Acceleration);
-                rightHand.climbedRigidbody?.AddForceAtPosition(-rightHandForce, rightHand.climbingAnchor.position, ForceMode.Acceleration);
+                    rightHand.climbedRigidbody.AddForceAtPosition(-rightHandForce / numClimbedRigidbodies, rightHand.climbingAnchor.position, ForceMode.Acceleration);
+                } 
             }
         }
     }
@@ -177,7 +178,7 @@ public class ClimbingManager : MonoBehaviour
             // Detect if this is the first frame climbing is initiated
             if(climbingHand.isClimbing == false){
                 StartClimbing(autoHand, climbingHand);
-            }      
+            }
 
             climbingHand.FollowClimbingAnchor();
 

@@ -8,6 +8,7 @@ public class DynamicClimbable : MonoBehaviour
     [SerializeField] private float defaultMass;
     [SerializeField] private string defaultLayerName = "DynamicStructure";
     [SerializeField] private string beingClimbedLayerName = "BeingClimbed";
+    [SerializeField] private float maximumMassDifference = 10;
 
     [Header("References")]
     public Rigidbody rb;
@@ -24,7 +25,9 @@ public class DynamicClimbable : MonoBehaviour
 
     public void SetAttachedMass(float attachedMass){
         // Adds to the mass of this object, simulating an attached mass without using joints
-        rb.mass = defaultMass + attachedMass;
+        float maxMass = defaultMass * maximumMassDifference;
+
+        rb.mass = Mathf.Clamp(defaultMass + attachedMass, defaultMass, maxMass);
     }
 
     public void SetClimbingState(bool isBeingClimbed){

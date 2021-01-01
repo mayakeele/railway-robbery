@@ -116,7 +116,8 @@ public class ClimbingHand : MonoBehaviour
 
             DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
             if(dynamicClimbable){
-                dynamicClimbable.SetAttachedMass(autoHand.playerBodyParts.playerRigidbody.mass / 2);
+                dynamicClimbable.SetAttachedMass(autoHand.playerBodyParts.playerRigidbody.mass);
+                //dynamicClimbable.SetClimbingState(true);
             }
         }
         else{
@@ -144,11 +145,12 @@ public class ClimbingHand : MonoBehaviour
             DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
             if(dynamicClimbable){
                 dynamicClimbable.SetAttachedMass(0);
+                //dynamicClimbable.SetClimbingState(false);
             }
             climbedObject = null;
         }
         
-        Hand.SetLayerRecursive(autoHand.transform, LayerMask.NameToLayer(handLayerName));
+        //Hand.SetLayerRecursive(autoHand.transform, LayerMask.NameToLayer(handLayerName));
     }
 
 

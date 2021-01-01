@@ -14748,7 +14748,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2474687470328043085}
   m_Material: {fileID: 13400000, guid: 6c626e32c9d9ed843bda01786db0051b, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.1
@@ -15414,6 +15414,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1007502504}
     m_Modifications:
+    - target: {fileID: 4065823551713783020, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065823551804587562, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065823551934203649, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065823552167305383, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065823552240452055, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065823552382314279, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4065823552894373708, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
         type: 3}
       propertyPath: m_Name
@@ -15472,6 +15502,31 @@ PrefabInstance:
     - target: {fileID: 4065823552894373709, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065823553050954523, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065823553223527831, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065823553249342963, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065823553405983609, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065823553554308083, guid: d7c576ef14cc9b14385a6ed0e3b0c040,
+        type: 3}
+      propertyPath: m_Interpolate
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -20501,7 +20556,7 @@ MonoBehaviour:
   useIPDInPositionTracking: 1
   resetTrackerOnLoad: 0
   AllowRecenter: 0
-  LateControllerUpdate: 1
+  LateControllerUpdate: 0
 --- !u!114 &7956464546368854223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20882,7 +20937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMovementSpeed: 3.1
   maxRotationSpeed: 130
-  jumpSpeed: 5
+  jumpSpeed: 4.5
   useHeadAsForward: 1
   translationStickDeadzone: 0.1
   rotationStickDeadzone: 0.1
@@ -21000,7 +21055,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7956464546977418353}
-  m_Material: {fileID: 13400000, guid: cbad1c0cf0fd0e441a2511b432708d78, type: 2}
+  m_Material: {fileID: 13400000, guid: 6c626e32c9d9ed843bda01786db0051b, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.1

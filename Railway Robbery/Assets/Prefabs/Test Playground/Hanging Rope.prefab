@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4065823551713783018}
   - component: {fileID: 4065823551713783020}
   - component: {fileID: 4065823551713783021}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rope (7)
   m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
@@ -51,6 +51,7 @@ MonoBehaviour:
   defaultMass: 0.3
   defaultLayerName: MoveableStructure
   beingClimbedLayerName: BeingClimbed
+  maximumMassDifference: 10
   rb: {fileID: 0}
 --- !u!33 &4065823551713783016
 MeshFilter:
@@ -189,7 +190,7 @@ GameObject:
   - component: {fileID: 4065823551804587560}
   - component: {fileID: 4065823551804587562}
   - component: {fileID: 4065823551804587563}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rope (3)
   m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
@@ -225,6 +226,7 @@ MonoBehaviour:
   defaultMass: 0.3
   defaultLayerName: MoveableStructure
   beingClimbedLayerName: BeingClimbed
+  maximumMassDifference: 10
   rb: {fileID: 0}
 --- !u!33 &4065823551804587558
 MeshFilter:
@@ -363,7 +365,7 @@ GameObject:
   - component: {fileID: 4065823551934203679}
   - component: {fileID: 4065823551934203649}
   - component: {fileID: 4065823551934203678}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rope (5)
   m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
@@ -399,6 +401,7 @@ MonoBehaviour:
   defaultMass: 0.3
   defaultLayerName: MoveableStructure
   beingClimbedLayerName: BeingClimbed
+  maximumMassDifference: 10
   rb: {fileID: 0}
 --- !u!33 &4065823551934203677
 MeshFilter:
@@ -537,7 +540,7 @@ GameObject:
   - component: {fileID: 4065823552167305381}
   - component: {fileID: 4065823552167305383}
   - component: {fileID: 4065823552167305380}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rope (4)
   m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
@@ -573,6 +576,7 @@ MonoBehaviour:
   defaultMass: 0.3
   defaultLayerName: MoveableStructure
   beingClimbedLayerName: BeingClimbed
+  maximumMassDifference: 10
   rb: {fileID: 0}
 --- !u!33 &4065823552167305379
 MeshFilter:
@@ -711,7 +715,7 @@ GameObject:
   - component: {fileID: 4065823552240452052}
   - component: {fileID: 4065823552240452055}
   - component: {fileID: 4065823552240452054}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rope (10)
   m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
@@ -747,6 +751,7 @@ MonoBehaviour:
   defaultMass: 0.3
   defaultLayerName: MoveableStructure
   beingClimbedLayerName: BeingClimbed
+  maximumMassDifference: 10
   rb: {fileID: 0}
 --- !u!33 &4065823552240452050
 MeshFilter:
@@ -885,7 +890,7 @@ GameObject:
   - component: {fileID: 4065823552382314277}
   - component: {fileID: 4065823552382314279}
   - component: {fileID: 4065823552382314276}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rope (9)
   m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
@@ -921,6 +926,7 @@ MonoBehaviour:
   defaultMass: 0.3
   defaultLayerName: MoveableStructure
   beingClimbedLayerName: BeingClimbed
+  maximumMassDifference: 10
   rb: {fileID: 0}
 --- !u!33 &4065823552382314275
 MeshFilter:
@@ -1101,7 +1107,7 @@ GameObject:
   - component: {fileID: 4065823553050954521}
   - component: {fileID: 4065823553050954523}
   - component: {fileID: 4065823553050954520}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rope (1)
   m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
@@ -1137,6 +1143,7 @@ MonoBehaviour:
   defaultMass: 0.3
   defaultLayerName: MoveableStructure
   beingClimbedLayerName: BeingClimbed
+  maximumMassDifference: 10
   rb: {fileID: 0}
 --- !u!33 &4065823553050954519
 MeshFilter:
@@ -1385,7 +1392,7 @@ GameObject:
   - component: {fileID: 4065823553223527829}
   - component: {fileID: 4065823553223527831}
   - component: {fileID: 4065823553223527828}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rope (6)
   m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
@@ -1421,6 +1428,7 @@ MonoBehaviour:
   defaultMass: 0.3
   defaultLayerName: MoveableStructure
   beingClimbedLayerName: BeingClimbed
+  maximumMassDifference: 10
   rb: {fileID: 0}
 --- !u!33 &4065823553223527827
 MeshFilter:
@@ -1559,7 +1567,7 @@ GameObject:
   - component: {fileID: 4065823553249342961}
   - component: {fileID: 4065823553249342963}
   - component: {fileID: 4065823553249342960}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rope (2)
   m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
@@ -1595,6 +1603,7 @@ MonoBehaviour:
   defaultMass: 0.3
   defaultLayerName: MoveableStructure
   beingClimbedLayerName: BeingClimbed
+  maximumMassDifference: 10
   rb: {fileID: 0}
 --- !u!33 &4065823553249342927
 MeshFilter:
@@ -1733,7 +1742,7 @@ GameObject:
   - component: {fileID: 4065823553405983607}
   - component: {fileID: 4065823553405983609}
   - component: {fileID: 4065823553405983606}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rope (8)
   m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
@@ -1769,6 +1778,7 @@ MonoBehaviour:
   defaultMass: 0.3
   defaultLayerName: MoveableStructure
   beingClimbedLayerName: BeingClimbed
+  maximumMassDifference: 10
   rb: {fileID: 0}
 --- !u!33 &4065823553405983605
 MeshFilter:
@@ -1907,7 +1917,7 @@ GameObject:
   - component: {fileID: 4065823553554308081}
   - component: {fileID: 4065823553554308083}
   - component: {fileID: 4065823553554308080}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Rope (0)
   m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
@@ -1943,6 +1953,7 @@ MonoBehaviour:
   defaultMass: 0.3
   defaultLayerName: MoveableStructure
   beingClimbedLayerName: BeingClimbed
+  maximumMassDifference: 10
   rb: {fileID: 0}
 --- !u!33 &4065823553554308047
 MeshFilter:
