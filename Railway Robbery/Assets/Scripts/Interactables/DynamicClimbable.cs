@@ -6,8 +6,8 @@ public class DynamicClimbable : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private float defaultMass;
-    [SerializeField] private string defaultLayerName = "DynamicStructure";
-    [SerializeField] private string beingClimbedLayerName = "BeingClimbed";
+    //[SerializeField] private string defaultLayerName = "DynamicStructure";
+    //[SerializeField] private string beingClimbedLayerName = "BeingClimbed";
     [SerializeField] private float maximumMassDifference = 10;
 
     [Header("References")]
