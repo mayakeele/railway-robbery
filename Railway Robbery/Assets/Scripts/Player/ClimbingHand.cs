@@ -110,19 +110,19 @@ public class ClimbingHand : MonoBehaviour
         transform.SetPositionAndRotation(handAnchorPosition, handAnchorRotation);
 
         
-        Rigidbody currClimbedRigidbody = climbedObject.GetComponent<Rigidbody>();
-        if(currClimbedRigidbody){
-            climbedRigidbody = currClimbedRigidbody;
+        DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
+        if(dynamicClimbable){
+            dynamicClimbable.SetAttachedMass(autoHand.playerBodyParts.playerRigidbody.mass);
 
-            DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
-            if(dynamicClimbable){
-                dynamicClimbable.SetAttachedMass(autoHand.playerBodyParts.playerRigidbody.mass);
-                //dynamicClimbable.SetClimbingState(true);
+            if(dynamicClimbable.rb){
+                climbedRigidbody = dynamicClimbable.rb;
             }
+            else{
+                climbedRigidbody = null;
+            }
+            //dynamicClimbable.SetClimbingState(true);
         }
-        else{
-            climbedRigidbody = null;
-        }
+        
 
 
         Hand.SetLayerRecursive(autoHand.transform, LayerMask.NameToLayer(handClimbingLayerName));

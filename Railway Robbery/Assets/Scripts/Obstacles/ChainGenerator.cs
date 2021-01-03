@@ -8,11 +8,9 @@ public class ChainGenerator : MonoBehaviour
     public int numSegments;
     public float segmentLength;
     public float turnAngle;
+    public bool lockFirstSegment;
+    public bool lockLastSegment;
 
-    [Header("Joint Settings")]
-    public float maxTwist;
-    public float maxAngle1;
-    public float maxAngle2;
 
     [Header("Prefabs")]
     public GameObject segmentPrefab;
@@ -42,6 +40,10 @@ public class ChainGenerator : MonoBehaviour
 
 
             GameObject currentSegment = Instantiate(segmentPrefab, currentPosition, currentRotation, startTransform);
+
+            if((lockFirstSegment && i == 0) || (lockLastSegment && i == numSegments-1)){
+                currentSegment.GetComponent<Rigidbody>().isKinematic = true;
+            }
 
             Joint currentJoint = currentSegment.GetComponent<Joint>();
             if(previousRigidbody) currentJoint.connectedBody = previousRigidbody;
