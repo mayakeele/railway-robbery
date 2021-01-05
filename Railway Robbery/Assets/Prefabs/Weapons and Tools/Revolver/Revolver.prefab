@@ -387,7 +387,7 @@ MonoBehaviour:
   releaseOnTeleport: 0
   throwMultiplyer: 1
   handType: 0
-  singleHandOnly: 0
+  singleHandOnly: 1
   instantGrab: 1
   parentOnGrab: 1
   lockHandOnGrab: 0
@@ -399,10 +399,32 @@ MonoBehaviour:
   jointBreakTorque: 6000
   onGrab:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6710409737771622620}
+        m_MethodName: SetCenterOfMassToHands
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onRelease:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6710409737771622620}
+        m_MethodName: ResetCenterOfMass
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onSqueeze:
     m_PersistentCalls:
       m_Calls:

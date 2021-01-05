@@ -31,7 +31,7 @@ public class BodyManager : MonoBehaviour
         float feetHeight = (currHeadsetHeight * currLegLiftPercent) + bodyRadius - footHeightOffset;
         bodyParts.feetCollider.transform.position = new Vector3(bodyParts.cameraTransform.position.x, transform.position.y + feetHeight, bodyParts.cameraTransform.position.z);
 
-        if (bodyParts.leftClimbingHand.isClimbing && bodyParts.rightClimbingHand.isClimbing){
+        if (bodyParts.leftClimbingHand.isClimbing && bodyParts.rightClimbingHand.isClimbing && !bodyParts.groundedStateTracker.isGrounded){
             // Scale body capsule collider to match the current height of the player's headset and the height of the player's feet
             if (!areLegsMoving){
                 StartCoroutine(InterpolateLegLift(maxLegLiftPercent, legLiftTime));

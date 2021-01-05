@@ -54,21 +54,21 @@ public class ClimbingManager : MonoBehaviour
             mainBodyTarget = (leftBodyTarget + rightBodyTarget) / 2;
 
             currentSpringFrequency = twoHandedSpringFrequency;
-            bodyParts.playerRigidbody.useGravity = false;
+            //bodyParts.playerRigidbody.useGravity = false;
         }
 
         else if(leftHand.isClimbing){
             mainBodyTarget = leftBodyTarget;
 
             currentSpringFrequency = oneHandedSpringFrequency;
-            bodyParts.playerRigidbody.useGravity = false;       
+            //bodyParts.playerRigidbody.useGravity = false;       
         }
 
         else if (rightHand.isClimbing){
             mainBodyTarget = rightBodyTarget;
 
             currentSpringFrequency = oneHandedSpringFrequency;
-            bodyParts.playerRigidbody.useGravity = false;
+            //bodyParts.playerRigidbody.useGravity = false;
         }
 
         else{

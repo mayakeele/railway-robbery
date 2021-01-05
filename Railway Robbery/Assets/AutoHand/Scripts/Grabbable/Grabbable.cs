@@ -301,6 +301,28 @@ namespace Autohand {
         }
 
 
+        // Added by Grant Keele
+        public void SetCenterOfMassToHands(){
+            // Reduces twisting of the object when moving at high speeds by moving the attached rigidbody's center of mass onto the connected hand(s)
+            if(heldBy.Count > 0){
+                Vector3 averageHandPosition = Vector3.zero;
+                int numHandsHolding = heldBy.Count;
+                foreach(Hand hand in heldBy){
+                    averageHandPosition += hand.transform.position;
+                }
+                averageHandPosition /= numHandsHolding;
+
+                Vector3 localHandPosition = transform.InverseTransformVector(averageHandPosition);
+
+                body.centerOfMass = localHandPosition;
+            } 
+        }
+
+        public void ResetCenterOfMass(){
+            // Resets the attached rigidbody's center of mass
+            body.ResetCenterOfMass();
+        }
+
 
         /// <summary>Tells each hand holding this object to release</summary>
         public virtual void HandRelease() {

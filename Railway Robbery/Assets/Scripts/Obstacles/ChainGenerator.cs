@@ -4,13 +4,25 @@ using UnityEngine;
 using UnityEditor;
 
 public class ChainGenerator : MonoBehaviour
-{  
+{
+    public enum AttachedMassDistrubution{
+        Zero,
+        TopDown,
+        Equal,
+        Neighbors
+        //Edges,
+        //Middle
+    }
+
+
     [Header("Chain Settings")]
     public int numSegments;
     public float segmentLength;
     public float turnAngle;
     public bool lockFirstSegment;
     public bool lockLastSegment;
+    public AttachedMassDistrubution attachedMassDistrubution;
+    public int neighborRadius = 1;
 
     private float segmentMass;
 
@@ -52,7 +64,31 @@ public class ChainGenerator : MonoBehaviour
             Rigidbody currentRigidbody = currentSegment.GetComponent<Rigidbody>();
             DynamicClimbable currentDynamicClimbable = currentSegment.GetComponent<DynamicClimbable>();
 
-            currentDynamicClimbable.attachedMass = segmentMass * (numSegments - (i + 1));
+            switch(attachedMassDistrubution){
+                case AttachedMassDistrubution.Zero:
+                    currentDynamicClimbable.attachedMass = 0;
+                break;
+
+                case AttachedMassDistrubution.TopDown:
+                    currentDynamicClimbable.attachedMass = segmentMass * (numSegments - (i + 1));
+                break;
+
+                case AttachedMassDistrubution.Equal:
+                    currentDynamicClimbable.attachedMass = segmentMass * (numSegments-1);
+                break;
+
+                case AttachedMassDistrubution.Neighbors:
+                    float neighborMass = 0;
+                    for (int n = -neighborRadius; n <= neighborRadius; n++){
+                        int neighborIndex = i + n;
+                        if(neighborIndex >= 0 && neighborIndex < numSegments && neighborIndex != i){
+                            neighborMass += segmentMass;
+                        }
+                    }
+                    currentDynamicClimbable.attachedMass = neighborMass;
+                break;
+            }
+            
 
             if((lockFirstSegment && i == 0) || (lockLastSegment && i == numSegments-1)){
                 currentRigidbody.isKinematic = true;
