@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 243745247737226332}
   - component: {fileID: 588324132486217445}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Rope Knot
-  m_TagString: Untagged
+  m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 8875501437314548999}
   - component: {fileID: 3044842588458492612}
   - component: {fileID: 2697412367818223713}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Knot.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 716263120808534983}
   - component: {fileID: 4068524881629149186}
   - component: {fileID: 310309934762635967}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Knot.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 63196529971752670}
   - component: {fileID: 7406236823328273393}
   - component: {fileID: 2934075453049241663}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Knot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 3249724896904078022}
   - component: {fileID: 5173027467749359853}
   - component: {fileID: 4963501931000251270}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Knot.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}

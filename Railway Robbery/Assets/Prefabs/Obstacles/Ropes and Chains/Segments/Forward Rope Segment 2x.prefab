@@ -51,7 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultMass: 1
   maximumMassDifference: 5
-  rb: {fileID: 0}
+  attachedMass: 0
+  rb: {fileID: 6700966116436477}
 --- !u!54 &6700966116436477
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -79,9 +80,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.025
-  m_Height: 0.2
+  m_Height: 0.4
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.075}
+  m_Center: {x: 0, y: 0, z: 0.15}
 --- !u!144 &6700966116436479
 CharacterJoint:
   m_ObjectHideFlags: 0

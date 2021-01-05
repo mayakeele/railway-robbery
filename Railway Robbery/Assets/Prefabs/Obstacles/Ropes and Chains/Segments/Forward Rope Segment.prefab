@@ -130,7 +130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultMass: 1
   maximumMassDifference: 5
-  rb: {fileID: 0}
+  attachedMass: 0
+  rb: {fileID: 7573118629577951231}
 --- !u!54 &7573118629577951231
 Rigidbody:
   m_ObjectHideFlags: 0

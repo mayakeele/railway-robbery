@@ -128,8 +128,8 @@ public class ClimbingManager : MonoBehaviour
             if(leftHand.climbedRigidbody || rightHand.climbedRigidbody){
 
                 if(leftHand.climbedRigidbody){
-                    Vector3 leftHandForce = DampedSpring.GetDampedSpringAcceleration(
-                        transform.position, 
+                    Vector3 leftHandAcceleration = DampedSpring.GetDampedSpringAcceleration(
+                        transform.position,
                         leftBodyTarget,
                         playerRelativeVelocity,
                         currentSpringFrequency,
@@ -143,10 +143,12 @@ public class ClimbingManager : MonoBehaviour
 
                     //);
 
-                    leftHand.climbedRigidbody.AddForceAtPosition(-leftHandForce / numClimbedRigidbodies, leftHand.climbingAnchor.position, ForceMode.Acceleration);
+                    float climbedMass = leftHand.dynamicClimbable.rb.mass + leftHand.dynamicClimbable.attachedMass;
+
+                    leftHand.climbedRigidbody.AddForceAtPosition(climbedMass * -leftHandAcceleration / numClimbedRigidbodies, leftHand.climbingAnchor.position, ForceMode.Force);
                 } 
                 if(rightHand.climbedRigidbody){
-                    Vector3 rightHandForce = DampedSpring.GetDampedSpringAcceleration(
+                    Vector3 rightHandAcceleration = DampedSpring.GetDampedSpringAcceleration(
                         transform.position,
                         rightBodyTarget,
                         playerRelativeVelocity,
@@ -154,7 +156,9 @@ public class ClimbingManager : MonoBehaviour
                         springDamping
                     );
 
-                    rightHand.climbedRigidbody.AddForceAtPosition(-rightHandForce / numClimbedRigidbodies, rightHand.climbingAnchor.position, ForceMode.Acceleration);
+                    float climbedMass = rightHand.dynamicClimbable.rb.mass + rightHand.dynamicClimbable.attachedMass;
+
+                    rightHand.climbedRigidbody.AddForceAtPosition(climbedMass * -rightHandAcceleration / numClimbedRigidbodies, rightHand.climbingAnchor.position, ForceMode.Force);
                 } 
             }
         }

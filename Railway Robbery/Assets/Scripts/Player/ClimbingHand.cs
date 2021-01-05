@@ -33,6 +33,7 @@ public class ClimbingHand : MonoBehaviour
     
     [HideInInspector] public GameObject climbedObject;
     [HideInInspector] public Rigidbody climbedRigidbody;
+    [HideInInspector] public DynamicClimbable dynamicClimbable;
     [HideInInspector] public Transform climbingAnchor;
 
 
@@ -110,9 +111,11 @@ public class ClimbingHand : MonoBehaviour
         transform.SetPositionAndRotation(handAnchorPosition, handAnchorRotation);
 
         
-        DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
+        dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
+        if(!dynamicClimbable) dynamicClimbable = climbedObject.GetComponentInParent<DynamicClimbable>();
+
         if(dynamicClimbable){
-            dynamicClimbable.SetAttachedMass(autoHand.playerBodyParts.playerRigidbody.mass);
+            //dynamicClimbable.SetMass(autoHand.playerBodyParts.playerRigidbody.mass);
 
             if(dynamicClimbable.rb){
                 climbedRigidbody = dynamicClimbable.rb;
@@ -142,9 +145,11 @@ public class ClimbingHand : MonoBehaviour
         if(climbedObject){
             climbedRigidbody = null;
 
-            DynamicClimbable dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
+            dynamicClimbable = climbedObject.GetComponent<DynamicClimbable>();
+            if(!dynamicClimbable) dynamicClimbable = climbedObject.GetComponentInParent<DynamicClimbable>();
+
             if(dynamicClimbable){
-                dynamicClimbable.SetAttachedMass(0);
+                //dynamicClimbable.SetAMass(0);
                 //dynamicClimbable.SetClimbingState(false);
             }
             climbedObject = null;

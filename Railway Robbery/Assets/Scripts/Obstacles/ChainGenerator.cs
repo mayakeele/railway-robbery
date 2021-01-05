@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class ChainGenerator : MonoBehaviour
 {  
@@ -10,6 +11,8 @@ public class ChainGenerator : MonoBehaviour
     public float turnAngle;
     public bool lockFirstSegment;
     public bool lockLastSegment;
+
+    private float segmentMass;
 
 
     [Header("Prefabs")]
@@ -21,6 +24,7 @@ public class ChainGenerator : MonoBehaviour
     void Start()
     {
         chainDirection.Normalize();
+        segmentMass = segmentPrefab.GetComponent<DynamicClimbable>().rb.mass;
 
         GenerateChain();
     }
@@ -39,10 +43,19 @@ public class ChainGenerator : MonoBehaviour
             Quaternion currentRotation = Quaternion.AngleAxis(currentAngle, chainDirection);
 
 
-            GameObject currentSegment = Instantiate(segmentPrefab, currentPosition, currentRotation, startTransform);
+            GameObject currentSegment = PrefabUtility.InstantiatePrefab(segmentPrefab) as GameObject;
+            currentSegment.transform.position = currentPosition;
+            currentSegment.transform.rotation = currentRotation;
+            currentSegment.transform.parent = startTransform;
+            
+
+            Rigidbody currentRigidbody = currentSegment.GetComponent<Rigidbody>();
+            DynamicClimbable currentDynamicClimbable = currentSegment.GetComponent<DynamicClimbable>();
+
+            currentDynamicClimbable.attachedMass = segmentMass * (numSegments - (i + 1));
 
             if((lockFirstSegment && i == 0) || (lockLastSegment && i == numSegments-1)){
-                currentSegment.GetComponent<Rigidbody>().isKinematic = true;
+                currentRigidbody.isKinematic = true;
             }
 
             Joint currentJoint = currentSegment.GetComponent<Joint>();

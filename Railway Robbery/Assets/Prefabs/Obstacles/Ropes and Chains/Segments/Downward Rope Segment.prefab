@@ -209,7 +209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultMass: 1
   maximumMassDifference: 5
-  rb: {fileID: 0}
+  attachedMass: 0
+  rb: {fileID: 6844613602134081993}
 --- !u!54 &6844613602134081993
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -219,8 +220,8 @@ Rigidbody:
   m_GameObject: {fileID: 6844613602134081988}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.3
-  m_AngularDrag: 0.6
+  m_Drag: 0.15
+  m_AngularDrag: 0.4
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
