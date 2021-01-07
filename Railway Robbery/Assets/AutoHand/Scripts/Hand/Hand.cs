@@ -85,8 +85,8 @@ namespace Autohand {
         public float grabTime = 0f;
         
 
-        // Added by Grant Keele
-        [Header("Added by Grant Keele")]
+        // ~~~ Modified Below ~~~
+        [Header("Modified")]
         public BodyPartReferences playerBodyParts;
         public bool enableFollowForce = true;
         public bool enableFollowTorque = true;
@@ -94,6 +94,7 @@ namespace Autohand {
         [Range(0, 1)] public float grabHapticAmplitude;
         public float grabHapticDuration;
         private Coroutine currentHapticCoroutine;
+        // ~~~ Modified Above ~~~
 
 
 #if UNITY_EDITOR
@@ -252,10 +253,17 @@ namespace Autohand {
 
             UpdateMoveTo();
 
+
             //Calls physics movements
-            // && enableFollowForce added by Grant Keele
+            // ~~~ Modified Below ~~~
+
+            //if(!freezePos) MoveTo();
+            //if(!freezeRot) TorqueTo();
             if(!freezePos && enableFollowForce) MoveTo();
             if(!freezeRot && enableFollowTorque) TorqueTo();
+
+            // ~~~ Modified Above ~~~
+
             
             //Strongly stabilizes one handed holding
             if(holdingObj != null && grabLocked && holdingObj.HeldCount() == 1) {
@@ -268,9 +276,6 @@ namespace Autohand {
             }
             velocityOverTime[0] = body.velocity;
 
-
-            // Added by Grant Keele
-            //Debug.Log(body.velocity.magnitude);
         }
         
         /// <summary>Manages where the hands ideal position should be -> where it will TRY to physics move/torque to</summary>
@@ -388,8 +393,6 @@ namespace Autohand {
 
             //Sets velocity linearly based on distance from hand
             var vel = (movePos - transform.position).normalized * followPositionStrength * distance;
-            // Added by Grant Keele
-            //vel += playerBodyParts.playerRigidbody.velocity;
 
             vel.x = Mathf.Clamp(vel.x, -velocityClamp, velocityClamp);
             vel.y = Mathf.Clamp(vel.y, -velocityClamp, velocityClamp);
@@ -468,9 +471,6 @@ namespace Autohand {
                 BreakGrabConnection();
             }
 
-
-            // Added by Grant Keele
-            Debug.Log("~~~~~ OBJECT THROWN WITH SPEED: " + body.velocity.magnitude + " ~~~~~");
         }
         
 
@@ -534,7 +534,10 @@ namespace Autohand {
         }
 
 
-        // Added by Grant Keele
+
+
+        // ~~~ Modified Below ~~~
+
         public virtual void Action1(){
             holdingObj?.OnAction1(this);
         }
@@ -542,7 +545,7 @@ namespace Autohand {
             holdingObj?.OnAction2(this);
         }
         
-        // Added by Grant Keele
+
         public void ClearHaptics(){
             OVRInput.Controller controller = GetComponent<OVRHandControllerLink>().controller;
             OVRInput.SetControllerVibration(0, 0, controller);
@@ -564,7 +567,7 @@ namespace Autohand {
             OVRInput.SetControllerVibration(0, 0, controller);
         }
 
-        // Added by Grant Keele
+
         public void FollowController(){
             follow = controllerFollow;
         }
@@ -579,6 +582,9 @@ namespace Autohand {
         public float GetMass(){
             return body.mass;
         }
+
+        // ~~~ Modified Above ~~~
+
 
         
 
@@ -655,8 +661,9 @@ namespace Autohand {
             OnBeforeGrabbed?.Invoke(this, holdingObj);
 
 
-            // Added by Grant Keele
+            // ~~~ Modified Below ~~~
             SetHapticsDuration(grabHapticFrequency, grabHapticAmplitude, grabHapticDuration);
+            // ~~~ Modified Above ~~~
 
 
             //Set layers for grabbing
@@ -1085,10 +1092,6 @@ namespace Autohand {
             //Responsable for movement finger sway
             if(!holdingObj && !disableIK && !grabPose && handPoseArea == null && handAnimateRoutine == null) {
 
-                // Added by Grant Keele
-                //Vector3 relativeVelocity = body.velocity - playerBodyParts.playerRigidbody.velocity;
-                //float vel = -palmTransform.InverseTransformDirection(relativeVelocity).z;
-
                 float vel = -palmTransform.InverseTransformDirection(body.velocity).z; 
                 float grip = idealGrip + gripOffset + swayStrength * (vel / 8f);
 
@@ -1253,24 +1256,34 @@ namespace Autohand {
                 obj.gameObject.layer = toLayer;
             }
             for(int i = 0; i < obj.childCount; i++) {
+                
+                // ~~~ Modified Below ~~~
+
+                //SetLayerRecursive(obj.GetChild(i), toLayer, fromLayer);
+
                 Transform child = obj.GetChild(i);
-                // Added by Grant Keele
                 if(!child.GetComponent<ControllerCollisionTrigger>()){
                     SetLayerRecursive(child, toLayer, fromLayer);
                 }
-                //SetLayerRecursive(obj.GetChild(i), toLayer, fromLayer);
+
+                // ~~~ Modified Above ~~~
             }
         }
 
         public static void SetLayerRecursive(Transform obj, int newLayer) {
             obj.gameObject.layer = newLayer;
             for(int i = 0; i < obj.childCount; i++) {
+                
+                // ~~~ Modified Below ~~~
+
+                //SetLayerRecursive(obj.GetChild(i), newLayer);
+
                 Transform child = obj.GetChild(i);
-                // Added by Grant Keele
                 if(!child.GetComponent<ControllerCollisionTrigger>()){
                     SetLayerRecursive(child, newLayer);
                 }
-                //SetLayerRecursive(obj.GetChild(i), newLayer);
+                
+                // ~~~ Modified Above ~~~
             }
         }
 

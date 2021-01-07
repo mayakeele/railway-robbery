@@ -15,8 +15,8 @@ public class ClimbingHand : MonoBehaviour
 
     [Header("Hand Settings")]
     public bool isLeftHand;
-    [SerializeField] private string handLayerName;
-    [SerializeField] private string handClimbingLayerName;
+    [SerializeField] private string handLayerName = "Hand";
+    [SerializeField] private string handClimbingLayerName = "HandClimbing";
 
     [SerializeField] private float maxHandDistance;
     [HideInInspector] public InputHandler.InputButton grabButton;
