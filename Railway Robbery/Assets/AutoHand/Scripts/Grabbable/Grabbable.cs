@@ -80,9 +80,11 @@ namespace Autohand {
         [HideInInspector]
         public UnityEvent OnJointBreak;
 
-        // Added by Grant Keele
+
+        // ~~~ Modified Below ~~~
         [HideInInspector] public UnityEvent onAction1;
         [HideInInspector] public UnityEvent onAction2;
+        // ~~~ Modified Above ~~~
 
 
 
@@ -99,9 +101,11 @@ namespace Autohand {
         public HandGrabEvent OnHighlightEvent;
         public HandGrabEvent OnUnhighlightEvent;
 
-        // Added by Grant Keele
+
+        // ~~~ Modified Below ~~~
         public HandGrabEvent OnAction1Event;
         public HandGrabEvent OnAction2Event;
+        // ~~~ Modified Above ~~~
 
 
 
@@ -112,9 +116,10 @@ namespace Autohand {
 
         protected bool beingHeld = false;
 
-        //Added by Grant Keele
-        public List<Hand> heldBy { get; protected set; }
+        // ~~~ Modified Below ~~~
         //protected List<Hand> heldBy;
+        public List<Hand> heldBy { get; protected set; }
+        // ~~~ Modified Above ~~~
 
         protected bool throwing;
         protected bool hightlighting;
@@ -290,7 +295,8 @@ namespace Autohand {
         }
 
 
-        // Added by Grant Keele
+
+        // ~~~ Modified Below ~~~
         public virtual void OnAction1(Hand hand){
             OnAction1Event?.Invoke(hand, this);
             onAction1?.Invoke();
@@ -299,29 +305,8 @@ namespace Autohand {
             OnAction2Event?.Invoke(hand, this);
             onAction2?.Invoke();
         }
+        // ~~~ Modified Above ~~~
 
-
-        // Added by Grant Keele
-        public void SetCenterOfMassToHands(){
-            // Reduces twisting of the object when moving at high speeds by moving the attached rigidbody's center of mass onto the connected hand(s)
-            if(heldBy.Count > 0){
-                Vector3 averageHandPosition = Vector3.zero;
-                int numHandsHolding = heldBy.Count;
-                foreach(Hand hand in heldBy){
-                    averageHandPosition += hand.transform.position;
-                }
-                averageHandPosition /= numHandsHolding;
-
-                Vector3 localHandPosition = transform.InverseTransformVector(averageHandPosition);
-
-                body.centerOfMass = localHandPosition;
-            } 
-        }
-
-        public void ResetCenterOfMass(){
-            // Resets the attached rigidbody's center of mass
-            body.ResetCenterOfMass();
-        }
 
 
         /// <summary>Tells each hand holding this object to release</summary>
