@@ -115,7 +115,7 @@ public class ClimbingHand : MonoBehaviour
         if(!dynamicClimbable) dynamicClimbable = climbedObject.GetComponentInParent<DynamicClimbable>();
 
         if(dynamicClimbable){
-            //dynamicClimbable.SetMass(autoHand.playerBodyParts.playerRigidbody.mass);
+            dynamicClimbable.SetMass(autoHand.playerBodyParts.playerRigidbody.mass);
 
             if(dynamicClimbable.rb){
                 climbedRigidbody = dynamicClimbable.rb;
@@ -149,7 +149,7 @@ public class ClimbingHand : MonoBehaviour
             if(!dynamicClimbable) dynamicClimbable = climbedObject.GetComponentInParent<DynamicClimbable>();
 
             if(dynamicClimbable){
-                //dynamicClimbable.SetAMass(0);
+                dynamicClimbable.SetMass(0);
                 //dynamicClimbable.SetClimbingState(false);
             }
             climbedObject = null;

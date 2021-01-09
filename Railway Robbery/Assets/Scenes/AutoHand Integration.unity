@@ -14003,6 +14003,21 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: -0.000004436355
       objectReference: {fileID: 0}
+    - target: {fileID: 2119158997050651989, guid: d5fdf7917cda8194cadf65f8969e293f,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -39.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119158997050651989, guid: d5fdf7917cda8194cadf65f8969e293f,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 7.675
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119158997050651989, guid: d5fdf7917cda8194cadf65f8969e293f,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: -5.255458
+      objectReference: {fileID: 0}
     - target: {fileID: 2336269080801727073, guid: d5fdf7917cda8194cadf65f8969e293f,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -14112,6 +14127,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: 0.0000018338324
+      objectReference: {fileID: 0}
+    - target: {fileID: 3796247590771317078, guid: d5fdf7917cda8194cadf65f8969e293f,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -0.30072927
       objectReference: {fileID: 0}
     - target: {fileID: 4194830984677839248, guid: d5fdf7917cda8194cadf65f8969e293f,
         type: 3}
@@ -14242,6 +14262,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: 0.0000010044896
+      objectReference: {fileID: 0}
+    - target: {fileID: 8467754417647873580, guid: d5fdf7917cda8194cadf65f8969e293f,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -0.30087948
       objectReference: {fileID: 0}
     - target: {fileID: 8636245843118882499, guid: d5fdf7917cda8194cadf65f8969e293f,
         type: 3}
@@ -16906,6 +16931,21 @@ PrefabInstance:
       value: 6.234
       objectReference: {fileID: 0}
     - target: {fileID: 426719909772241004, guid: d5fdf7917cda8194cadf65f8969e293f,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: 4.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119158997050651989, guid: d5fdf7917cda8194cadf65f8969e293f,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 4.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119158997050651989, guid: d5fdf7917cda8194cadf65f8969e293f,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 6.202
+      objectReference: {fileID: 0}
+    - target: {fileID: 2119158997050651989, guid: d5fdf7917cda8194cadf65f8969e293f,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: 4.3
@@ -21463,7 +21503,7 @@ MonoBehaviour:
   isLeftHand: 1
   handLayerName: Hand
   handClimbingLayerName: HandClimbing
-  maxHandDistance: 0.5
+  maxHandDistance: 0.7
   grabButton: 0
   isClimbing: 0
   isTriggerColliding: 0
@@ -22613,7 +22653,7 @@ MonoBehaviour:
   isLeftHand: 0
   handLayerName: Hand
   handClimbingLayerName: HandClimbing
-  maxHandDistance: 0.5
+  maxHandDistance: 0.7
   grabButton: 0
   isClimbing: 0
   isTriggerColliding: 0
@@ -23161,7 +23201,7 @@ MonoBehaviour:
   follow: {fileID: 7956464546378712275}
   followPositionOffset: {x: 0, y: 0, z: 0}
   followPositionStrength: 45
-  followRotationStrength: 35
+  followRotationStrength: 33
   maxVelocity: 500
   maxFollowDistance: 1
   left: 0
@@ -26502,7 +26542,7 @@ MonoBehaviour:
   follow: {fileID: 7956464546378723543}
   followPositionOffset: {x: 0, y: 0, z: 0}
   followPositionStrength: 45
-  followRotationStrength: 35
+  followRotationStrength: 33
   maxVelocity: 500
   maxFollowDistance: 1
   left: 1
@@ -27974,9 +28014,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e463c0d2e1fa494a981cee2c4333196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oneHandedSpringFrequency: 5.5
-  twoHandedSpringFrequency: 14
-  springDamping: 0.4
+  oneHandedClimbingStrength: 6
+  twoHandedClimbingStrength: 14
+  springDamping: 0.45
+  liftingStrength: 8
   climbingHapticFrequency: 0.15
   climbingHapticMaxAmplitude: 0.75
   climbingHapticBaseGradient: 0.2

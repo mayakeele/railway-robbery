@@ -7,9 +7,10 @@ public class ClimbingManager : MonoBehaviour
 {
 
     [Header("Climbing Settings")]
-    [SerializeField] private float oneHandedSpringFrequency;
-    [SerializeField] private float twoHandedSpringFrequency;
+    [SerializeField] private float oneHandedClimbingStrength;
+    [SerializeField] private float twoHandedClimbingStrength;
     [SerializeField] private float springDamping;
+    [SerializeField] private float liftingStrength;
 
     [Header("Haptic Settings")]
     [SerializeField] [Range(0, 1)] private float climbingHapticFrequency;
@@ -26,7 +27,7 @@ public class ClimbingManager : MonoBehaviour
     
 
     // Variables
-    private float currentSpringFrequency;
+    private float currentClimbingStrength;
     private Vector3 leftBodyTarget;
     private Vector3 rightBodyTarget;
     private Vector3 mainBodyTarget;
@@ -53,28 +54,38 @@ public class ClimbingManager : MonoBehaviour
         if (leftHand.isClimbing && rightHand.isClimbing){
             mainBodyTarget = (leftBodyTarget + rightBodyTarget) / 2;
 
-            currentSpringFrequency = twoHandedSpringFrequency;
-            //bodyParts.playerRigidbody.useGravity = false;
+            currentClimbingStrength = twoHandedClimbingStrength;
+
+            if(!(leftHand.dynamicClimbable && rightHand.dynamicClimbable && bodyParts.groundedStateTracker.isGrounded)){
+                bodyParts.playerRigidbody.useGravity = false;
+            }
+            bodyParts.playerRigidbody.useGravity = false;
         }
 
         else if(leftHand.isClimbing){
             mainBodyTarget = leftBodyTarget;
 
-            currentSpringFrequency = oneHandedSpringFrequency;
-            //bodyParts.playerRigidbody.useGravity = false;       
+            currentClimbingStrength = oneHandedClimbingStrength;
+
+            if(!(leftHand.dynamicClimbable && bodyParts.groundedStateTracker.isGrounded)){
+                bodyParts.playerRigidbody.useGravity = false;
+            }
         }
 
         else if (rightHand.isClimbing){
             mainBodyTarget = rightBodyTarget;
 
-            currentSpringFrequency = oneHandedSpringFrequency;
-            //bodyParts.playerRigidbody.useGravity = false;
+            currentClimbingStrength = oneHandedClimbingStrength;
+            
+            if(!(rightHand.dynamicClimbable && bodyParts.groundedStateTracker.isGrounded)){
+                bodyParts.playerRigidbody.useGravity = false;
+            }
         }
 
         else{
             mainBodyTarget = transform.position;
 
-            currentSpringFrequency = 0;
+            currentClimbingStrength = 0;
             bodyParts.playerRigidbody.useGravity = true;
         }
 
@@ -99,7 +110,7 @@ public class ClimbingManager : MonoBehaviour
             transform.position, 
             mainBodyTarget, 
             playerRelativeVelocity,
-            currentSpringFrequency,
+            currentClimbingStrength,
             springDamping
         );
 
@@ -114,15 +125,16 @@ public class ClimbingManager : MonoBehaviour
         if(isClimbing){
 
             // While climbing on a static surface, simply move player to where they should be
-            if(isClimbingStatic){
-                bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
-            }
+            //if(isClimbingStatic){
+                //bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+            //}
 
             // Move the player if climbing on a dynamic object, while holding with both hands or not touching the ground
-            else if(!isGrounded || (leftHand.climbedRigidbody && rightHand.climbedRigidbody)){
-                bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
-            }
-
+            //else if(!isGrounded || (leftHand.climbedRigidbody && rightHand.climbedRigidbody)){
+                //bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+            //}
+            bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+            
 
             // Apply hand forces to any climbed rigidbodies
             if(leftHand.climbedRigidbody || rightHand.climbedRigidbody){
@@ -132,7 +144,7 @@ public class ClimbingManager : MonoBehaviour
                         transform.position,
                         leftBodyTarget,
                         playerRelativeVelocity,
-                        currentSpringFrequency,
+                        liftingStrength,
                         springDamping
                     );
 
@@ -152,7 +164,7 @@ public class ClimbingManager : MonoBehaviour
                         transform.position,
                         rightBodyTarget,
                         playerRelativeVelocity,
-                        currentSpringFrequency,
+                        liftingStrength,
                         springDamping
                     );
 

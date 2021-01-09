@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultMass: 2
-  maximumMassDifference: 5
+  maximumMassDifference: 4
   attachedMass: 0
   rb: {fileID: 8040958853688486866}
 --- !u!54 &8040958853688486866
