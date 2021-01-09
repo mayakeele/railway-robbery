@@ -8,6 +8,7 @@ public class SimpleBullet : MonoBehaviour
     [Header("Bullet Properties")]
     [SerializeField] private float speed;
     [SerializeField] private int hitDamage;
+    [SerializeField] private float mass;
     [SerializeField] private float maxTravelDistance;
     [SerializeField] private int maxRicochetsAllowed;
     [SerializeField] private float maxRicochetSurfaceAngle;
@@ -20,11 +21,19 @@ public class SimpleBullet : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
 
-    [Header("Sound Effects")]
-    [SerializeField] private AudioClip targetHitSound;
-    [SerializeField] private AudioClip ricochetSound;
-    [SerializeField] private AudioClip destroyedSound;
-    
+    [Header("Audio")]
+    [SerializeField] private List<AudioClip> targetHitSounds;
+    [SerializeField] [Range(0, 1)] private float targetHitVolume;
+    [SerializeField] private float targetHitPitchMax;
+    [Space]
+    [SerializeField] private  List<AudioClip> ricochetSounds;
+    [SerializeField] [Range(0, 1)] private float ricochetVolume;
+    [SerializeField] private float ricochetPitchMax;
+    [Space]
+    [SerializeField] private  List<AudioClip> destroyedSounds;
+    [SerializeField] [Range(0, 1)] private float destroyedVolume;
+    [SerializeField] private float destroyedPitchMax;
+    [Space]
 
     [Header("Particle Effects")]
     //[SerializeField] private ParticleSystem particleSystem;
@@ -33,7 +42,6 @@ public class SimpleBullet : MonoBehaviour
     // Variables
     private bool isActive = true;
     private GameObject player;
-    private float trailEndTime;
     private int currentRicochetCount = 0;
     private float currentDistanceTravelled = 0;
 
@@ -41,7 +49,6 @@ public class SimpleBullet : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        trailEndTime = trailRenderer.time;
     }
 
 
@@ -64,23 +71,35 @@ public class SimpleBullet : MonoBehaviour
 
                 transform.position = hitPoint;
 
+                // If the hit object is destructible, destroy the object and keep the bullet moving
+                Destructible destructible = hitTransform.GetComponent<Destructible>();
+                if(destructible != null && destructible.canBreakByProjectile){
+                    destructible.DestroyByProjectile();
+                }
+
                 // Determine whether the bullet is hitting the player or an enemy
-                if(hitTag == "Player"){
+                else if(hitTag == "Player"){
                     HealthManager playerHealth = player.GetComponent<HealthManager>();
 
                     playerHealth.DealDamage(hitDamage, hitTransform, hitPoint);
 
-                    DestroyBullet(targetHitSound);
+                    DestroyBullet(targetHitSounds.RandomChoice(), targetHitVolume, targetHitPitchMax);
                 }
                 else if(hitTag == "Enemy"){
                     NPC hitNPC = GetComponentInParent<NPC>();
 
                     hitNPC.DealDamage(hitDamage, hitTransform, hitPoint);
 
-                    DestroyBullet(targetHitSound);
+                    DestroyBullet(targetHitSounds.RandomChoice(), targetHitVolume, targetHitPitchMax);
                 }
-                // Determine whether the bullet should ricochet
+
+                // If the bullet has hit a solid surface, destroy or ricochet the bullet based on its angle. Apply force to object if it has rigidbody
                 else{
+                    Rigidbody hitRigidbody = hitInfo.rigidbody;
+                    if(hitRigidbody != null){
+                        hitRigidbody.AddForceAtPosition(transform.forward * speed * mass, hitPoint, ForceMode.Impulse);
+                    }
+
                     float angleToSurface = 90 - Vector3.Angle(hitNormal, -transform.forward);
 
                     if (currentRicochetCount < maxRicochetsAllowed && angleToSurface <= maxRicochetSurfaceAngle){
@@ -90,12 +109,11 @@ public class SimpleBullet : MonoBehaviour
 
                         transform.LookAt(transform.position + newDirection);
 
-                        audioSource.clip = ricochetSound;
-                        audioSource.Play();
+                        audioSource.PlayClipPitchShifted(ricochetSounds.RandomChoice(), ricochetVolume, ricochetPitchMax);
                     }
                     else{
                         // Play bullet destruction animation
-                        DestroyBullet(destroyedSound);
+                        DestroyBullet(destroyedSounds.RandomChoice(), destroyedVolume, destroyedPitchMax);
                     }
                 }
             }
@@ -115,16 +133,18 @@ public class SimpleBullet : MonoBehaviour
     }
 
 
-    void DestroyBullet(AudioClip soundToPlay = null){
+    void DestroyBullet(AudioClip soundToPlay = null, float soundVolume = 1, float soundPitch = 1){
         // Stop rendering the bullet, leave the bullet trail intact until it runs out, and then destroy bullet
         isActive = false;
         model.SetActive(false);
 
         float soundLength = 0;
         if(soundToPlay != null){
-            soundLength = soundToPlay.length;
-            audioSource.PlayOneShot(soundToPlay);
-        } 
+            float newPitch = audioSource.PlayClipPitchShifted(soundToPlay, soundVolume, soundPitch);
+            soundLength = soundToPlay.length / newPitch;
+        }
+
+        float trailEndTime = trailRenderer ? trailRenderer.time : 0;
 
         float timeUntilDestroyed = Mathf.Max(trailEndTime, soundLength);
         StartCoroutine(DestroyDelayed(timeUntilDestroyed));

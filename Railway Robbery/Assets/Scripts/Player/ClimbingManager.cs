@@ -1,127 +1,238 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Autohand;
 
 public class ClimbingManager : MonoBehaviour
 {
-    private InputHandler inputHandler;
 
-    [SerializeField] private float oneHandedSpringFrequency;
-    [SerializeField] private float twoHandedSpringFrequency;
-    private float currentSpringFrequency;
+    [Header("Climbing Settings")]
+    [SerializeField] private float oneHandedClimbingStrength;
+    [SerializeField] private float twoHandedClimbingStrength;
     [SerializeField] private float springDamping;
+    [SerializeField] private float liftingStrength;
 
-    [SerializeField] private float handRadius;
+    [Header("Haptic Settings")]
+    [SerializeField] [Range(0, 1)] private float climbingHapticFrequency;
+    [SerializeField] [Range(0, 1)] private float climbingHapticMaxAmplitude;
+    [SerializeField] [Range(0, 1)] private float climbingHapticBaseGradient;
+    [SerializeField] private float maxHapticDistance;
 
-    private string climbingTag = "Climbable";
+    [Header("References")]
+    //public ControllerCollisionTrigger leftClimbingTrigger;
+    //public ControllerCollisionTrigger rightClimbingTrigger;
+    private BodyPartReferences bodyParts;
+    private ClimbingHand leftHand;
+    private ClimbingHand rightHand;
+    
 
-    [HideInInspector] public PhysicsHand leftPhysicsHand;
-    [HideInInspector] public PhysicsHand rightPhysicsHand;
-    private ControllerCollisionTrigger leftControllerCollider;
-    private ControllerCollisionTrigger rightControllerCollider;
-
+    // Variables
+    private float currentClimbingStrength;
     private Vector3 leftBodyTarget;
     private Vector3 rightBodyTarget;
     private Vector3 mainBodyTarget;
 
 
-    void Start()
-    {
-        inputHandler = GetComponent<InputHandler>();
 
-        leftPhysicsHand = inputHandler.leftPhysicsHand.GetComponent<PhysicsHand>();
-        rightPhysicsHand = inputHandler.rightPhysicsHand.GetComponent<PhysicsHand>();
+    void Awake() {
+        bodyParts = GetComponent<BodyPartReferences>();
+
+        leftHand = bodyParts.leftClimbingHand;
+        rightHand = bodyParts.rightClimbingHand;
     }
+    
+
+    void FixedUpdate()
+    { 
+
+        // Update the climbing state and targets for both hands
+        UpdateClimbingHandState(true);
+        UpdateClimbingHandState(false);
 
 
-    void Update()
-    {
-        // Continue climbing if grip is held and the hand is touching climbable geometry / was previously climbing. Otherwise, update anchor positions and unfreeze the physics hand
-
-        if ((leftPhysicsHand.collidingTag == climbingTag || leftPhysicsHand.isClimbing) && inputHandler.GetHeldState(InputHandler.InputButton.L_Grip)){
-
-            leftPhysicsHand.isClimbing = true;
-            leftPhysicsHand.rb.isKinematic = true;
-            leftPhysicsHand.rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-
-            leftPhysicsHand.transform.position = leftPhysicsHand.physicsHandPositionAnchor;
-            leftPhysicsHand.transform.rotation = leftPhysicsHand.physicsHandRotationAnchor;
-
-            leftBodyTarget = transform.position - (inputHandler.leftController.position - leftPhysicsHand.controllerAnchor); //leftPhysicsHand.controllerAnchor + leftPhysicsHand.controllerToBodyOffset;
-        }
-        else{
-            
-            leftPhysicsHand.isClimbing = false;
-            leftPhysicsHand.rb.isKinematic = false;
-            leftPhysicsHand.rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
-
-            leftPhysicsHand.controllerAnchor = inputHandler.leftController.transform.position;
-            leftPhysicsHand.physicsHandPositionAnchor = leftPhysicsHand.transform.position;
-            leftPhysicsHand.physicsHandRotationAnchor = leftPhysicsHand.transform.rotation;      
-        }
-
-
-        if ((rightPhysicsHand.collidingTag == climbingTag || rightPhysicsHand.isClimbing) && inputHandler.GetHeldState(InputHandler.InputButton.R_Grip)){
-            
-            rightPhysicsHand.isClimbing = true;
-            rightPhysicsHand.rb.isKinematic = true;
-            rightPhysicsHand.rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-
-            rightPhysicsHand.transform.position = rightPhysicsHand.physicsHandPositionAnchor;
-            rightPhysicsHand.transform.rotation = rightPhysicsHand.physicsHandRotationAnchor;
-
-            rightBodyTarget = transform.position - (inputHandler.rightController.position - rightPhysicsHand.controllerAnchor); //rightPhysicsHand.controllerAnchor + rightPhysicsHand.controllerToBodyOffset;      
-        }
-        else{
-
-            rightPhysicsHand.isClimbing = false;
-            rightPhysicsHand.rb.isKinematic = false;
-            rightPhysicsHand.rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
-
-            rightPhysicsHand.controllerAnchor = inputHandler.rightController.transform.position;
-            rightPhysicsHand.physicsHandPositionAnchor = rightPhysicsHand.transform.position;
-            rightPhysicsHand.physicsHandRotationAnchor = rightPhysicsHand.transform.rotation;
-        }
-
-
-
-        // If both hands are holding climbable geometry, calculate the average displacement of each one to determine target body position
-        if (leftPhysicsHand.isClimbing && rightPhysicsHand.isClimbing){
+        // Calculate the target body position based on which hands are climbing
+        if (leftHand.isClimbing && rightHand.isClimbing){
             mainBodyTarget = (leftBodyTarget + rightBodyTarget) / 2;
 
-            currentSpringFrequency = twoHandedSpringFrequency;
-            inputHandler.playerRigidbody.useGravity = false;
+            currentClimbingStrength = twoHandedClimbingStrength;
+
+            if(!(leftHand.dynamicClimbable && rightHand.dynamicClimbable && bodyParts.groundedStateTracker.isGrounded)){
+                bodyParts.playerRigidbody.useGravity = false;
+            }
+            bodyParts.playerRigidbody.useGravity = false;
         }
-        else if(leftPhysicsHand.isClimbing){
+
+        else if(leftHand.isClimbing){
             mainBodyTarget = leftBodyTarget;
 
-            currentSpringFrequency = oneHandedSpringFrequency;
-            inputHandler.playerRigidbody.useGravity = false;
+            currentClimbingStrength = oneHandedClimbingStrength;
+
+            if(!(leftHand.dynamicClimbable && bodyParts.groundedStateTracker.isGrounded)){
+                bodyParts.playerRigidbody.useGravity = false;
+            }
         }
-        else if (rightPhysicsHand.isClimbing){
+
+        else if (rightHand.isClimbing){
             mainBodyTarget = rightBodyTarget;
 
-            currentSpringFrequency = oneHandedSpringFrequency;
-            inputHandler.playerRigidbody.useGravity = false;
+            currentClimbingStrength = oneHandedClimbingStrength;
+            
+            if(!(rightHand.dynamicClimbable && bodyParts.groundedStateTracker.isGrounded)){
+                bodyParts.playerRigidbody.useGravity = false;
+            }
         }
+
         else{
             mainBodyTarget = transform.position;
 
-            currentSpringFrequency = 0;
-            inputHandler.playerRigidbody.useGravity = true;
+            currentClimbingStrength = 0;
+            bodyParts.playerRigidbody.useGravity = true;
         }
+
+
+        Vector3 averageClimbedVelocity = Vector3.zero;
+        int numClimbedRigidbodies = 0;
+        if(leftHand.climbedRigidbody){
+            averageClimbedVelocity += leftHand.climbedRigidbody.velocity;
+            numClimbedRigidbodies++;
+        }
+        if(rightHand.climbedRigidbody){
+            averageClimbedVelocity += rightHand.climbedRigidbody.velocity;
+            numClimbedRigidbodies++;
+        }
+        if(numClimbedRigidbodies != 0) averageClimbedVelocity = averageClimbedVelocity / numClimbedRigidbodies;
+
+
+        Vector3 playerRelativeVelocity = bodyParts.playerRigidbody.velocity - averageClimbedVelocity;
 
 
         Vector3 bodySpringForce = DampedSpring.GetDampedSpringAcceleration(
             transform.position, 
             mainBodyTarget, 
-            inputHandler.playerRigidbody.velocity - Vector3.zero,
-            currentSpringFrequency, 
+            playerRelativeVelocity,
+            currentClimbingStrength,
             springDamping
         );
 
-        if (leftPhysicsHand.isClimbing || rightPhysicsHand.isClimbing){
-            inputHandler.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
-        }    
+
+        // Applies forces to player and climbed object differently based on the state of the player and the climbed object(s)
+        bool isClimbing = leftHand.isClimbing || rightHand.isClimbing;
+        bool isClimbingStatic = (leftHand.isClimbing && !leftHand.climbedRigidbody) || 
+                              (rightHand.isClimbing && !rightHand.climbedRigidbody);
+        bool isGrounded = bodyParts.groundedStateTracker.isGrounded;
+
+
+        if(isClimbing){
+
+            // While climbing on a static surface, simply move player to where they should be
+            //if(isClimbingStatic){
+                //bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+            //}
+
+            // Move the player if climbing on a dynamic object, while holding with both hands or not touching the ground
+            //else if(!isGrounded || (leftHand.climbedRigidbody && rightHand.climbedRigidbody)){
+                //bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+            //}
+            bodyParts.playerRigidbody.AddForce(bodySpringForce, ForceMode.Acceleration);
+            
+
+            // Apply hand forces to any climbed rigidbodies
+            if(leftHand.climbedRigidbody || rightHand.climbedRigidbody){
+
+                if(leftHand.climbedRigidbody){
+                    Vector3 leftHandAcceleration = DampedSpring.GetDampedSpringAcceleration(
+                        transform.position,
+                        leftBodyTarget,
+                        playerRelativeVelocity,
+                        liftingStrength,
+                        springDamping
+                    );
+
+                    //Vector3 leftHandTorque = DampedSpring.GetDampedSpringAngularAcceleration(
+                        //leftHand.climbingAnchor.rotation,
+                        //bodyParts.leftControllerTransform.rotation,
+                        //leftHand.climbedRigidbody,
+
+                    //);
+
+                    float climbedMass = leftHand.dynamicClimbable.rb.mass + leftHand.dynamicClimbable.attachedMass;
+
+                    leftHand.climbedRigidbody.AddForceAtPosition(climbedMass * -leftHandAcceleration / numClimbedRigidbodies, leftHand.climbingAnchor.position, ForceMode.Force);
+                } 
+                if(rightHand.climbedRigidbody){
+                    Vector3 rightHandAcceleration = DampedSpring.GetDampedSpringAcceleration(
+                        transform.position,
+                        rightBodyTarget,
+                        playerRelativeVelocity,
+                        liftingStrength,
+                        springDamping
+                    );
+
+                    float climbedMass = rightHand.dynamicClimbable.rb.mass + rightHand.dynamicClimbable.attachedMass;
+
+                    rightHand.climbedRigidbody.AddForceAtPosition(climbedMass * -rightHandAcceleration / numClimbedRigidbodies, rightHand.climbingAnchor.position, ForceMode.Force);
+                } 
+            }
+        }
+    }
+
+
+
+    private void UpdateClimbingHandState(bool isLeft){
+        // Continue climbing if grip is held and the hand is touching climbable geometry / was previously climbing. 
+        // Otherwise, update anchor positions and unfreeze the physics hand
+
+        Transform controllerTransform = isLeft ? bodyParts.leftControllerTransform : bodyParts.rightControllerTransform;
+        ClimbingHand climbingHand = isLeft ? bodyParts.leftClimbingHand : bodyParts.rightClimbingHand;
+        Hand autoHand = isLeft ? bodyParts.leftHand : bodyParts.rightHand;
+        //ControllerCollisionTrigger climbingTrigger = isLeft ? leftClimbingTrigger : rightClimbingTrigger;
+
+        if ((climbingHand.isTriggerColliding || climbingHand.isClimbing) 
+        && bodyParts.inputHandler.GetHeldState(climbingHand.grabButton) 
+        && !climbingHand.IsHoldingObject())
+        {
+            // Detect if this is the first frame climbing is initiated
+            if(climbingHand.isClimbing == false){
+                StartClimbing(autoHand, climbingHand);
+            }
+
+            climbingHand.FollowClimbingAnchor();
+
+            autoHand.disableIK = true;
+            autoHand.SetGrip(autoHand.gripOffset);
+
+            //Vector3 targetPosition = transform.position - (controllerTransform.position - climbingHand.controllerAnchorPosition);
+            Vector3 targetPosition = transform.position - (controllerTransform.position - climbingHand.climbingAnchor.position);
+
+            if (isLeft) { leftBodyTarget = targetPosition; }
+            else { rightBodyTarget = targetPosition; }
+
+            float handDistance = (targetPosition - transform.position).magnitude;
+            float gradient = Mathf.Clamp(handDistance / maxHapticDistance, climbingHapticBaseGradient, 1);
+            autoHand.SetHaptics(climbingHapticFrequency, climbingHapticMaxAmplitude * gradient);
+        }
+        else{
+            // Detect if climbing was just released this frame
+            if(climbingHand.isClimbing){
+                StopClimbing(autoHand, climbingHand);
+            }
+
+            autoHand.disableIK = false;
+
+            climbingHand.UpdateControllerAnchor();
+            climbingHand.UpdateHandAnchor();
+        }
+
+    }
+
+
+    private void StartClimbing(Hand autoHand, ClimbingHand climbingHand){
+        autoHand.Release();
+        climbingHand.OnClimbingStart();
+    }
+
+    private void StopClimbing(Hand autoHand, ClimbingHand climbingHand){
+        autoHand.ClearHaptics();
+        climbingHand.OnClimbingStop();
     }
 }

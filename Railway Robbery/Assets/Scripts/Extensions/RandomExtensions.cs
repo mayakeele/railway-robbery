@@ -37,6 +37,7 @@ public static class RandomExtensions
 
     public static T RandomChoice<T>(this List<T> input){
         // Chooses and returns a random value from a given array of any type
+
         int index = Random.Range(0, input.Count);
 
         return input[index];

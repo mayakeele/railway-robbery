@@ -4,32 +4,36 @@ using UnityEngine;
 
 public class ControllerCollisionTrigger : MonoBehaviour
 {
-    [SerializeField] private InputHandler inputHandler;
-    [SerializeField] private ClimbingManager climbingManager;
     public bool isLeftController;
 
+    public string targetClimbableTag;
+    private int triggerLayer;
+
     [HideInInspector] public bool isColliding;
+    [HideInInspector] public Transform collidingTransform;
 
-    void Start()
-    {
 
+    private void Awake() {
+        triggerLayer = LayerMask.NameToLayer("ClimbingTrigger");
     }
 
     void Update()
     {
- 
+        gameObject.layer = triggerLayer;
     }
 
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "Climbable"){
+        if (other.gameObject.tag == targetClimbableTag){
             isColliding = true;
+            collidingTransform = other.gameObject.transform;
         }
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.gameObject.tag == "Climbable"){
+        if (other.gameObject.tag == targetClimbableTag){
             isColliding = false;
+            collidingTransform = null;
         }
     }
 }

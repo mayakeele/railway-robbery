@@ -251,7 +251,9 @@ public static class OVRInput
 	}
 
 	private static readonly float AXIS_AS_BUTTON_THRESHOLD = 0.5f;
-	private static readonly float AXIS_DEADZONE_THRESHOLD = 0.2f;
+	//private static readonly float AXIS_DEADZONE_THRESHOLD = 0.2f;
+	// Added by Grant Keele
+	private static readonly float AXIS_DEADZONE_THRESHOLD = 0.1f;
 	private static List<OVRControllerBase> controllers;
 	private static Controller activeControllerType = Controller.None;
 	private static Controller connectedControllerTypes = Controller.None;
