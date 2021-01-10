@@ -1676,7 +1676,7 @@ MonoBehaviour:
 
 
     Start
-    here for a calm, simple course to get used to climbing in VR.'
+    here for a calm, easy climb to get used to the climbing system'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -1685,8 +1685,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4288058367
+  m_fontColor: {r: 1, g: 0.5754717, b: 0.58694184, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   m_margin: {x: 7.395009, y: -1.1581411, z: 7.4067774, w: 2.5095704}
   m_textInfo:
     textComponent: {fileID: 214548856}
-    characterCount: 121
+    characterCount: 122
     spriteCount: 0
     spaceCount: 22
     wordCount: 21
@@ -6923,8 +6923,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4288058367
+  m_fontColor: {r: 1, g: 0.5754717, b: 0.58694184, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -14719,7 +14719,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1699915758}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -14767,8 +14767,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294960292
+  m_fontColor: {r: 0.6431373, g: 0.89411765, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -14792,7 +14792,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_textAlignment: 257
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -21651,8 +21651,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294960292
+  m_fontColor: {r: 0.6431373, g: 0.89411765, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -21676,7 +21676,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_textAlignment: 257
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -22668,8 +22668,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1598241794}
-  - {fileID: 1863724558}
   - {fileID: 1174380903}
+  - {fileID: 1863724558}
   - {fileID: 214548855}
   - {fileID: 679783728}
   - {fileID: 285126005}
@@ -24740,7 +24740,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1699915758}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -24794,8 +24794,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4288058367
+  m_fontColor: {r: 1, g: 0.5754717, b: 0.58694184, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -28191,8 +28191,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2078949504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.03, y: 1.44, z: -5.18}
-  m_LocalScale: {x: 1, y: 3, z: 1}
+  m_LocalPosition: {x: 3.91, y: 1.44, z: -5.18}
+  m_LocalScale: {x: 0.5, y: 3, z: 0.5}
   m_Children: []
   m_Father: {fileID: 450973180}
   m_RootOrder: 0
@@ -29063,7 +29063,7 @@ PrefabInstance:
     - target: {fileID: 997185679673188228, guid: 8e39fabba95d43a428b5adf286f8ba92,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 997185679673188228, guid: 8e39fabba95d43a428b5adf286f8ba92,
         type: 3}
@@ -29159,6 +29159,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8409329606641108510, guid: 6e6a2cbb575178b48ab0f52781ef71ee,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409329606770761777, guid: 6e6a2cbb575178b48ab0f52781ef71ee,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409329606770761777, guid: 6e6a2cbb575178b48ab0f52781ef71ee,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.06
+      objectReference: {fileID: 0}
     - target: {fileID: 8409329606931374395, guid: 6e6a2cbb575178b48ab0f52781ef71ee,
         type: 3}
       propertyPath: controllerTransform
@@ -29189,6 +29204,21 @@ PrefabInstance:
       propertyPath: playerBodyParts
       value: 
       objectReference: {fileID: 92057145}
+    - target: {fileID: 8409329607350119403, guid: 6e6a2cbb575178b48ab0f52781ef71ee,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409329607350119403, guid: 6e6a2cbb575178b48ab0f52781ef71ee,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409329607645902860, guid: 6e6a2cbb575178b48ab0f52781ef71ee,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8409329607645902862, guid: 6e6a2cbb575178b48ab0f52781ef71ee,
         type: 3}
       propertyPath: controllerTransform
@@ -29278,6 +29308,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409329608128065299, guid: 6e6a2cbb575178b48ab0f52781ef71ee,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e6a2cbb575178b48ab0f52781ef71ee, type: 3}
