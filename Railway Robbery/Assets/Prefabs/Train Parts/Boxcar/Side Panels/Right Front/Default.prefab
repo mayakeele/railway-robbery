@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5048927382898608065}
   - component: {fileID: 5895476986885217091}
   - component: {fileID: -3500213124999621703}
-  m_Layer: 8
-  m_Name: Boxcar Side Panel RF
+  m_Layer: 10
+  m_Name: Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

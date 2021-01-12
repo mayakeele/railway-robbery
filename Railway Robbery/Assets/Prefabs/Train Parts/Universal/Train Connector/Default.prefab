@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1438945244292315931}
   - component: {fileID: 3755120669652094929}
   - component: {fileID: 3433275280375017322}
-  m_Layer: 8
-  m_Name: Train Connector
-  m_TagString: Climbable
+  m_Layer: 10
+  m_Name: Default
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

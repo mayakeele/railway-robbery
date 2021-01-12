@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1826819762943871782}
   - component: {fileID: 4052482768709951884}
   - component: {fileID: 4052482768709951887}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Base Right
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,7 +156,8 @@ GameObject:
   - component: {fileID: 3073558999370154642}
   - component: {fileID: 5509765365578099055}
   - component: {fileID: 5509765365578099052}
-  m_Layer: 0
+  - component: {fileID: 7267942428928284632}
+  m_Layer: 11
   m_Name: Window Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,6 +251,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 0.25, z: 1.3}
   m_Center: {x: -1.4749999, y: 0.725, z: 0}
+--- !u!114 &7267942428928284632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5509765365578099054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08899ebce1a7edc48bdff5f335d42c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBreakByImpact: 1
+  destructionImpactEnergy: 150
+  canBreakBySpeed: 0
+  destructionSpeed: 0
+  canBreakByCrushing: 0
+  destructionCrushingForce: 0
+  canBreakByProjectile: 1
+  destroyedByImpactPrefab: {fileID: 0}
+  destroyedBySpeedPrefab: {fileID: 0}
+  destroyedByCrushingPrefab: {fileID: 0}
+  destroyedByProjectilePrefab: {fileID: 0}
+  destroyedByHandsPrefab: {fileID: 0}
+  coll: {fileID: 0}
+  rb: {fileID: 0}
+  grabbable: {fileID: 0}
 --- !u!1 &7292289886147046764
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,9 +291,9 @@ GameObject:
   - component: {fileID: 2494340422201368239}
   - component: {fileID: 7292289886147046765}
   - component: {fileID: 7292289886147046674}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Clerestory
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -370,9 +398,9 @@ GameObject:
   - component: {fileID: 6116901239633945059}
   - component: {fileID: 8526734603415407958}
   - component: {fileID: 8526734603415407953}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Base Left
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -478,7 +506,8 @@ GameObject:
   - component: {fileID: 178971432232325984}
   - component: {fileID: 9067676450789017448}
   - component: {fileID: 9067676450789017449}
-  m_Layer: 0
+  - component: {fileID: 2136843840000783464}
+  m_Layer: 11
   m_Name: Window Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -572,3 +601,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 0.25, z: 1.3}
   m_Center: {x: 1.4749999, y: 0.725, z: 0}
+--- !u!114 &2136843840000783464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9067676450789017451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08899ebce1a7edc48bdff5f335d42c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBreakByImpact: 1
+  destructionImpactEnergy: 150
+  canBreakBySpeed: 0
+  destructionSpeed: 0
+  canBreakByCrushing: 0
+  destructionCrushingForce: 0
+  canBreakByProjectile: 1
+  destroyedByImpactPrefab: {fileID: 0}
+  destroyedBySpeedPrefab: {fileID: 0}
+  destroyedByCrushingPrefab: {fileID: 0}
+  destroyedByProjectilePrefab: {fileID: 0}
+  destroyedByHandsPrefab: {fileID: 0}
+  coll: {fileID: 0}
+  rb: {fileID: 0}
+  grabbable: {fileID: 0}

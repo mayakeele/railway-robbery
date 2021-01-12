@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8134870700390129799}
   - component: {fileID: 7432426392578309121}
   - component: {fileID: -2295113938793663311}
-  m_Layer: 8
-  m_Name: Boxcar Slanted Roof
+  m_Layer: 10
+  m_Name: Default
   m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

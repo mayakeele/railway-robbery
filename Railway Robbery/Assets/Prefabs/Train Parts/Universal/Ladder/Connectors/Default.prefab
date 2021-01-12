@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3981705059642288260}
   - component: {fileID: 5835741661452494445}
   - component: {fileID: 8529830176023054579}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Left Connector
-  m_TagString: Climbable
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,9 +120,9 @@ GameObject:
   - component: {fileID: 7496837677422709479}
   - component: {fileID: 5835741661452494443}
   - component: {fileID: 372823769761513198}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Right Connector
-  m_TagString: Climbable
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -224,7 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6302226250134946180}
   m_Layer: 8
-  m_Name: Ladder Connector
+  m_Name: Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

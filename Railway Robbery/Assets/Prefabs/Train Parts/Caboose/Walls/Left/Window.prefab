@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4301802308104187095}
   m_Layer: 0
-  m_Name: 1
+  m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,9 +46,9 @@ GameObject:
   - component: {fileID: 4853087676515727428}
   - component: {fileID: 4957982483647705244}
   - component: {fileID: 4957982483647705187}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Awning
-  m_TagString: Untagged
+  m_TagString: Climbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 6110411147471896519}
   - component: {fileID: 6544125572448022855}
   - component: {fileID: 6544125572448022854}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,8 @@ GameObject:
   - component: {fileID: 2877143583032128510}
   - component: {fileID: 7793752585376444842}
   - component: {fileID: 7793752585376444841}
-  m_Layer: 0
+  - component: {fileID: 605842531005693241}
+  m_Layer: 11
   m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,3 +356,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.06, y: 0.75, z: 0.5}
   m_Center: {x: 0, y: 1.875, z: 0}
+--- !u!114 &605842531005693241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7793752585376444840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08899ebce1a7edc48bdff5f335d42c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBreakByImpact: 1
+  destructionImpactEnergy: 150
+  canBreakBySpeed: 0
+  destructionSpeed: 0
+  canBreakByCrushing: 0
+  destructionCrushingForce: 0
+  canBreakByProjectile: 1
+  destroyedByImpactPrefab: {fileID: 0}
+  destroyedBySpeedPrefab: {fileID: 0}
+  destroyedByCrushingPrefab: {fileID: 0}
+  destroyedByProjectilePrefab: {fileID: 0}
+  destroyedByHandsPrefab: {fileID: 0}
+  coll: {fileID: 0}
+  rb: {fileID: 0}
+  grabbable: {fileID: 0}

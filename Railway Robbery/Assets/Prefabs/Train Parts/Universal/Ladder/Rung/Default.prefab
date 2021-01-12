@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4530409634799736342}
   - component: {fileID: 2962992722012293776}
   - component: {fileID: -8937878582319714299}
-  m_Layer: 8
-  m_Name: Ladder Rung
-  m_TagString: Climbable
+  m_Layer: 10
+  m_Name: Default
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

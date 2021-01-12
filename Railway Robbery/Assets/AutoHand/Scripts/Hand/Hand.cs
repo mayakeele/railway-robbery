@@ -21,7 +21,6 @@ namespace Autohand {
         
         [Header("Follow Settings"), Space]
         [Tooltip("Follow target, the hand will always try to match this transforms rotation and position with rigidbody movements")]
-        [SerializeField] private Transform controllerFollow;
         public Transform follow;
 
         
@@ -567,10 +566,6 @@ namespace Autohand {
             OVRInput.SetControllerVibration(0, 0, controller);
         }
 
-
-        public void FollowController(){
-            follow = controllerFollow;
-        }
 
         public void EnableFollowForce(){
             enableFollowForce = true;

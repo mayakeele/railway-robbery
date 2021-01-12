@@ -212,7 +212,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.085529536, y: 0.10850847, z: 0.021922892}
-  m_Center: {x: -0.0040652147, y: -0.004254233, z: -0.0037969865}
+  m_Center: {x: -0.0040652147, y: -0.004254233, z: 0.01}
 --- !u!114 &8409329606641108511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,8 +385,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.065
-  m_Center: {x: 0, y: 0.025, z: 0.02}
+  m_Radius: 0.06
+  m_Center: {x: 0, y: 0.025, z: 0.04}
 --- !u!114 &8409329606770761774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,7 +739,7 @@ MonoBehaviour:
   dynamicClimbingTrigger: {fileID: 8409329606770761774}
   isLeftHand: 1
   handLayerName: Hand
-  handClimbingLayerName: HandClimbing
+  defaultLayerName: Default
   maxHandDistance: 0.8
   grabButton: 0
   isClimbing: 0
@@ -1801,8 +1801,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.065
-  m_Center: {x: 0, y: 0.025, z: 0.02}
+  m_Radius: 0.06
+  m_Center: {x: 0, y: 0.025, z: 0.04}
 --- !u!114 &8409329607350119400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2277,7 +2277,7 @@ MonoBehaviour:
   dynamicClimbingTrigger: {fileID: 8409329607350119400}
   isLeftHand: 0
   handLayerName: Hand
-  handClimbingLayerName: HandClimbing
+  defaultLayerName: Default
   maxHandDistance: 0.8
   grabButton: 0
   isClimbing: 0
@@ -2587,7 +2587,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8409329607900419883}
   m_Layer: 0
-  m_Name: Player Hands
+  m_Name: Updated Player Hands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2964,7 +2964,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.085529536, y: 0.10850847, z: 0.021922892}
-  m_Center: {x: -0.0040652147, y: -0.004254233, z: -0.0037969865}
+  m_Center: {x: -0.0040652147, y: -0.004254233, z: 0.01}
 --- !u!114 &8409329608128065298
 MonoBehaviour:
   m_ObjectHideFlags: 0

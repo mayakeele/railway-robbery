@@ -86,9 +86,9 @@ public class PassengerCar : MonoBehaviour
         GameObject frontPorch = Instantiate(trainPartFactory.passengerCarPorchFront.ChooseVariant(), parentTransform);
         frontPorch.transform.position = new Vector3(0, groundOffset, halfLength - (sidePanelLength / 2));
 
-        GameObject backPorch = Instantiate(trainPartFactory.passengerCarPorchBack.ChooseVariant(), parentTransform);
+        GameObject backPorch = Instantiate(trainPartFactory.passengerCarPorchFront.ChooseVariant(), parentTransform);
         backPorch.transform.position = new Vector3(0, groundOffset, -(halfLength - (sidePanelLength / 2)));
-        //backPorch.transform.eulerAngles = new Vector3(0, 180, 0);
+        backPorch.transform.eulerAngles = new Vector3(0, 180, 0);
         
 
         // Roof

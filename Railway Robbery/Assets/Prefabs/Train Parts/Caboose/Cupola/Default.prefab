@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5297380057664753472}
   - component: {fileID: 1766292458801223704}
   - component: {fileID: 6868601545607601561}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Back Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4517733401263231645}
   m_Layer: 0
-  m_Name: Caboose Cupola
+  m_Name: Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,9 +157,9 @@ GameObject:
   - component: {fileID: 400875829105498671}
   - component: {fileID: 7916417883044396867}
   - component: {fileID: 5291405587765896383}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Roof
-  m_TagString: Climbable
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 1161186742495753498}
   - component: {fileID: 6239151884084568164}
   - component: {fileID: 6297510237158343921}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Left Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 2461577733153997927}
   - component: {fileID: 2210389705782011941}
   - component: {fileID: 1559889085632974563}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Right Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 1512337801468219678}
   - component: {fileID: 7286319308903065867}
   - component: {fileID: 1009344591282595482}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Front Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -644,6 +644,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Window BL
       objectReference: {fileID: 0}
+    - target: {fileID: 7893813871359743249, guid: d4fba3ea63f1076428cc12994bca7536,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4fba3ea63f1076428cc12994bca7536, type: 3}
 --- !u!4 &6917294431525030588 stripped
@@ -718,6 +723,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Window FL
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893813871359743249, guid: d4fba3ea63f1076428cc12994bca7536,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4fba3ea63f1076428cc12994bca7536, type: 3}
@@ -794,6 +804,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Window BR
       objectReference: {fileID: 0}
+    - target: {fileID: 7893813871359743249, guid: d4fba3ea63f1076428cc12994bca7536,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4fba3ea63f1076428cc12994bca7536, type: 3}
 --- !u!4 &6917294431214191910 stripped
@@ -868,6 +883,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Window Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 9093285007175558790, guid: a766d5bce6eae034cb12915cce8fd0ec,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a766d5bce6eae034cb12915cce8fd0ec, type: 3}
@@ -944,6 +964,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Window Left
       objectReference: {fileID: 0}
+    - target: {fileID: 9093285007175558790, guid: a766d5bce6eae034cb12915cce8fd0ec,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a766d5bce6eae034cb12915cce8fd0ec, type: 3}
 --- !u!4 &4517733401915546166 stripped
@@ -1018,6 +1043,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Window FR
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893813871359743249, guid: d4fba3ea63f1076428cc12994bca7536,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4fba3ea63f1076428cc12994bca7536, type: 3}

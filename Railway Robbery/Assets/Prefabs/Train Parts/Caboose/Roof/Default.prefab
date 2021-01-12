@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1134104157152729667}
   - component: {fileID: 50811971157132274}
   - component: {fileID: -5837661890183706503}
-  m_Layer: 8
-  m_Name: Caboose Roof Panel
-  m_TagString: Climbable
+  m_Layer: 10
+  m_Name: Default
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

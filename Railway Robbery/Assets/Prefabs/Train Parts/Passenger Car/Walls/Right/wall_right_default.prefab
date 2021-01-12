@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1384095375498918995}
   - component: {fileID: 591580244363713925}
   - component: {fileID: 591580244363713924}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: wall_right_default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,8 @@ GameObject:
   - component: {fileID: 1733922663120812619}
   - component: {fileID: 3574213428787011032}
   - component: {fileID: 3574213428787011033}
-  m_Layer: 0
+  - component: {fileID: 8971346395152525886}
+  m_Layer: 11
   m_Name: window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,3 +216,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.100000575, y: 0.75, z: 0.7500001}
   m_Center: {x: -0.000000011175871, y: 1.875, z: -0.000000059604645}
+--- !u!114 &8971346395152525886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3574213428787011039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08899ebce1a7edc48bdff5f335d42c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBreakByImpact: 1
+  destructionImpactEnergy: 150
+  canBreakBySpeed: 0
+  destructionSpeed: 0
+  canBreakByCrushing: 0
+  destructionCrushingForce: 0
+  canBreakByProjectile: 1
+  destroyedByImpactPrefab: {fileID: 0}
+  destroyedBySpeedPrefab: {fileID: 0}
+  destroyedByCrushingPrefab: {fileID: 0}
+  destroyedByProjectilePrefab: {fileID: 0}
+  destroyedByHandsPrefab: {fileID: 0}
+  coll: {fileID: 0}
+  rb: {fileID: 0}
+  grabbable: {fileID: 0}

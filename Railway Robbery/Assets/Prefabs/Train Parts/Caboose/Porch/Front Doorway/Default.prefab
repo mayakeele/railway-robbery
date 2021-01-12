@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4477904134078086322}
   - component: {fileID: 1855554910606248056}
   - component: {fileID: 9060398866727789028}
-  m_Layer: 9
+  - component: {fileID: 4288037359086757490}
+  m_Layer: 11
   m_Name: Outer Door Handle
-  m_TagString: Untagged
+  m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +96,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 6
+  themeLayer: 7
+--- !u!114 &4288037359086757490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198366380771600813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7edafb70a63c774ab8c32aba7bdde62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximumMassDifference: 10
+  attachedMass: 0
+  rb: {fileID: 7821011264162541336}
 --- !u!1 &1009321976908008965
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009321976908008964}
   - component: {fileID: 1009321976908008971}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: V Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -151,7 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009321978259510179}
   - component: {fileID: 1009321978259510178}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Lower H Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -196,7 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1009321978391210223}
   - component: {fileID: 1009321978391210222}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Upper H Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -243,9 +259,10 @@ GameObject:
   - component: {fileID: 6415733335702661732}
   - component: {fileID: 6492132599423341281}
   - component: {fileID: 4535215816472499326}
-  m_Layer: 9
+  - component: {fileID: 9132337305969552241}
+  m_Layer: 11
   m_Name: Inner Door Handle
-  m_TagString: Untagged
+  m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,6 +344,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   themeLayer: 6
+--- !u!114 &9132337305969552241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849872620634712829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7edafb70a63c774ab8c32aba7bdde62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximumMassDifference: 10
+  attachedMass: 0
+  rb: {fileID: 7821011264162541336}
 --- !u!1 &3662687179612743744
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +465,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8902897025131786027}
   - component: {fileID: 5066759339840644625}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Lower H Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -478,7 +510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5812881207310666694}
   - component: {fileID: 5725566471803548286}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: V Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -523,7 +555,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2728214113896364495}
   - component: {fileID: 4250168897509645747}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Upper H Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -573,7 +605,7 @@ GameObject:
   - component: {fileID: 3510388396952360359}
   - component: {fileID: 8737164414871780394}
   - component: {fileID: 4788274587351096405}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -651,7 +683,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7586548187956997825}
   serializedVersion: 2
-  m_Mass: 150
+  m_Mass: 20
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
@@ -731,7 +763,7 @@ GameObject:
   - component: {fileID: 9136147517734443975}
   - component: {fileID: 1890222974}
   m_Layer: 0
-  m_Name: Caboose Front Doorway
+  m_Name: Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -779,7 +811,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8737164413726240568}
   - component: {fileID: 8737164413726240569}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Left Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -823,7 +855,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8737164414526391098}
   - component: {fileID: 8737164414526391099}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Right Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -867,7 +899,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8737164414768311829}
   - component: {fileID: 8737164414768311826}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Upper Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

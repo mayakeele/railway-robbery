@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2976126457261336946}
   - component: {fileID: 3820412094173300236}
   - component: {fileID: 875281499922412270}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Vertical Railing L
-  m_TagString: Climbable
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,9 +121,9 @@ GameObject:
   - component: {fileID: 634505213314082252}
   - component: {fileID: 458457131261714436}
   - component: {fileID: 7961735562999684632}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Vertical Railing RM
-  m_TagString: Climbable
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 2602525253513550485}
   - component: {fileID: 6595367297467661608}
   - component: {fileID: 1231611532429106332}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,9 +336,9 @@ GameObject:
   - component: {fileID: 195657180211019014}
   - component: {fileID: 6595367297467661606}
   - component: {fileID: 7951905265882559077}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Side Railing
-  m_TagString: Climbable
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -444,9 +444,9 @@ GameObject:
   - component: {fileID: 5166525013324779937}
   - component: {fileID: 5940454324649487715}
   - component: {fileID: 3071829604163017927}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Vertical Railing LM
-  m_TagString: Climbable
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -549,7 +549,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6633180891729681095}
   m_Layer: 0
-  m_Name: Caboose Front Porch
+  m_Name: Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -589,9 +589,9 @@ GameObject:
   - component: {fileID: 5163302590968355220}
   - component: {fileID: 6595367297467661610}
   - component: {fileID: 7815608953132475461}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Front Railing
-  m_TagString: Climbable
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -697,9 +697,9 @@ GameObject:
   - component: {fileID: 6923679992204267696}
   - component: {fileID: 3820412094173300237}
   - component: {fileID: 4145328228260321408}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Vertical Railing R
-  m_TagString: Climbable
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -6,6 +6,5 @@ public class ThemeLayerPalette : MonoBehaviour
 {
     public ThemeLayers.ThemeLayer themeLayer;
     public Color[] colorPalette;
-
-    //public Texture2D[] texturePalette;
+    public Material[] materialPalette;
 }

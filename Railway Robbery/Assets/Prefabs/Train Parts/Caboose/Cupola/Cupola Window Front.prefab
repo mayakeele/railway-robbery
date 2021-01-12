@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 5866078003675365390}
   - component: {fileID: 8542353865115006148}
   - component: {fileID: 7643291146339273375}
-  m_Layer: 0
+  - component: {fileID: -248062766344937947}
+  m_Layer: 11
   m_Name: Cupola Window Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,3 +94,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   themeLayer: 5
+--- !u!114 &-248062766344937947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893813871359743249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08899ebce1a7edc48bdff5f335d42c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBreakByImpact: 1
+  destructionImpactEnergy: 150
+  canBreakBySpeed: 0
+  destructionSpeed: 0
+  canBreakByCrushing: 0
+  destructionCrushingForce: 0
+  canBreakByProjectile: 1
+  destroyedByImpactPrefab: {fileID: 0}
+  destroyedBySpeedPrefab: {fileID: 0}
+  destroyedByCrushingPrefab: {fileID: 0}
+  destroyedByProjectilePrefab: {fileID: 0}
+  destroyedByHandsPrefab: {fileID: 0}
+  coll: {fileID: 0}
+  rb: {fileID: 0}
+  grabbable: {fileID: 0}

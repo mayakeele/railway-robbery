@@ -37,7 +37,6 @@ public class TrainPartFactory : MonoBehaviour
     public PartVariantGroup passengerCarInteriorRight;
     public PartVariantGroup passengerCarWalkway;
     public PartVariantGroup passengerCarPorchFront;
-    public PartVariantGroup passengerCarPorchBack;
     public PartVariantGroup passengerCarFloor;
 
 

@@ -5,11 +5,9 @@ using UnityEngine;
 public class DynamicClimbable : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float defaultMass;
-    //[SerializeField] private string defaultLayerName = "DynamicStructure";
-    //[SerializeField] private string beingClimbedLayerName = "BeingClimbed";
     [SerializeField] private float maximumMassDifference = 10;
     public float attachedMass;
+    private float defaultMass;
 
     [Header("References")]
     public Rigidbody rb;
@@ -18,9 +16,7 @@ public class DynamicClimbable : MonoBehaviour
     void Awake() {
         if(!rb) rb = GetComponent<Rigidbody>();
         gameObject.tag = "DynamicClimbable";
-    }
-    void Start() {
-        rb.mass = defaultMass;
+        defaultMass = rb.mass;
     }
 
 

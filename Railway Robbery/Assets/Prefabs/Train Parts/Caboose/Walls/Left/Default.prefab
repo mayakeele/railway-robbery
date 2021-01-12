@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8023934534810469689}
   - component: {fileID: 992123088220165296}
   - component: {fileID: 3615406986791028832}
-  m_Layer: 8
-  m_Name: Caboose Wall Left
+  m_Layer: 10
+  m_Name: Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

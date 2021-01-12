@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8593272999420363528}
   - component: {fileID: 8593272999420363529}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Upper H Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8593272999420363535}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f5e367e09b6a39f43bb098ac28424e47, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.025
@@ -55,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8593273000089860164}
   - component: {fileID: 8593273000089860165}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Lower H Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -83,7 +83,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8593273000089860187}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f5e367e09b6a39f43bb098ac28424e47, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.025
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8593273000956028387}
   - component: {fileID: 8593273000956028396}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: V Bar Collider
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8593273000956028386}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f5e367e09b6a39f43bb098ac28424e47, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.025
@@ -147,9 +147,10 @@ GameObject:
   - component: {fileID: 5144257202958276437}
   - component: {fileID: 6953810584651588511}
   - component: {fileID: -784956319382326584}
-  m_Layer: 0
-  m_Name: Boxcar Door Handle
-  m_TagString: Untagged
+  - component: {fileID: 3580626209244372195}
+  m_Layer: 10
+  m_Name: Default
+  m_TagString: DynamicClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,3 +232,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   themeLayer: 6
+--- !u!114 &3580626209244372195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8899140980472398410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7edafb70a63c774ab8c32aba7bdde62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMass: 0
+  maximumMassDifference: 10
+  attachedMass: 0
+  rb: {fileID: 0}

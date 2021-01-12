@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3631749229521483708}
   - component: {fileID: 749869541372855952}
   - component: {fileID: 749869541372855955}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Seat Back 1
-  m_TagString: Untagged
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,9 +120,9 @@ GameObject:
   - component: {fileID: 5975819234614055416}
   - component: {fileID: 2198590474566643934}
   - component: {fileID: 2198590474566643929}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Seat 1
-  m_TagString: Untagged
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,9 +227,9 @@ GameObject:
   - component: {fileID: 910131057879855596}
   - component: {fileID: 2565586357390697089}
   - component: {fileID: 2565586357390697088}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Seat Back 2
-  m_TagString: Untagged
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 640619814464608805}
   - component: {fileID: 6480717611215362144}
   - component: {fileID: 6480717611215362147}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,9 +441,9 @@ GameObject:
   - component: {fileID: 6766689651186531573}
   - component: {fileID: 8398171583206688333}
   - component: {fileID: 8398171583206688332}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Seat 2
-  m_TagString: Untagged
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

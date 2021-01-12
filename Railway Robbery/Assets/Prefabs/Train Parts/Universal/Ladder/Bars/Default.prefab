@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1666839080349308313}
   - component: {fileID: 4809021063708808756}
   - component: {fileID: 4550559184467730733}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Left Bar
-  m_TagString: Climbable
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4987642376752296409}
   m_Layer: 8
-  m_Name: Ladder Bars
+  m_Name: Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,9 +153,9 @@ GameObject:
   - component: {fileID: 4289381277274102647}
   - component: {fileID: 4809021063708808758}
   - component: {fileID: 2849201174068086379}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Right Bar
-  m_TagString: Climbable
+  m_TagString: StaticClimbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
