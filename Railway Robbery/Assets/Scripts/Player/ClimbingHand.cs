@@ -16,7 +16,7 @@ public class ClimbingHand : MonoBehaviour
     [Header("Hand Settings")]
     public bool isLeftHand;
     [SerializeField] private string handLayerName = "Hand";
-    [SerializeField] private string handClimbingLayerName = "HandClimbing";
+    [SerializeField] private string defaultLayerName = "Default";
 
     [SerializeField] private float maxHandDistance;
     [HideInInspector] public InputHandler.InputButton grabButton;
@@ -128,7 +128,7 @@ public class ClimbingHand : MonoBehaviour
         
 
 
-        Hand.SetLayerRecursive(autoHand.transform, LayerMask.NameToLayer(handClimbingLayerName));
+        Hand.SetLayerRecursive(autoHand.transform, LayerMask.NameToLayer(defaultLayerName));
     }
 
 

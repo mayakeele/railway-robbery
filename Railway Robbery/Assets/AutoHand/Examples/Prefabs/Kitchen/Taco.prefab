@@ -201,16 +201,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08899ebce1a7edc48bdff5f335d42c3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canBreakByImpact: 1
+  destructionImpactEnergy: 100
   canBreakBySpeed: 1
   destructionSpeed: 3
+  canBreakByCrushing: 1
+  destructionCrushingForce: 20
   canBreakByProjectile: 1
-  canBreakByMomentum: 1
-  destructionMomentum: 1.5
+  destroyedByImpactPrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
+    type: 3}
   destroyedBySpeedPrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
     type: 3}
-  destroyedByProjectilePrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
+  destroyedByCrushingPrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
     type: 3}
-  destroyedByMomentumPrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
+  destroyedByProjectilePrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
     type: 3}
   destroyedByHandsPrefab: {fileID: 1708889463548190791, guid: ae95971c2f52c7a49b273f7a6547f819,
     type: 3}
