@@ -19,7 +19,7 @@ public class TrainCar : MonoBehaviour
 
     
     void Start() {
-        CarTheme carTheme = gameObject.AddComponent<CarTheme>();
+        CarMaterials carMaterials = gameObject.AddComponent<CarMaterials>();
         //carTheme.ApplyThemeToChildren();
     }
 

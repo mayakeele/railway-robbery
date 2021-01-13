@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 90893711}
   - component: {fileID: 90893712}
   m_Layer: 0
-  m_Name: Floor_Primary
+  m_Name: Floor_Wood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,7 +165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 4
+  materialLayer: 4
+  materialPalette:
+  - {fileID: 2100000, guid: 36d55aabc8ce6fb42ae1fc0ede9751a5, type: 2}
   colorPalette:
   - {r: 0.43, g: 0.32914755, b: 0.215, a: 1}
   - {r: 0.373, g: 0.26491138, b: 0.144351, a: 1}
@@ -175,7 +177,6 @@ MonoBehaviour:
   - {r: 0.275, g: 0.16627908, b: 0.044767432, a: 1}
   - {r: 0.317, g: 0.21580656, b: 0.102708004, a: 1}
   - {r: 0.507, g: 0.26212245, b: 0.106918365, a: 1}
-  materialPalette: []
 --- !u!1 &154612605
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +270,7 @@ GameObject:
   - component: {fileID: 162042450}
   - component: {fileID: 162042451}
   m_Layer: 0
-  m_Name: Wall_Primary
+  m_Name: Wall_Wood_Exterior_Primary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -301,7 +302,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 0
+  materialLayer: 0
+  materialPalette:
+  - {fileID: 2100000, guid: f46feff0c00f1044db3398b4a62c96f5, type: 2}
   colorPalette:
   - {r: 0.9098039, g: 0.35209414, b: 0.35209414, a: 1}
   - {r: 0.265956, g: 0.59900004, b: 0.30219603, a: 1}
@@ -312,7 +315,7 @@ MonoBehaviour:
   - {r: 0.408, g: 0.19872414, b: 0.19872414, a: 1}
   - {r: 0.109333344, g: 0.246, b: 0.123803936, a: 1}
   - {r: 0.15565945, g: 0.19502158, b: 0.33099997, a: 1}
-  materialPalette: []
+  - {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &169080922
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +327,7 @@ GameObject:
   - component: {fileID: 169080923}
   - component: {fileID: 169080924}
   m_Layer: 0
-  m_Name: Metal_Primary_Exterior
+  m_Name: Metal_Exterior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -356,7 +359,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 7
+  materialLayer: 7
+  materialPalette:
+  - {fileID: 2100000, guid: 167be1271a3c00d43b733926b78aadb7, type: 2}
+  - {fileID: 2100000, guid: e19ed150ff65794499525633ef2b07da, type: 2}
+  - {fileID: 2100000, guid: fd5f3b779ac0e7e4d93555835ed94506, type: 2}
+  - {fileID: 2100000, guid: db2741c622283de4abe02131aa23c08c, type: 2}
   colorPalette:
   - {r: 0.1, g: 0.1, b: 0.1, a: 1}
   - {r: 0.2, g: 0.2, b: 0.2, a: 1}
@@ -367,7 +375,6 @@ MonoBehaviour:
   - {r: 0.7, g: 0.7, b: 0.7, a: 1}
   - {r: 0.48599997, g: 0.28324798, b: 0.22939199, a: 1}
   - {r: 0.33099997, g: 0.09738368, b: 0.035086, a: 1}
-  materialPalette: []
 --- !u!1 &170740834
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +418,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 2
+  materialLayer: 2
+  materialPalette:
+  - {fileID: 2100000, guid: f46feff0c00f1044db3398b4a62c96f5, type: 2}
   colorPalette:
   - {r: 0.05, g: 0.05, b: 0.05, a: 1}
   - {r: 0.1, g: 0.1, b: 0.1, a: 1}
@@ -419,7 +428,6 @@ MonoBehaviour:
   - {r: 0.2, g: 0.2, b: 0.2, a: 1}
   - {r: 0.25, g: 0.25, b: 0.25, a: 1}
   - {r: 0.3, g: 0.3, b: 0.3, a: 1}
-  materialPalette: []
 --- !u!1 &184935632
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,14 +471,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 3
+  materialLayer: 3
+  materialPalette:
+  - {fileID: 2100000, guid: e19ed150ff65794499525633ef2b07da, type: 2}
+  - {fileID: 2100000, guid: 167be1271a3c00d43b733926b78aadb7, type: 2}
+  - {fileID: 2100000, guid: db2741c622283de4abe02131aa23c08c, type: 2}
   colorPalette:
   - {r: 0.509434, g: 0.4513632, b: 0.42773232, a: 1}
   - {r: 0.3773585, g: 0.32104915, b: 0.28479886, a: 1}
   - {r: 0.1792453, g: 0.12247622, b: 0.0997686, a: 1}
   - {r: 0.735849, g: 0.69172215, b: 0.65254533, a: 1}
   - {r: 0.7333571, g: 0.7344422, b: 0.754717, a: 1}
-  materialPalette: []
 --- !u!1001 &259198824
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -603,7 +614,7 @@ GameObject:
   - component: {fileID: 541556521}
   - component: {fileID: 541556522}
   m_Layer: 0
-  m_Name: Interior_Upholstery_Secondary
+  m_Name: Upholstery_Detail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -635,7 +646,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 10
+  materialLayer: 10
+  materialPalette:
+  - {fileID: 2100000, guid: 82a55520b1c603a43b586e20ca2bddc3, type: 2}
+  - {fileID: 2100000, guid: 5364ac5a8a9efd548846cec7df41ae69, type: 2}
   colorPalette:
   - {r: 0.1, g: 0.1, b: 0.1, a: 1}
   - {r: 0.2, g: 0.2, b: 0.2, a: 1}
@@ -644,7 +658,6 @@ MonoBehaviour:
   - {r: 0.5, g: 0.5, b: 0.5, a: 1}
   - {r: 0.6, g: 0.6, b: 0.6, a: 1}
   - {r: 0.7, g: 0.7, b: 0.7, a: 1}
-  materialPalette: []
 --- !u!1 &589879022
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,7 +702,7 @@ GameObject:
   - component: {fileID: 627681571}
   - component: {fileID: 627681572}
   m_Layer: 0
-  m_Name: Floor_Detail
+  m_Name: Floor_Carpet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -721,7 +734,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 5
+  materialLayer: 5
+  materialPalette:
+  - {fileID: 2100000, guid: 5745d6b2f62a1c44dba245f6c0e74214, type: 2}
   colorPalette:
   - {r: 0.43, g: 0.32914755, b: 0.215, a: 1}
   - {r: 0.373, g: 0.26491138, b: 0.144351, a: 1}
@@ -731,7 +746,6 @@ MonoBehaviour:
   - {r: 0.275, g: 0.16627908, b: 0.044767432, a: 1}
   - {r: 0.317, g: 0.21580656, b: 0.102708004, a: 1}
   - {r: 0.507, g: 0.26212245, b: 0.106918365, a: 1}
-  materialPalette: []
 --- !u!1 &629484952
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +757,7 @@ GameObject:
   - component: {fileID: 629484953}
   - component: {fileID: 629484954}
   m_Layer: 0
-  m_Name: Glass_Primary
+  m_Name: Glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -775,13 +789,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 6
+  materialLayer: 6
+  materialPalette:
+  - {fileID: 2100000, guid: 86b83ad0bb1c67045a437cd64332aeb7, type: 2}
   colorPalette:
   - {r: 0.33134568, g: 0.5396896, b: 0.6886792, a: 0.27450982}
   - {r: 0.5976326, g: 0.68429697, b: 0.745283, a: 0.25490198}
   - {r: 0.40076536, g: 0.5377358, b: 0.48609826, a: 0.49411765}
   - {r: 0.06808474, g: 0.20843437, b: 0.4245283, a: 0.28235295}
-  materialPalette: []
 --- !u!1 &673070832
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,7 +923,7 @@ MonoBehaviour:
   trainCarTypeContainer: {fileID: 154612605}
   trainCars: []
   numTrainCars: 6
-  test_cartype: 2
+  test_cartype: 4
   standardCarLength: 0
   standardCarWidth: 0
   standardCarHeight: 0
@@ -940,7 +955,7 @@ GameObject:
   - component: {fileID: 1015748160}
   - component: {fileID: 1015748161}
   m_Layer: 0
-  m_Name: Metal_Primary_Interior
+  m_Name: Metal_Interior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -972,7 +987,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 8
+  materialLayer: 8
+  materialPalette:
+  - {fileID: 2100000, guid: 44b4444a5ad3b48449c3818c46095ea1, type: 2}
+  - {fileID: 2100000, guid: a56ebf8a8d389274e81ab356036b1ac3, type: 2}
+  - {fileID: 2100000, guid: db2741c622283de4abe02131aa23c08c, type: 2}
   colorPalette:
   - {r: 0.1, g: 0.1, b: 0.1, a: 1}
   - {r: 0.2, g: 0.2, b: 0.2, a: 1}
@@ -986,7 +1005,6 @@ MonoBehaviour:
   - {r: 0.8584906, g: 0.6583611, b: 0.40494838, a: 1}
   - {r: 0.6886792, g: 0.4733725, b: 0.071466714, a: 1}
   - {r: 0.49172306, g: 0.58961874, b: 0.6132076, a: 1}
-  materialPalette: []
 --- !u!1 &1053611710
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,7 +1016,7 @@ GameObject:
   - component: {fileID: 1053611711}
   - component: {fileID: 1053611712}
   m_Layer: 0
-  m_Name: Wall_Detail
+  m_Name: Wall_Wood_Exterior_Detail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1030,7 +1048,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 1
+  materialLayer: 1
+  materialPalette:
+  - {fileID: 2100000, guid: f46feff0c00f1044db3398b4a62c96f5, type: 2}
+  - {fileID: 2100000, guid: 5745d6b2f62a1c44dba245f6c0e74214, type: 2}
   colorPalette:
   - {r: 0.4811321, g: 0.2325986, b: 0, a: 1}
   - {r: 0.2735849, g: 0.086500265, b: 0, a: 1}
@@ -1040,7 +1061,111 @@ MonoBehaviour:
   - {r: 0.3679245, g: 0.3570371, b: 0.35404056, a: 1}
   - {r: 0.5471698, g: 0.33645466, b: 0.21164116, a: 1}
   - {r: 0.6886792, g: 0.3963891, b: 0.18841223, a: 1}
-  materialPalette: []
+--- !u!1 &1131113436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1131113437}
+  - component: {fileID: 1131113438}
+  m_Layer: 0
+  m_Name: Furniture_Fabric
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1131113437
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131113436}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2018589405}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1131113438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131113436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialLayer: 12
+  materialPalette:
+  - {fileID: 2100000, guid: 82a55520b1c603a43b586e20ca2bddc3, type: 2}
+  - {fileID: 2100000, guid: 5364ac5a8a9efd548846cec7df41ae69, type: 2}
+  colorPalette:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+--- !u!1 &1138618377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1138618378}
+  - component: {fileID: 1138618379}
+  m_Layer: 0
+  m_Name: Door_Wood
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1138618378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138618377}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2018589405}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1138618379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138618377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialLayer: 13
+  materialPalette:
+  - {fileID: 2100000, guid: 5745d6b2f62a1c44dba245f6c0e74214, type: 2}
+  colorPalette:
+  - {r: 0.43, g: 0.32914755, b: 0.215, a: 1}
+  - {r: 0.373, g: 0.26491138, b: 0.144351, a: 1}
+  - {r: 0.354, g: 0.3245472, b: 0.291696, a: 1}
+  - {r: 0.69699997, g: 0.585632, b: 0.46141398, a: 1}
+  - {r: 0.408, g: 0.24077009, b: 0.083232, a: 1}
+  - {r: 0.275, g: 0.16627908, b: 0.044767432, a: 1}
+  - {r: 0.317, g: 0.21580656, b: 0.102708004, a: 1}
+  - {r: 0.507, g: 0.26212245, b: 0.106918365, a: 1}
 --- !u!1 &1190347614
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,7 +1177,7 @@ GameObject:
   - component: {fileID: 1190347615}
   - component: {fileID: 1190347616}
   m_Layer: 0
-  m_Name: Interior_Wood
+  m_Name: Furniture_Wood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1084,7 +1209,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 11
+  materialLayer: 11
+  materialPalette:
+  - {fileID: 2100000, guid: 5745d6b2f62a1c44dba245f6c0e74214, type: 2}
   colorPalette:
   - {r: 0.43, g: 0.32914755, b: 0.215, a: 1}
   - {r: 0.373, g: 0.26491138, b: 0.144351, a: 1}
@@ -1094,7 +1221,6 @@ MonoBehaviour:
   - {r: 0.275, g: 0.16627908, b: 0.044767432, a: 1}
   - {r: 0.317, g: 0.21580656, b: 0.102708004, a: 1}
   - {r: 0.507, g: 0.26212245, b: 0.106918365, a: 1}
-  materialPalette: []
 --- !u!1 &1498428281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,7 +1588,7 @@ GameObject:
   - component: {fileID: 1853132968}
   - component: {fileID: 1853132969}
   m_Layer: 0
-  m_Name: Interior_Upholstery_Primary
+  m_Name: Upholstery_Primary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1494,7 +1620,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 9
+  materialLayer: 9
+  materialPalette:
+  - {fileID: 2100000, guid: 82a55520b1c603a43b586e20ca2bddc3, type: 2}
+  - {fileID: 2100000, guid: 5364ac5a8a9efd548846cec7df41ae69, type: 2}
   colorPalette:
   - {r: 0.9098039, g: 0.35209414, b: 0.35209414, a: 1}
   - {r: 0.265956, g: 0.59900004, b: 0.30219603, a: 1}
@@ -1505,7 +1634,61 @@ MonoBehaviour:
   - {r: 0.408, g: 0.19872414, b: 0.19872414, a: 1}
   - {r: 0.109333344, g: 0.246, b: 0.123803936, a: 1}
   - {r: 0.15565945, g: 0.19502158, b: 0.33099997, a: 1}
-  materialPalette: []
+--- !u!1 &1881842422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1881842423}
+  - component: {fileID: 1881842424}
+  m_Layer: 0
+  m_Name: Door_Metal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1881842423
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881842422}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2018589405}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1881842424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881842422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7053b19e872672d4097a42badddcec4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialLayer: 14
+  materialPalette:
+  - {fileID: 2100000, guid: 5745d6b2f62a1c44dba245f6c0e74214, type: 2}
+  colorPalette:
+  - {r: 0.43, g: 0.32914755, b: 0.215, a: 1}
+  - {r: 0.373, g: 0.26491138, b: 0.144351, a: 1}
+  - {r: 0.354, g: 0.3245472, b: 0.291696, a: 1}
+  - {r: 0.69699997, g: 0.585632, b: 0.46141398, a: 1}
+  - {r: 0.408, g: 0.24077009, b: 0.083232, a: 1}
+  - {r: 0.275, g: 0.16627908, b: 0.044767432, a: 1}
+  - {r: 0.317, g: 0.21580656, b: 0.102708004, a: 1}
+  - {r: 0.507, g: 0.26212245, b: 0.106918365, a: 1}
 --- !u!1 &1997478376
 GameObject:
   m_ObjectHideFlags: 0
@@ -1700,8 +1883,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2018589405}
   m_Layer: 0
-  m_Name: Theme Layer Palette Container
-  m_TagString: ThemeLayerPaletteContainer
+  m_Name: Material Layer Palette Container
+  m_TagString: MaterialLayerPaletteContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1729,6 +1912,9 @@ Transform:
   - {fileID: 1853132968}
   - {fileID: 541556521}
   - {fileID: 1190347615}
+  - {fileID: 1131113437}
+  - {fileID: 1138618378}
+  - {fileID: 1881842423}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

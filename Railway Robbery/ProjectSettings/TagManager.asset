@@ -9,10 +9,11 @@ TagManager:
   - FxTemporaire
   - TrainPartPrefabsContainer
   - TrainCarTypeContainer
-  - ThemeLayerPaletteContainer
   - CargoPrefabContainer
   - StaticClimbable
   - DynamicClimbable
+  - Climbable
+  - MaterialLayerPaletteContainer
   layers:
   - Default
   - TransparentFX

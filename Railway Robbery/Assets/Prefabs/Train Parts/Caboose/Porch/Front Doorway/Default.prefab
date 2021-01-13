@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 7
+  materialLayer: 7
 --- !u!114 &4288037359086757490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 6
+  materialLayer: 8
 --- !u!114 &9132337305969552241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 4784673869785144825}
   - component: {fileID: 3345931628870947770}
   - component: {fileID: 4448750178714174117}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Doorway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 0
+  materialLayer: 0
 --- !u!1 &5397091655931263830
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 1
+  materialLayer: 13
 --- !u!1 &8467274653349478781
 GameObject:
   m_ObjectHideFlags: 0

@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 6
+  materialLayer: 7
 --- !u!1 &5655530456963165027
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,4 +247,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 6
+  materialLayer: 7

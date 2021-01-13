@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 1
+  materialLayer: 1
 --- !u!64 &8960679051921415357
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 0
+  materialLayer: 0
 --- !u!1 &3191901655408207407
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 5
+  materialLayer: 6
 --- !u!114 &6810724362311251081
 MonoBehaviour:
   m_ObjectHideFlags: 0

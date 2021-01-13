@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 0
+  materialLayer: 0
 --- !u!1 &3574213428787011039
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 6
+  materialLayer: 6
 --- !u!65 &3574213428787011033
 BoxCollider:
   m_ObjectHideFlags: 0

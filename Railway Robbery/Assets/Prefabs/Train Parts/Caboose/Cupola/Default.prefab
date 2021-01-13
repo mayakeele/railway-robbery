@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 0
+  materialLayer: 0
 --- !u!1 &3889392895203346471
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 2
+  materialLayer: 2
 --- !u!1 &7228874927402298821
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 0
+  materialLayer: 0
 --- !u!1 &8076895078107858984
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 0
+  materialLayer: 0
 --- !u!1 &8447802896528695297
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  themeLayer: 0
+  materialLayer: 0
 --- !u!1001 &4123203697298949399
 PrefabInstance:
   m_ObjectHideFlags: 0
