@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8465085208744819772}
-  - component: {fileID: 4815999128732103577}
-  - component: {fileID: 7291656520905394003}
   - component: {fileID: -7452792901441046252}
   - component: {fileID: -4875993107372760632}
+  - component: {fileID: 915923337702796396}
+  - component: {fileID: 4815999128732103577}
+  - component: {fileID: 7291656520905394003}
   m_Layer: 11
   m_Name: Cupola Window Side
   m_TagString: Untagged
@@ -34,6 +35,59 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-7452792901441046252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9093285007175558790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialLayer: 7
+--- !u!114 &-4875993107372760632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9093285007175558790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08899ebce1a7edc48bdff5f335d42c3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBreakByImpact: 1
+  destructionImpactEnergy: 150
+  canBreakBySpeed: 0
+  destructionSpeed: 0
+  canBreakByCrushing: 0
+  destructionCrushingForce: 0
+  canBreakByProjectile: 1
+  destroyedByImpactPrefab: {fileID: 0}
+  destroyedBySpeedPrefab: {fileID: 0}
+  destroyedByCrushingPrefab: {fileID: 0}
+  destroyedByProjectilePrefab: {fileID: 0}
+  destroyedByHandsPrefab: {fileID: 0}
+  coll: {fileID: 0}
+  rb: {fileID: 0}
+  grabbable: {fileID: 0}
+--- !u!65 &915923337702796396
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9093285007175558790}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.03, y: 0.7, z: 1.4}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &4815999128732103577
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -81,43 +135,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &-7452792901441046252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9093285007175558790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  materialLayer: 6
---- !u!114 &-4875993107372760632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9093285007175558790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08899ebce1a7edc48bdff5f335d42c3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canBreakByImpact: 1
-  destructionImpactEnergy: 150
-  canBreakBySpeed: 0
-  destructionSpeed: 0
-  canBreakByCrushing: 0
-  destructionCrushingForce: 0
-  canBreakByProjectile: 1
-  destroyedByImpactPrefab: {fileID: 0}
-  destroyedBySpeedPrefab: {fileID: 0}
-  destroyedByCrushingPrefab: {fileID: 0}
-  destroyedByProjectilePrefab: {fileID: 0}
-  destroyedByHandsPrefab: {fileID: 0}
-  coll: {fileID: 0}
-  rb: {fileID: 0}
-  grabbable: {fileID: 0}

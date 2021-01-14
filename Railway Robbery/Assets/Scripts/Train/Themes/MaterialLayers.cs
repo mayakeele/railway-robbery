@@ -5,12 +5,13 @@ using UnityEngine;
 public static class MaterialLayers
 {
     public enum MaterialLayer{
-        Wall_Wood_Exterior_Primary,
-        Wall_Wood_Exterior_Detail,
-        Roof_Primary,
-        Roof_Detail,
+        Wall_PaintedWood_Exterior,
+        Wall_PaintedMetal_Exterior,
+        Roof_Wood,
+        Roof_Metal,
         Floor_Wood,
         Floor_Carpet,
+        Floor_Metal,
         Glass,
         Metal_Exterior,
         Metal_Interior,
@@ -19,7 +20,13 @@ public static class MaterialLayers
         Furniture_Wood,
         Furniture_Fabric,
         Door_Wood,
-        Door_Metal
+        Door_Metal,
+        Wallpaper,
+        Ceiling_Wood,
+        Ceiling_Metal,
+        Wall_Wood_Interior,
+        Wall_Metal_Interior,
+        Caboose_Wall_Wood_Exterior
     }
 
     public static int GetLayerCount(){

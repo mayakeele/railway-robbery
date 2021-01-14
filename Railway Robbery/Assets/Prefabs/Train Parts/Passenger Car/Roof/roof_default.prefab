@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materialLayer: 2
+  materialLayer: 3
 --- !u!64 &4052482768709951887
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materialLayer: 2
+  materialLayer: 3
 --- !u!65 &7292289886147046674
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b9ce4221782764193c3369fb95e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materialLayer: 2
+  materialLayer: 3
 --- !u!64 &8526734603415407953
 MeshCollider:
   m_ObjectHideFlags: 0
